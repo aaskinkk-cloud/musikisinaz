@@ -445,7 +445,7 @@ body.car-on .ytbox{z-index:51}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <p class="muted small" style="text-align:center;margin:14px 0 4px">Musikisinaz · sürüm 2.4 · çevrimdışı destekli</p>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 2.5 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -2157,6 +2157,15 @@ $('#btnScan2').addEventListener('click',doRescan);
 UI.fresh=function(){ui.tab='songs';ui.detail=null;ui.q='';$('#q').value='';$('#v-lib').scrollTop=0};
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&ready)autoScan()});
 $('#btnDemo').addEventListener('click',makeDemo);
+$('#btnUpd').addEventListener('click',async()=>{
+  const reg=window.__swReg;
+  if(!reg){toast('Güncelleme yalnızca telefona kurulu uygulamada denetlenir');return}
+  if(!navigator.onLine){toast('İnternet yok; bağlanınca tekrar dene');return}
+  toast('Denetleniyor…');
+  try{await reg.update()}catch(e){toast('Denetlenemedi, biraz sonra tekrar dene');return}
+  if(reg.installing||reg.waiting)toast('Yeni sürüm indiriliyor; birazdan "Yenile" çıkacak');
+  else toast('Uygulama güncel · sürüm 2.5');
+});
 $('#btnAny').addEventListener('click',()=>$('#anyIn').click());
 ['#fileIn','#dirIn','#anyIn'].forEach(s=>$(s).addEventListener('change',e=>{
   const fs=Array.from(e.target.files||[]);e.target.value='';
@@ -2200,13 +2209,7 @@ window.nativeBack=function(){
 /* ---------- Başlangıç ---------- */
 /* ---------- Çevrimdışı çalışma ---------- */
 function offlineSetup(){
-  const ok=/^https:$/.test(location.protocol)||/^(localhost|127\.0\.0\.1)$/.test(location.hostname);
-  if(ok&&'serviceWorker' in navigator&&!NATIVE){
-    navigator.serviceWorker.register('sw.js').then(()=>{
-      if(!document.querySelector('link[rel=manifest]')){const l=document.createElement('link');l.rel='manifest';l.href='manifest.webmanifest';document.head.appendChild(l)}
-    }).catch(()=>{});
-  }
-  try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
+  /* servis çalışanı kaydı sayfanın sonundaki ortak PWA betiğinde */
   window.addEventListener('offline',()=>toast('İnternet yok: kitaplıktaki şarkılar çalmaya devam eder'));
 }
 function init(){
@@ -2226,6 +2229,29 @@ function init(){
   setInterval(watch,100);
 }
 init();
+})();
+</script>
+<script>
+/* Kurulu uygulama (PWA): çevrimdışı önbellek, uygulama bildirimi, yeni sürüm uyarısı */
+(function(){
+  var ok=(location.protocol==='https:'||/^(localhost|127\.0\.0\.1)$/.test(location.hostname))&&('serviceWorker' in navigator)&&!/claude|googleusercontent|script\.google/.test(location.hostname);
+  if(!ok)return;
+  var had=!!navigator.serviceWorker.controller;
+  navigator.serviceWorker.register('sw.js').then(function(reg){
+    window.__swReg=reg;
+    if(!document.querySelector('link[rel=manifest]')){var l=document.createElement('link');l.rel='manifest';l.href='manifest.webmanifest';document.head.appendChild(l)}
+    setInterval(function(){reg.update().catch(function(){})},30*60*1000);
+  }).catch(function(){});
+  navigator.serviceWorker.addEventListener('controllerchange',function(){if(!had){had=true;return}banner()});
+  function banner(){
+    if(document.getElementById('swUpd'))return;
+    var b=document.createElement('div');b.id='swUpd';b.setAttribute('role','status');
+    b.style.cssText='position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 16px);z-index:2147483000;background:#111;color:#fff;padding:10px 10px 10px 16px;border-radius:14px;display:flex;gap:12px;align-items:center;font:600 14px system-ui,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.35);max-width:calc(100% - 32px)';
+    b.innerHTML='<span>Yeni sürüm hazır</span><button type="button" style="border:0;border-radius:10px;padding:8px 14px;font:inherit;background:#fff;color:#111;cursor:pointer">Yenile</button>';
+    b.querySelector('button').onclick=function(){location.reload()};
+    document.body.appendChild(b);
+  }
+  try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
 })();
 </script>
 </body>
