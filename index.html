@@ -430,6 +430,8 @@ body.car-on .ytbox{z-index:51}
         <div class="row2"><div>Yumuşak başlat ve durdur<div class="muted small">Ses kısa sürede açılır ve kapanır</div></div><label class="sw"><input type="checkbox" id="fadeOn" aria-label="Yumuşak geçiş"><i></i></label></div>
         <div class="row2"><div>Ekranı açık tut<div class="muted small">Oynatıcı açıkken ekran kararmaz</div></div><label class="sw"><input type="checkbox" id="wakeOn" aria-label="Ekranı açık tut"><i></i></label></div>
         <div class="row2"><div>Açılınca araç modu<div class="muted small">Uygulama açılır açılmaz büyük düğmeli araç ekranı gelir</div></div><label class="sw"><input type="checkbox" id="carAutoOn" aria-label="Açılınca araç modu"><i></i></label></div>
+        <div class="row2"><div>Sanatçıları albüm yap<div class="muted small">Albümler'de her sanatçının şarkıları tek albüm olur; albüm sırasıyla çalar</div></div><label class="sw"><input type="checkbox" id="artAlbOn" aria-label="Sanatçıları albüm yap"><i></i></label></div>
+        <div class="row2"><div>10 dk+ kayıtlar ayrı<div class="muted small">Uzun kayıtlar "Uzun Kayıtlar" albümünde toplanır; şarkılarla, karışık çalmada ve sırada araya girmez</div></div><label class="sw"><input type="checkbox" id="longAyriOn" aria-label="Uzun kayıtlar ayrı"><i></i></label></div>
         <div class="row2"><div>Açılınca kaldığı yerden çal<div class="muted small">Son şarkı, son saniyesinden başlar. Telefon izin vermezse büyük "Çal" düğmesi çıkar</div></div><label class="sw"><input type="checkbox" id="autoPlayOn" aria-label="Açılınca kaldığı yerden çal"><i></i></label></div>
       </div>
       <div class="panel">
@@ -456,7 +458,7 @@ body.car-on .ytbox{z-index:51}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 2.7 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 2.8 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -595,7 +597,7 @@ const NATIVE=typeof window.Android!=='undefined';
 const objOr=(v,d)=>(v&&typeof v==='object'&&!Array.isArray(v))?v:d;
 const P={favs:new Set(store.get('favs',[])),lists:store.get('lists',[]),plays:store.get('plays',{}),recent:store.get('recent',[]),hidden:new Set(store.get('hidden',[])),
   trims:objOr(store.get('trims',{}),{}),yt:Array.isArray(store.get('yt',[]))?store.get('yt',[]).filter(x=>x&&(/^[\w-]{11}$/.test(x.vid)||/^[\w-]{10,64}$/.test(x.pl||''))):[]};
-const prefs=Object.assign({vol:80,shuffle:false,repeat:0,sort:'added',theme:'auto',speed:1,fade:false,wake:false,eqOn:true,gains:[0,0,0,0,0,0,0,0,0,0],pre:0,bass:0,pan:0,preset:'Düz',skipSil:false,clip:0,kar:false,carAuto:false,autoPlay:true},store.get('prefs',{}));
+const prefs=Object.assign({vol:80,shuffle:false,repeat:0,sort:'added',theme:'auto',speed:1,fade:false,wake:false,eqOn:true,gains:[0,0,0,0,0,0,0,0,0,0],pre:0,bass:0,pan:0,preset:'Düz',skipSil:false,clip:0,kar:false,carAuto:false,autoPlay:true,artAlb:true,longAyri:true},store.get('prefs',{}));
 if(!Array.isArray(prefs.gains)||prefs.gains.length!==10)prefs.gains=[0,0,0,0,0,0,0,0,0,0];
 if(!(prefs.clip>=0))prefs.clip=0;
 const savePrefs=()=>store.set('prefs',prefs);
@@ -898,9 +900,29 @@ function shuffled(arr,first){
   for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=a[i];a[i]=a[j];a[j]=t}
   return (first!=null&&arr.indexOf(first)>=0)?[first].concat(a):a;
 }
+/* ---------- Albüm mantığı: sanatçı albümleri ve 10 dk+ uzun kayıtlar ---------- */
+const UZUN_SN=600,UZUN_ALB='Uzun Kayıtlar (10 dk+)';
+const isLong=t=>!!t&&prefs.longAyri!==false&&(t.duration||0)>=UZUN_SN;
+const bilinmez=s=>!s||/^Bilinmeyen/.test(s);
+function albumOf(t){
+  if(isLong(t))return UZUN_ALB;
+  if(prefs.artAlb!==false&&!bilinmez(t.artist))return t.artist;
+  if(bilinmez(t.album))return bilinmez(t.artist)?'Bilinmeyen albüm':t.artist;
+  return t.album;
+}
+/* Albüm sırası: asıl albüm adı, parça no, ad */
+const albSort=(a,b)=>cmp(bilinmez(a.album)?'\uffff':a.album,bilinmez(b.album)?'\uffff':b.album)||(a.track||999)-(b.track||999)||cmp(a.title,b.title);
+/* Uzun kayıtlar şarkı sırasına karışmaz; uzun bir kayda dokunulursa uzun kayıtlar albümü çalar */
+function ayikla(ids,startId){
+  if(prefs.longAyri===false)return ids;
+  const L=id=>isLong(byId.get(id));
+  if(ids.every(L))return ids;
+  if(startId!=null&&L(startId))return lib.filter(isLong).sort(albSort).map(t=>t.id);
+  return ids.filter(id=>!L(id));
+}
 function playList(ids,startId){
-  ids=ids.filter(id=>byId.has(id));
-  if(!ids.length)return;
+  ids=ayikla(ids.filter(id=>byId.has(id)),startId);
+  if(!ids.length){toast('Çalınacak şarkı yok');return}
   if(startId==null||ids.indexOf(startId)<0)startId=ids[0];
   base=ids.slice();
   queue=prefs.shuffle?shuffled(base,startId):base.slice();
@@ -1219,7 +1241,7 @@ const fill=(el,v,min,max)=>el.style.setProperty('--p',((v-min)/(max-min)*100)+'%
 const thumbHTML=t=>'<div class="thumb" style="'+tint(t.album+t.artist)+'">'+artInner(t)+'<span class="bars"><i></i><i></i><i></i></span></div>';
 function rowHTML(t){
   return '<div class="row'+(cur&&cur.id===t.id?' cur':'')+'" data-id="'+t.id+'" tabindex="0" role="button">'+thumbHTML(t)+
-    '<div style="min-width:0"><div class="t">'+(Date.now()-t.added<86400000?'<span class="new">Yeni</span>':'')+(hasTrim(t.id)?'<span class="tag" title="Kesit: '+trimTxt(t.id)+'">'+ico('cut')+'Kesit</span>':'')+esc(t.title)+'</div><div class="s">'+esc(t.artist)+' · '+esc(t.album)+'</div></div>'+
+    '<div style="min-width:0"><div class="t">'+(Date.now()-t.added<86400000?'<span class="new">Yeni</span>':'')+(hasTrim(t.id)?'<span class="tag" title="Kesit: '+trimTxt(t.id)+'">'+ico('cut')+'Kesit</span>':'')+(isLong(t)?'<span class="tag" title="Uzun kayıtlar albümünde çalar">'+ico('clock')+'Uzun</span>':'')+esc(t.title)+'</div><div class="s">'+esc(t.artist)+' · '+esc(t.album)+'</div></div>'+
     '<span class="d">'+fmt(t.duration)+'</span>'+
     '<button class="more" data-more="'+t.id+'" aria-label="Seçenekler">'+ico('more')+'</button></div>';
 }
@@ -1237,11 +1259,11 @@ const webEmpty=()=>'<div class="empty"><h2>Müziğini telefondan getir</h2>'+
 function detailInfo(d){
   let ids=[],title='',sub='',pl=null;
   if(d.type==='album'){
-    const ts=lib.filter(t=>t.album===d.key).sort((a,b)=>(a.track||999)-(b.track||999)||cmp(a.title,b.title));
+    const ts=lib.filter(t=>albumOf(t)===d.key).sort(albSort);
     ids=ts.map(t=>t.id);title=d.key;
-    const ar=Array.from(new Set(ts.map(t=>t.artist)));sub=ar.length===1?ar[0]:'Çeşitli sanatçılar';
+    const ar=Array.from(new Set(ts.map(t=>t.artist)));sub=d.key===UZUN_ALB?'Uzun kayıtlar':ar.length===1?(ar[0]===d.key?'Sanatçı albümü':ar[0]):'Çeşitli sanatçılar';
   }else if(d.type==='artist'){
-    ids=lib.filter(t=>t.artist===d.key).sort(sortFn('title')).map(t=>t.id);title=d.key;
+    ids=lib.filter(t=>t.artist===d.key).sort(albSort).map(t=>t.id);title=d.key;
     sub=new Set(ids.map(i=>byId.get(i).album)).size+' albüm';
   }else if(d.type==='pl'){
     pl=P.lists.find(x=>x.id===d.key);if(!pl)return null;
@@ -1274,16 +1296,16 @@ function renderLib(){
   }else if(ui.tab==='albums'||ui.tab==='artists'){
     const key=ui.tab==='albums'?'album':'artist';
     const m=new Map();
-    lib.filter(matchQ).forEach(t=>{const k=t[key];if(!m.has(k))m.set(k,[]);m.get(k).push(t)});
-    const groups=Array.from(m.entries()).sort((a,b)=>cmp(a[0],b[0]));
+    lib.filter(matchQ).forEach(t=>{const k=key==='album'?albumOf(t):t[key];if(!m.has(k))m.set(k,[]);m.get(k).push(t)});
+    const groups=Array.from(m.entries()).sort((a,b)=>(b[0]===UZUN_ALB)-(a[0]===UZUN_ALB)||cmp(a[0],b[0]));
     $('#libCount').textContent=groups.length+(key==='album'?' albüm':' sanatçı');
     ui.ctxIds=[];
     body.innerHTML=groups.length?'<div class="grid">'+groups.map(g=>{
       const k=g[0],ts=g[1],c=ts.find(t=>t.coverUrl)||ts[0];
       let sub;
-      if(key==='album'){const ar=Array.from(new Set(ts.map(t=>t.artist)));sub=(ar.length===1?ar[0]:'Çeşitli sanatçılar')+' · '+ts.length+' şarkı'}
+      if(key==='album'){const ar=Array.from(new Set(ts.map(t=>t.artist)));sub=(k===UZUN_ALB?fmt(totalDur(ts.map(t=>t.id))):ar.length===1?(ar[0]===k?'Sanatçı albümü':ar[0]):'Çeşitli sanatçılar')+' · '+ts.length+(k===UZUN_ALB?' kayıt':' şarkı')}
       else sub=ts.length+' şarkı';
-      return cardHTML(key==='album'?'album':'artist',k,k,sub,artInner(c,k),tint(k));
+      return cardHTML(key==='album'?'album':'artist',k,k,sub,k===UZUN_ALB?bigIco('clock'):artInner(c,k),tint(k));
     }).join('')+'</div>':noResult();
   }else{
     const smart=[['fav','Favoriler','heart-f'],['recent','Son çalınanlar','clock'],['top','En çok çalınanlar','lib'],['new','Son eklenenler','plus']];
@@ -1312,7 +1334,7 @@ function renderDetail(){
     (ids.length?actionsHTML(del)+ids.map(id=>rowHTML(byId.get(id))).join(''):'<div class="actions">'+del+'</div><p class="muted">'+(ui.q?'Sonuç bulunamadı.':'Bu listede şarkı yok.')+'</p>');
 }
 function playAll(shuf){
-  const ids=ui.ctxIds.slice();if(!ids.length)return;
+  const ids=ayikla(ui.ctxIds.slice());if(!ids.length)return;
   if(shuf){prefs.shuffle=true;savePrefs()}
   playList(ids,shuf?ids[Math.floor(Math.random()*ids.length)]:ids[0]);UI.state();
 }
@@ -2168,6 +2190,8 @@ $('#silOn').addEventListener('change',e=>{
 $('#karOn').addEventListener('change',e=>setKar(e.target.checked));
 $('#wakeOn').addEventListener('change',e=>{prefs.wake=e.target.checked;savePrefs();wake(prefs.wake)});
 $('#carAutoOn').addEventListener('change',e=>{prefs.carAuto=e.target.checked;savePrefs()});
+$('#artAlbOn').addEventListener('change',e=>{prefs.artAlb=e.target.checked;savePrefs();renderLib()});
+$('#longAyriOn').addEventListener('change',e=>{prefs.longAyri=e.target.checked;savePrefs();renderLib();toast(prefs.longAyri?'10 dk+ kayıtlar ayrı albümde, şarkılarla çalmaz':'Uzun kayıtlar şarkılarla birlikte çalar')});
 $('#autoPlayOn').addEventListener('change',e=>{prefs.autoPlay=e.target.checked;savePrefs()});
 function applyTheme(){
   const r=document.documentElement;
@@ -2224,7 +2248,7 @@ $('#btnUpd').addEventListener('click',async()=>{
   toast('Denetleniyor…');
   try{await reg.update()}catch(e){toast('Denetlenemedi, biraz sonra tekrar dene');return}
   if(reg.installing||reg.waiting)toast('Yeni sürüm indiriliyor; birazdan "Yenile" çıkacak');
-  else toast('Uygulama güncel · sürüm 2.7');
+  else toast('Uygulama güncel · sürüm 2.8');
 });
 $('#btnAny').addEventListener('click',()=>$('#anyIn').click());
 ['#fileIn','#dirIn','#anyIn'].forEach(s=>$(s).addEventListener('change',e=>{
@@ -2280,7 +2304,7 @@ function init(){
   }
   applyTheme();buildEQ();buildSleep();buildClip();ytKeyState();UI.fx();renderYT();syncSpeed();syncVol();setVol(volLevel());
   audio.playbackRate=prefs.speed;
-  $('#fadeOn').checked=prefs.fade;$('#wakeOn').checked=prefs.wake;$('#carAutoOn').checked=!!prefs.carAuto;$('#autoPlayOn').checked=!!prefs.autoPlay;
+  $('#fadeOn').checked=prefs.fade;$('#wakeOn').checked=prefs.wake;$('#carAutoOn').checked=!!prefs.carAuto;$('#artAlbOn').checked=prefs.artAlb!==false;$('#longAyriOn').checked=prefs.longAyri!==false;$('#autoPlayOn').checked=!!prefs.autoPlay;
   $$('#sortSel option').forEach(o=>{if(o.value===prefs.sort)$('#sortSel').value=prefs.sort});
   initMedia();UI.state();UI.sleep();
   if(prefs.wake)wake(true);
