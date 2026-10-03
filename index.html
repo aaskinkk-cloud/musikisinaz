@@ -255,7 +255,15 @@ kbd{font:600 12px var(--f-body);background:var(--raise);border:1px solid var(--l
 .car-prog{height:8px;border-radius:8px;background:#1d222c;overflow:hidden}
 .car-prog i{display:block;height:100%;width:0;background:var(--accent);border-radius:8px}
 .car-times{display:flex;justify-content:space-between;font-size:15px;color:#9aa3b2;font-variant-numeric:tabular-nums;margin-top:8px}
-.car-main{display:grid;grid-template-columns:1fr 1.35fr 1fr;gap:12px;height:clamp(120px,30vh,230px)}
+.car-main{display:grid;grid-template-columns:1fr 1.35fr 1fr .9fr;gap:12px;height:clamp(120px,30vh,230px)}
+.car-opt{display:grid;grid-template-rows:1fr 1fr;gap:12px}
+.car-o{font-size:15px;gap:2px;padding:4px;text-align:center;line-height:1.1}
+.car-o .ico{width:34px;height:34px}
+.car-o span{display:grid;font-size:17px}.car-o small{font-size:14px;font-weight:600;opacity:.85}
+.car-o.on{background:#2a1a10;color:var(--accent);box-shadow:inset 0 0 0 3px var(--accent)}
+.car-tap{position:fixed;inset:auto 16px calc(env(safe-area-inset-bottom,0px) + 110px) 16px;height:120px;border:0;border-radius:28px;background:var(--accent);color:#1b0a03;font:800 30px var(--f-display);animation:carp 1.4s ease-in-out infinite;z-index:60}
+@keyframes carp{50%{transform:scale(1.03)}}
+@media (max-width:420px){.car-main{grid-template-columns:1fr 1.3fr 1fr}.car-opt{grid-column:1/-1;grid-template-rows:none;grid-template-columns:1fr 1fr;height:64px}.car-main{height:auto;grid-template-rows:clamp(110px,24vh,200px) 64px}.car-o{grid-auto-flow:column}}
 .car-b{border:0;border-radius:26px;background:#171b23;color:#f4f6fa;display:grid;place-items:center;font-weight:700;font-size:19px}
 .car-b:active{transform:scale(.97);background:#232935}
 .car-b.play{background:var(--accent);color:#1b0a03}
@@ -361,6 +369,7 @@ body.car-on .ytbox{z-index:51}
         <button class="play" id="ytPlayBtn" aria-label="Çal veya durdur"><svg class="ico"><use href="#i-play"/></svg></button>
         <button class="ib" id="ytNext" aria-label="Sonraki video"><svg class="ico"><use href="#i-next"/></svg></button>
       </div>
+      <button class="btn" id="ytBg" style="width:100%;margin:6px 0">Arka planda çal · YouTube uygulamasında (Premium)</button>
       <div class="ytadd">
         <input id="ytQ" type="search" placeholder="YouTube'da şarkı ara" autocomplete="off" aria-label="YouTube'da ara" enterkeyhint="search">
         <button class="btn primary" id="ytSearch"><svg class="ico"><use href="#i-search"/></svg>Ara</button>
@@ -420,6 +429,8 @@ body.car-on .ytbox{z-index:51}
         <div><div class="lab"><span>Çalma hızı</span><span id="spdV">1.00x</span></div><input type="range" id="spd" min="0.5" max="2" step="0.05" value="1"></div>
         <div class="row2"><div>Yumuşak başlat ve durdur<div class="muted small">Ses kısa sürede açılır ve kapanır</div></div><label class="sw"><input type="checkbox" id="fadeOn" aria-label="Yumuşak geçiş"><i></i></label></div>
         <div class="row2"><div>Ekranı açık tut<div class="muted small">Oynatıcı açıkken ekran kararmaz</div></div><label class="sw"><input type="checkbox" id="wakeOn" aria-label="Ekranı açık tut"><i></i></label></div>
+        <div class="row2"><div>Açılınca araç modu<div class="muted small">Uygulama açılır açılmaz büyük düğmeli araç ekranı gelir</div></div><label class="sw"><input type="checkbox" id="carAutoOn" aria-label="Açılınca araç modu"><i></i></label></div>
+        <div class="row2"><div>Açılınca kaldığı yerden çal<div class="muted small">Son şarkı, son saniyesinden başlar. Telefon izin vermezse büyük "Çal" düğmesi çıkar</div></div><label class="sw"><input type="checkbox" id="autoPlayOn" aria-label="Açılınca kaldığı yerden çal"><i></i></label></div>
       </div>
       <div class="panel">
         <h2 style="font-size:19px">Görünüm</h2>
@@ -445,7 +456,7 @@ body.car-on .ytbox{z-index:51}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 2.5 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 2.7 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -512,6 +523,10 @@ body.car-on .ytbox{z-index:51}
     <button class="car-b" id="carPrev" aria-label="Önceki"><svg class="ico"><use href="#i-prev"/></svg></button>
     <button class="car-b play" id="carPlay" aria-label="Çal veya durdur"><svg class="ico"><use href="#i-play"/></svg></button>
     <button class="car-b" id="carNext" aria-label="Sonraki"><svg class="ico"><use href="#i-next"/></svg></button>
+    <div class="car-opt">
+      <button class="car-b car-o" id="carShuf" aria-pressed="false"><svg class="ico"><use href="#i-shuffle"/></svg><span>Karışık: kapalı</span></button>
+      <button class="car-b car-o" id="carRep" aria-pressed="false"><svg class="ico"><use href="#i-repeat"/></svg><span>Tekrar: kapalı</span></button>
+    </div>
   </div>
   <div class="car-row">
     <button class="car-b" id="carBack">−15 sn</button>
@@ -521,6 +536,7 @@ body.car-on .ytbox{z-index:51}
   </div>
   <div class="car-hint">Yazıya dokun: çal/durdur · Sola kaydır: sonraki · Sağa kaydır: önceki</div>
 </div>
+<button class="car-tap" id="carTap" hidden>▶ Çalmak için dokun</button>
 <div class="ytbox" id="ytBox"><div id="ytPlayer"></div></div>
 
 <div class="scrim" id="scrim"></div>
@@ -579,7 +595,7 @@ const NATIVE=typeof window.Android!=='undefined';
 const objOr=(v,d)=>(v&&typeof v==='object'&&!Array.isArray(v))?v:d;
 const P={favs:new Set(store.get('favs',[])),lists:store.get('lists',[]),plays:store.get('plays',{}),recent:store.get('recent',[]),hidden:new Set(store.get('hidden',[])),
   trims:objOr(store.get('trims',{}),{}),yt:Array.isArray(store.get('yt',[]))?store.get('yt',[]).filter(x=>x&&(/^[\w-]{11}$/.test(x.vid)||/^[\w-]{10,64}$/.test(x.pl||''))):[]};
-const prefs=Object.assign({vol:80,shuffle:false,repeat:0,sort:'added',theme:'auto',speed:1,fade:false,wake:false,eqOn:true,gains:[0,0,0,0,0,0,0,0,0,0],pre:0,bass:0,pan:0,preset:'Düz',skipSil:false,clip:0,kar:false},store.get('prefs',{}));
+const prefs=Object.assign({vol:80,shuffle:false,repeat:0,sort:'added',theme:'auto',speed:1,fade:false,wake:false,eqOn:true,gains:[0,0,0,0,0,0,0,0,0,0],pre:0,bass:0,pan:0,preset:'Düz',skipSil:false,clip:0,kar:false,carAuto:false,autoPlay:true},store.get('prefs',{}));
 if(!Array.isArray(prefs.gains)||prefs.gains.length!==10)prefs.gains=[0,0,0,0,0,0,0,0,0,0];
 if(!(prefs.clip>=0))prefs.clip=0;
 const savePrefs=()=>store.set('prefs',prefs);
@@ -977,15 +993,16 @@ async function play(){
   if(!cur){if(lib.length)playList(lib.map(t=>t.id));return}
   src='local';ytPauseIfPlaying();
   initGraph();
-  try{if(ctx&&ctx.state==='suspended')await ctx.resume()}catch(e){}
+  /* dokunuş yokken resume() hiç dönmeyebilir: en çok 400 ms bekle */
+  try{if(ctx&&ctx.state==='suspended')await Promise.race([ctx.resume(),new Promise(r=>setTimeout(r,400))])}catch(e){}
   try{
     clearInterval(fadeT);fadeT=null;
     setVol(prefs.fade?0:volLevel());
-    await audio.play();
+    await audio.play();needTap(false);
     if(prefs.fade)fadeTo(volLevel(),450);
   }catch(e){
     setVol(volLevel());
-    if(e&&e.name==='NotAllowedError')toast('Çalmak için oynat düğmesine dokun');
+    if(e&&e.name==='NotAllowedError'){toast('Çalmak için oynat düğmesine dokun');needTap(true)}
     else if(e&&e.name!=='AbortError')onPlayError();
   }
 }
@@ -1101,8 +1118,8 @@ function setMedia(){
 function initMedia(){
   if(!('mediaSession' in navigator))return;
   const h=(a,f)=>{try{navigator.mediaSession.setActionHandler(a,f)}catch(e){}};
-  h('play',()=>play());h('pause',()=>pause());
-  h('previoustrack',()=>step(-1));h('nexttrack',()=>step(1,false));
+  h('play',()=>{src==='yt'&&ytCur>=0?(ytPlaying||ytToggle()):play()});h('pause',()=>{src==='yt'&&ytCur>=0?(ytPlaying&&ytToggle()):pause()});
+  h('previoustrack',()=>ctlStep(-1));h('nexttrack',()=>ctlStep(1));
   h('seekbackward',d=>seekBy(-((d&&d.seekOffset)||10)));
   h('seekforward',d=>seekBy((d&&d.seekOffset)||10));
   h('seekto',d=>{if(d&&d.seekTime!=null&&isFinite(d.seekTime)&&src==='local'){try{audio.currentTime=d.seekTime}catch(e){}clipBase=d.seekTime;doneLock=false}});
@@ -1778,6 +1795,15 @@ $('#ytPaste').addEventListener('click',async()=>{
 $('#ytPlayBtn').addEventListener('click',ytToggle);
 $('#ytPrev').addEventListener('click',()=>ytStep(-1));
 $('#ytNext').addEventListener('click',()=>ytStep(1));
+/* Premium arka plan çalma yalnız YouTube'un kendi uygulamasında geçerli: sırayı oraya devret */
+$('#ytBg').addEventListener('click',()=>{
+  const st=ytCur>=0?ytCur:0,list=P.yt.slice(st).concat(P.yt.slice(0,st));
+  const vids=list.filter(x=>x.vid).map(x=>x.vid).slice(0,50),pl=(P.yt[st]&&P.yt[st].pl)||(list.find(x=>x.pl)||{}).pl;
+  if(!vids.length&&!pl){toast('Önce YouTube listesine şarkı ekle');return}
+  try{if(ytPlaying)ytToggle()}catch(e){}
+  const u=vids.length?'https://www.youtube.com/watch_videos?video_ids='+vids.join(','):'https://www.youtube.com/playlist?list='+pl;
+  window.open(u,'_blank','noopener');
+});
 $('#v-yt').addEventListener('scroll',placeYT,{passive:true});
 
 /* ---------- Araç modu ---------- */
@@ -1785,7 +1811,7 @@ let carOn=false,carIco='';
 const carIsYT=()=>src==='yt'&&ytCur>=0;
 function openCar(){
   carOn=true;closeSheet();$('#car').classList.add('open');document.body.classList.add('car-on');
-  wake(true);markFF();carIco='';paintCar();placeYT();
+  wake(true);markFF();carIco='';paintCar();paintCarOpt();placeYT();
   try{const de=document.documentElement;if(de.requestFullscreen&&!document.fullscreenElement)de.requestFullscreen({navigationUI:'hide'}).catch(()=>{})}catch(e){}
 }
 function closeCar(){
@@ -1816,6 +1842,38 @@ function nudgeVol(d){
   toast('Ses %'+prefs.vol);
 }
 $('#carX').addEventListener('click',closeCar);
+function paintCarOpt(){
+  const sh=$('#carShuf'),rp=$('#carRep');if(!sh)return;
+  sh.classList.toggle('on',!!prefs.shuffle);sh.setAttribute('aria-pressed',!!prefs.shuffle);
+  sh.querySelector('span').innerHTML='Karışık<small>'+(prefs.shuffle?'açık':'kapalı')+'</small>';
+  rp.classList.toggle('on',prefs.repeat>0);rp.setAttribute('aria-pressed',prefs.repeat>0);
+  rp.querySelector('span').innerHTML='Tekrar<small>'+['kapalı','tümü','bu şarkı'][prefs.repeat]+'</small>';
+  rp.querySelector('svg').innerHTML='<use href="#i-'+(prefs.repeat===2?'repeat1':'repeat')+'"/>';
+}
+$('#carShuf').addEventListener('click',()=>{setShuffle(!prefs.shuffle);toast(prefs.shuffle?'Karışık çalma açık':'Karışık çalma kapalı');paintCarOpt()});
+$('#carRep').addEventListener('click',()=>{cycleRepeat();paintCarOpt()});
+function needTap(on){const b=$('#carTap');if(b)b.hidden=!on}
+$('#carTap').addEventListener('click',()=>{needTap(false);ctlToggle();setTimeout(paintCar,80)});
+/* kaldığı yer: şarkı, sıra, saniye */
+function saveResume(){
+  if(!cur||src!=='local')return;
+  store.set('resume',{id:cur.id,t:Math.floor(audio.currentTime||0),q:queue.slice(0,2000),b:base.slice(0,2000)});
+}
+setInterval(saveResume,5000);
+window.addEventListener('pagehide',saveResume);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')saveResume()});
+function resumeLast(){
+  const r=store.get('resume',null);
+  if(cur)return;
+  if(!r||!byId.has(r.id)){if(lib.length){playList(lib.map(t=>t.id));}return}
+  let q=(r.q||[]).filter(id=>byId.has(id));if(q.indexOf(r.id)<0)q=[r.id].concat(q);
+  base=(r.b||q).filter(id=>byId.has(id));if(!base.length)base=q.slice();
+  queue=q;qi=queue.indexOf(r.id);
+  loadCurrent(false);
+  const D=byId.get(r.id).duration||0;
+  if(r.t>3&&(!D||r.t<D-5))pendingSeek=r.t;
+  play();
+}
 $('#carPlay').addEventListener('click',()=>{ctlToggle();setTimeout(paintCar,80)});
 $('#carPrev').addEventListener('click',()=>ctlStep(-1));
 $('#carNext').addEventListener('click',()=>ctlStep(1));
@@ -1928,7 +1986,7 @@ UI.state=function(){
   $('#app').classList.toggle('ytplaying',ytPlaying);
   const yb=$('#ytPlayBtn'),yi=ytPlaying?'pause':'play';if(yb.dataset.i!==yi){yb.dataset.i=yi;yb.innerHTML=ico(yi)}
   $$('#ytList .row').forEach(r=>r.classList.toggle('cur',+r.dataset.yi===ytCur));
-  if(carOn)paintCar();
+  if(carOn){paintCar();paintCarOpt()}
 };
 UI.fx=function(){
   $('#karOn').checked=!!prefs.kar;$('#npKar').classList.toggle('on',!!prefs.kar);
@@ -2109,6 +2167,8 @@ $('#silOn').addEventListener('change',e=>{
 });
 $('#karOn').addEventListener('change',e=>setKar(e.target.checked));
 $('#wakeOn').addEventListener('change',e=>{prefs.wake=e.target.checked;savePrefs();wake(prefs.wake)});
+$('#carAutoOn').addEventListener('change',e=>{prefs.carAuto=e.target.checked;savePrefs()});
+$('#autoPlayOn').addEventListener('change',e=>{prefs.autoPlay=e.target.checked;savePrefs()});
 function applyTheme(){
   const r=document.documentElement;
   if(prefs.theme==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',prefs.theme);
@@ -2164,7 +2224,7 @@ $('#btnUpd').addEventListener('click',async()=>{
   toast('Denetleniyor…');
   try{await reg.update()}catch(e){toast('Denetlenemedi, biraz sonra tekrar dene');return}
   if(reg.installing||reg.waiting)toast('Yeni sürüm indiriliyor; birazdan "Yenile" çıkacak');
-  else toast('Uygulama güncel · sürüm 2.5');
+  else toast('Uygulama güncel · sürüm 2.7');
 });
 $('#btnAny').addEventListener('click',()=>$('#anyIn').click());
 ['#fileIn','#dirIn','#anyIn'].forEach(s=>$(s).addEventListener('change',e=>{
@@ -2220,11 +2280,15 @@ function init(){
   }
   applyTheme();buildEQ();buildSleep();buildClip();ytKeyState();UI.fx();renderYT();syncSpeed();syncVol();setVol(volLevel());
   audio.playbackRate=prefs.speed;
-  $('#fadeOn').checked=prefs.fade;$('#wakeOn').checked=prefs.wake;
+  $('#fadeOn').checked=prefs.fade;$('#wakeOn').checked=prefs.wake;$('#carAutoOn').checked=!!prefs.carAuto;$('#autoPlayOn').checked=!!prefs.autoPlay;
   $$('#sortSel option').forEach(o=>{if(o.value===prefs.sort)$('#sortSel').value=prefs.sort});
   initMedia();UI.state();UI.sleep();
   if(prefs.wake)wake(true);
-  loadLibrary().then(()=>{ready=true;UI.refresh();UI.track();if(NATIVE)refreshNative(true);else autoScan()});
+  if(!prefs.m27){prefs.m27=1;prefs.autoPlay=true;savePrefs();$('#autoPlayOn').checked=true}
+  const qp=new URLSearchParams(location.search),carQ=qp.get('car')==='1';
+  if(carQ||prefs.carAuto)openCar();
+  loadLibrary().then(()=>{ready=true;UI.refresh();UI.track();if(NATIVE)refreshNative(true);else autoScan();
+    if(carQ||prefs.autoPlay)setTimeout(resumeLast,300)});
   setInterval(()=>{if(sleep.end){if(Date.now()>=sleep.end)sleepFire();else UI.sleep()}},1000);
   setInterval(watch,100);
 }
