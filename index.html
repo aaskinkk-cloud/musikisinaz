@@ -231,6 +231,13 @@ kbd{font:600 12px var(--f-body);background:var(--raise);border:1px solid var(--l
 .ytadd input{flex:1;min-width:0;height:46px;border-radius:14px;border:1px solid var(--line);background:var(--surface);padding:0 12px}
 .ytadd input:focus{outline:0;border-color:var(--accent)}
 .ytadd .btn{height:46px}
+.ytres{display:grid;gap:2px;margin-top:6px}
+.ytres .row{grid-template-columns:64px minmax(0,1fr) auto auto}
+.ytres .thumb{width:64px;height:48px}
+.ytres .act{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;color:var(--fg)}
+.ytres .act.pri{background:var(--accent);color:var(--on-accent);border-color:transparent}
+.keyrow{display:flex;gap:8px;flex-wrap:wrap}
+.keyrow input{flex:1;min-width:0;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--bg);padding:0 12px;font-family:ui-monospace,monospace;font-size:13px}
 .thumb.yt img{object-fit:cover}
 .note{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13px;color:var(--muted);margin-top:12px;line-height:1.5}
 .note b{color:var(--fg)}
@@ -355,6 +362,11 @@ body.car-on .ytbox{z-index:51}
         <button class="ib" id="ytNext" aria-label="Sonraki video"><svg class="ico"><use href="#i-next"/></svg></button>
       </div>
       <div class="ytadd">
+        <input id="ytQ" type="search" placeholder="YouTube'da şarkı ara" autocomplete="off" aria-label="YouTube'da ara" enterkeyhint="search">
+        <button class="btn primary" id="ytSearch"><svg class="ico"><use href="#i-search"/></svg>Ara</button>
+      </div>
+      <div class="ytres" id="ytRes"></div>
+      <div class="ytadd">
         <input id="ytUrl" type="url" inputmode="url" placeholder="YouTube bağlantısını yapıştır" autocomplete="off" aria-label="YouTube bağlantısı">
         <button class="btn" id="ytPaste" aria-label="Panodan yapıştır"><svg class="ico"><use href="#i-paste"/></svg></button>
         <button class="btn primary" id="ytAdd">Ekle</button>
@@ -397,6 +409,11 @@ body.car-on .ytbox{z-index:51}
         <div class="muted small">Tek bir şarkının başlangıç ve bitişini ayarlamak için şarkının menüsünden <b>Başlangıç ve bitiş</b> seçeneğine dokun.</div>
       </div>
       <div class="panel">
+        <div><div>YouTube arama anahtarı</div><div class="muted small" style="margin-bottom:8px">Uygulamada YouTube araması için. Anahtar yalnızca bu telefonda saklanır, GitHub'a gitmez.</div>
+          <div class="keyrow"><input id="ytKeyIn" type="password" autocomplete="off" placeholder="AIza ile başlayan anahtar" aria-label="YouTube anahtarı"><button class="btn sm" id="ytKeySave">Kaydet</button><button class="btn sm" id="ytKeyTest">Dene</button></div>
+          <div class="muted small" id="ytKeyState" style="margin-top:6px"></div></div>
+      </div>
+      <div class="panel">
         <div class="row2"><div>Araç modu<div class="muted small">Büyük düğmeler, kaydırarak şarkı değiştirme, ekran açık kalır</div></div><button class="btn sm" id="btnCar2"><svg class="ico"><use href="#i-car"/></svg>Aç</button></div>
       </div>
       <div class="panel">
@@ -428,7 +445,7 @@ body.car-on .ytbox{z-index:51}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <p class="muted small" style="text-align:center;margin:14px 0 4px">Musikisinaz · sürüm 2.2 · çevrimdışı destekli</p>
+      <p class="muted small" style="text-align:center;margin:14px 0 4px">Musikisinaz · sürüm 2.4 · çevrimdışı destekli</p>
     </section>
   </div>
 
@@ -698,10 +715,26 @@ async function pickFolder(){
       const out=[];await walk(h,out);await addFiles(out);return;
     }catch(e){if(e&&e.name==='AbortError')return}
   }
+  if(IS_ANDROID){folderHelp();return}
   toast('Müzik klasörünü ya da şarkıları seç, yalnızca yeniler eklenir');
   $('#dirIn').click();
 }
+/* Android Chrome klasör taramayı desteklemez: klasörün içindeki tüm şarkıları tek seferde seçtirir */
+const IS_ANDROID=/Android/i.test(navigator.userAgent||'');
+function folderHelp(){
+  openSheet('<h3>Klasördeki şarkıları ekle</h3>'+
+    '<p class="muted small" style="margin:0 4px 10px;line-height:1.55">Android\'de tarayıcı klasörü kendisi tarayamaz; şarkıları senin seçmen gerekir. Aynı şarkıyı iki kez seçsen de yalnızca yeniler eklenir.</p>'+
+    '<ol class="small" style="margin:0 0 14px;padding-left:22px;line-height:1.7">'+
+    '<li>Aşağıdaki <b>Şarkıları seç</b> düğmesine bas.</li>'+
+    '<li>Açılan ekranda sol üstteki <b>☰</b> menüsüne bas, telefonunun adını ya da <b>Dahili depolama</b>\'yı seç.</li>'+
+    '<li>Şarkıların olduğu klasöre gir (çoğunlukla <b>Music</b> ya da <b>Download</b>).</li>'+
+    '<li>İlk şarkıya <b>basılı tut</b>, sonra sağ üstteki <b>⋮ → Tümünü seç</b>, en son <b>Seç</b>.</li></ol>'+
+    '<button class="btn primary" data-fh="1" style="width:100%">'+ico('folder')+'Şarkıları seç</button>'+
+    '<p class="muted small" style="margin:12px 4px 0;line-height:1.5">Klasör hiç görünmüyorsa şarkılar başka bir uygulamanın kendine ait, kapalı klasöründedir (bazı müzik indirme uygulamaları böyle saklar). O zaman şarkıları önce Dosyalarım ile Music klasörüne kopyala.</p>');
+}
+$('#sheet').addEventListener('click',e=>{if(e.target.closest('[data-fh]')){closeSheet();$('#anyIn').click()}});
 async function rescan(){
+  if(IS_ANDROID&&!window.showDirectoryPicker){folderHelp();return}
   if(window.showDirectoryPicker&&await scanSaved(true,false))return;
   pickFolder();
 }
@@ -1624,6 +1657,74 @@ function ytTitle(it){
   fetch('https://www.youtube.com/oembed?format=json&url='+encodeURIComponent('https://www.youtube.com/watch?v='+it.vid))
     .then(r=>r.ok?r.json():null).then(d=>{if(d&&d.title&&!it.title){it.title=d.title;it.author=d.author_name||'';saveP();renderYT()}}).catch(()=>{});
 }
+/* ---------- YouTube araması (resmi YouTube Data API v3, kullanıcının kendi anahtarıyla) ---------- */
+const decodeHtml=t=>{const d=document.createElement('textarea');d.innerHTML=t||'';return d.value};
+let ytResults=[];
+function ytKeyState(){
+  const k=prefs.ytKey||'';
+  $('#ytKeyState').textContent=k?'Kayıtlı: '+k.slice(0,6)+'…'+k.slice(-4):'Anahtar kayıtlı değil';
+}
+async function ytApiGet(q){
+  const u='https://www.googleapis.com/youtube/v3/search?part=snippet&type=video,playlist&maxResults=15&safeSearch=none&q='+encodeURIComponent(q)+'&key='+encodeURIComponent(prefs.ytKey);
+  let r;try{r=await fetch(u)}catch(e){throw new Error('İnternet yok ya da bu ortam aramaya izin vermiyor')}
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok){
+    const why=((d.error&&d.error.errors&&d.error.errors[0])||{}).reason||'';
+    const msg=(d.error&&d.error.message)||'';
+    if(why==='quotaExceeded'||why==='dailyLimitExceeded')throw new Error('Günlük arama hakkı doldu (yaklaşık 100 arama). Yarın sıfırlanır.');
+    if(/referer|referrer/i.test(msg+why))throw new Error('Anahtar bu adrese izin vermiyor. Google Cloud\'da web sitesi kısıtlamasına '+location.origin+'/* ekle.');
+    if(why==='keyInvalid'||r.status===400)throw new Error('Anahtar geçersiz. Ayarlar\'da doğru kopyalandığını kontrol et.');
+    if(/not been used|disabled/i.test(msg))throw new Error('Projede "YouTube Data API v3" etkin değil. Kitaplıktan etkinleştir.');
+    throw new Error('Arama yapılamadı ('+r.status+')');
+  }
+  return (d.items||[]).map(x=>({vid:x.id&&x.id.videoId||'',pl:x.id&&x.id.playlistId||'',title:decodeHtml(x.snippet&&x.snippet.title),author:decodeHtml(x.snippet&&x.snippet.channelTitle),thumb:x.snippet&&x.snippet.thumbnails&&x.snippet.thumbnails.default&&x.snippet.thumbnails.default.url||''})).filter(x=>x.vid||x.pl);
+}
+function keySheet(){
+  openSheet('<h3>YouTube arama anahtarı gerekli</h3><p class="muted small" style="margin:0 4px 10px;line-height:1.5">Google Cloud\'dan aldığın, AIza ile başlayan anahtarı buraya yapıştır. Yalnızca bu telefonda saklanır.</p>'+
+    '<div class="keyrow"><input id="ksIn" type="password" autocomplete="off" placeholder="AIza…" aria-label="Anahtar"><button class="btn primary" data-ks="1">Kaydet</button></div>');
+  setTimeout(()=>{try{$('#ksIn').focus()}catch(e){}},60);
+}
+function saveKey(v){
+  v=String(v||'').trim();
+  if(v&&!/^[\w-]{30,60}$/.test(v)){toast('Bu bir YouTube anahtarına benzemiyor; tamamını kopyaladığından emin ol');return false}
+  prefs.ytKey=v;savePrefs();ytKeyState();toast(v?'Anahtar kaydedildi':'Anahtar silindi');return true;
+}
+async function ytSearch(){
+  const q=($('#ytQ').value||'').trim();
+  if(!q){toast('Aranacak şarkıyı yaz');return}
+  if(!prefs.ytKey){keySheet();return}
+  const box=$('#ytRes');box.innerHTML='<p class="muted small" style="padding:8px 4px">Aranıyor…</p>';
+  try{ytResults=await ytApiGet(q)}catch(e){box.innerHTML='<p class="small" style="padding:8px 4px;color:var(--danger)">'+esc(e.message)+'</p>';return}
+  if(!ytResults.length){box.innerHTML='<p class="muted small" style="padding:8px 4px">Sonuç bulunamadı.</p>';return}
+  box.innerHTML='<div class="sh" style="margin-top:6px"><h2 style="font-size:16px">Arama sonuçları</h2><button class="btn sm" data-rclose="1">Kapat</button></div>'+ytResults.map((x,i)=>
+    '<div class="row"><div class="thumb yt" style="background:#111">'+(x.thumb?'<img src="'+esc(x.thumb)+'" alt="" loading="lazy" onerror="this.remove()">':'')+'</div>'+
+    '<div style="min-width:0"><div class="t">'+(x.pl?'<span class="tag">'+ico('list')+'Liste</span>':'')+esc(x.title)+'</div><div class="s">'+esc(x.author)+'</div></div>'+
+    '<button class="act" data-radd="'+i+'" aria-label="Listeye ekle">'+ico('plus')+'</button>'+
+    '<button class="act pri" data-rplay="'+i+'" aria-label="Çal">'+ico('play')+'</button></div>').join('');
+}
+function ytAddResult(i,play){
+  const x=ytResults[i];if(!x)return;
+  let at=P.yt.findIndex(y=>x.pl?y.pl===x.pl:y.vid===x.vid);
+  if(at<0){P.yt.push(x.pl?{id:uid(),pl:x.pl,vid:'',title:x.title,author:x.author,s:0,e:0}:{id:uid(),vid:x.vid,title:x.title,author:x.author,s:0,e:0});at=P.yt.length-1;saveP();renderYT();if(!play)toast('Listeye eklendi')}
+  else if(!play)toast('Zaten listede');
+  if(play)ytPlay(at);
+}
+$('#ytSearch').addEventListener('click',ytSearch);
+$('#ytQ').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();e.target.blur();ytSearch()}});
+$('#ytRes').addEventListener('click',e=>{
+  const a=e.target.closest('[data-radd]');if(a){ytAddResult(+a.dataset.radd,false);return}
+  const p=e.target.closest('[data-rplay]');if(p){ytAddResult(+p.dataset.rplay,true);return}
+  if(e.target.closest('[data-rclose]')){$('#ytRes').innerHTML='';ytResults=[]}
+});
+$('#sheet').addEventListener('click',e=>{if(e.target.closest('[data-ks]')&&saveKey($('#ksIn').value)){closeSheet();if(prefs.ytKey&&$('#ytQ').value.trim())ytSearch()}});
+$('#ytKeySave').addEventListener('click',()=>{saveKey($('#ytKeyIn').value);$('#ytKeyIn').value=''});
+$('#ytKeyTest').addEventListener('click',async()=>{
+  const v=$('#ytKeyIn').value.trim();if(v&&!saveKey(v))return;$('#ytKeyIn').value='';
+  if(!prefs.ytKey){toast('Önce anahtarı yapıştır');return}
+  $('#ytKeyState').textContent='Deneniyor…';
+  try{const r=await ytApiGet('müzik');ytKeyState();toast(r.length?'Anahtar çalışıyor':'Anahtar çalışıyor ama sonuç gelmedi')}
+  catch(e){ytKeyState();$('#ytKeyState').textContent+=' · '+e.message}
+});
 const ytSeg=it=>(it.s||it.e)?' · '+fmtT(+it.s||0)+' – '+(it.e?fmtT(+it.e):'son'):'';
 function renderYT(){
   const b=$('#ytList');if(!b)return;
@@ -2114,7 +2215,7 @@ function init(){
     ['#btnDir','#btnDemo','#btnWeb'].forEach(s=>{if(s!=='#btnWeb')$(s).classList.add('hide')});
     $('#btnWipe').textContent=WIPE_TXT;
   }
-  applyTheme();buildEQ();buildSleep();buildClip();UI.fx();renderYT();syncSpeed();syncVol();setVol(volLevel());
+  applyTheme();buildEQ();buildSleep();buildClip();ytKeyState();UI.fx();renderYT();syncSpeed();syncVol();setVol(volLevel());
   audio.playbackRate=prefs.speed;
   $('#fadeOn').checked=prefs.fade;$('#wakeOn').checked=prefs.wake;
   $$('#sortSel option').forEach(o=>{if(o.value===prefs.sort)$('#sortSel').value=prefs.sort});
