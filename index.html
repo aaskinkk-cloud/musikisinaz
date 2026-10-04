@@ -202,6 +202,7 @@ kbd{font:600 12px var(--f-body);background:var(--raise);border:1px solid var(--l
 .hide{display:none!important}
 
 /* kesit etiketi ve şerit */
+.modpill{display:block;margin:0 auto 6px;border:1px solid var(--accent);color:var(--accent);background:transparent;border-radius:999px;padding:4px 12px;font:600 12px var(--f-body,system-ui)}
 .npparts{display:flex;gap:6px;align-items:center;justify-content:center;flex-wrap:wrap;margin:2px 0 6px}.npparts b{min-width:86px;text-align:center}
 #yeniBan{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 92px);z-index:40;background:var(--raise,#fff);border:1px solid var(--line);border-radius:16px;padding:12px;box-shadow:0 10px 30px rgba(0,0,0,.25);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 #yeniBan p{margin:0;flex:1 1 180px;font-size:14px}
@@ -444,7 +445,10 @@ body.car-on .ytbox{z-index:51}
           <div id="aralikOzel" class="muted small" style="display:flex;gap:8px;align-items:center;margin-top:8px"><label>Başlangıç <input id="arS" type="number" min="0" step="1" style="width:64px"> sn</label><label>Bitiş <input id="arE" type="number" min="0" step="1" style="width:64px"> sn</label><span>(0 = sona kadar)</span></div></div>
           <label class="sw"><input type="checkbox" id="aralikOn" aria-label="Aralık çal"><i></i></label></div>
         <div class="row2" style="align-items:flex-start"><div style="flex:1">Çalma içeriği<div class="muted small">Şarkı söylenen (sözlü) yerleri bulur: "Yalnız müzik" sözlü yerleri atlar, "Yalnız sözlü yerler" müzik aralarını atlar; geçiş yumuşak yapılır. İlk çalışta şarkı birkaç saniyede incelenir. Tahmine dayanır; bazı şarkılarda şaşabilir.</div>
-          <div class="chips" id="icerikChips" style="margin-top:8px"><button class="chip" data-ic="hepsi">Tümü</button><button class="chip" data-ic="muzik">Yalnız müzik</button><button class="chip" data-ic="vokal">Yalnız sözlü yerler</button></div></div></div>
+          <div class="chips" id="icerikChips" style="margin-top:8px"><button class="chip" data-ic="hepsi">Tümü</button><button class="chip" data-ic="muzik">Yalnız müzik</button><button class="chip" data-ic="vokal">Yalnız sözlü yerler</button></div>
+          <div class="muted small" style="margin-top:8px">Bu süreden kısa boşluklar sözlü bölümün içinde sayılır (satır araları atlanmaz); yalnız giriş, ara ve son müzik gibi uzun bölümler atlanır:</div>
+          <div class="chips" id="esikChips" style="margin-top:6px"><button class="chip" data-es="5">5 sn</button><button class="chip" data-es="8">8 sn</button><button class="chip" data-es="10">10 sn</button><button class="chip" data-es="15">15 sn</button></div></div></div>
+        <div class="row2"><div>Normal çal<div class="muted small">Aralık, çalma içeriği ve süre sınırını tek dokunuşla kapatır; şarkılar baştan sona çalar. Şarkılara tek tek verdiğin kesitler korunur.</div></div><button class="btn sm" id="normalCal">Tümünü kapat</button></div>
         <div class="row2"><div>Yeni müzik hatırlatıcısı<div class="muted small">Birkaç günde bir "yeni indirdiğin müzik var mı?" diye sorar; seçtiklerinden yalnız yenileri eklenir. Dosyalar uygulamasında şarkıyı Paylaş → Musikisinaz ile de doğrudan ekleyebilirsin.</div></div><label class="sw"><input type="checkbox" id="yeniSorOn" aria-label="Yeni müzik hatırlatıcısı"><i></i></label></div>
         <div class="row2"><div>Açılınca kaldığı yerden çal<div class="muted small">Son şarkı, son saniyesinden başlar. Telefon izin vermezse büyük "Çal" düğmesi çıkar</div></div><label class="sw"><input type="checkbox" id="autoPlayOn" aria-label="Açılınca kaldığı yerden çal"><i></i></label></div>
       </div>
@@ -472,7 +476,7 @@ body.car-on .ytbox{z-index:51}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 3.0 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 3.1 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -520,6 +524,7 @@ body.car-on .ytbox{z-index:51}
       <button class="ib" id="btnRep" aria-label="Tekrar"><svg class="ico"><use href="#i-repeat"/></svg></button>
     </div>
     <div class="npparts" id="npParts" hidden></div>
+    <button class="modpill" id="modPill" hidden title="Aralık modu açık — dokun: normal çal"><span></span> ✕</button>
     <div class="volrow"><svg class="ico muted"><use href="#i-vol"/></svg><input type="range" id="vol" min="0" max="100" value="80" aria-label="Ses"></div>
     <div class="sub">
       <button class="ib" id="npQueue" aria-label="Kuyruk"><svg class="ico"><use href="#i-queue"/></svg></button>
@@ -612,7 +617,7 @@ const NATIVE=typeof window.Android!=='undefined';
 const objOr=(v,d)=>(v&&typeof v==='object'&&!Array.isArray(v))?v:d;
 const P={favs:new Set(store.get('favs',[])),lists:store.get('lists',[]),plays:store.get('plays',{}),recent:store.get('recent',[]),hidden:new Set(store.get('hidden',[])),
   trims:objOr(store.get('trims',{}),{}),yt:Array.isArray(store.get('yt',[]))?store.get('yt',[]).filter(x=>x&&(/^[\w-]{11}$/.test(x.vid)||/^[\w-]{10,64}$/.test(x.pl||''))):[]};
-const prefs=Object.assign({vol:80,shuffle:false,repeat:0,sort:'added',theme:'auto',speed:1,fade:false,wake:false,eqOn:true,gains:[0,0,0,0,0,0,0,0,0,0],pre:0,bass:0,pan:0,preset:'Düz',skipSil:false,clip:0,kar:false,carAuto:false,autoPlay:true,artAlb:true,longAyri:true,hq:true,aralik:{on:false,s:10,e:20},icerik:'hepsi',yeniSor:true},store.get('prefs',{}));
+const prefs=Object.assign({vol:80,shuffle:false,repeat:0,sort:'added',theme:'auto',speed:1,fade:false,wake:false,eqOn:true,gains:[0,0,0,0,0,0,0,0,0,0],pre:0,bass:0,pan:0,preset:'Düz',skipSil:false,clip:0,kar:false,carAuto:false,autoPlay:true,artAlb:true,longAyri:true,hq:true,aralik:{on:false,s:10,e:20},icerik:'hepsi',icerikEsik:8,yeniSor:true},store.get('prefs',{}));
 if(!Array.isArray(prefs.gains)||prefs.gains.length!==10)prefs.gains=[0,0,0,0,0,0,0,0,0,0];
 if(!(prefs.clip>=0))prefs.clip=0;
 const savePrefs=()=>store.set('prefs',prefs);
@@ -626,7 +631,7 @@ const aralikOf=id=>{const k=trimOf(id);if(k.s>0||k.e>0)return k;const a=prefs.ar
 const aralikYazi=()=>{const a=prefs.aralik;return a.s+'. sn – '+(a.e?a.e+'. sn':'bitiş')};
 function aralikCiz(){const a=prefs.aralik,ch=$('#aralikChips');if(!ch)return;$('#aralikOn').checked=!!a.on;
   $$('#aralikChips .chip').forEach(b=>{const v=b.dataset.ar;b.classList.toggle('on',!!a.on&&(v==='ozel'?!!a.ozel:(!a.ozel&&v===a.s+'-'+a.e)))});
-  $('#arS').value=a.s;$('#arE').value=a.e;$$('#icerikChips .chip').forEach(b=>b.classList.toggle('on',b.dataset.ic===(prefs.icerik||'hepsi')))}
+  $('#arS').value=a.s;$('#arE').value=a.e;$$('#esikChips .chip').forEach(b=>b.classList.toggle('on',+b.dataset.es===(prefs.icerikEsik||8)));modCiz();$$('#icerikChips .chip').forEach(b=>b.classList.toggle('on',b.dataset.ic===(prefs.icerik||'hepsi')))}
 const hasTrim=id=>{const t=trimOf(id);return t.s>0||t.e>0};
 const fmtT=s=>{s=Math.round((+s||0)*10)/10;const f=Math.round((s%1)*10);return fmt(s)+(f?','+f:'')};
 
@@ -1091,13 +1096,26 @@ async function analiz(t,tur){
 }
 function vokHazirla(t){if(t&&!t.yt&&prefs.icerik&&prefs.icerik!=='hepsi'&&(t.duration||0)<900)analiz(t,'v')}
 function sonrakiHazirla(){if(prefs.icerik&&prefs.icerik!=='hepsi'&&queue.length){const n=byId.get(queue[(qi+1)%queue.length]);if(n)setTimeout(()=>vokHazirla(n),4000)}}
+/* Aralık modlarının özeti ve tek dokunuşla kapatma */
+function modYazi(){const p=[];if(prefs.aralik&&prefs.aralik.on)p.push(aralikYazi());if(prefs.icerik==='muzik')p.push('Yalnız müzik');if(prefs.icerik==='vokal')p.push('Yalnız sözlü yerler');if(prefs.clip>0)p.push('İlk '+fmt(prefs.clip));return p.join(' · ')}
+function modCiz(){const el=$('#modPill');if(!el)return;const t=modYazi();el.hidden=!t;if(t)el.querySelector('span').textContent=t}
+function normalCal(){prefs.aralik.on=false;prefs.icerik='hepsi';prefs.clip=0;savePrefs();clipBase=null;try{UI.fx()}catch(e){}aralikCiz();toast('Normal çalma: şarkılar baştan sona çalar')}
+/* Sözlü parçaları bloklara birleştir: eşikten kısa boşluklar (satır araları) bloğun içinde kalır */
+function bloklar(seg,d){
+  const G=prefs.icerikEsik||8,out=[];
+  for(const x of seg){if(out.length&&x[0]-out[out.length-1][1]<G)out[out.length-1][1]=x[1];else out.push([x[0],x[1]])}
+  const b=out.filter(x=>x[1]-x[0]>=4).map(x=>[Math.max(0,x[0]-0.6),d?Math.min(d,x[1]+0.8):x[1]+0.8]);
+  const top=b.reduce((a,x)=>a+x[1]-x[0],0);
+  if(d&&(top<d*0.2||top>d*0.97))return null;   /* güvenilmez ya da tamamı sözlü: normal çal */
+  return b;
+}
 /* İçerik modu: sözlü yerleri ya da müzik aralarını yumuşak geçişle atla */
 let vokKilit=false;
 function vokAtla(to){vokKilit=true;const hedef=volLevel();fadeTo(0,160,()=>{try{audio.currentTime=to}catch(e){}clipBase=to;doneLock=false;fadeTo(hedef,380,()=>{vokKilit=false})})}
 function vokKontrol(){
   const m=prefs.icerik;if(!m||m==='hepsi'||vokKilit||!cur||src!=='local'||audio.paused)return;
-  const a=AN[cur.id],seg=a&&a.v;if(!seg||!seg.length)return;
-  const t=audio.currentTime,d=audio.duration||cur.duration||0;
+  const a=AN[cur.id];if(!a||!a.v||!a.v.length)return;
+  const t=audio.currentTime,d=audio.duration||cur.duration||0,seg=bloklar(a.v,d);if(!seg)return;
   if(m==='vokal'){const ic=seg.find(x=>t>=x[0]-0.1&&t<x[1]);if(ic)return;const nx=seg.find(x=>x[0]>t);if(nx)vokAtla(nx[0]);else trackDone()}
   else{const ic=seg.find(x=>t>=x[0]&&t<x[1]-0.2);if(!ic)return;if(d&&ic[1]>=d-1.5)trackDone();else vokAtla(ic[1])}
 }
@@ -1112,6 +1130,7 @@ function parcaAdim(dir){const p=parcalar();if(!p)return false;const k=parcaNo(p)
 function parcaCiz(){const el=$('#npParts');if(!el)return;const uz=cur&&src==='local'&&isLong(cur);el.hidden=!uz;if(!uz)return;
   const p=parcalar();if(!p){el.innerHTML='<span class="muted small">'+(anIs.has(cur.id+'p')?'Kayıttaki şarkılar aranıyor…':'Bu kayıtta şarkı arası bulunamadı')+'</span>';return}
   const k=parcaNo(p);el.innerHTML='<button class="btn sm" data-pa="ilk">⏮ İlk</button><button class="btn sm" data-pa="-1">◀ Önceki</button><b class="small">Şarkı '+(k+1)+' / '+p.length+'</b><button class="btn sm" data-pa="1">Sonraki ▶</button><button class="btn sm" data-pa="son">Son ⏭</button>'}
+$('#modPill').addEventListener('click',normalCal);
 $('#npParts').addEventListener('click',e=>{const b=e.target.closest('[data-pa]');if(!b)return;const p=parcalar();if(!p)return;const v=b.dataset.pa;
   if(v==='ilk')parcaGit(p[0]);else if(v==='son')parcaGit(p[p.length-1]);else parcaAdim(+v)});
 /* Dosyalar uygulamasından Paylaş → Musikisinaz ile gelen şarkılar */
@@ -2085,6 +2104,7 @@ function trackMenu(id){
     {icon:'list',label:'Çalma listesine ekle',fn:()=>plSheet([id])},
     {icon:'cut',label:hasTrim(id)?'Başlangıç ve bitiş ('+trimTxt(id)+')':'Başlangıç ve bitiş',fn:()=>trimSheet('t',id)},
     {icon:'info',label:'Şarkı bilgisi',fn:()=>infoSheet(t)},
+    {icon:'search',label:'Sözlü yerleri yeniden incele',fn:()=>{const a=AN[id];if(a){delete a.v;anKaydet()}analiz(t,'v').then(()=>{const b=AN[id];toast(b&&b.v&&b.v.length?'Sözlü bölümler güncellendi':'Bu şarkıda sözlü yer bulunamadı')})}},
     {icon:'search',label:'İnternette ara',fn:()=>webSheet((t.artist.indexOf('Bilinmeyen')===0?'':t.artist+' ')+t.title)}
   ];
   if(ui.detail&&ui.detail.type==='pl'&&ui.view==='lib'){
@@ -2330,7 +2350,7 @@ const CLIPS=[[0,'Kapalı'],[15,'15 sn'],[30,'30 sn'],[45,'45 sn'],[60,'1 dk'],[9
 function buildClip(){$('#clipChips').innerHTML=CLIPS.map(c=>'<button class="chip" data-clip="'+c[0]+'">'+c[1]+'</button>').join('')}
 $('#clipChips').addEventListener('click',e=>{
   const c=e.target.closest('[data-clip]');if(!c)return;
-  prefs.clip=+c.dataset.clip;savePrefs();clipBase=null;ytClip=null;UI.fx();
+  prefs.clip=+c.dataset.clip;savePrefs();clipBase=null;ytClip=null;UI.fx();modCiz();
   toast(prefs.clip?'Her şarkı en fazla '+c.textContent+' çalacak':'Süre sınırı kapalı');
 });
 $('#silOn').addEventListener('change',e=>{
@@ -2350,6 +2370,8 @@ $('#aralikOn').addEventListener('change',e=>{prefs.aralik.on=e.target.checked;sa
 $('#aralikChips').addEventListener('click',e=>{const b=e.target.closest('[data-ar]');if(!b)return;const v=b.dataset.ar;if(v!=='ozel'){const p=v.split('-');prefs.aralik.s=+p[0];prefs.aralik.e=+p[1]}prefs.aralik.on=true;prefs.aralik.ozel=v==='ozel';savePrefs();aralikCiz();toast('Her şarkıda '+aralikYazi()+' çalınacak')});
 ['arS','arE'].forEach(k=>$('#'+k).addEventListener('change',e=>{const v=Math.max(0,Math.round(+e.target.value||0));if(k==='arS')prefs.aralik.s=v;else prefs.aralik.e=v;prefs.aralik.on=true;savePrefs();aralikCiz()}));
 $('#icerikChips').addEventListener('click',e=>{const b=e.target.closest('[data-ic]');if(!b)return;prefs.icerik=b.dataset.ic;savePrefs();aralikCiz();if(cur&&prefs.icerik!=='hepsi')vokHazirla(cur);toast({hepsi:'Şarkılar olduğu gibi çalar',muzik:'Sözlü yerler atlanacak (yalnız müzik)',vokal:'Müzik araları atlanacak (yalnız sözlü yerler)'}[prefs.icerik])});
+$('#esikChips').addEventListener('click',e=>{const b=e.target.closest('[data-es]');if(!b)return;prefs.icerikEsik=+b.dataset.es;savePrefs();aralikCiz();toast(prefs.icerikEsik+' sn\'den kısa boşluklar atlanmaz')});
+$('#normalCal').addEventListener('click',normalCal);
 $('#yeniSorOn').addEventListener('change',e=>{prefs.yeniSor=e.target.checked;savePrefs()});
 $('#longAyriOn').addEventListener('change',e=>{prefs.longAyri=e.target.checked;savePrefs();renderLib();toast(prefs.longAyri?'10 dk+ kayıtlar ayrı albümde, şarkılarla çalmaz':'Uzun kayıtlar şarkılarla birlikte çalar')});
 $('#autoPlayOn').addEventListener('change',e=>{prefs.autoPlay=e.target.checked;savePrefs()});
@@ -2408,7 +2430,7 @@ $('#btnUpd').addEventListener('click',async()=>{
   toast('Denetleniyor…');
   try{await reg.update()}catch(e){toast('Denetlenemedi, biraz sonra tekrar dene');return}
   if(reg.installing||reg.waiting)toast('Yeni sürüm indiriliyor; birazdan "Yenile" çıkacak');
-  else toast('Uygulama güncel · sürüm 3.0');
+  else toast('Uygulama güncel · sürüm 3.1');
 });
 $('#btnAny').addEventListener('click',()=>$('#anyIn').click());
 ['#fileIn','#dirIn','#anyIn'].forEach(s=>$(s).addEventListener('change',e=>{
