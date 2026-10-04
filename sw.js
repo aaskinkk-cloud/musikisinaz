@@ -1,10 +1,18 @@
 /* musikisinaz çevrimdışı önbelleği. Yalnızca kendi önbelleğini siler (aynı adresteki diğer uygulamalara dokunmaz). */
-const P='musikisinaz-',V=P+'2.9';
+const P='musikisinaz-',V=P+'3.0';
 const SHELL=['./','index.html','manifest.webmanifest','icon.svg'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.indexOf(P)===0&&k!==V).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{
-  const r=e.request;if(r.method!=='GET')return;
+  const r=e.request;
+  /* Paylaş → Musikisinaz: gelen şarkılar geçici kutuya konur, uygulama açılınca kitaplığa eklenir */
+  if(r.method==='POST'&&new URL(r.url).searchParams.has('paylas')){
+    e.respondWith((async()=>{try{const fd=await r.formData(),c=await caches.open('paylasim-musikisinaz');let i=0;
+      for(const f of fd.getAll('audio')){if(!f||!f.name)continue;await c.put('/paylasim/'+Date.now()+'-'+(i++),new Response(f,{headers:{'content-type':f.type||'application/octet-stream','x-ad':encodeURIComponent(f.name),'x-tarih':String(f.lastModified||Date.now())}}))}}catch(x){}
+      return Response.redirect('./?paylasildi=1',303)})());
+    return;
+  }
+  if(r.method!=='GET')return;
   const u=new URL(r.url);
   if(/youtube\.com|ytimg\.com|googlevideo\.com|googleapis\.com/.test(u.hostname))return; /* her zaman ağdan */
   if(r.mode==='navigate'){
