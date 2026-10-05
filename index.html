@@ -436,7 +436,7 @@ body.car-on .ytbox{z-index:51}
         <div><div class="lab"><span>Çalma hızı</span><span id="spdV">1.00x</span></div><input type="range" id="spd" min="0.5" max="2" step="0.05" value="1"></div>
         <div class="row2"><div>Yumuşak başlat ve durdur<div class="muted small">Ses kısa sürede açılır ve kapanır</div></div><label class="sw"><input type="checkbox" id="fadeOn" aria-label="Yumuşak geçiş"><i></i></label></div>
         <div class="row2"><div>Ekranı açık tut<div class="muted small">Oynatıcı açıkken ekran kararmaz</div></div><label class="sw"><input type="checkbox" id="wakeOn" aria-label="Ekranı açık tut"><i></i></label></div>
-        <div class="row2"><div>Açılınca araç modu<div class="muted small">Uygulama açılır açılmaz büyük düğmeli araç ekranı gelir</div></div><label class="sw"><input type="checkbox" id="carAutoOn" aria-label="Açılınca araç modu"><i></i></label></div>
+        <div class="row2"><div>Açılınca araç modu<div class="muted small">Uygulama açılır açılmaz büyük düğmeli araç ekranı gelir — yalnız Bluetooth açıksa</div></div><label class="sw"><input type="checkbox" id="carAutoOn" aria-label="Açılınca araç modu"><i></i></label></div>
         <div class="row2"><div>Sanatçıları albüm yap<div class="muted small">Albümler'de her sanatçının şarkıları tek albüm olur; albüm sırasıyla çalar</div></div><label class="sw"><input type="checkbox" id="artAlbOn" aria-label="Sanatçıları albüm yap"><i></i></label></div>
         <div class="row2"><div>10 dk+ kayıtlar ayrı<div class="muted small">Uzun kayıtlar "Uzun Kayıtlar" albümünde toplanır; şarkılarla, karışık çalmada ve sırada araya girmez</div></div><label class="sw"><input type="checkbox" id="longAyriOn" aria-label="Uzun kayıtlar ayrı"><i></i></label></div>
         <div class="row2"><div>En yüksek kalite (saf çıkış)<div class="muted small">Ekolayzır, vokal azaltma ya da sessizlik atlama açık değilse ses hiçbir işlemden geçmeden, dosyanın kendi kalitesinde çalar. Ekran kapalıyken çalma da daha kararlı olur.</div></div><label class="sw"><input type="checkbox" id="hqOn" aria-label="En yüksek kalite"><i></i></label></div>
@@ -476,7 +476,7 @@ body.car-on .ytbox{z-index:51}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 3.2 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 3.3 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -1993,6 +1993,8 @@ $('#ytBg').addEventListener('click',()=>{
 $('#v-yt').addEventListener('scroll',placeYT,{passive:true});
 
 /* ---------- Araç modu ---------- */
+/* Bluetooth açık mı? true / false / null (tarayıcı söylemiyor) */
+async function btAcikMi(){try{if(navigator.bluetooth&&navigator.bluetooth.getAvailability)return !!(await navigator.bluetooth.getAvailability())}catch(e){}return null}
 let carOn=false,carIco='';
 const carIsYT=()=>src==='yt'&&ytCur>=0;
 function openCar(){
@@ -2442,7 +2444,7 @@ $('#btnUpd').addEventListener('click',async()=>{
   toast('Denetleniyor…');
   try{await reg.update()}catch(e){toast('Denetlenemedi, biraz sonra tekrar dene');return}
   if(reg.installing||reg.waiting)toast('Yeni sürüm indiriliyor; birazdan "Yenile" çıkacak');
-  else toast('Uygulama güncel · sürüm 3.2');
+  else toast('Uygulama güncel · sürüm 3.3');
 });
 $('#btnAny').addEventListener('click',()=>$('#anyIn').click());
 ['#fileIn','#dirIn','#anyIn'].forEach(s=>$(s).addEventListener('change',e=>{
@@ -2504,7 +2506,10 @@ function init(){
   if(prefs.wake)wake(true);
   if(!prefs.m27){prefs.m27=1;prefs.autoPlay=true;savePrefs();$('#autoPlayOn').checked=true}
   const qp=new URLSearchParams(location.search),carQ=qp.get('car')==='1';
-  if(carQ||prefs.carAuto)openCar();
+  /* 3.3: "Açılınca araç modu" yalnız Bluetooth açıkken çalışır (?car=1 ile açılış — Bluetooth otomasyonu — her zaman açar) */
+  if(carQ)openCar();
+  else if(prefs.carAuto)btAcikMi().then(v=>{if(v===true)openCar();else if(!carOn)toast(v===false?'Bluetooth kapalı — araç modu açılmadı':'Bluetooth durumu okunamadı — araç modu açılmadı')});
+  try{if(navigator.bluetooth&&navigator.bluetooth.addEventListener)navigator.bluetooth.addEventListener('availabilitychanged',e=>{if(prefs.carAuto&&e.value&&!carOn)openCar()})}catch(e){}
   window.addEventListener('online',()=>{if(ui.view==='lib')renderLib()});
   window.addEventListener('offline',()=>{if(ui.view==='lib')renderLib()});
   loadLibrary().then(()=>{ytSync();ready=true;UI.refresh();UI.track();if(NATIVE)refreshNative(true);else autoScan();paylasimAl().then(()=>setTimeout(yeniSor,1500));
