@@ -124,8 +124,8 @@ a.btn{text-decoration:none;color:inherit}
 .mini .s{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mini .prog{position:absolute;left:0;bottom:0;height:3px;width:100%;background:var(--raise)}
 .mini .prog i{display:block;height:100%;width:0;background:var(--accent)}
-.nav{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:5px}
-.nav button{background:none;border:0;border-radius:15px;padding:8px 2px 6px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--muted)}
+.nav{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:5px}
+.nav button{background:none;border:0;border-radius:15px;padding:8px 1px 6px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;min-width:0;white-space:nowrap;overflow:hidden;font-weight:600;color:var(--muted)}
 .nav button.on{background:var(--raise);color:var(--accent)}
 
 /* tam oynatıcı */
@@ -243,6 +243,7 @@ kbd{font:600 12px var(--f-body);background:var(--raise);border:1px solid var(--l
 .ytctl{display:flex;align-items:center;justify-content:center;gap:18px;padding-block:10px 4px}
 .ytctl .play{width:56px;height:56px;border-radius:50%;background:var(--accent);color:var(--on-accent);border:0;display:grid;place-items:center}
 .ytadd{display:flex;gap:8px;margin-top:8px}
+.spslot{position:sticky;top:0;z-index:2;width:100%;height:152px;border-radius:14px;overflow:hidden;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;text-align:center;color:var(--muted);font-size:13px;margin-top:4px}.spslot>div,.spslot iframe{width:100%;border:0}.sphesap{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:8px}.ib.on{color:var(--accent);background:var(--raise)}
 .ytadd input{flex:1;min-width:0;height:46px;border-radius:14px;border:1px solid var(--line);background:var(--surface);padding:0 12px}
 .ytadd input:focus{outline:0;border-color:var(--accent)}
 .ytadd .btn{height:46px}
@@ -343,6 +344,8 @@ body.car-on .ytbox{z-index:51}
     <symbol id="i-mic-off" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9v3a3 3 0 005.1 2.1M15 9.3V5a3 3 0 00-5.9-.7M19 11a7 7 0 01-1.1 3.7M5 11a7 7 0 0011.6 5.3M12 18v3M3 3l18 18"/></g></symbol>
     <symbol id="i-yt" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="4"/><path d="M10 9.2l4.8 2.8-4.8 2.8z" fill="currentColor"/></g></symbol>
     <symbol id="i-ff" viewBox="0 0 24 24"><path fill="currentColor" d="M3 6l8.5 6L3 18zM12.5 6l8.5 6-8.5 6z"/></symbol>
+    <symbol id="i-sp" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M7 9.5c3.5-1 7-.6 10 1M7.6 12.6c3-.8 5.8-.4 8.3.9M8.2 15.5c2.4-.6 4.6-.3 6.6.7"/></g></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 15l6-6 6 6"/></symbol>
     <symbol id="i-paste" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="3" width="8" height="4" rx="1"/><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-2"/></g></symbol>
   </defs>
 </svg>
@@ -409,6 +412,32 @@ body.car-on .ytbox{z-index:51}
       <div class="note"><b>Bilmen gerekenler.</b> Videolar YouTube'un kendi oynatıcısıyla çalar, indirme ya da ses ayıklama yapılmaz. Oynatıcı görünür kalmak zorundadır; başka sekmeye geçince köşede küçük pencere olarak durur. Ekran kapanınca ya da tarayıcı arka plana alınınca YouTube çalmayı durdurabilir. Kesit (başlangıç/bitiş) ve süre sınırı burada da çalışır; sessizlik atlama ve vokal azaltma çalışmaz.</div>
     </section>
 
+    <section class="view" id="v-sp" aria-label="Spotify">
+      <div class="spslot" id="spSlot">Listeden bir şarkı seç. Spotify oynatıcısı burada açılır.</div>
+      <div class="ytctl">
+        <button class="ib" id="spKaris" aria-label="Karışık çal"><svg class="ico"><use href="#i-shuffle"/></svg></button>
+        <button class="ib" id="spPrev" aria-label="Önceki"><svg class="ico"><use href="#i-prev"/></svg></button>
+        <button class="play" id="spPlayBtn" aria-label="Çal veya durdur"><svg class="ico"><use href="#i-play"/></svg></button>
+        <button class="ib" id="spNext" aria-label="Sonraki"><svg class="ico"><use href="#i-next"/></svg></button>
+        <button class="ib" id="spTekrar" aria-label="Liste bitince baştan"><svg class="ico"><use href="#i-repeat"/></svg></button>
+      </div>
+      <button class="btn" id="spApp" style="width:100%;margin:6px 0">Spotify uygulamasında aç · ekran kapalıyken de çalar</button>
+      <div class="sphesap" id="spHesap"></div>
+      <div class="ytadd">
+        <input id="spQ" type="search" placeholder="Spotify'da şarkı, sanatçı, albüm ara" autocomplete="off" aria-label="Spotify'da ara" enterkeyhint="search">
+        <button class="btn primary" id="spSearch"><svg class="ico"><use href="#i-search"/></svg>Ara</button>
+      </div>
+      <div class="ytres" id="spRes"></div>
+      <div class="ytadd">
+        <input id="spUrl" type="url" inputmode="url" placeholder="Spotify bağlantısını yapıştır (şarkı, albüm, liste)" autocomplete="off" aria-label="Spotify bağlantısı">
+        <button class="btn" id="spPaste" aria-label="Panodan yapıştır"><svg class="ico"><use href="#i-paste"/></svg></button>
+        <button class="btn primary" id="spAdd">Ekle</button>
+      </div>
+      <div class="sh"><h2>Spotify listem</h2><span class="muted small" id="spCount"></span></div>
+      <div id="spList"></div>
+      <div class="note"><b>Bilmen gerekenler.</b> Şarkılar Spotify'ın kendi oynatıcısıyla çalar; indirme yok. Bu tarayıcıda Spotify'a (open.spotify.com) giriş yaptıysan tam şarkı, yapmadıysan çoğu zaman 30 sn önizleme çalar. Ekran kapanınca durabilir; kesintisiz dinlemek için "Spotify uygulamasında aç". Ekolayzır, vokal ve sessizlik atlama Spotify'da çalışmaz.</div>
+    </section>
+
     <section class="view" id="v-eq" aria-label="Ekolayzır">
       <div class="panel">
         <div class="row2"><div><h2 style="font-size:19px">Vokal (yalnız müzik)</h2><div class="muted small">Ortaya kaydedilmiş vokali kısar ya da kapatır; bas, tiz ve stereo genişlik korunur. Çalma ekranında oynatma düğmelerinin altından <b>Tümü · Yalnız müzik · Yalnız sözler</b> seçilir. Stereo kayıtlarda etkilidir; yankı izi kalabilir. YouTube videolarında çalışmaz.</div></div>
@@ -447,6 +476,11 @@ body.car-on .ytbox{z-index:51}
           <div class="muted small" id="ytKeyState" style="margin-top:6px"></div></div>
       </div>
       <div class="panel">
+        <div><div>Spotify Client ID</div><div class="muted small" style="margin-bottom:8px">Yalnız Spotify sekmesinde arama, listelerim ve beğendiklerim için. Parola istenmez; giriş Spotify'ın kendi sayfasında yapılır. Bu telefonda saklanır.</div>
+          <div class="keyrow"><input id="spIdIn2" autocomplete="off" placeholder="32 karakterlik Client ID" aria-label="Spotify Client ID"><button class="btn sm" id="spIdSave">Kaydet</button></div>
+          <div class="muted small" id="spIdState" style="margin-top:6px"></div></div>
+      </div>
+      <div class="panel">
         <div class="row2"><div>Araç modu<div class="muted small">Büyük düğmeler, kaydırarak şarkı değiştirme, ekran açık kalır</div></div><button class="btn sm" id="btnCar2"><svg class="ico"><use href="#i-car"/></svg>Aç</button></div>
       </div>
       <div class="panel">
@@ -467,7 +501,9 @@ body.car-on .ytbox{z-index:51}
           <div class="chips" id="esikChips" style="margin-top:6px"><button class="chip" data-es="5">5 sn</button><button class="chip" data-es="8">8 sn</button><button class="chip" data-es="10">10 sn</button><button class="chip" data-es="15">15 sn</button></div></div></div>
         <div class="row2"><div>Normal çal<div class="muted small">Aralık, çalma içeriği ve süre sınırını tek dokunuşla kapatır; şarkılar baştan sona çalar. Şarkılara tek tek verdiğin kesitler korunur.</div></div><button class="btn sm" id="normalCal">Tümünü kapat</button></div>
         <div class="row2"><div>Yeni müzik hatırlatıcısı<div class="muted small">Birkaç günde bir "yeni indirdiğin müzik var mı?" diye sorar; seçtiklerinden yalnız yenileri eklenir. Dosyalar uygulamasında şarkıyı Paylaş → Musikisinaz ile de doğrudan ekleyebilirsin.</div></div><label class="sw"><input type="checkbox" id="yeniSorOn" aria-label="Yeni müzik hatırlatıcısı"><i></i></label></div>
-        <div class="row2"><div>Açılınca kaldığı yerden çal<div class="muted small">Son şarkı, son saniyesinden başlar. Telefon izin vermezse büyük "Çal" düğmesi çıkar</div></div><label class="sw"><input type="checkbox" id="autoPlayOn" aria-label="Açılınca kaldığı yerden çal"><i></i></label></div>
+        <div class="row2" style="align-items:flex-start"><div style="flex:1">Açılışta ne çalsın?<div class="muted small">"Sor": her açılışta yerel / YouTube / Spotify listesinden hangisini çalacağını sorar. Araç bağlantısıyla (?car=1) açılınca soru sorulmaz.</div>
+          <div class="chips" id="acilisChips" style="margin-top:8px;flex-wrap:wrap"><button class="chip" data-ac="sor">Sor</button><button class="chip" data-ac="yerel">Yerel</button><button class="chip" data-ac="yt">YouTube</button><button class="chip" data-ac="sp">Spotify</button><button class="chip" data-ac="yok">Çalma</button></div></div></div>
+        <div class="row2" hidden><div>Açılınca kaldığı yerden çal<div class="muted small">Son şarkı, son saniyesinden başlar. Telefon izin vermezse büyük "Çal" düğmesi çıkar</div></div><label class="sw"><input type="checkbox" id="autoPlayOn" aria-label="Açılınca kaldığı yerden çal"><i></i></label></div>
       </div>
       <div class="panel">
         <h2 style="font-size:19px">Görünüm</h2>
@@ -493,7 +529,7 @@ body.car-on .ytbox{z-index:51}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 3.5 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 3.6 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -509,6 +545,7 @@ body.car-on .ytbox{z-index:51}
       <button class="on" data-view="lib"><svg class="ico"><use href="#i-lib"/></svg>Kitaplık</button>
       <button data-view="queue"><svg class="ico"><use href="#i-queue"/></svg>Kuyruk</button>
       <button data-view="yt"><svg class="ico"><use href="#i-yt"/></svg>YouTube</button>
+      <button data-view="sp"><svg class="ico"><use href="#i-sp"/></svg>Spotify</button>
       <button data-view="eq"><svg class="ico"><use href="#i-eq"/></svg>Ekolayzır</button>
       <button data-view="set"><svg class="ico"><use href="#i-gear"/></svg>Ayarlar</button>
     </nav>
@@ -1202,7 +1239,7 @@ function watch(){
 }
 async function play(){
   if(!cur){if(lib.length)playList(lib.map(t=>t.id));return}
-  src='local';ytPauseIfPlaying();
+  src='local';ytPauseIfPlaying();try{spDur()}catch(e){}
   if(fxGerek())initGraph();
   /* dokunuş yokken resume() hiç dönmeyebilir: en çok 400 ms bekle */
   try{if(ctx&&ctx.state==='suspended')await Promise.race([ctx.resume(),new Promise(r=>setTimeout(r,400))])}catch(e){}
@@ -1796,7 +1833,7 @@ function ytState(e){
   if(ytExpanding){try{if(e.data===1)ytP.pauseVideo()}catch(x){}return}
   ytPlaying=e.data===1;
   if(e.data===1){
-    ytFail=0;skipRun=0;src='yt';if(!audio.paused)pause();
+    ytFail=0;skipRun=0;src='yt';store.set('ytSon',ytCur);try{spDur()}catch(x){}if(!audio.paused)pause();
     const it=ytCurItem();
     try{const d=ytP.getVideoData();if(it&&d&&d.title&&it.title!==d.title){it.title=d.title;it.author=d.author||'';saveP();renderYT()}}catch(x){}
   }
@@ -2497,6 +2534,7 @@ function showView(v){
   $$('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.view===v));
   if(v==='queue')renderQueue();
   if(v==='set'){renderStat();UI.sleep();UI.fx()}
+  if(v==='sp'){spCiz();spHesapCiz()}
   if(v==='yt'){renderYT();if(!ytNoEmbed&&!ytP)ytApi().catch(()=>{ytNoEmbed=true;renderYT()})}
   placeYT();
 }
@@ -2566,6 +2604,148 @@ function offlineSetup(){
   /* servis çalışanı kaydı sayfanın sonundaki ortak PWA betiğinde */
   window.addEventListener('offline',()=>toast('İnternet yok: kitaplıktaki şarkılar çalmaya devam eder'));
 }
+/* ---------- 3.6: SPOTIFY (resmi gömülü oynatıcı + isteğe bağlı Spotify girişiyle arama) ----------
+   Çalma Spotify'ın kendi gömülü oynatıcısıyla olur; indirme yok. Tarayıcıda Spotify'a giriş yapılmışsa tam şarkı,
+   yapılmamışsa Spotify'ın verdiği kadar (çoğu zaman 30 sn önizleme) çalar. Arama ve "listelerim" için Spotify girişi (PKCE) gerekir. */
+P.sp=(()=>{const a=store.get('sp',[]);return Array.isArray(a)?a.filter(x=>x&&/^(track|album|playlist|artist|episode|show)$/.test(x.t)&&/^[A-Za-z0-9]{10,40}$/.test(x.sid)):[]})();
+const spSave=()=>store.set('sp',P.sp);
+let spCtl=null,spApiP=null,spCur=-1,spPlaying=false,spSon={pos:0,dur:0,oynadi:false},spRes=[],spBekle=null;
+const spUri=x=>'spotify:'+x.t+':'+x.sid,spUrl=x=>'https://open.spotify.com/'+x.t+'/'+x.sid;
+const SP_TUR={track:'Şarkı',album:'Albüm',playlist:'Liste',artist:'Sanatçı',episode:'Bölüm',show:'Podcast'};
+function spParse(u){u=String(u||'').trim();let m=u.match(/^spotify:(track|album|playlist|artist|episode|show):([A-Za-z0-9]{10,40})$/);if(m)return{t:m[1],sid:m[2]};
+  m=u.match(/open\.spotify\.com\/(?:intl-[a-z-]+\/)?(?:embed\/)?(track|album|playlist|artist|episode|show)\/([A-Za-z0-9]{10,40})/);return m?{t:m[1],sid:m[2]}:null}
+function spEkle(x,sessiz){let i=P.sp.findIndex(y=>y.t===x.t&&y.sid===x.sid);if(i>=0){if(!sessiz)toast('Zaten listede');return i}
+  P.sp.push({id:uid(),t:x.t,sid:x.sid,title:x.title||'',author:x.author||'',img:x.img||''});spSave();i=P.sp.length-1;if(!x.title)spBaslik(P.sp[i]);spCiz();if(!sessiz)toast('Spotify listene eklendi');return i}
+function spBaglantiEkle(raw){const parts=String(raw||'').split(/\s+/).filter(Boolean);let n=0,dup=0,kisa=0;
+  parts.forEach(u=>{if(/spotify\.link|spoti\.fi/.test(u)){kisa++;return}const p=spParse(u);if(!p)return;if(P.sp.some(y=>y.t===p.t&&y.sid===p.sid)){dup++;return}spEkle(p,true);n++});
+  spCiz();if(n)$('#spUrl').value='';
+  toast(n?n+' bağlantı eklendi'+(dup?', '+dup+' tanesi zaten vardı':''):kisa?'Kısa bağlantı (spotify.link) açılamıyor: Spotify\'da Paylaş → "Bağlantıyı kopyala" yerine tarayıcıda açıp adres çubuğundaki open.spotify.com adresini kopyala':dup?'Zaten listede':'Geçerli bir Spotify bağlantısı bulunamadı')}
+function spBaslik(it){
+  fetch('https://open.spotify.com/oembed?url='+encodeURIComponent(spUrl(it))).then(r=>r.ok?r.json():null).then(d=>{if(d&&d.title&&!it.title){it.title=d.title;it.img=it.img||d.thumbnail_url||'';spSave();spCiz()}}).catch(()=>{})
+  .finally(()=>{if(!it.title&&spTok())spGet('/'+it.t+'s/'+it.sid).then(d=>{if(d&&d.name){it.title=d.name;it.author=spSanatci(d);it.img=it.img||spResim(d);spSave();spCiz()}}).catch(()=>{})})}
+const spSanatci=d=>((d.artists||[]).map(a=>a.name).join(', '))||(d.owner&&d.owner.display_name)||(d.show&&d.show.name)||(d.publisher)||'';
+const spResim=d=>{const im=(d.images&&d.images.length?d.images:(d.album&&d.album.images)||[]);return im.length?im[im.length-1].url:''};
+/* gömülü oynatıcı */
+function spApi(){if(spApiP)return spApiP;spApiP=new Promise((res,rej)=>{window.onSpotifyIframeApiReady=A=>res(A);const s=document.createElement('script');s.src='https://open.spotify.com/embed/iframe-api/v1';s.async=true;s.onerror=()=>{spApiP=null;rej(new Error('net'))};document.head.appendChild(s);setTimeout(()=>{spApiP=null;rej(new Error('Spotify oynatıcısı yüklenemedi (internet?)'))},15000)});return spApiP}
+async function spCal(i){const it=P.sp[i];if(!it)return;if(!navigator.onLine){toast('İnternet yok');return}
+  spCur=i;spSon={pos:0,dur:0,oynadi:false};store.set('spSon',i);spCiz();
+  try{if(!audio.paused)pause()}catch(e){}try{ytPauseIfPlaying()}catch(e){}
+  const yuk=it.t==='track'||it.t==='episode'?152:352;$('#spSlot').style.height=yuk+'px';
+  try{const A=await spApi();
+    if(!spCtl){$('#spSlot').innerHTML='<div id="spEl"></div>';await new Promise(ok=>A.createController($('#spEl'),{uri:spUri(it),width:'100%',height:yuk},c=>{spCtl=c;
+      c.addListener('playback_update',spDurum);c.addListener('ready',()=>{try{c.play()}catch(e){}});ok()}))}
+    else{spCtl.loadUri(spUri(it));try{const f=$('#spSlot iframe');if(f)f.style.height=yuk+'px'}catch(e){}setTimeout(()=>{try{spCtl.play()}catch(e){}},700)}
+  }catch(e){toast(e.message||'Spotify açılamadı');$('#spSlot').innerHTML='<div class="muted small" style="padding:14px">Spotify oynatıcısı açılamadı. <a href="'+spUrl(it)+'" target="_blank" rel="noopener">Spotify\'da aç</a></div>'}}
+function spDurum(e){const d=e&&e.data||{};const once=spPlaying;spPlaying=!d.isPaused&&!d.isBuffering;
+  if(spPlaying&&!once){try{if(!audio.paused)pause()}catch(x){}try{ytPauseIfPlaying()}catch(x){}}
+  if(d.duration>0&&d.position>1000)spSon.oynadi=true;
+  const it=P.sp[spCur];
+  if(it&&(it.t==='track'||it.t==='episode')&&d.isPaused&&spSon.oynadi&&spSon.dur>0&&spSon.pos>=spSon.dur-2500&&(d.position<1000||d.position>=d.duration-1500)){spSon={pos:0,dur:0,oynadi:false};spAdim(1,true);return}
+  spSon.pos=d.position||0;spSon.dur=d.duration||0;$('#spPlayBtn').innerHTML=ico(spPlaying?'pause':'play')}
+function spAdim(y,oto){if(!P.sp.length)return;let i=spCur<0?0:spCur+y;if(prefs.spKaris&&oto)i=Math.floor(Math.random()*P.sp.length);
+  if(i>=P.sp.length){if(oto&&!prefs.spTekrar){spPlaying=false;toast('Spotify listesi bitti');return}i=0}if(i<0)i=P.sp.length-1;spCal(i)}
+function spDur(){try{if(spCtl&&spPlaying)spCtl.pause()}catch(e){}}
+/* Spotify girişi (PKCE; parola uygulamaya girmez, Spotify'ın kendi sayfasında girilir) */
+const spDonus=()=>location.origin+location.pathname;
+const spTok=()=>{const t=store.get('spTok',null);return t&&t.a?t:null};
+async function spGiris(){const id=String(prefs.spId||'').trim();if(!/^[0-9a-f]{32}$/i.test(id)){spAnahtarSayfa();return}
+  if(!/^https:/.test(location.protocol)){toast('Spotify girişi yalnız https adresinde (GitHub) çalışır');return}
+  const ver=Array.from(crypto.getRandomValues(new Uint8Array(48)),b=>('0'+b.toString(16)).slice(-2)).join(''),st=Math.random().toString(36).slice(2);
+  const h=new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(ver))),ch=btoa(String.fromCharCode(...h)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  try{sessionStorage.setItem('spVer',ver);sessionStorage.setItem('spSt',st);localStorage.setItem('tini.spVer',JSON.stringify(ver))}catch(e){}
+  location.href='https://accounts.spotify.com/authorize?'+new URLSearchParams({client_id:id,response_type:'code',redirect_uri:spDonus(),code_challenge_method:'S256',code_challenge:ch,state:st,scope:'user-read-private playlist-read-private playlist-read-collaborative user-library-read'})}
+async function spDonusIsle(){const q=new URLSearchParams(location.search);if(!q.get('code')&&!q.get('error'))return;
+  const temiz=()=>{try{history.replaceState(null,'',location.pathname)}catch(e){}};
+  if(q.get('error')){temiz();toast('Spotify girişi iptal edildi');return}
+  let ver='';try{ver=sessionStorage.getItem('spVer')||JSON.parse(localStorage.getItem('tini.spVer')||'""')}catch(e){}
+  try{const r=await fetch('https://accounts.spotify.com/api/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({grant_type:'authorization_code',code:q.get('code'),redirect_uri:spDonus(),client_id:prefs.spId,code_verifier:ver})});
+    const d=await r.json();if(!r.ok||!d.access_token)throw new Error(d.error_description||d.error||r.status);
+    store.set('spTok',{a:d.access_token,r:d.refresh_token,exp:Date.now()+(d.expires_in-60)*1000});toast('Spotify\'a bağlanıldı');
+  }catch(e){toast('Spotify girişi olmadı: '+e.message)}
+  try{localStorage.removeItem('tini.spVer')}catch(e){}temiz();spHesapCiz();showView('sp')}
+async function spErisim(){const t=spTok();if(!t)return null;if(Date.now()<t.exp)return t.a;
+  try{const r=await fetch('https://accounts.spotify.com/api/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({grant_type:'refresh_token',refresh_token:t.r,client_id:prefs.spId})});const d=await r.json();if(!r.ok)throw 0;
+    store.set('spTok',{a:d.access_token,r:d.refresh_token||t.r,exp:Date.now()+(d.expires_in-60)*1000});return d.access_token}catch(e){store.set('spTok',null);spHesapCiz();return null}}
+async function spGet(yol){const a=await spErisim();if(!a)throw new Error('Spotify girişi gerekli');let r;try{r=await fetch('https://api.spotify.com/v1'+yol,{headers:{Authorization:'Bearer '+a}})}catch(e){throw new Error('İnternet yok')}
+  if(r.status===401){store.set('spTok',null);spHesapCiz();throw new Error('Spotify oturumu bitti, yeniden bağlan')}if(r.status===403)throw new Error('Spotify izin vermedi (403): geliştirici panelinde User Management\'a kendi e-postanı ekle');if(r.status===429)throw new Error('Çok sık istek; biraz sonra dene');
+  if(!r.ok)throw new Error('Spotify hatası ('+r.status+')');return r.json()}
+const spSonuc=(d,t)=>d&&d.id?{t:t,sid:d.id,title:d.name,author:spSanatci(d),img:spResim(d)}:null;
+async function spAra(){const q=($('#spQ').value||'').trim();if(!q){toast('Aranacak şarkıyı yaz');return}
+  if(!spTok()){openSheet('<h3>Uygulama içinde arama için Spotify girişi gerekir</h3><p class="muted small" style="margin:0 4px 10px;line-height:1.5">Şimdilik aramayı Spotify\'da açabilirsin; beğendiğin şarkının bağlantısını kopyalayıp buradaki kutuya yapıştır.</p><a class="si" href="https://open.spotify.com/search/'+encodeURIComponent(q)+'" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">'+ico('search')+'<span>Spotify\'da ara: '+esc(q)+'</span></a><button class="si" data-spg="1">'+ico('sp')+'<span>Spotify\'a bağlan (bir kez)</span></button>');return}
+  const box=$('#spRes');box.innerHTML='<p class="muted small" style="padding:8px 4px">Aranıyor…</p>';
+  try{const d=await spGet('/search?type=track,album,playlist,artist&limit=8&market=from_token&q='+encodeURIComponent(q));
+    spRes=[].concat((d.tracks&&d.tracks.items||[]).map(x=>spSonuc(x,'track')),(d.artists&&d.artists.items||[]).slice(0,3).map(x=>spSonuc(x,'artist')),(d.albums&&d.albums.items||[]).slice(0,5).map(x=>spSonuc(x,'album')),(d.playlists&&d.playlists.items||[]).slice(0,5).map(x=>spSonuc(x,'playlist'))).filter(Boolean);
+    spResCiz()}catch(e){box.innerHTML='<p class="small" style="padding:8px 4px;color:var(--danger)">'+esc(e.message)+'</p>'}}
+function spResCiz(baslik){const box=$('#spRes');if(!spRes.length){box.innerHTML='<p class="muted small" style="padding:8px 4px">Sonuç yok.</p>';return}
+  box.innerHTML='<div class="sh" style="margin-top:6px"><h2 style="font-size:16px">'+esc(baslik||'Arama sonuçları')+'</h2><span class="muted small">'+spRes.length+'</span><button class="btn sm" data-spall="1" style="margin-left:auto">Tümünü ekle</button><button class="btn sm" data-spkapa="1">Kapat</button></div>'+
+  spRes.map((x,i)=>'<div class="row" data-sri="'+i+'" role="button" tabindex="0"><div class="thumb yt" style="background:#111">'+(x.img?'<img src="'+esc(x.img)+'" alt="" loading="lazy" onerror="this.remove()">':'')+'</div><div style="min-width:0"><div class="t">'+(x.t!=='track'?'<span class="tag">'+SP_TUR[x.t]+'</span>':'')+esc(x.title)+'</div><div class="s">'+esc(x.author)+'</div></div><button class="act" data-sradd="'+i+'" aria-label="Listeye ekle">'+ico('plus')+'</button><button class="act pri" data-srplay="'+i+'" aria-label="Çal">'+ico('play')+'</button></div>').join('')}
+async function spKutuphane(ne){try{const box=$('#spRes');box.innerHTML='<p class="muted small" style="padding:8px 4px">Getiriliyor…</p>';
+    if(ne==='liste'){const d=await spGet('/me/playlists?limit=50');spRes=(d.items||[]).map(x=>spSonuc(x,'playlist')).filter(Boolean);spResCiz('Spotify listelerim')}
+    else{let out=[],yol='/me/tracks?limit=50&market=from_token';for(let k=0;k<4&&yol;k++){const d=await spGet(yol);out=out.concat((d.items||[]).map(x=>spSonuc(x.track,'track')).filter(Boolean));yol=d.next?d.next.replace('https://api.spotify.com/v1',''):''}spRes=out;spResCiz('Beğendiklerim (son '+out.length+')')}
+  }catch(e){toast(e.message)}}
+function spCiz(){const b=$('#spList');if(!b)return;$('#spCount').textContent=P.sp.length?P.sp.length+' kayıt':'';
+  if(!P.sp.length){b.innerHTML='<p class="muted small" style="padding:6px 2px">Liste boş. Spotify\'da şarkıyı aç → <b>Paylaş → Bağlantıyı kopyala</b> → buraya yapıştır. Spotify\'a bağlanırsan arayıp ekleyebilir, kendi listelerini ve beğendiklerini getirebilirsin.</p>';return}
+  b.innerHTML=P.sp.map((it,i)=>'<div class="row yr'+(i===spCur?' cur':'')+'" data-spi="'+i+'" role="button" tabindex="0"><div class="thumb yt" style="background:#111">'+(it.img?'<img src="'+esc(it.img)+'" alt="" loading="lazy" onerror="this.remove()">':'')+'</div><div style="min-width:0"><div class="t">'+(it.t!=='track'?'<span class="tag">'+SP_TUR[it.t]+'</span>':'')+esc(it.title||'Spotify '+SP_TUR[it.t].toLocaleLowerCase('tr'))+'</div><div class="s">'+esc(it.author||'Spotify')+'</div></div><span class="d"></span><button class="more" data-spmore="'+i+'" aria-label="Seçenekler">'+ico('more')+'</button></div>').join('')}
+function spTasi(i,y){const j=i+y;if(j<0||j>=P.sp.length)return;const x=P.sp.splice(i,1)[0];P.sp.splice(j,0,x);if(spCur===i)spCur=j;else if(spCur===j)spCur=i;spSave();spCiz()}
+function spSil(i){if(i===spCur){spDur();spCur=-1}else if(i<spCur)spCur--;P.sp.splice(i,1);spSave();spCiz();toast('Listeden çıkarıldı')}
+function spMenu(i){const it=P.sp[i];if(!it)return;menuSheet(it.title||'Spotify',[{icon:'play',label:'Çal',fn:()=>spCal(i)},{icon:'sp',label:'Spotify uygulamasında aç (arka planda çalar)',href:spUrl(it)},{icon:'up',label:'Yukarı taşı',fn:()=>spTasi(i,-1)},{icon:'down',label:'Aşağı taşı',fn:()=>spTasi(i,1)},{icon:'trash',label:'Listeden çıkar',cls:'danger',fn:()=>spSil(i)}])}
+function spHesapCiz(){const e=$('#spHesap');if(!e)return;const t=spTok();
+  e.innerHTML=t?'<span class="muted small">Spotify\'a bağlı</span><button class="btn sm" data-spk="liste">Listelerim</button><button class="btn sm" data-spk="begen">Beğendiklerim</button><button class="btn sm" data-spcik="1">Çıkış</button>':'<button class="btn sm" data-spg="1">'+ico('sp')+'Spotify\'a bağlan</button><span class="muted small">arama, listelerim ve beğendiklerim için (bir kez)</span>';
+  const k=$('#spIdState');if(k)k.textContent=prefs.spId?'Kayıtlı: '+prefs.spId.slice(0,6)+'…':'Client ID kayıtlı değil'}
+function spAnahtarSayfa(){openSheet('<h3>Spotify\'a bağlanmak için Client ID</h3><ol class="muted small" style="margin:0 4px 10px 18px;line-height:1.55;padding:0"><li><a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener">developer.spotify.com/dashboard</a> → kendi Spotify hesabınla gir → <b>Create app</b>.</li><li>Redirect URI kutusuna tam olarak şunu yaz: <b style="word-break:break-all">'+esc(spDonus())+'</b> · API olarak <b>Web API</b> işaretle → Save.</li><li><b>User Management</b>\'a kendi Spotify e-postanı ekle.</li><li><b>Client ID</b>\'yi kopyala, buraya yapıştır. (Client secret GEREKMEZ, girme.)</li></ol><div class="keyrow"><input id="spIdIn" autocomplete="off" placeholder="32 karakterlik Client ID" aria-label="Client ID"><button class="btn primary" data-spidk="1">Kaydet ve bağlan</button></div>')}
+document.getElementById('sheet').addEventListener('click',e=>{
+  if(e.target.closest('[data-spg]')){closeSheet();spGiris();return}
+  if(e.target.closest('[data-spidk]')){const v=($('#spIdIn').value||'').trim();if(!/^[0-9a-f]{32}$/i.test(v)){toast('Client ID 32 karakter (rakam ve a–f harfleri) olmalı');return}prefs.spId=v;savePrefs();closeSheet();spHesapCiz();spGiris()}});
+$('#spHesap').addEventListener('click',e=>{if(e.target.closest('[data-spg]'))spGiris();const k=e.target.closest('[data-spk]');if(k)spKutuphane(k.dataset.spk);if(e.target.closest('[data-spcik]')&&confirm('Spotify bağlantısı kaldırılsın mı? (Listen silinmez)')){store.set('spTok',null);spHesapCiz()}});
+$('#spSearch').addEventListener('click',spAra);
+$('#spQ').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();e.target.blur();spAra()}});
+$('#spAdd').addEventListener('click',()=>spBaglantiEkle($('#spUrl').value));
+$('#spUrl').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();spBaglantiEkle(e.target.value)}});
+$('#spPaste').addEventListener('click',async()=>{try{const t=await navigator.clipboard.readText();$('#spUrl').value=t;spBaglantiEkle(t)}catch(e){toast('Panoya erişilemedi: kutuya uzun basıp yapıştır')}});
+$('#spRes').addEventListener('click',e=>{if(e.target.closest('[data-spkapa]')){spRes=[];$('#spRes').innerHTML='';return}
+  if(e.target.closest('[data-spall]')){let n=0;spRes.forEach(x=>{if(!P.sp.some(y=>y.t===x.t&&y.sid===x.sid)){P.sp.push({id:uid(),t:x.t,sid:x.sid,title:x.title,author:x.author,img:x.img});n++}});spSave();spCiz();toast(n+' kayıt eklendi');return}
+  const a=e.target.closest('[data-sradd]');if(a){spEkle(spRes[+a.dataset.sradd]);return}
+  const p=e.target.closest('[data-srplay],[data-sri]');if(p){const x=spRes[+(p.dataset.srplay||p.dataset.sri)];if(x)spCal(spEkle(x,true))}});
+$('#spList').addEventListener('click',e=>{const m=e.target.closest('[data-spmore]');if(m){spMenu(+m.dataset.spmore);return}const r=e.target.closest('[data-spi]');if(r)spCal(+r.dataset.spi)});
+$('#spPrev').addEventListener('click',()=>spAdim(-1));$('#spNext').addEventListener('click',()=>spAdim(1));
+$('#spPlayBtn').addEventListener('click',()=>{if(spCtl&&spCur>=0){try{spCtl.togglePlay()}catch(e){}}else if(P.sp.length)spCal(Math.max(0,Math.min(P.sp.length-1,store.get('spSon',0))));else toast('Liste boş')});
+$('#spApp').addEventListener('click',()=>{const it=P.sp[spCur]||P.sp[0];window.open(it?spUrl(it):'https://open.spotify.com/','_blank','noopener')});
+$('#spKaris').addEventListener('click',()=>{prefs.spKaris=!prefs.spKaris;savePrefs();$('#spKaris').classList.toggle('on',prefs.spKaris);toast(prefs.spKaris?'Karışık çalma açık':'Sırayla çalar')});
+$('#spTekrar').addEventListener('click',()=>{prefs.spTekrar=!prefs.spTekrar;savePrefs();$('#spTekrar').classList.toggle('on',prefs.spTekrar);toast(prefs.spTekrar?'Liste bitince baştan':'Liste bitince durur')});
+$('#spIdSave').addEventListener('click',()=>{const v=($('#spIdIn2').value||'').trim();if(v&&!/^[0-9a-f]{32}$/i.test(v)){toast('Client ID 32 karakter olmalı');return}prefs.spId=v;savePrefs();$('#spIdIn2').value='';spHesapCiz();toast(v?'Kaydedildi':'Silindi')});
+$('#spKaris').classList.toggle('on',!!prefs.spKaris);$('#spTekrar').classList.toggle('on',!!prefs.spTekrar);
+spCiz();spHesapCiz();spDonusIsle();
+
+/* ---------- 3.6: açılışta ne çalsın? ---------- */
+function acilisCal(ne){
+  if(ne==='yerel'){if(lib.length)resumeLast();else toast('Yerel müzik yok')}
+  else if(ne==='yt'){if(!P.yt.length){toast('YouTube listen boş');return}showView('yt');const i=store.get('ytSon',0);ytPlay(i>=0&&i<P.yt.length?i:0)}
+  else if(ne==='sp'){if(!P.sp.length){toast('Spotify listen boş');return}showView('sp');const i=store.get('spSon',0);spCal(i>=0&&i<P.sp.length?i:0)}
+}
+function acilisSor(){
+  const S=[['yerel','Yerel müziklerim',lib.length?'Kaldığı yerden · '+lib.length+' şarkı':'Şarkı yok','lib',lib.length],['yt','YouTube listem',P.yt.length+' kayıt','yt',P.yt.length],['sp','Spotify listem',P.sp.length+' kayıt','sp',P.sp.length]];
+  openSheet('<h3>Nereden çalalım?</h3>'+S.map(s=>'<button class="si" data-acl="'+s[0]+'"'+(s[4]?'':' disabled style="opacity:.45"')+'>'+ico(s[3])+'<span>'+s[1]+'<br><span class="muted small">'+s[2]+'</span></span></button>').join('')+
+    '<button class="si" data-acl="yok">'+ico('close')+'<span>Şimdilik çalma</span></button><label class="muted small" style="display:flex;gap:8px;align-items:center;margin:8px 4px 0"><input type="checkbox" id="aclHat"> Seçimimi hatırla, bir daha sorma (Ayarlar\'dan değişir)</label>')}
+document.getElementById('sheet').addEventListener('click',e=>{const b=e.target.closest('[data-acl]');if(!b||b.disabled)return;const ne=b.dataset.acl;
+  if($('#aclHat')&&$('#aclHat').checked){prefs.acilis=ne;savePrefs();acilisAyarCiz()}closeSheet();if(ne!=='yok')acilisCal(ne)});
+function acilisAyarCiz(){$$('#acilisChips .chip').forEach(c=>c.classList.toggle('on',c.dataset.ac===(prefs.acilis||'sor')))}
+$('#acilisChips').addEventListener('click',e=>{const c=e.target.closest('[data-ac]');if(!c)return;prefs.acilis=c.dataset.ac;savePrefs();acilisAyarCiz();toast('Açılış: '+c.textContent)});
+acilisAyarCiz();
+function acilisBasla(carQ){const a=prefs.acilis||'sor';
+  if(a==='yok')return;
+  if(carQ){acilisCal(a==='yt'||a==='sp'?a:'yerel');return}   /* araçta soru sorulmaz */
+  if(a==='sor'){if(lib.length+P.yt.length+P.sp.length)acilisSor();return}
+  acilisCal(a)}
+
+/* ---------- 3.6: sekmeler arasında parmakla kaydırma ---------- */
+(function(){const SIRA=['lib','queue','yt','sp','eq','set'];let x0=0,y0=0,t0=0,on=false;const v=$('.views');
+  const engel=el=>el.closest('input,textarea,select,iframe,.chips,.ytslot,.spslot,.bands,.secbar,[data-noswipe],.row.sel')||(SEC&&SEC.mod);
+  v.addEventListener('touchstart',e=>{if(e.touches.length!==1||engel(e.target)){on=false;return}on=true;x0=e.touches[0].clientX;y0=e.touches[0].clientY;t0=Date.now()},{passive:true});
+  v.addEventListener('touchend',e=>{if(!on)return;on=false;const t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;
+    if(Date.now()-t0>700||Math.abs(dx)<70||Math.abs(dx)<Math.abs(dy)*2)return;
+    const i=SIRA.indexOf(ui.view),j=i+(dx<0?1:-1);if(i<0||j<0||j>=SIRA.length)return;
+    showView(SIRA[j]);const a=$('#v-'+SIRA[j]);if(a&&a.animate)a.animate([{transform:'translateX('+(dx<0?28:-28)+'px)',opacity:.4},{transform:'none',opacity:1}],{duration:180,easing:'ease-out'})},{passive:true})})();
+
 function init(){
   offlineSetup();
   if(NATIVE){
@@ -2579,6 +2759,7 @@ function init(){
   initMedia();UI.state();UI.sleep();
   if(prefs.wake)wake(true);
   if(!prefs.m27){prefs.m27=1;prefs.autoPlay=true;savePrefs();$('#autoPlayOn').checked=true}
+  if(!prefs.acilis){prefs.acilis=prefs.autoPlay===false?'yok':'sor';savePrefs();acilisAyarCiz()}
   const qp=new URLSearchParams(location.search),carQ=qp.get('car')==='1';
   /* 3.4: araç modu kendiliğinden açılmaz. Yalnız ?car=1 ile (telefon rutini: araç Bluetooth'una bağlanınca) ya da elle. */
   if(prefs.carAuto){prefs.carAuto=false;savePrefs()}
@@ -2586,7 +2767,7 @@ function init(){
   window.addEventListener('online',()=>{if(ui.view==='lib')renderLib()});
   window.addEventListener('offline',()=>{if(ui.view==='lib')renderLib()});
   loadLibrary().then(()=>{ytSync();ready=true;UI.refresh();UI.track();if(NATIVE)refreshNative(true);else autoScan();paylasimAl().then(()=>setTimeout(yeniSor,1500));
-    if(carQ||prefs.autoPlay)setTimeout(resumeLast,300)});
+    setTimeout(()=>acilisBasla(carQ),300)});
   setInterval(()=>{if(sleep.end){if(Date.now()>=sleep.end)sleepFire();else UI.sleep()}},1000);
   setInterval(watch,100);
 }
