@@ -3,8 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- seo -->
+<meta name="description" content="Tını: telefondaki şarkılarını çalan ücretsiz müzik çalar. 10 bant ekolayzır, vokal azaltma (yalnız müzik), sessizlik atlama, uyku zamanlayıcısı, araç modu, çalma listeleri, YouTube ve Spotify listeleri.">
+<meta name="keywords" content="müzik çalar, mp3 çalar, ekolayzır, vokal kaldırma, karaoke, uyku zamanlayıcısı, araç modu, çalma listesi, ücretsiz müzik uygulaması">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://aaskinkk-cloud.github.io/musikisinaz/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:site_name" content="Tını">
+<meta property="og:title" content="Tını — müzik çalar (ekolayzır, vokal azaltma, araç modu)">
+<meta property="og:description" content="Tını: telefondaki şarkılarını çalan ücretsiz müzik çalar. 10 bant ekolayzır, vokal azaltma (yalnız müzik), sessizlik atlama, uyku zamanlayıcısı, araç modu, çalma listeleri, YouTube ve Spotify listeleri.">
+<meta property="og:url" content="https://aaskinkk-cloud.github.io/musikisinaz/">
+<meta property="og:image" content="https://aaskinkk-cloud.github.io/musikisinaz/icon.svg">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Tını", "url": "https://aaskinkk-cloud.github.io/musikisinaz/", "description": "Tını: telefondaki şarkılarını çalan ücretsiz müzik çalar. 10 bant ekolayzır, vokal azaltma (yalnız müzik), sessizlik atlama, uyku zamanlayıcısı, araç modu, çalma listeleri, YouTube ve Spotify listeleri.", "applicationCategory": "MultimediaApplication", "operatingSystem": "Android, iOS, Windows, macOS (tarayıcı)", "inLanguage": "tr", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "TRY"}, "image": "https://aaskinkk-cloud.github.io/musikisinaz/icon.svg"}</script>
+<!-- /seo -->
 <meta name="theme-color" content="#0d1118">
-<title>Tını</title>
+<title>Tını — müzik çalar (ekolayzır, vokal azaltma, araç modu)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
 <style>
 /* Tını arayüz stilleri. Renkler :root içindeki değişkenlerden gelir. */
@@ -309,6 +324,7 @@ body.car-on .ytbox{z-index:51}
 <script async src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
 </head>
 <body>
+<noscript><h1>Tını</h1><p>Tını: telefondaki şarkılarını çalan ücretsiz müzik çalar. 10 bant ekolayzır, vokal azaltma (yalnız müzik), sessizlik atlama, uyku zamanlayıcısı, araç modu, çalma listeleri, YouTube ve Spotify listeleri.</p></noscript>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></symbol>
@@ -407,7 +423,7 @@ body.car-on .ytbox{z-index:51}
         <button class="btn" id="ytPaste" aria-label="Panodan yapıştır"><svg class="ico"><use href="#i-paste"/></svg></button>
         <button class="btn primary" id="ytAdd">Ekle</button>
       </div>
-      <div class="sh"><h2>YouTube listem</h2><span class="muted small" id="ytCount"></span><button class="btn sm" id="ytSecList" style="margin-left:auto">Seç</button></div>
+      <div class="sh"><h2>YouTube listem</h2><span class="muted small" id="ytCount"></span><button class="btn sm" id="ytPlSil" style="margin-left:auto" title="Bir YouTube listesinden gelen şarkıların hepsini kaldır">Listeyi kaldır</button><button class="btn sm" id="ytSecList">Seç</button></div>
       <div id="ytList"></div>
       <div class="note"><b>Bilmen gerekenler.</b> Videolar YouTube'un kendi oynatıcısıyla çalar, indirme ya da ses ayıklama yapılmaz. Oynatıcı görünür kalmak zorundadır; başka sekmeye geçince köşede küçük pencere olarak durur. Ekran kapanınca ya da tarayıcı arka plana alınınca YouTube çalmayı durdurabilir. Kesit (başlangıç/bitiş) ve süre sınırı burada da çalışır; sessizlik atlama ve vokal azaltma çalışmaz.</div>
     </section>
@@ -529,7 +545,7 @@ body.car-on .ytbox{z-index:51}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 3.6 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 3.8 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -1809,7 +1825,7 @@ async function ytExpand(i){
   const at=P.yt.indexOf(it);
   if(!ids.length||at<0){ytCur=-1;renderYT();toast('Liste okunamadı: gizli liste olabilir ya da internet yok. "Herkese açık" ya da "liste dışı" olmalı.');return}
   const have=new Set(P.yt.map(x=>x.vid).filter(Boolean)),add=[];
-  ids.forEach(v=>{if(/^[\w-]{11}$/.test(v)&&!have.has(v)){have.add(v);add.push({id:uid(),vid:v,title:'',author:'',s:0,e:0})}});
+  ids.forEach(v=>{if(/^[\w-]{11}$/.test(v)&&!have.has(v)){have.add(v);add.push({id:uid(),vid:v,title:'',author:'',s:0,e:0,kay:it.pl,kayAd:it.title||''})}});
   P.yt.splice(at,1,...add);saveP();
   add.slice(0,60).forEach(ytTitle);
   ytCur=-1;renderYT();
@@ -2070,6 +2086,7 @@ function ytMenu(i){
   if(i>0)items.push({icon:'next-up',label:'Yukarı taşı',fn:()=>{P.yt.splice(i,1);P.yt.splice(i-1,0,it);if(ytCur===i)ytCur--;else if(ytCur===i-1)ytCur++;saveP();renderYT()}});
   items.push({icon:'yt',label:'YouTube\'da aç',href:ytUrlOf(it)});
   items.push({icon:'trash',label:'Listeden çıkar',cls:'danger',fn:()=>ytRemove(i)});
+  if(it.kay){const n=P.yt.filter(x=>x.kay===it.kay).length;if(n>1)items.push({icon:'trash',label:'Bu listeden gelen '+n+' şarkının hepsini kaldır'+(it.kayAd?' ('+it.kayAd+')':''),cls:'danger',fn:()=>ytToplusil(P.yt.filter(x=>x.kay===it.kay).map(x=>x.id),it.kayAd||'bu liste')})}
   menuSheet(it.title||'YouTube videosu',items);
 }
 $('#ytList').addEventListener('click',e=>{
@@ -2078,6 +2095,43 @@ $('#ytList').addEventListener('click',e=>{
   const r=e.target.closest('[data-yi]');if(r){if(SEC.mod==='list')secDegis('list',+r.dataset.yi);else ytPlay(+r.dataset.yi)}
 });
 $('#ytList').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.dataset.yi!=null){e.preventDefault();ytPlay(+e.target.dataset.yi)}});
+
+/* 3.8: bir YouTube listesinden gelen şarkıların hepsini tek seferde kaldır (liste bağlantısıyla ya da şarkının menüsünden) */
+function ytToplusil(ids,ad){
+  const S_=new Set(ids);if(!S_.size){toast('Kaldırılacak şarkı bulunamadı');return}
+  if(!confirm(S_.size+' şarkı YouTube listenden kaldırılsın mı?'+(ad?'\n('+ad+')':'')))return;
+  const cur=P.yt[ytCur];if(cur&&S_.has(cur.id)){try{ytP&&ytReady&&ytP.stopVideo()}catch(e){}ytCur=-1;ytPlaying=false;if(src==='yt')src='local'}
+  P.yt=P.yt.filter(x=>!S_.has(x.id));if(cur&&!S_.has(cur.id))ytCur=P.yt.indexOf(cur);
+  saveP();try{ytSync()}catch(e){}if(SEC.mod==='list')secKapat();renderYT();placeYT();UI.state();toast(S_.size+' şarkı kaldırıldı');closeSheet();
+}
+function ytPlSilSheet(){
+  const gruplar={};P.yt.forEach(x=>{if(x.kay){(gruplar[x.kay]=gruplar[x.kay]||{ad:x.kayAd||'',n:0}).n++}});
+  const G=Object.entries(gruplar);
+  openSheet('<h3>YouTube listesini kaldır</h3>'+
+    (G.length?'<p class="muted small" style="margin:0 4px 8px">Bağlantıyla eklediğin listeler:</p>'+G.map(([k,g])=>'<button class="si danger" data-plsil="'+esc(k)+'">'+ico('trash')+'<span>'+esc(g.ad||'YouTube listesi')+' · '+g.n+' şarkı</span></button>').join(''):'')+
+    '<p class="muted small" style="margin:10px 4px 8px;line-height:1.5">Ya da listenin bağlantısını yapıştır: o listedeki şarkıların hepsi senin listenden kaldırılır (önceden eklediklerin de).</p>'+
+    '<div class="keyrow"><input id="plSilUrl" type="url" inputmode="url" placeholder="YouTube liste bağlantısı" autocomplete="off" aria-label="Liste bağlantısı"><button class="btn" data-plsilyap="1" style="color:var(--danger);border-color:var(--danger)">Kaldır</button></div>');
+}
+async function ytPlSilBag(raw){
+  const p=ytParse(String(raw||'').trim());if(!p){toast('Geçerli bir YouTube bağlantısı değil');return}
+  if(p.v&&!p.pl){const x=P.yt.find(y=>y.vid===p.v);if(x)ytToplusil([x.id],x.title);else toast('Bu video listende yok');return}
+  const etiketli=P.yt.filter(x=>x.kay===p.pl||x.pl===p.pl).map(x=>x.id);
+  let ids=null;
+  if(!ytNoEmbed&&navigator.onLine){
+    if(ytPlaying&&!confirm('Listedeki şarkıları okumak için çalan YouTube videosu durdurulacak. Devam?'))return;
+    toast('Liste YouTube\'dan okunuyor…');
+    try{await ytApi();await new Promise(r=>ytEnsure(r));ytP.cuePlaylist({list:p.pl,listType:'playlist',index:0});
+      for(let k=0;k<30&&!ids;k++){await new Promise(r=>setTimeout(r,400));try{const a=ytP.getPlaylist&&ytP.getPlaylist();if(Array.isArray(a)&&a.length)ids=a}catch(e){}}
+      try{ytP.stopVideo()}catch(e){}ytPlaying=false;
+    }catch(e){}
+  }
+  const vs=new Set(ids||[]),hepsi=new Set(etiketli);P.yt.forEach(x=>{if(x.vid&&vs.has(x.vid))hepsi.add(x.id)});
+  if(!hepsi.size){toast(ids?'Bu listedeki şarkıların hiçbiri listende yok':'Liste okunamadı (internet yok, gizli liste ya da oynatıcı açılamadı)');return}
+  ytToplusil([...hepsi],null);
+}
+$('#ytPlSil').addEventListener('click',ytPlSilSheet);
+$('#sheet').addEventListener('click',e=>{const b=e.target.closest('[data-plsil]');if(b){const k=b.dataset.plsil,g=P.yt.filter(x=>x.kay===k);ytToplusil(g.map(x=>x.id),g[0]&&g[0].kayAd);return}
+  if(e.target.closest('[data-plsilyap]'))ytPlSilBag(($('#plSilUrl')||{}).value)});
 $('#ytAdd').addEventListener('click',()=>ytAdd($('#ytUrl').value));
 $('#ytUrl').addEventListener('paste',()=>{setTimeout(()=>{const v=$('#ytUrl').value;if(/youtu/i.test(v))ytAdd(v)},0)});
 $('#ytUrl').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();ytAdd(e.target.value)}});
