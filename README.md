@@ -8,12 +8,13 @@ Tını: telefondaki şarkılarını çalan ücretsiz müzik çalar. 10 bant ekol
 
 | | |
 |---|---|
-| **Kitaplık** | Telefondaki şarkılar; şarkı, albüm, sanatçı ve liste görünümü |
+| **Kitaplık** | Telefondaki şarkılar; şarkı, albüm, sanatçı ve liste görünümü. 6 dakikadan uzun kayıtlar **Albüm** olur: dokununca içindeki şarkılar açılır, sırayla ya da kendi içinde karışık çalar |
 | **Ekolayzır** | 10 bant, ön yükseltme, bas güçlendirici, stereo denge |
 | **Vokal** | Tümü · Yalnız müzik (vokali azalt/kapat) · Yalnız sözler |
+| **Şarkı bölümleri** | Sözlü yerleri ya da müzik aralarını atlayarak çalma (bölümleri şarkının kendisinden bulur) |
 | **Akıllı çalma** | Sessizlik atlama, kesit (başlangıç-bitiş), süre sınırı, uyku zamanlayıcısı |
 | **Araç modu** | Büyük düğmeler, kaydırarak şarkı değiştirme |
-| **YouTube ve Spotify** | Resmi oynatıcılarla liste; bağlantı yapıştırarak ekleme; bir YouTube listesinden gelen şarkıların hepsini tek dokunuşla ya da liste bağlantısıyla kaldırma |
+| **YouTube ve Spotify** | Resmi oynatıcılarla liste; bağlantı yapıştırarak ekleme; YouTube listeleri başlık altında toplanır: sırayla ya da karışık çal, tek dokunuşla kaldır |
 
 ## Kurulum
 
@@ -33,6 +34,7 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**3.8** — YouTube listesinden gelen şarkıları toplu kaldırma (Listeyi kaldır düğmesi, şarkı menüsü ya da liste bağlantısı).  
+**3.9** — Albüm (6 dk+) alt listesi ve kendi içinde karışık çalma, YouTube listeleri başlık altında, sözlü/müzik bölümü bulma yenilendi, bölüm bölüm Ayarlar, "Telefondan da sil" yol göstericisi.  
+3.8 — YouTube listesinden gelen şarkıları toplu kaldırma (Listeyi kaldır düğmesi, şarkı menüsü ya da liste bağlantısı).  
 3.7 — Arama motorları için sayfa bilgileri ve README.  
 3.6 — Açılışta kaynak seçimi, sekmeler arası kaydırma, Spotify sekmesi.
