@@ -444,6 +444,22 @@ body.car-on .ytbox{z-index:51}
 .np-ses.acik .oz-ac{transform:rotate(180deg)}
 .np-ozet button.vk{border-color:var(--accent);color:var(--accent)}
 .np-ses>.np-ozet{border-top:0}
+/* 4.4: alt oynatıcı her zaman 2 satır; YouTube tam ekran çalma */
+.mini.kaynak{grid-template-columns:48px minmax(0,1fr) auto auto auto}
+.mini .ib{width:40px;height:40px}
+.ytnp{z-index:31}
+.ytnp-vw{flex:1 1 0;min-height:120px;width:100%;container-type:size;display:grid;place-items:center}
+.ytnp-vid{width:min(100cqw,calc(100cqh * 16 / 9));height:min(100cqh,calc(100cqw * 9 / 16));border-radius:14px;background:#000}
+.ytnp .np-ses>.hizrow{display:flex!important}
+.ytnp .fmt.yt{background:#c00;color:#fff;border-color:#c00}
+.ytnp .sn{font:800 13px/1 system-ui;color:var(--fg)}
+.ytnp .np-bilgi{border-top-color:#e00}
+.ytnp .hizrow{justify-content:flex-start;flex-wrap:nowrap;gap:5px}
+.ytnp .hizrow>span{flex:0 0 44px;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ytnp .hizrow button{padding:4px 0;flex:1;font-size:12.5px}
+.ytnp .np-ses{padding:8px 12px}
+#ytnpRep.on{color:var(--accent)}
+body.ytnp-acik .ytbox{z-index:60;border-radius:14px}
 </style>
 <script async src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
 </head>
@@ -670,7 +686,7 @@ body.car-on .ytbox{z-index:51}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 4.3 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 4.4 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -738,6 +754,38 @@ body.car-on .ytbox{z-index:51}
       <button class="ib" id="npCar" aria-label="Araç modu"><svg class="ico"><use href="#i-car"/></svg></button>
       <button class="ib" id="npCam" aria-label="Müzik çalarken video çek"><svg class="ico"><use href="#i-cam"/></svg></button>
       <button class="ib abb" id="npAB" aria-label="A-B tekrar" aria-pressed="false">A-B</button>
+    </div>
+  </div>
+</div>
+
+<div class="np ytnp" id="ytnp" aria-label="YouTube şimdi çalıyor">
+  <div class="np-in">
+    <div class="np-top">
+      <button class="ib" id="ytnpX" aria-label="Kapat"><svg class="ico"><use href="#i-down"/></svg></button>
+      <button class="np-ust" id="ytnpUst" aria-label="YouTube listesini aç"><span id="ytnpPos">YouTube</span><small id="ytnpSira"></small></button>
+      <button class="ib" id="ytnpMore" aria-label="Diğer seçenekler"><svg class="ico"><use href="#i-more"/></svg></button>
+    </div>
+    <div class="ytnp-vw"><div class="ytnp-vid" id="ytnpVid"></div></div>
+    <section class="npk np-bilgi" id="ytnpBilgi">
+      <div class="np-title"><div><h2 id="ytnpT"></h2><p><span id="ytnpS"></span><span class="fmt yt">YouTube</span></p></div><button class="ib" id="ytnpYt" aria-label="YouTube'da aç"><svg class="ico"><use href="#i-yt"/></svg></button></div>
+      <input type="range" id="ytnpSeek" min="0" max="1000" value="0" aria-label="Konum">
+      <div class="times"><span id="ytnpCur">0:00</span><span id="ytnpDur">0:00</span></div>
+    </section>
+    <div class="ctrl">
+      <button class="ib sn" id="ytnpGeri" aria-label="10 sn geri">−10</button>
+      <button class="ib" id="ytnpPrev" aria-label="Önceki"><svg class="ico"><use href="#i-prev"/></svg></button>
+      <button class="play" id="ytnpPlay" aria-label="Çal veya durdur"><svg class="ico"><use href="#i-play"/></svg></button>
+      <button class="ib" id="ytnpNext" aria-label="Sonraki"><svg class="ico"><use href="#i-next"/></svg></button>
+      <button class="ib sn" id="ytnpIleri" aria-label="10 sn ileri">+10</button>
+    </div>
+    <section class="npk np-ses">
+      <div class="hizrow" id="ytnpHiz" role="group" aria-label="Bu videonun hızı"><span>Hız</span><button data-yhz="1">1×</button><button data-yhz="1.1">1,1</button><button data-yhz="1.2">1,2</button><button data-yhz="1.3">1,3</button><button data-yhz="1.5">1,5</button></div>
+    </section>
+    <div class="sub npk">
+      <button class="ib" id="ytnpListe" aria-label="YouTube listesi"><svg class="ico"><use href="#i-list"/></svg></button>
+      <button class="ib" id="ytnpKes" aria-label="Başlangıç ve bitiş"><svg class="ico"><use href="#i-cut"/></svg></button>
+      <button class="ib" id="ytnpUyku" aria-label="Uyku zamanlayıcısı"><svg class="ico"><use href="#i-clock"/></svg></button>
+      <button class="ib" id="ytnpRep" aria-label="Tekrar"><svg class="ico"><use href="#i-repeat"/></svg></button>
     </div>
   </div>
 </div>
@@ -2031,14 +2079,15 @@ function placeYT(){
   const b=$('#ytBox');if(!b)return;
   const has=!!ytP&&ytCur>=0;
   let r=null,flt=false;
-  if(has&&carOn&&src==='yt'){
+  if(has&&!carOn&&window.ytNpAcik){const s=$('#ytnpVid').getBoundingClientRect();r={l:s.left,t:s.top,w:s.width,h:s.height};}
+  else if(has&&carOn&&src==='yt'){
     const m=$('#carMeta').getBoundingClientRect();
     let w=m.width,h=w*9/16;if(h>m.height){h=m.height;w=h*16/9}
     r={l:m.left+(m.width-w)/2,t:m.top+(m.height-h)/2,w:w,h:h};
   }else if(has&&!carOn&&ui.view==='yt'&&!npOpen){
     const s=$('#ytSlot').getBoundingClientRect();r={l:s.left,t:s.top,w:s.width,h:s.height};
   }else if(has&&!carOn&&src==='yt'){
-    const d=$('.dock').getBoundingClientRect(),w=Math.min(210,innerWidth*0.46),h=w*9/16;
+    const d=$('.dock').getBoundingClientRect(),w=Math.min(150,innerWidth*0.38),h=w*9/16;
     r={l:d.right-w,t:d.top-h-10,w:w,h:h};flt=true;
   }
   b.classList.toggle('show',!!r);b.classList.toggle('float',flt);
@@ -3248,8 +3297,10 @@ $('#npUst').addEventListener('click',()=>{closeNP();showView('queue')});
 
 /* --- YouTube / Spotify sekmesinde alt oynatıcı o kaynağın kumandası olur --- */
 let miniMod=null;
-function miniKaynak(){const m=$('#mini');if(!m)return;const mod=ui.view==='yt'?'yt':ui.view==='sp'?'sp':null;
-  if(!mod){if(miniMod){miniMod=null;m.classList.remove('kaynak');$('#miniPrev').hidden=true;miniMod=null;UI.track();UI.state()}return}
+var sonKaynak='local';
+function miniKaynak(){const m=$('#mini');if(!m)return;let mod=sonKaynak==='yt'&&src==='yt'&&ytCur>=0&&P.yt[ytCur]?'yt':sonKaynak==='sp'&&spCur>=0&&P.sp[spCur]?'sp':null;
+  if(!mod&&(ui.view==='yt'||ui.view==='sp')){miniMod='gizle';m.classList.remove('show','kaynak');return}
+  if(!mod){if(miniMod){miniMod=null;m.classList.remove('kaynak');$('#miniPrev').hidden=true;UI.track();UI.state()}return}
   miniMod=mod;m.classList.add('kaynak');const it=mod==='yt'?P.yt[ytCur]:P.sp[spCur];
   if(!it){m.classList.remove('show');return}
   m.classList.add('show');$('#miniPrev').hidden=false;
@@ -3258,10 +3309,10 @@ function miniKaynak(){const m=$('#mini');if(!m)return;const mod=ui.view==='yt'?'
   const img=mod==='yt'&&it.vid?'https://i.ytimg.com/vi/'+it.vid+'/mqdefault.jpg':(it.img||'');a.innerHTML=img?'<img src="'+esc(img)+'" alt="" style="width:100%;height:100%;object-fit:cover">':ico(mod);
   $('#miniPlay').innerHTML=ico((mod==='yt'?ytPlaying:spPlaying)?'pause':'play');
   let o=0;try{if(mod==='yt'&&ytReady&&ytP){const d=ytP.getDuration();o=d>0?ytNow()/d*100:0}else if(mod==='sp'&&spSon.dur>0)o=spSon.pos/spSon.dur*100}catch(e){}$('#miniProg').style.width=o+'%'}
-$('#mini').addEventListener('click',e=>{if(!miniMod)return;const b=e.target.closest('#miniPlay,#miniNext,#miniPrev,#miniMeta,#miniArt');if(!b)return;e.stopPropagation();e.preventDefault();const yt=miniMod==='yt';
+$('#mini').addEventListener('click',e=>{if(!miniMod||miniMod==='gizle')return;const b=e.target.closest('#miniPlay,#miniNext,#miniPrev,#miniMeta,#miniArt');if(!b)return;e.stopPropagation();e.preventDefault();const yt=miniMod==='yt';
   if(b.id==='miniPlay'){if(yt)ytToggle();else{const s=$('#spPlayBtn');if(s)s.click()}}
   else if(b.id==='miniNext'){yt?ytStep(1):spAdim(1)}else if(b.id==='miniPrev'){yt?ytStep(-1):spAdim(-1)}
-  else{const s=yt?$('#ytSlot'):$('#spSlot');if(s)s.scrollIntoView({behavior:'smooth',block:'center'})}
+  else{if(yt)ytnpAc();else showView('sp')}
   setTimeout(miniKaynak,500)},true);
 $('#miniPrev').addEventListener('click',()=>step(-1,false));
 {const _sv=showView;showView=function(v){const r=_sv.apply(this,arguments);try{miniKaynak()}catch(e){}return r}}
@@ -3378,6 +3429,46 @@ audio.addEventListener('seeked',()=>{if(gecisKis&&(audio.duration-audio.currentT
     O.querySelector('[data-oz="hz"] b').textContent=h?h.textContent:'1×';O.querySelector('[data-oz="ses"] b').textContent=vo?vo.value:'';};
   O.addEventListener('click',e=>{const b=e.target.closest('[data-oz]');if(!b)return;const ac=!S.classList.contains('acik')||b.dataset.oz==='ac'?!S.classList.contains('acik'):true;S.classList.toggle('acik',ac);store.set('npSesAcik',ac)});
   setInterval(oz,600);{const _o=openNP;openNP=function(){_o.apply(this,arguments);oz();requestAnimationFrame(()=>{const n=$('#np');if(S.classList.contains('acik')&&n.scrollHeight>n.clientHeight+2)S.classList.remove('acik')})}}})();
+/* ================= 4.4: YouTube tam ekran çalma ================= */
+var ytNpAcik=false;window.ytNpAcik=false;
+{const _yp=ytPlay;ytPlay=function(i,fromQ){sonKaynak='yt';return _yp.apply(this,arguments)}}
+{const _sc=spCal;spCal=function(){sonKaynak='sp';return _sc.apply(this,arguments)}}
+{const _pl=play;play=function(){if(src==='local')sonKaynak='local';return _pl.apply(this,arguments)}}
+{const _lc=loadCurrent;loadCurrent=function(){const t=byId.get(queue[qi]);if(t&&!t.yt)sonKaynak='local';return _lc.apply(this,arguments)}}
+function ytnpAc(){if(ytCur<0||!P.yt[ytCur])return;try{if(npOpen)closeNP()}catch(e){}ytNpAcik=window.ytNpAcik=true;document.body.classList.add('ytnp-acik');$('#ytnp').classList.add('open');ytnpCiz();setTimeout(placeYT,60);setTimeout(placeYT,400)}
+function ytnpKapat(){ytNpAcik=window.ytNpAcik=false;document.body.classList.remove('ytnp-acik');$('#ytnp').classList.remove('open');placeYT()}
+let ytnpSeek=false;
+function ytnpCiz(){if(!ytNpAcik)return;const it=P.yt[ytCur];if(!it){ytnpKapat();return}
+  $('#ytnpT').textContent=it.title||'YouTube videosu';$('#ytnpS').textContent=it.author||'';
+  $('#ytnpPos').textContent='YouTube · '+(ytCur+1)+' / '+P.yt.length;const n=P.yt[ytCur+1];$('#ytnpSira').textContent=n?'Sıradaki: '+(n.title||'YouTube videosu'):'Listenin sonu';
+  $('#ytnpPlay').innerHTML=ico(ytPlaying?'pause':'play');$('#ytnpRep').classList.toggle('on',prefs.repeat>0);
+  const d=ytDur(),c=ytNow();if(!ytnpSeek&&d>0)$('#ytnpSeek').value=Math.round(c/d*1000);$('#ytnpCur').textContent=fmt(c);$('#ytnpDur').textContent=fmt(d);
+  const v=+HIZ['y:'+it.id]||1;$$('#ytnpHiz [data-yhz]').forEach(b=>b.classList.toggle('on',+b.dataset.yhz===v))}
+setInterval(()=>{if(ytNpAcik&&!document.hidden){ytnpCiz();placeYT()}},500);
+$('#ytnpX').addEventListener('click',ytnpKapat);
+$('#ytnpUst').addEventListener('click',()=>{ytnpKapat();showView('yt')});
+$('#ytnpListe').addEventListener('click',()=>{ytnpKapat();showView('yt')});
+$('#ytnpMore').addEventListener('click',()=>{if(ytCur>=0)ytMenu(ytCur)});
+$('#ytnpYt').addEventListener('click',()=>{const it=P.yt[ytCur];if(it){try{ytP.pauseVideo()}catch(e){}window.open(ytUrlOf(it),'_blank','noopener')}});
+$('#ytnpPlay').addEventListener('click',()=>{ytToggle();setTimeout(ytnpCiz,300)});
+$('#ytnpPrev').addEventListener('click',()=>{ytStep(-1);setTimeout(ytnpCiz,400)});
+$('#ytnpNext').addEventListener('click',()=>{ytStep(1);setTimeout(ytnpCiz,400)});
+$('#ytnpGeri').addEventListener('click',()=>ytSeekBy(-10));$('#ytnpIleri').addEventListener('click',()=>ytSeekBy(10));
+$('#ytnpKes').addEventListener('click',()=>{const it=P.yt[ytCur];if(it)trimSheet('y',it.id)});
+$('#ytnpUyku').addEventListener('click',()=>$('#npSleep').click());
+$('#ytnpRep').addEventListener('click',()=>{prefs.repeat=((+prefs.repeat||0)+1)%3;savePrefs();try{UI.state()}catch(e){}toast(['Tekrar kapalı','Liste tekrar','Bu video tekrar'][prefs.repeat]);ytnpCiz()});
+const ys=$('#ytnpSeek');['pointerdown','touchstart'].forEach(e=>ys.addEventListener(e,()=>ytnpSeek=true,{passive:true}));
+ys.addEventListener('change',()=>{const d=ytDur();if(d>0){try{ytP.seekTo(ys.value/1000*d,true)}catch(e){}ytDoneLock=false}ytnpSeek=false});
+ys.addEventListener('input',()=>{const d=ytDur();if(d>0)$('#ytnpCur').textContent=fmt(ys.value/1000*d)});
+$('#ytnpHiz').addEventListener('click',e=>{const b=e.target.closest('[data-yhz]');const it=P.yt[ytCur];if(!b||!it)return;const v=+b.dataset.yhz,id='y:'+it.id;
+  if(v===1)delete HIZ[id];else HIZ[id]=v;store.set('hiz',HIZ);try{ytP.setPlaybackRate(v)}catch(x){}ytnpCiz();toast(v===1?'Normal hız':'Bu video hep '+String(v).replace('.',',')+'× çalar')});
+/* bilgi kartını sola/sağa kaydır: sonraki/önceki video */
+(function(){const w=$('#ytnpBilgi');let x0=0,y0=0,on=false;w.addEventListener('pointerdown',e=>{if(e.target.closest('input,button'))return;on=true;x0=e.clientX;y0=e.clientY});
+  w.addEventListener('pointerup',e=>{if(!on)return;on=false;const dx=e.clientX-x0,dy=e.clientY-y0;if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.5){ytStep(dx<0?1:-1);setTimeout(ytnpCiz,400)}});
+  w.addEventListener('pointercancel',()=>on=false)})();
+{const _ys=ytState;ytState=function(){const r=_ys.apply(this,arguments);try{ytnpCiz()}catch(e){}return r}}
+window.addEventListener('resize',()=>{if(ytNpAcik)placeYT()});
+
 function init(){
   offlineSetup();
   if(NATIVE){

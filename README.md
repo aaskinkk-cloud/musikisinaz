@@ -24,7 +24,7 @@ Tını: telefondaki şarkılarını çalan ücretsiz müzik çalar. 10 bant ekol
 | **Kaldığım yer** | 10 dk+ kayıtlar kaldığı saniyeden başlar |
 | **İstatistik** | Bugün, son 7 gün, en çok dinlenen şarkı ve sanatçılar |
 | **Ücretsiz sürümü bul** | İnternette ara → İnternet Arşivi (yasal, ücretsiz) ve YouTube'da bulur; tek dokunuşla listeye ekler |
-| **YouTube/Spotify sekmesi** | Alt oynatıcı o kaynağın kumandası olur: önceki · çal/durdur · sonraki |
+| **YouTube çalma ekranı** | Alt oynatıcı son çalan kaynağı (yerel / YouTube / Spotify) iki satırda gösterir; YouTube'da dokununca tam ekran: video, ilerleme, ±10 sn, önceki/sonraki, videoya özel hız, kesit, uyku, tekrar; bilgi kartını kaydırınca video değişir |
 | **Araç modu** | Büyük düğmeler, kaydırarak şarkı değiştirme |
 | **Sanatçıyla birlikte** | Sanatçı/albüm sayfasında ve aramada, YouTube listendeki aynı sanatçının şarkıları altta; hepsini birlikte çal |
 | **YouTube ve Spotify** | Resmi oynatıcılarla liste; bağlantı yapıştırarak ekleme; YouTube listeleri başlık altında toplanır: sırayla ya da karışık çal, tek dokunuşla kaldır |
@@ -47,7 +47,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**4.3** — Çalma ekranı her telefonda tek sayfa: İçerik/Hız/Ses özet düğmeleri, dokununca ayarlar açılır; yer kalmazsa kapak küçülür.  
+**4.4** — YouTube tam ekran çalma ekranı; alt oynatıcı her zaman 2 satır ve çalan kaynağı gösterir; küçük video kutusu küçüldü.  
+4.3 — Çalma ekranı her telefonda tek sayfa: İçerik/Hız/Ses özet düğmeleri, dokununca ayarlar açılır; yer kalmazsa kapak küçülür.  
 4.2 — Tek sayfa çalma ekranı, kaydırarak şarkı değiştirme, 6 dk+ kayıtta Sonraki listedeki şarkıya geçer ("tek şarkı" işareti), YouTube/Spotify sekmesinde kendi kumandası, ücretsiz sürüm bulma, A-B, geçiş, kaldığım yer, istatistik.  
 4.1 — Çalarken sanatçının/albümün diğer şarkılarını getir, benzer adlı sanatçıları birleştirme, basılı tut-sürükle sıralama, küçültünce ilk seferde susma düzeltmesi.  
 4.0 — Şarkıya özel hız, müzik çalarken video çekme, sanatçı sayfasında YouTube şarkıları ve birlikte çalma, uzun adlar alt satıra geçer.  
