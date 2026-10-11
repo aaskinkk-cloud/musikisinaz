@@ -724,7 +724,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 5.0 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 5.1 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -2169,7 +2169,7 @@ function ytKeyState(){
 }
 async function ytApiGet(q){
   const alb=/alb[uü]m|album/i.test(q);
-  const u='https://www.googleapis.com/youtube/v3/search?part=snippet&'+(alb?'type=video&videoDuration=long':'type=video,playlist')+'&maxResults=15&safeSearch=none&q='+encodeURIComponent(q)+'&key='+encodeURIComponent(prefs.ytKey);
+  const u='https://www.googleapis.com/youtube/v3/search?part=snippet&'+(alb?'type=video&videoDuration=long':'type=video,playlist')+'&maxResults=25&safeSearch=none&q='+encodeURIComponent(q)+'&key='+encodeURIComponent(prefs.ytKey);
   let r;try{r=await fetch(u)}catch(e){throw new Error('İnternet yok ya da bu ortam aramaya izin vermiyor')}
   const d=await r.json().catch(()=>({}));
   if(!r.ok){
@@ -3588,6 +3588,14 @@ try{const eski=store.get('gunluk',[]);if(Array.isArray(eski)&&eski.length){GUN.p
 setInterval(()=>{try{store.set('gunluk',GUN.slice(-60))}catch(e){}},5000);
 document.addEventListener('visibilitychange',()=>{try{store.set('gunluk',GUN.slice(-60))}catch(e){}});
 audio.addEventListener('playing',()=>{try{store.set('gunluk',GUN.slice(-60))}catch(e){}});
+/* --- 5.1: YouTube araması yalnız aradığın şarkıyı getirsin (sözcüklerin hepsi başlıkta geçmeli); diğerleri istersen --- */
+let ytDiger=[];
+const aramaSoz=q=>fold(String(q||'')).split(/[^a-z0-9]+/).filter(w=>w.length>1&&!/^(full|album|albüm|albm|official|video|klip|music|muzik|şarkı|sarki|ve|ile)$/.test(w));
+function ytUyar(q,x){const ws=aramaSoz(q);if(!ws.length)return true;const tk=fold((x.title||'')+' '+(x.author||'')).split(/[^a-z0-9]+/).filter(Boolean),hepsi=tk.join(' ');
+  return ws.every(w=>hepsi.indexOf(w)>=0||(w.length>=5&&tk.some(t=>lev1(w,t))))}
+{const _ag=ytApiGet;ytApiGet=async function(q){const r=await _ag.apply(this,arguments);const uy=r.filter(x=>ytUyar(q,x)),di=r.filter(x=>!ytUyar(q,x));ytDiger=uy.length?di:[];return uy.length?uy:r}}
+{const _rc=ytResCiz;ytResCiz=function(){_rc.apply(this,arguments);const box=$('#ytRes');if(box&&ytDiger.length&&ytResults.length)box.insertAdjacentHTML('beforeend','<button class="btn sm" data-ydiger="1" style="margin:8px 4px">Diğer sonuçları da göster ('+ytDiger.length+') — aradığın sözcüklerin hepsi geçmeyenler</button>')}}
+$('#ytRes').addEventListener('click',e=>{if(!e.target.closest('[data-ydiger]'))return;e.stopPropagation();ytResults=ytResults.concat(ytDiger);ytDiger=[];ytResCiz()},true);
 function init(){
   offlineSetup();
   if(NATIVE){

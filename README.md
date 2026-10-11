@@ -50,7 +50,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**5.0** — Seçerek ekleme, kaldırılan şarkıların hatırlanması, YouTube albüm araması ve listeden seçerek aktarma, ekran kapalıyken ağır inceleme yapılmaz, çalma günlüğü kalıcı.  
+**5.1** — YouTube aramasında yalnız yazdığın sözcüklerin hepsi geçen videolar gelir ("Mahmut Tuncer fazile" → yalnız Fazile); diğerleri "Diğer sonuçları da göster" ile.  
+5.0 — Seçerek ekleme, kaldırılan şarkıların hatırlanması, YouTube albüm araması ve listeden seçerek aktarma, ekran kapalıyken ağır inceleme yapılmaz, çalma günlüğü kalıcı.  
 4.9 — Ekran kapalıyken kesintisiz şarkı geçişi (bitişe 0,3 sn kala sıradakine geçer; oynatıcı durmaz, kilit ekranı kumandası kaybolmaz); arka planda ses motoru beklenmez.  
 4.8 — Ekran kapalıyken şarkı geçişinde ses kısık/sessiz kalma düzeltildi (yumuşak başlatma ve geçiş arka planda atlanır), çalma günlüğüne ses düzeyi ve sıra eklendi.  
 4.7 — Liste bitince durmaz: baştan sürer, karışıksa her turda yeniden karıştırılır (Ayarlar › Liste bitince: Devam et / Dur); ekran kapalıyken çalma engellenirse otomatik yeniden dener; takılma bekçisi.  
