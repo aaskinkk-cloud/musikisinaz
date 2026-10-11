@@ -712,7 +712,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 4.8 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 4.9 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -1454,7 +1454,7 @@ async function play(){
   src='local';ytPauseIfPlaying();try{spDur()}catch(e){}
   if(fxGerek())initGraph();
   /* dokunuş yokken resume() hiç dönmeyebilir: en çok 400 ms bekle */
-  try{if(ctx&&ctx.state==='suspended')await Promise.race([ctx.resume(),new Promise(r=>setTimeout(r,400))])}catch(e){}
+  try{if(ctx&&ctx.state==='suspended'){const r=ctx.resume();if(!document.hidden)await Promise.race([r,new Promise(x=>setTimeout(x,400))])}}catch(e){}
   try{
     clearInterval(fadeT);fadeT=null;
     setVol(prefs.fade&&!document.hidden?0:volLevel());
@@ -1463,7 +1463,7 @@ async function play(){
   }catch(e){
     setVol(volLevel());
     if(e&&e.name==='NotAllowedError'){const n=(window.__plR=(window.__plR||0)+1);if(n<=4){try{gunYaz('çalma engellendi, yeniden deneniyor ('+n+')')}catch(x){}setTimeout(()=>{try{ctx&&ctx.resume()}catch(x){}if(audio.paused&&cur)play()},[500,1500,3000,6000][n-1]);return}window.__plR=0;toast('Çalmak için oynat düğmesine dokun');needTap(true)}
-    else if(e&&e.name!=='AbortError')onPlayError();
+    else if(e&&e.name!=='AbortError'){try{gunYaz('çalma hatası: '+e.name)}catch(x){}onPlayError()}
   }
 }
 function pause(){
@@ -3533,6 +3533,11 @@ function sesDuzelt(){if(src!=='local'||audio.paused||(fadeT&&!document.hidden))r
 audio.addEventListener('playing',()=>{if(document.hidden)sesDuzelt();setTimeout(sesDuzelt,1500)});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){gecisKis=false;sesDuzelt()}});
 audio.addEventListener('playing',()=>{try{gunYaz('çalıyor · ses %'+Math.round(audio.volume*100)+' · sıra '+(qi+1)+'/'+queue.length)}catch(e){}});
+/* --- 4.9: ekran kapalıyken şarkı geçişi kesintisiz: bitişe 0,3 sn kala sıradakine geç (oynatıcı hiç "durmuş" olmaz, kilit ekranı kumandası kaybolmaz) --- */
+audio.addEventListener('timeupdate',()=>{if(!document.hidden||src!=='local'||!cur||audio.paused||doneLock||prefs.repeat===2||AK.id||AB.b!=null||sleep.after)return;
+  const d=audio.duration;if(!isFinite(d)||d<5)return;if(d-audio.currentTime<0.35){try{gunYaz('arka planda kesintisiz geçiş')}catch(e){}try{if(ctx&&ctx.state!=='running')ctx.resume()}catch(e){}trackDone()}});
+audio.addEventListener('ended',()=>{try{if(ctx&&ctx.state!=='running')ctx.resume()}catch(e){}},true);
+audio.addEventListener('playing',()=>{try{if(ctx)gunYaz('ses motoru: '+ctx.state)}catch(e){}});
 function init(){
   offlineSetup();
   if(NATIVE){
