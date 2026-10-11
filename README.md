@@ -26,6 +26,8 @@ Tını: telefondaki şarkılarını çalan ücretsiz müzik çalar. 10 bant ekol
 | **Ücretsiz sürümü bul** | İnternette ara → İnternet Arşivi (yasal, ücretsiz) ve YouTube'da bulur; tek dokunuşla listeye ekler |
 | **YouTube çalma ekranı** | Alt oynatıcı son çalan kaynağı (yerel / YouTube / Spotify) iki satırda gösterir; YouTube'da dokununca tam ekran: video, ilerleme, ±10 sn, önceki/sonraki, videoya özel hız, kesit, uyku, tekrar; bilgi kartını kaydırınca video değişir |
 | **Basit mod** | Ayarlar › Görünüm › Basit mod: büyük yazı ve düğmeler; kuyruk, ekolayzır ve ayrıntılı ayarlar gizlenir (silinmez). Üstteki "Basit ✕" ile tek dokunuşla çıkılır |
+| **Seçerek ekleme** | Birden çok dosya eklerken liste açılır, istediklerini işaretlersin; kitaplıktan kaldırdıkların işaretsiz gelir, "Yeniden tara" onları geri getirmez |
+| **YouTube albüm** | "albüm/album" içeren aramada yalnız uzun tek videolar (tam albüm) gelir; oynatma listesi aktarılırken hangi videoların alınacağını seçersin |
 | **Araç modu** | Büyük düğmeler, kaydırarak şarkı değiştirme |
 | **Sanatçıyla birlikte** | Sanatçı/albüm sayfasında ve aramada, YouTube listendeki aynı sanatçının şarkıları altta; hepsini birlikte çal |
 | **YouTube ve Spotify** | Resmi oynatıcılarla liste; bağlantı yapıştırarak ekleme; YouTube listeleri başlık altında toplanır: sırayla ya da karışık çal, tek dokunuşla kaldır |
@@ -48,7 +50,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**4.9** — Ekran kapalıyken kesintisiz şarkı geçişi (bitişe 0,3 sn kala sıradakine geçer; oynatıcı durmaz, kilit ekranı kumandası kaybolmaz); arka planda ses motoru beklenmez.  
+**5.0** — Seçerek ekleme, kaldırılan şarkıların hatırlanması, YouTube albüm araması ve listeden seçerek aktarma, ekran kapalıyken ağır inceleme yapılmaz, çalma günlüğü kalıcı.  
+4.9 — Ekran kapalıyken kesintisiz şarkı geçişi (bitişe 0,3 sn kala sıradakine geçer; oynatıcı durmaz, kilit ekranı kumandası kaybolmaz); arka planda ses motoru beklenmez.  
 4.8 — Ekran kapalıyken şarkı geçişinde ses kısık/sessiz kalma düzeltildi (yumuşak başlatma ve geçiş arka planda atlanır), çalma günlüğüne ses düzeyi ve sıra eklendi.  
 4.7 — Liste bitince durmaz: baştan sürer, karışıksa her turda yeniden karıştırılır (Ayarlar › Liste bitince: Devam et / Dur); ekran kapalıyken çalma engellenirse otomatik yeniden dener; takılma bekçisi.  
 4.6 — Kesik kesik çalma düzeltmesi (sistem durdurunca zorla yeniden çalma kaldırıldı), kilit ekranı kumandası her çalışta yeniden kurulur (YouTube dahil), Ayarlar'da çalma günlüğü, A-B en az 3 sn.  

@@ -484,6 +484,18 @@ body.basit .np .ctrl .ib{width:54px;height:54px}
 body.basit .np .times{font-size:14px}
 body.basit .ytnp .np-ses{display:none}
 body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
+/* 5.0 seçerek ekleme */
+.eks-ust{display:flex;gap:6px;align-items:center;margin:0 2px 8px;flex-wrap:wrap}
+.eks-ust .muted{flex:1 1 100%;font-size:12.5px}
+.eks-l{max-height:52vh;overflow:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.eks{display:flex;align-items:center;gap:10px;padding:9px 10px;border-top:1px solid var(--line);cursor:pointer}
+.eks:first-child{border-top:0}
+.eks input{width:20px;height:20px;accent-color:var(--accent);flex:0 0 auto}
+.eks span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
+.eks small{color:var(--muted);font-size:11.5px;flex:0 0 auto}
+.eks.kal span{color:var(--muted)}
+.eks-alt{position:sticky;bottom:0;display:flex;gap:8px;padding-top:10px;background:var(--surface)}
+.eks-alt .btn{flex:1;justify-content:center}
 </style>
 <script async src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
 </head>
@@ -712,7 +724,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 4.9 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 5.0 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -983,8 +995,12 @@ async function addFiles(files,quiet){
   /* Yeni dosyalar listenin başına gelir: en yeni dosya en üstte */
   list.sort((a,b)=>(b.lastModified||0)-(a.lastModified||0));
   const known=new Set(lib.map(t=>t.key));
-  const fresh=list.filter(f=>!known.has(f.name+'|'+f.size));
+  let fresh=list.filter(f=>!known.has(f.name+'|'+f.size));
+  const KAL=new Set(store.get('kaldirilan',[]));
+  if(quiet)fresh=fresh.filter(f=>!KAL.has(f.name+'|'+f.size));
+  else if(fresh.length>1){if(importing){toast('Önceki ekleme sürüyor');return 0}fresh=await eklemeSec(fresh,KAL);if(!fresh||!fresh.length)return 0}
   if(!fresh.length){if(!quiet)toast('Yeni şarkı yok, kitaplık güncel');return 0}
+  {let deg=false;fresh.forEach(f=>{if(KAL.delete(f.name+'|'+f.size))deg=true});if(deg)store.set('kaldirilan',[...KAL])}
   try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
   importing=true;let n=0,skip=list.length-fresh.length;
   const batchBase=Date.now(),total=fresh.length;
@@ -1536,6 +1552,7 @@ async function removeTrack(id){
   lib.splice(lib.indexOf(t),1);byId.delete(id);
   if(t.coverUrl&&!t.native)URL.revokeObjectURL(t.coverUrl);
   if(t.native)P.hidden.add(id);
+  else if(t.key){try{const K=store.get('kaldirilan',[]);if(K.indexOf(t.key)<0){K.push(t.key);store.set('kaldirilan',K.slice(-3000))}}catch(e){}}
   P.favs.delete(id);delete P.plays[id];delete P.trims[id];P.recent=P.recent.filter(x=>x!==id);
   P.lists.forEach(l=>{l.ids=l.ids.filter(x=>x!==id)});saveP();
   if(persistOK&&!t.native){try{await dbDo('readwrite',s=>s.delete(id))}catch(e){}}
@@ -2020,8 +2037,9 @@ async function ytExpand(i){
   ytExpanding=false;
   const at=P.yt.indexOf(it);
   if(!ids.length||at<0){ytCur=-1;renderYT();toast('Liste okunamadı: gizli liste olabilir ya da internet yok. "Herkese açık" ya da "liste dışı" olmalı.');return}
-  const have=new Set(P.yt.map(x=>x.vid).filter(Boolean)),add=[];
+  const have=new Set(P.yt.map(x=>x.vid).filter(Boolean));let add=[];
   ids.forEach(v=>{if(/^[\w-]{11}$/.test(v)&&!have.has(v)){have.add(v);add.push({id:uid(),vid:v,title:'',author:'',s:0,e:0,kay:it.pl,kayAd:it.title||''})}});
+  if(add.length>1){ytCur=-1;renderYT();add=await ytListeSec(add,it.title||'YouTube listesi');if(!add){toast('Aktarma iptal edildi; liste olduğu gibi duruyor');return}}
   P.yt.splice(at,1,...add);saveP();
   add.slice(0,60).forEach(ytTitle);
   ytCur=-1;renderYT();
@@ -2150,7 +2168,8 @@ function ytKeyState(){
   $('#ytKeyState').textContent=k?'Kayıtlı: '+k.slice(0,6)+'…'+k.slice(-4):'Anahtar kayıtlı değil';
 }
 async function ytApiGet(q){
-  const u='https://www.googleapis.com/youtube/v3/search?part=snippet&type=video,playlist&maxResults=15&safeSearch=none&q='+encodeURIComponent(q)+'&key='+encodeURIComponent(prefs.ytKey);
+  const alb=/alb[uü]m|album/i.test(q);
+  const u='https://www.googleapis.com/youtube/v3/search?part=snippet&'+(alb?'type=video&videoDuration=long':'type=video,playlist')+'&maxResults=15&safeSearch=none&q='+encodeURIComponent(q)+'&key='+encodeURIComponent(prefs.ytKey);
   let r;try{r=await fetch(u)}catch(e){throw new Error('İnternet yok ya da bu ortam aramaya izin vermiyor')}
   const d=await r.json().catch(()=>({}));
   if(!r.ok){
@@ -3538,6 +3557,37 @@ audio.addEventListener('timeupdate',()=>{if(!document.hidden||src!=='local'||!cu
   const d=audio.duration;if(!isFinite(d)||d<5)return;if(d-audio.currentTime<0.35){try{gunYaz('arka planda kesintisiz geçiş')}catch(e){}try{if(ctx&&ctx.state!=='running')ctx.resume()}catch(e){}trackDone()}});
 audio.addEventListener('ended',()=>{try{if(ctx&&ctx.state!=='running')ctx.resume()}catch(e){}},true);
 audio.addEventListener('playing',()=>{try{if(ctx)gunYaz('ses motoru: '+ctx.state)}catch(e){}});
+/* --- 5.0: eklerken seçim; kaldırdığın şarkılar işaretsiz gelir --- */
+function secimSheet(baslik,aciklama,ogeler,onay){return new Promise(res=>{let bitti=false;const son=v=>{if(bitti)return;bitti=true;res(v)};
+  openSheet('<h3>'+esc(baslik)+'</h3><div class="eks-ust"><span class="muted">'+aciklama+'</span><button class="btn sm" data-eks="hepsi">Tümünü seç</button><button class="btn sm" data-eks="hic">Hiçbiri</button></div>'+
+    '<div class="eks-l">'+ogeler.map((o,i)=>'<label class="eks'+(o.kal?' kal':'')+'"><input type="checkbox" data-eki="'+i+'"'+(o.sec?' checked':'')+'><span>'+esc(o.ad)+'</span><small>'+esc(o.not||'')+'</small></label>').join('')+'</div>'+
+    '<div class="eks-alt"><button class="btn" data-eks="iptal">Vazgeç</button><button class="btn primary" data-eks="tamam">'+esc(onay)+' (<b id="eksN">0</b>)</button></div>');
+  const sh=$('#sheet'),say=()=>{const n=sh.querySelectorAll('[data-eki]:checked').length;const b=$('#eksN');if(b)b.textContent=n};say();
+  const h=e=>{const b=e.target.closest('[data-eks]');if(e.target.closest('[data-eki]')){setTimeout(say,0);return}if(!b)return;e.stopPropagation();const v=b.dataset.eks;
+    if(v==='hepsi'||v==='hic'){sh.querySelectorAll('[data-eki]').forEach(c=>c.checked=v==='hepsi');say();return}
+    sh.removeEventListener('click',h,true);if(v==='iptal'){closeSheet();son(null);return}
+    const sec=[...sh.querySelectorAll('[data-eki]:checked')].map(c=>ogeler[+c.dataset.eki].v);closeSheet();son(sec)};
+  sh.addEventListener('click',h,true);
+  const sc=$('#scrim');const k=()=>{sc.removeEventListener('click',k);sh.removeEventListener('click',h,true);son(null)};sc.addEventListener('click',k)})}
+const boyut=b=>b>1048576?(b/1048576).toFixed(1).replace('.',',')+' MB':Math.round(b/1024)+' KB';
+async function eklemeSec(fresh,KAL){
+  const yeni=fresh.filter(f=>!KAL.has(f.name+'|'+f.size)),eski=fresh.filter(f=>KAL.has(f.name+'|'+f.size));
+  const og=yeni.map(f=>({v:f,ad:f.name.replace(EXT,''),not:boyut(f.size),sec:true})).concat(eski.map(f=>({v:f,ad:f.name.replace(EXT,''),not:'daha önce kaldırmıştın',sec:false,kal:true})));
+  return secimSheet('Eklenecek şarkıları seç',fresh.length+' yeni dosya'+(eski.length?' · daha önce kaldırdığın '+eski.length+' tanesi işaretsiz':'')+'. Kitaplıkta olanlar zaten atlandı.',og,'Seçilenleri ekle')}
+async function ytListeSec(add,ad){
+  const og=add.map(x=>({v:x,ad:x.title||('Video '+x.vid),not:'',sec:true}));
+  const p=secimSheet('"'+ad+'" listesinden seç',add.length+' video. Yalnız istediğin albüm ya da şarkıları işaretle.',og,'Seçilenleri aktar');
+  /* adları arka planda getir */
+  add.slice(0,80).forEach((x,i)=>{fetch('https://www.youtube.com/oembed?format=json&url='+encodeURIComponent('https://www.youtube.com/watch?v='+x.vid)).then(r=>r.ok?r.json():null).then(d=>{if(!d||!d.title)return;x.title=d.title;x.author=d.author_name||'';const el=$('#sheet [data-eki="'+i+'"]');if(el)el.parentElement.querySelector('span').textContent=d.title}).catch(()=>{})});
+  return p}
+
+/* --- 5.0: ekran kapalıyken ağır inceleme yapılmaz (telefon belleği dolup sayfayı kapatıyordu) + günlük kalıcı --- */
+{const _an=analiz;analiz=function(t,tur){if(document.hidden){(analiz._bek=analiz._bek||[]).push([t,tur]);return Promise.resolve()}return _an.apply(this,arguments)}}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&analiz._bek&&analiz._bek.length){const b=analiz._bek.splice(0);setTimeout(()=>b.forEach(x=>{if(cur&&x[0].id===cur.id)analiz(x[0],x[1])}),1500)}});
+try{const eski=store.get('gunluk',[]);if(Array.isArray(eski)&&eski.length){GUN.push(...eski.slice(-40));GUN.push([new Date().toLocaleTimeString('tr-TR'),'— uygulama yeniden açıldı (önceki satırlar önceki oturumdan)','',''])}}catch(e){}
+setInterval(()=>{try{store.set('gunluk',GUN.slice(-60))}catch(e){}},5000);
+document.addEventListener('visibilitychange',()=>{try{store.set('gunluk',GUN.slice(-60))}catch(e){}});
+audio.addEventListener('playing',()=>{try{store.set('gunluk',GUN.slice(-60))}catch(e){}});
 function init(){
   offlineSetup();
   if(NATIVE){
