@@ -47,7 +47,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**4.2** — Tek sayfa çalma ekranı, kaydırarak şarkı değiştirme, 6 dk+ kayıtta Sonraki listedeki şarkıya geçer ("tek şarkı" işareti), YouTube/Spotify sekmesinde kendi kumandası, ücretsiz sürüm bulma, A-B, geçiş, kaldığım yer, istatistik.  
+**4.3** — Çalma ekranı her telefonda tek sayfa: İçerik/Hız/Ses özet düğmeleri, dokununca ayarlar açılır; yer kalmazsa kapak küçülür.  
+4.2 — Tek sayfa çalma ekranı, kaydırarak şarkı değiştirme, 6 dk+ kayıtta Sonraki listedeki şarkıya geçer ("tek şarkı" işareti), YouTube/Spotify sekmesinde kendi kumandası, ücretsiz sürüm bulma, A-B, geçiş, kaldığım yer, istatistik.  
 4.1 — Çalarken sanatçının/albümün diğer şarkılarını getir, benzer adlı sanatçıları birleştirme, basılı tut-sürükle sıralama, küçültünce ilk seferde susma düzeltmesi.  
 4.0 — Şarkıya özel hız, müzik çalarken video çekme, sanatçı sayfasında YouTube şarkıları ve birlikte çalma, uzun adlar alt satıra geçer.  
 3.9 — Albüm (6 dk+) alt listesi ve kendi içinde karışık çalma, YouTube listeleri başlık altında, sözlü/müzik bölümü bulma yenilendi, bölüm bölüm Ayarlar, "Telefondan da sil" yol göstericisi.  

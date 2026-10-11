@@ -430,6 +430,20 @@ body.car-on .ytbox{z-index:51}
 .ist-b{margin:12px 2px 4px;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .ist-s{display:flex;align-items:center;gap:10px;padding:7px 4px;width:100%}
 .ist-s b{width:20px;color:var(--accent)}.ist-s span{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;text-align:left}.ist-s small{color:var(--muted)}
+/* 4.3: çalma ekranı her telefonda tek sayfa — ayarlar katlanır, kapak kalan yere sığar */
+.np{overflow-x:hidden;overflow-y:auto}
+.np-in{min-height:0!important;height:100%}
+.np-artw{min-height:0!important}
+@container (max-height:64px){.np-art{display:none!important}}
+.np-ses:not(.acik)>.npr,.np-ses:not(.acik)>.vokalt,.np-ses:not(.acik)>.hizrow{display:none!important}
+.np-ozet{display:flex;gap:6px;align-items:stretch}
+.np-ozet button{flex:1;min-width:0;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:12px;padding:5px 6px;display:flex;flex-direction:column;align-items:center;gap:1px;font:inherit;cursor:pointer}
+.np-ozet small{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.np-ozet b{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.np-ozet .oz-ac{flex:0 0 42px;justify-content:center;font-size:16px;color:var(--accent);transition:transform .2s}
+.np-ses.acik .oz-ac{transform:rotate(180deg)}
+.np-ozet button.vk{border-color:var(--accent);color:var(--accent)}
+.np-ses>.np-ozet{border-top:0}
 </style>
 <script async src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
 </head>
@@ -656,7 +670,7 @@ body.car-on .ytbox{z-index:51}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 4.2 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 4.3 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -706,7 +720,8 @@ body.car-on .ytbox{z-index:51}
       <button class="ib" id="btnNext" aria-label="Sonraki"><svg class="ico"><use href="#i-next"/></svg></button>
       <button class="ib" id="btnRep" aria-label="Tekrar"><svg class="ico"><use href="#i-repeat"/></svg></button>
     </div>
-    <section class="npk np-ses">
+    <section class="npk np-ses" id="npSes">
+    <div class="np-ozet" id="npOzet"><button data-oz="ic"><small>İçerik</small><b>Tümü</b></button><button data-oz="hz"><small>Hız</small><b>1×</b></button><button data-oz="ses" aria-label="Ses düzeyi"><small>Ses</small><b>80</b></button><button data-oz="ac" class="oz-ac" aria-label="Ayarları aç/kapat">▾</button></div>
     <div class="npr"><span class="npl">İçerik</span><div class="vokseg" id="vokSeg" role="radiogroup" aria-label="Ses içeriği"><button data-vk="tumu" role="radio">Tümü</button><i></i><button data-vk="muzik" role="radio">Yalnız müzik</button><i></i><button data-vk="soz" role="radio">Yalnız sözler</button></div></div>
     <div class="vokalt" id="vokAlt" hidden><button data-vs="azalt" role="radio">Vokali azalt</button><button data-vs="kapat" role="radio">Vokali kapat</button></div>
     <div class="hizrow" id="hizRow" role="group" aria-label="Bu şarkının hızı"><span>Hız</span><button data-hz="1">1×</button><button data-hz="1.1">1,1</button><button data-hz="1.2">1,2</button><button data-hz="1.3">1,3</button><button data-hz="1.5">1,5</button><small></small></div>
@@ -3356,6 +3371,13 @@ $('#sheet').addEventListener('click',async e=>{
 {const _ws=webSheet;webSheet=function(){_ws.apply(this,arguments);try{const s=$('#sheet .search');s.insertAdjacentHTML('afterend','<div class="ucr"><button class="btn primary" id="ucrBul">'+ico('search')+'Ücretsiz sürümünü bul ve ekle</button><small class="muted">İnternet Arşivi (yasal, ücretsiz) ve YouTube listen</small><div id="ucrSonuc"></div></div>')}catch(e){}}}
 audio.addEventListener('seeked',()=>{if(gecisKis&&(audio.duration-audio.currentTime)>(+prefs.gecis||0)+0.5){gecisKis=false;clearInterval(fadeT);setVol(volLevel())}});
 
+/* --- 4.3: çalma ekranı ayar özeti (katlanır) --- */
+(function(){const S=$('#npSes'),O=$('#npOzet');if(!S||!O)return;S.classList.toggle('acik',!!store.get('npSesAcik',false));
+  const oz=()=>{if(!npOpen)return;const v=$('#vokSeg [aria-checked="true"]'),h=$('#hizRow .on'),vo=$('#vol');
+    const ic=O.querySelector('[data-oz="ic"]');ic.querySelector('b').textContent=v?v.textContent:'Tümü';ic.classList.toggle('vk',!!v&&v.dataset.vk!=='tumu');
+    O.querySelector('[data-oz="hz"] b').textContent=h?h.textContent:'1×';O.querySelector('[data-oz="ses"] b').textContent=vo?vo.value:'';};
+  O.addEventListener('click',e=>{const b=e.target.closest('[data-oz]');if(!b)return;const ac=!S.classList.contains('acik')||b.dataset.oz==='ac'?!S.classList.contains('acik'):true;S.classList.toggle('acik',ac);store.set('npSesAcik',ac)});
+  setInterval(oz,600);{const _o=openNP;openNP=function(){_o.apply(this,arguments);oz();requestAnimationFrame(()=>{const n=$('#np');if(S.classList.contains('acik')&&n.scrollHeight>n.clientHeight+2)S.classList.remove('acik')})}}})();
 function init(){
   offlineSetup();
   if(NATIVE){
