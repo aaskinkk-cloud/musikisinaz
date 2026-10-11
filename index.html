@@ -712,7 +712,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 4.6 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 4.7 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -1458,11 +1458,11 @@ async function play(){
   try{
     clearInterval(fadeT);fadeT=null;
     setVol(prefs.fade?0:volLevel());
-    await audio.play();needTap(false);
+    await audio.play();needTap(false);window.__plR=0;
     if(prefs.fade)fadeTo(volLevel(),450);
   }catch(e){
     setVol(volLevel());
-    if(e&&e.name==='NotAllowedError'){toast('Çalmak için oynat düğmesine dokun');needTap(true)}
+    if(e&&e.name==='NotAllowedError'){const n=(window.__plR=(window.__plR||0)+1);if(n<=4){try{gunYaz('çalma engellendi, yeniden deneniyor ('+n+')')}catch(x){}setTimeout(()=>{try{ctx&&ctx.resume()}catch(x){}if(audio.paused&&cur)play()},[500,1500,3000,6000][n-1]);return}window.__plR=0;toast('Çalmak için oynat düğmesine dokun');needTap(true)}
     else if(e&&e.name!=='AbortError')onPlayError();
   }
 }
@@ -1477,7 +1477,8 @@ function step(dir,auto){
   if(dir>0){
     if(qi<queue.length-1)qi++;
     else if(prefs.repeat===1||!auto)qi=0;
-    else{stopAtEnd();return}
+    else if(prefs.listeSonu==='dur'){stopAtEnd();return}
+    else listeYenile();
   }else{
     if(cur&&audio.currentTime-aralikOf(cur.id).s>3&&!auto){restartTrack();return}
     qi=qi>0?qi-1:queue.length-1;
@@ -2067,7 +2068,7 @@ function ytDone(){
   if(ytFromQ){if(prefs.repeat===2){ytPlay(ytCur,true);return}try{ytP.pauseVideo()}catch(e){}ytPlaying=false;step(1,true);return}
   if(prefs.repeat===2){ytPlay(ytCur);return}
   let n=ytCur+1;
-  if(n>=P.yt.length){if(prefs.repeat===1)n=0;else{try{ytP.pauseVideo()}catch(e){}ytPlaying=false;UI.state();return}}
+  if(n>=P.yt.length){if(prefs.repeat===1||prefs.listeSonu!=='dur')n=0;else{try{ytP.pauseVideo()}catch(e){}ytPlaying=false;UI.state();return}}
   ytPlay(n);
 }
 function ytWatch(){
@@ -3515,6 +3516,18 @@ document.addEventListener('visibilitychange',()=>gunYaz(document.hidden?'— ekr
 (function(){const p=$('#istBtn')&&$('#istBtn').closest('.panel');if(!p)return;
   p.insertAdjacentHTML('beforeend','<div class="row2"><div>Çalma günlüğü<div class="muted small">Müzik kesilir ya da takılırsa buradaki listeyi ekran görüntüsü alıp gönder; nedeni görülür</div></div><button class="btn sm" id="gunBtn">Göster</button></div>');
   $('#gunBtn').addEventListener('click',()=>openSheet('<h3>Çalma günlüğü</h3><p class="muted small">Son '+GUN.length+' olay (yeniden eskiye)</p><div style="font:12px/1.5 ui-monospace,monospace">'+(GUN.slice().reverse().map(g=>esc(g.join(' · '))).join('<br>')||'Henüz olay yok')+'</div>'))})();
+/* --- 4.7: liste bitince durma; karışıksa yeniden karıştırıp sürdür + takılma bekçisi --- */
+function listeYenile(){let b=base.filter(id=>byId.has(id));if(b.length<2)b=lib.filter(t=>!t.yt&&!isLong(t)).map(t=>t.id);if(!b.length)b=queue.slice();const son=cur&&cur.id;
+  if(prefs.shuffle){queue=shuffled(b);if(queue.length>1&&queue[0]===son)queue.push(queue.shift())}else queue=b.slice();base=b.slice();qi=0;
+  try{gunYaz('liste bitti, '+(prefs.shuffle?'yeniden karıştırılıp ':'')+'baştan sürdü')}catch(e){}toast(prefs.shuffle?'Liste bitti · yeniden karıştırıldı, çalmaya devam':'Liste bitti · baştan devam')}
+window.__sonDur=0;{const _pz=pause;pause=function(){window.__sonDur=Date.now();return _pz.apply(this,arguments)}}
+audio.addEventListener('ended',()=>{const id=cur&&cur.id;setTimeout(()=>{if(src!=='local'||!cur||!audio.paused||sleep.end||Date.now()-window.__sonDur<8000)return;
+  if(prefs.listeSonu==='dur'&&qi>=queue.length-1&&cur.id===id)return;
+  try{gunYaz('bekçi: çalma durmuştu, sürdürüldü')}catch(e){}if(cur.id===id&&audio.ended){doneLock=false;trackDone()}else play()},6000)});
+(function(){const p=$('#gecisChips')&&$('#gecisChips').closest('.row2');if(!p)return;
+  p.insertAdjacentHTML('afterend','<div class="row2" style="align-items:flex-start"><div style="flex:1">Liste bitince<div class="muted small">"Devam et": son şarkıdan sonra liste baştan başlar; karışık açıksa her turda yeniden karıştırılır. Tek şarkı çalarken bitince kitaplıktan devam eder.</div><div class="chips" id="lsChips" style="margin-top:8px"><button class="chip" data-ls="devam">Devam et</button><button class="chip" data-ls="dur">Dur</button></div></div></div>');
+  const c=()=>$$('#lsChips .chip').forEach(x=>x.classList.toggle('on',x.dataset.ls===(prefs.listeSonu==='dur'?'dur':'devam')));c();
+  $('#lsChips').addEventListener('click',e=>{const b=e.target.closest('[data-ls]');if(!b)return;prefs.listeSonu=b.dataset.ls;savePrefs();c();toast(b.dataset.ls==='dur'?'Liste bitince durur':'Liste bitince devam eder')})})();
 function init(){
   offlineSetup();
   if(NATIVE){
