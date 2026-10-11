@@ -48,7 +48,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**4.7** — Liste bitince durmaz: baştan sürer, karışıksa her turda yeniden karıştırılır (Ayarlar › Liste bitince: Devam et / Dur); ekran kapalıyken çalma engellenirse otomatik yeniden dener; takılma bekçisi.  
+**4.8** — Ekran kapalıyken şarkı geçişinde ses kısık/sessiz kalma düzeltildi (yumuşak başlatma ve geçiş arka planda atlanır), çalma günlüğüne ses düzeyi ve sıra eklendi.  
+4.7 — Liste bitince durmaz: baştan sürer, karışıksa her turda yeniden karıştırılır (Ayarlar › Liste bitince: Devam et / Dur); ekran kapalıyken çalma engellenirse otomatik yeniden dener; takılma bekçisi.  
 4.6 — Kesik kesik çalma düzeltmesi (sistem durdurunca zorla yeniden çalma kaldırıldı), kilit ekranı kumandası her çalışta yeniden kurulur (YouTube dahil), Ayarlar'da çalma günlüğü, A-B en az 3 sn.  
 4.5 — Basit mod.  
 4.4 — YouTube tam ekran çalma ekranı; alt oynatıcı her zaman 2 satır ve çalan kaynağı gösterir; küçük video kutusu küçüldü.  
