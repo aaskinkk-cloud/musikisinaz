@@ -48,7 +48,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**4.5** — Basit mod.  
+**4.6** — Kesik kesik çalma düzeltmesi (sistem durdurunca zorla yeniden çalma kaldırıldı), kilit ekranı kumandası her çalışta yeniden kurulur (YouTube dahil), Ayarlar'da çalma günlüğü, A-B en az 3 sn.  
+4.5 — Basit mod.  
 4.4 — YouTube tam ekran çalma ekranı; alt oynatıcı her zaman 2 satır ve çalan kaynağı gösterir; küçük video kutusu küçüldü.  
 4.3 — Çalma ekranı her telefonda tek sayfa: İçerik/Hız/Ses özet düğmeleri, dokununca ayarlar açılır; yer kalmazsa kapak küçülür.  
 4.2 — Tek sayfa çalma ekranı, kaydırarak şarkı değiştirme, 6 dk+ kayıtta Sonraki listedeki şarkıya geçer ("tek şarkı" işareti), YouTube/Spotify sekmesinde kendi kumandası, ücretsiz sürüm bulma, A-B, geçiş, kaldığım yer, istatistik.  

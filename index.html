@@ -712,7 +712,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 4.5 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 4.6 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -3266,9 +3266,7 @@ function sirUygula(tur,rows){
 /* --- Arka plan: ilk açılışta da küçültünce susmasın --- */
 ['pointerdown','keydown'].forEach(ev=>document.addEventListener(ev,function ac(){try{if(ctx&&ctx.state!=='running')ctx.resume()}catch(e){}},{passive:true}));
 document.addEventListener('visibilitychange',()=>{if(document.hidden){try{if(ctx&&ctx.state!=='running'&&cur&&src==='local'&&!audio.paused)ctx.resume()}catch(e){}}});
-audio.addEventListener('pause',()=>{if(!document.hidden||kendimDurdurdum||doneLock||sleep.end||src!=='local'||!cur)return;
-  /* sistem sayfa gizlenince durdurduysa bir kez yeniden dene */
-  setTimeout(()=>{if(document.hidden&&audio.paused&&!kendimDurdurdum){try{if(ctx&&ctx.state!=='running')ctx.resume()}catch(e){}audio.play().catch(()=>{})}},350)});
+/* 4.6: sistem (telefon, bildirim, başka uygulama) durdurunca zorla yeniden çalma kaldırıldı — telefonla çekişip kesik kesik çalmaya yol açıyordu */
 
 /* ================= 4.2 ================= */
 /* --- 6 dk+ "tek şarkı" işareti (albüm değil): dokununca doğrudan çalar --- */
@@ -3352,7 +3350,7 @@ const AB={a:null,b:null,id:null};
 function abCiz(){const b=$('#npAB');if(!b)return;b.classList.toggle('on',AB.a!=null);b.textContent=AB.a==null?'A-B':AB.b==null?'A–?':'A↻B';b.setAttribute('aria-pressed',AB.a!=null)}
 $('#npAB').addEventListener('click',()=>{if(src!=='local'||!cur){toast('A-B yalnız telefondaki şarkılarda');return}const t=audio.currentTime||0;
   if(AB.a==null){AB.a=t;AB.b=null;AB.id=cur.id;toast('A noktası: '+fmt(t)+' · bitişte tekrar dokun')}
-  else if(AB.b==null){if(t-AB.a<1){toast('B, A\'dan sonra olmalı');return}AB.b=t;try{audio.currentTime=AB.a}catch(e){}toast('Döngü: '+fmt(AB.a)+' – '+fmt(AB.b)+' · kapatmak için dokun')}
+  else if(AB.b==null){if(t-AB.a<3){toast('Döngü en az 3 sn olmalı');return}AB.b=t;try{audio.currentTime=AB.a}catch(e){}toast('Döngü: '+fmt(AB.a)+' – '+fmt(AB.b)+' · kapatmak için dokun')}
   else{AB.a=AB.b=null;toast('A-B döngüsü kapandı')}abCiz()});
 audio.addEventListener('timeupdate',()=>{if(AB.b!=null&&cur&&cur.id===AB.id&&audio.currentTime>=AB.b){try{audio.currentTime=AB.a}catch(e){}doneLock=false}});
 audio.addEventListener('loadstart',()=>{if(AB.a!=null&&(!cur||cur.id!==AB.id)){AB.a=AB.b=null;abCiz()}});
@@ -3502,6 +3500,21 @@ function basitAyarla(on){prefs.basit=!!on;savePrefs();basitUygula();toast(on?'Ba
 $('#basitOn').addEventListener('change',e=>basitAyarla(e.target.checked));
 $('#basitCik').addEventListener('click',()=>basitAyarla(false));
 basitUygula();
+/* --- 4.6: kilit ekranı kumandası her çalışta yeniden kurulur + çalma günlüğü --- */
+function kilitEkrani(){if(!('mediaSession' in navigator))return;try{
+  if(src==='yt'&&ytCur>=0&&P.yt[ytCur]){const it=P.yt[ytCur];navigator.mediaSession.metadata=new MediaMetadata({title:it.title||'YouTube',artist:it.author||'YouTube',album:'YouTube',artwork:it.vid?[{src:'https://i.ytimg.com/vi/'+it.vid+'/hqdefault.jpg',sizes:'480x360',type:'image/jpeg'}]:[]})}
+  else setMedia();
+  initMedia();navigator.mediaSession.playbackState=(src==='yt'?ytPlaying:!audio.paused)?'playing':'paused';
+  if(src==='local'&&isFinite(audio.duration)&&audio.duration>0)navigator.mediaSession.setPositionState({duration:audio.duration,position:Math.min(audio.currentTime,audio.duration),playbackRate:audio.playbackRate||1})}catch(e){}}
+audio.addEventListener('playing',kilitEkrani);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)kilitEkrani()});
+{const _ys=ytState;ytState=function(e){const r=_ys.apply(this,arguments);if(e&&e.data===1)kilitEkrani();return r}}
+const GUN=[];const gunYaz=k=>{GUN.push([new Date().toLocaleTimeString('tr-TR'),k,document.hidden?'ekran kapalı':'ekran açık',cur?Math.round(audio.currentTime)+' sn':'']);if(GUN.length>60)GUN.shift()};
+['play','pause','waiting','stalled','seeking','ended','error','ratechange'].forEach(k=>audio.addEventListener(k,()=>gunYaz(k)));
+document.addEventListener('visibilitychange',()=>gunYaz(document.hidden?'— ekran kapandı':'— ekran açıldı'));
+(function(){const p=$('#istBtn')&&$('#istBtn').closest('.panel');if(!p)return;
+  p.insertAdjacentHTML('beforeend','<div class="row2"><div>Çalma günlüğü<div class="muted small">Müzik kesilir ya da takılırsa buradaki listeyi ekran görüntüsü alıp gönder; nedeni görülür</div></div><button class="btn sm" id="gunBtn">Göster</button></div>');
+  $('#gunBtn').addEventListener('click',()=>openSheet('<h3>Çalma günlüğü</h3><p class="muted small">Son '+GUN.length+' olay (yeniden eskiye)</p><div style="font:12px/1.5 ui-monospace,monospace">'+(GUN.slice().reverse().map(g=>esc(g.join(' · '))).join('<br>')||'Henüz olay yok')+'</div>'))})();
 function init(){
   offlineSetup();
   if(NATIVE){
