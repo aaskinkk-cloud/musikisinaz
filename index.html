@@ -724,7 +724,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 5.1 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 5.2 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -3610,14 +3610,16 @@ function init(){
   if(prefs.wake)wake(true);
   if(!prefs.m27){prefs.m27=1;prefs.autoPlay=true;savePrefs();$('#autoPlayOn').checked=true}
   if(!prefs.acilis){prefs.acilis=prefs.autoPlay===false?'yok':'sor';savePrefs();acilisAyarCiz()}
-  const qp=new URLSearchParams(location.search),carQ=qp.get('car')==='1';
+  const qp=new URLSearchParams(location.search),carQ=qp.get('car')==='1',calQ=qp.get('cal')==='1';
+  /* 5.2: ?cal=1 (Milli Emlak > Multimedya > Tını) — açılınca telefondaki yerel müzikler kaldığı yerden çalar */
+  if(calQ&&!carQ){try{history.replaceState(null,'',location.pathname)}catch(e){}}
   /* 3.4: araç modu kendiliğinden açılmaz. Yalnız ?car=1 ile (telefon rutini: araç Bluetooth'una bağlanınca) ya da elle. */
   if(prefs.carAuto){prefs.carAuto=false;savePrefs()}
   if(carQ){openCar();try{history.replaceState(null,'',location.pathname)}catch(e){}}
   window.addEventListener('online',()=>{if(ui.view==='lib')renderLib()});
   window.addEventListener('offline',()=>{if(ui.view==='lib')renderLib()});
   loadLibrary().then(()=>{ytSync();ready=true;UI.refresh();UI.track();if(NATIVE)refreshNative(true);else autoScan();paylasimAl().then(()=>setTimeout(yeniSor,1500));
-    setTimeout(()=>acilisBasla(carQ),300)});
+    setTimeout(()=>{if(calQ&&!carQ&&lib.length)acilisCal('yerel');else acilisBasla(carQ)},300)});
   setInterval(()=>{if(sleep.end){if(Date.now()>=sleep.end)sleepFire();else UI.sleep()}},1000);
   setInterval(watch,100);
 }
