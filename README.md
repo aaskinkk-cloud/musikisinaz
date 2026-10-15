@@ -27,6 +27,8 @@ Tını: telefondaki şarkılarını çalan ücretsiz müzik çalar. 10 bant ekol
 | **YouTube çalma ekranı** | Alt oynatıcı son çalan kaynağı (yerel / YouTube / Spotify) iki satırda gösterir; YouTube'da dokununca tam ekran: video, ilerleme, ±10 sn, önceki/sonraki, videoya özel hız, kesit, uyku, tekrar; bilgi kartını kaydırınca video değişir |
 | **Basit mod** | Ayarlar › Görünüm › Basit mod: büyük yazı ve düğmeler; kuyruk, ekolayzır ve ayrıntılı ayarlar gizlenir (silinmez). Üstteki "Basit ✕" ile tek dokunuşla çıkılır |
 | **Seçerek ekleme** | Birden çok dosya eklerken liste açılır, istediklerini işaretlersin; kitaplıktan kaldırdıkların işaretsiz gelir, "Yeniden tara" onları geri getirmez |
+| **Pasif müzikler** | Şarkının ⋮ menüsünden *Pasife al*: kitaplıkta görünmez, çalınmaz, kuyruktan çıkar. Albüm/sanatçı sayfasında tümü birden pasife alınabilir. *Listeler › Pasif müzikler*'de görünür; *Aktif yap* / *Tümünü aktif yap* ile geri gelir (favori, çalma sayısı korunur) |
+| **Tekrar yükleme yok** | Dosya eklerken kitaplıkta (aktif) ya da Pasif listesinde olan dosyalar ve aynı seçimde iki kez gelenler atlanır |
 | **YouTube albüm** | "albüm/album" içeren aramada yalnız uzun tek videolar (tam albüm) gelir; oynatma listesi aktarılırken hangi videoların alınacağını seçersin |
 | **Araç modu** | Büyük düğmeler, kaydırarak şarkı değiştirme |
 | **Sanatçıyla birlikte** | Sanatçı/albüm sayfasında ve aramada, YouTube listendeki aynı sanatçının şarkıları altta; hepsini birlikte çal |
@@ -50,7 +52,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**5.2** — `?cal=1` ile açılınca telefondaki müzikler kaldığı yerden çalar (Milli Emlak › Multimedya › Tını bu adresi açar).  
+**5.3** — Pasif müzikler listesi: pasife alınan şarkılar yerel listede görünmez, çalınmaz; yüklerken aktif ve pasif dosyalar yeniden yüklenmez.  
+5.2 — `?cal=1` ile açılınca telefondaki müzikler kaldığı yerden çalar (Milli Emlak › Multimedya › Tını bu adresi açar).  
 5.1 — YouTube aramasında yalnız yazdığın sözcüklerin hepsi geçen videolar gelir ("Mahmut Tuncer fazile" → yalnız Fazile); diğerleri "Diğer sonuçları da göster" ile.  
 5.0 — Seçerek ekleme, kaldırılan şarkıların hatırlanması, YouTube albüm araması ve listeden seçerek aktarma, ekran kapalıyken ağır inceleme yapılmaz, çalma günlüğü kalıcı.  
 4.9 — Ekran kapalıyken kesintisiz şarkı geçişi (bitişe 0,3 sn kala sıradakine geçer; oynatıcı durmaz, kilit ekranı kumandası kaybolmaz); arka planda ses motoru beklenmez.  

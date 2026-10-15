@@ -724,7 +724,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 5.2 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 5.3 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -994,8 +994,9 @@ async function addFiles(files,quiet){
   if(importing){if(!quiet)toast('Önceki ekleme sürüyor');return 0}
   /* Yeni dosyalar listenin başına gelir: en yeni dosya en üstte */
   list.sort((a,b)=>(b.lastModified||0)-(a.lastModified||0));
-  const known=new Set(lib.map(t=>t.key));
-  let fresh=list.filter(f=>!known.has(f.name+'|'+f.size));
+  /* 5.3: kitaplıktakiler (aktif) + pasif listesindekiler + aynı seçimde iki kez gelen dosya yeniden yüklenmez */
+  const known=new Set(lib.map(t=>t.key));Object.keys(PAS()).forEach(k=>known.add(k));
+  let fresh=list.filter(f=>{const k=f.name+'|'+f.size;if(known.has(k))return false;known.add(k);return true});
   const KAL=new Set(store.get('kaldirilan',[]));
   if(quiet)fresh=fresh.filter(f=>!KAL.has(f.name+'|'+f.size));
   else if(fresh.length>1){if(importing){toast('Önceki ekleme sürüyor');return 0}fresh=await eklemeSec(fresh,KAL);if(!fresh||!fresh.length)return 0}
@@ -1092,10 +1093,10 @@ const cleanTag=(s,fb)=>{s=String(s||'').trim();return(!s||s==='<unknown>')?fb:s}
 function syncNative(){
   let arr;
   try{arr=JSON.parse(window.Android.scan())}catch(e){return -1}
-  const seen=new Set();let added=0;
+  const seen=new Set(),pm=PAS();let added=0;
   arr.forEach(x=>{
     const id='n'+x.id;
-    if(P.hidden.has(id))return;
+    if(P.hidden.has(id)||pm[id])return;
     seen.add(id);
     if(byId.has(id))return;
     const nm=x.name||'',m=nm.match(/\.([a-z0-9]+)$/i);
@@ -1136,7 +1137,8 @@ window.nativeBridgeEvent=function(type,val){
 };
 async function loadLibrary(){
   if(NATIVE)return;
-  try{const all=await dbDo('readonly',s=>s.getAll());(all||[]).forEach(r=>register(r))}catch(e){persistOK=false}
+  const pm=PAS();
+  try{const all=await dbDo('readonly',s=>s.getAll());(all||[]).forEach(r=>{if(!pm[r.key])register(r)})}catch(e){persistOK=false}
 }
 
 /* ---------- Ses motoru: 10 bant ekolayzır, bas, denge, sınırlayıcı, analizör ---------- */
@@ -1542,6 +1544,58 @@ function toggleFav(id){
   if(P.favs.has(id)){P.favs.delete(id);toast('Favorilerden çıkarıldı')}else{P.favs.add(id);toast('Favorilere eklendi')}
   saveP();UI.fav();
 }
+/* ---------- 5.3 Pasif müzikler: kitaplıkta görünmez, çalınmaz, yeniden yüklenmez; istenince geri gelir ---------- */
+function PAS(){const m=store.get('pasif',{});return m&&typeof m==='object'&&!Array.isArray(m)?m:{}}
+const pasMem=new Map();
+function pasifYap(id,sessiz){
+  const t=byId.get(id);if(!t||t.yt||!t.key)return false;
+  base=base.filter(x=>x!==id);
+  if(cur&&cur.id===id){
+    const was=!audio.paused;queue.splice(qi,1);
+    if(queue.length){if(qi>=queue.length)qi=0;loadCurrent(was)}else stopPlayback();
+  }else{const ix=queue.indexOf(id);if(ix>=0){queue.splice(ix,1);if(ix<qi)qi--}}
+  lib.splice(lib.indexOf(t),1);byId.delete(id);
+  if(t.coverUrl&&!t.native){URL.revokeObjectURL(t.coverUrl);t.coverUrl=''}
+  if(!t.native)pasMem.set(t.key,t);
+  const m=PAS();m[t.key]={id:id,t:t.title,a:t.artist,d:t.duration||0,n:t.native?1:0,z:Date.now()};store.set('pasif',m);
+  if(!sessiz){UI.refresh();UI.queue();toast('Pasife alındı · Listeler › Pasif müzikler',2600)}
+  return true;
+}
+async function aktifYap(keys){
+  const m=PAS();let n=0,nat=false;
+  for(const k of keys){
+    const p=m[k];if(!p)continue;delete m[k];n++;
+    if(p.n){nat=true;continue}
+    let r=pasMem.get(k);pasMem.delete(k);
+    if(!r){try{r=await dbDo('readonly',s=>s.get(p.id))}catch(e){}}
+    if(r&&!byId.has(r.id))register(r);
+  }
+  store.set('pasif',m);
+  if(nat&&NATIVE)refreshNative(false,true);
+  UI.refresh();UI.queue();
+  if(n)toast(n>1?n+' şarkı aktif yapıldı':'Aktif yapıldı, kitaplıkta');
+}
+async function pasifSil(k){
+  const m=PAS(),p=m[k];if(!p)return;delete m[k];store.set('pasif',m);pasMem.delete(k);
+  if(p.n)P.hidden.add(p.id);
+  else{try{const K=store.get('kaldirilan',[]);if(K.indexOf(k)<0){K.push(k);store.set('kaldirilan',K.slice(-3000))}}catch(e){}
+    if(persistOK){try{await dbDo('readwrite',s=>s.delete(p.id))}catch(e){}}}
+  P.favs.delete(p.id);delete P.plays[p.id];delete P.trims[p.id];P.recent=P.recent.filter(x=>x!==p.id);
+  P.lists.forEach(l=>{l.ids=l.ids.filter(x=>x!==p.id)});saveP();
+  renderLib();toast('Kitaplıktan kaldırıldı, dosya telefonunda duruyor');
+}
+function renderPasif(){
+  const body=$('#libBody'),m=PAS(),q=fold(ui.q||'');
+  const ks=Object.keys(m).filter(k=>!q||fold(m[k].t+' '+m[k].a).indexOf(q)>=0).sort((a,b)=>(m[b].z||0)-(m[a].z||0));
+  ui.ctxIds=[];$('#libTools').classList.add('hide');
+  body.innerHTML='<button class="back" data-act="back">'+ico('back')+'Geri</button>'+
+    '<div class="detail-head"><div class="art" style="'+tint('Pasif müzikler')+'">'+bigIco('moon')+'</div>'+
+    '<div style="min-width:0"><h2>Pasif müzikler</h2><div class="muted small">'+Object.keys(m).length+' şarkı · kitaplıkta görünmez, çalınmaz, yeniden yüklenmez</div></div></div>'+
+    (ks.length?'<div class="actions"><button class="btn primary sm" data-act="pasHep">Tümünü aktif yap</button></div>'+
+      ks.map(k=>{const p=m[k];return '<div class="row" style="cursor:default"><div style="flex:1;min-width:0"><div class="t" style="overflow:hidden;text-overflow:ellipsis">'+esc(p.t||k)+'</div><div class="muted small">'+esc(p.a||'')+(p.d?' · '+fmt(p.d):'')+'</div></div>'+
+        '<button class="btn sm" data-act="pasAkt" data-pk="'+esc(k)+'">Aktif yap</button><button class="btn sm danger" data-act="pasSil" data-pk="'+esc(k)+'" style="margin-left:6px" title="Kitaplıktan kaldır">'+ico('trash')+'</button></div>'}).join(''):
+      '<p class="muted">'+(ui.q?'Sonuç bulunamadı.':'Pasif şarkı yok. Bir şarkının ⋮ menüsünden "Pasife al" de.')+'</p>');
+}
 async function removeTrack(id){
   const t=byId.get(id);if(!t)return;
   base=base.filter(x=>x!==id);
@@ -1564,6 +1618,7 @@ async function wipeLibrary(){
   stopPlayback();
   lib.forEach(t=>{if(t.coverUrl)URL.revokeObjectURL(t.coverUrl)});
   lib.length=0;byId.clear();ytSync();
+  {const m=PAS();Object.keys(m).forEach(k=>{if(!m[k].n)delete m[k]});store.set('pasif',m);pasMem.clear()}
   P.favs.clear();P.plays={};P.recent=[];P.trims={};P.lists.forEach(l=>{l.ids=[]});saveP();
   if(persistOK){try{await dbDo('readwrite',s=>s.clear())}catch(e){}}
   UI.refresh();toast('Kitaplık temizlendi');
@@ -1739,7 +1794,7 @@ function detailInfo(d){
 function renderLib(){
   const body=$('#libBody'),tools=$('#libTools'),tabs=$('#libTabs'),search=$('#q').parentElement;
   if(!ready){body.innerHTML='';return}
-  if(!lib.length){search.classList.add('hide');tabs.classList.add('hide');tools.classList.add('hide');body.innerHTML=emptyHTML();ui.ctxIds=[];ui.detail=null;return}
+  if(!lib.length&&!(ui.detail&&ui.detail.type==='pasif')){search.classList.add('hide');tabs.classList.add('hide');tools.classList.add('hide');const pn=Object.keys(PAS()).length;body.innerHTML=emptyHTML()+(pn?'<div class="actions" style="justify-content:center"><button class="btn" data-d="pasif" data-k="pasif">'+ico('moon')+'Pasif müzikler ('+pn+')</button></div>':'');ui.ctxIds=[];ui.detail=null;return}
   search.classList.remove('hide');
   tabs.classList.toggle('hide',!!ui.detail);
   $$('#libTabs .chip').forEach(c=>c.classList.toggle('on',c.dataset.tab===ui.tab));
@@ -1770,7 +1825,8 @@ function renderLib(){
     $('#libCount').textContent=P.lists.length+' çalma listesi';
     ui.ctxIds=[];
     body.innerHTML='<div class="sh"><h2>Akıllı listeler</h2></div><div class="grid">'+
-      smart.map(s=>{const n=detailInfo({type:'smart',key:s[0]}).ids.length;return cardHTML('smart',s[0],s[1],n+' şarkı',bigIco(s[2]),tint(s[1]))}).join('')+'</div>'+
+      smart.map(s=>{const n=detailInfo({type:'smart',key:s[0]}).ids.length;return cardHTML('smart',s[0],s[1],n+' şarkı',bigIco(s[2]),tint(s[1]))}).join('')+
+      cardHTML('pasif','pasif','Pasif müzikler',Object.keys(PAS()).length+' şarkı · çalınmaz',bigIco('moon'),tint('Pasif müzikler'))+'</div>'+
       '<div class="sh"><h2>Çalma listelerim</h2></div>'+
       '<div class="newpl"><input id="newPl" placeholder="Yeni liste adı" maxlength="40" aria-label="Yeni liste adı"><button class="btn primary" data-act="newpl">Oluştur</button></div>'+
       (P.lists.length?'<div class="grid" style="margin-top:14px">'+P.lists.map(l=>cardHTML('pl',l.id,l.name,l.ids.filter(i=>byId.has(i)).length+' şarkı',esc(initial(l.name)),tint(l.name))).join('')+'</div>':
@@ -1778,6 +1834,7 @@ function renderLib(){
   }
 }
 function renderDetail(){
+  if(ui.detail&&ui.detail.type==='pasif'){renderPasif();return}
   const body=$('#libBody');
   const info=detailInfo(ui.detail);
   if(!info){ui.detail=null;renderLib();return}
@@ -1805,6 +1862,9 @@ function libAct(a,el){
   else if(a==='any')$('#anyIn').click();
   else if(a==='demo')makeDemo();
   else if(a==='perm')refreshNative(true);
+  else if(a==='pasAkt')aktifYap([el.dataset.pk]);
+  else if(a==='pasHep')aktifYap(Object.keys(PAS()));
+  else if(a==='pasSil'){if(el.dataset.sure)pasifSil(el.dataset.pk);else{el.dataset.sure='1';el.textContent='Emin?';setTimeout(()=>{if(el.isConnected){delete el.dataset.sure;el.innerHTML=ico('trash')}},3000)}}
   else if(a==='newpl'){
     const v=($('#newPl').value||'').trim();
     if(!v){toast('Liste adı yaz');return}
@@ -2505,7 +2565,11 @@ function trackMenu(id){
   if(ui.detail&&ui.detail.type==='pl'&&ui.view==='lib'){
     items.push({icon:'close',label:'Bu listeden çıkar',fn:()=>{const l=P.lists.find(x=>x.id===ui.detail.key);if(l){l.ids=l.ids.filter(x=>x!==id);saveP();renderLib()}}});
   }
-  getirItems(t).forEach(x=>items.push(x));items.push({icon:'trash',label:'Kitaplıktan kaldır',cls:'danger',fn:()=>removeTrack(id)});
+  getirItems(t).forEach(x=>items.push(x));
+  items.push({icon:'moon',label:'Pasife al (görünmez, çalınmaz)',fn:()=>pasifYap(id)});
+  if(ui.detail&&(ui.detail.type==='album'||ui.detail.type==='artist')&&ui.view==='lib'&&ui.ctxIds.length>1)
+    items.push({icon:'moon',label:'Bu '+(ui.detail.type==='album'?'albümün':'sanatçının')+' tümünü pasife al ('+ui.ctxIds.length+')',fn:()=>{const L=ui.ctxIds.slice();let n=0;L.forEach(x=>{if(pasifYap(x,true))n++});UI.refresh();UI.queue();toast(n+' şarkı pasife alındı')}});
+  items.push({icon:'trash',label:'Kitaplıktan kaldır',cls:'danger',fn:()=>removeTrack(id)});
   if(!t.yt)items.push({icon:'trash',label:'Telefondan da sil…',cls:'danger',fn:()=>telSilSheet(id)});
   menuSheet(t.title,items);
 }
