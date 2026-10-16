@@ -27,6 +27,7 @@ Tını: telefondaki şarkılarını çalan ücretsiz müzik çalar. 10 bant ekol
 | **YouTube çalma ekranı** | Alt oynatıcı son çalan kaynağı (yerel / YouTube / Spotify) iki satırda gösterir; YouTube'da dokununca tam ekran: video, ilerleme, ±10 sn, önceki/sonraki, videoya özel hız, kesit, uyku, tekrar; bilgi kartını kaydırınca video değişir |
 | **Basit mod** | Ayarlar › Görünüm › Basit mod: büyük yazı ve düğmeler; kuyruk, ekolayzır ve ayrıntılı ayarlar gizlenir (silinmez). Üstteki "Basit ✕" ile tek dokunuşla çıkılır |
 | **Seçerek ekleme** | Birden çok dosya eklerken liste açılır, istediklerini işaretlersin; kitaplıktan kaldırdıkların işaretsiz gelir, "Yeniden tara" onları geri getirmez |
+| **Bilgisayarda YouTube Music'e geç** | Bilgisayarda Tını küçültülünce ya da arkada kalınca YouTube'dan çalan şarkı kaldığı saniyeden YouTube Music (ya da YouTube) penceresinde sürer, Tını durur. Bir kez *açılır pencere izni* gerekir (Ayarlar › YouTube ve Spotify › İzin nasıl verilir?). Elle geçiş: şarkı menüsü › *YouTube Music'te sürdür* |
 | **Pasif müzikler** | Şarkının ⋮ menüsünden *Pasife al*: kitaplıkta görünmez, çalınmaz, kuyruktan çıkar. Albüm/sanatçı sayfasında tümü birden pasife alınabilir. *Listeler › Pasif müzikler*'de görünür; *Aktif yap* / *Tümünü aktif yap* ile geri gelir (favori, çalma sayısı korunur) |
 | **Tekrar yükleme yok** | Dosya eklerken kitaplıkta (aktif) ya da Pasif listesinde olan dosyalar ve aynı seçimde iki kez gelenler atlanır |
 | **YouTube albüm** | "albüm/album" içeren aramada yalnız uzun tek videolar (tam albüm) gelir; oynatma listesi aktarılırken hangi videoların alınacağını seçersin |
@@ -52,7 +53,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**5.3** — Pasif müzikler listesi: pasife alınan şarkılar yerel listede görünmez, çalınmaz; yüklerken aktif ve pasif dosyalar yeniden yüklenmez.  
+**5.4** — Bilgisayarda küçültünce YouTube'dan çalan şarkı YouTube Music'te kaldığı yerden sürer (açılır pencere izni gerekir); elle geçiş menüsü.  
+5.3 — Pasif müzikler listesi: pasife alınan şarkılar yerel listede görünmez, çalınmaz; yüklerken aktif ve pasif dosyalar yeniden yüklenmez.  
 5.2 — `?cal=1` ile açılınca telefondaki müzikler kaldığı yerden çalar (Milli Emlak › Multimedya › Tını bu adresi açar).  
 5.1 — YouTube aramasında yalnız yazdığın sözcüklerin hepsi geçen videolar gelir ("Mahmut Tuncer fazile" → yalnız Fazile); diğerleri "Diğer sonuçları da göster" ile.  
 5.0 — Seçerek ekleme, kaldırılan şarkıların hatırlanması, YouTube albüm araması ve listeden seçerek aktarma, ekran kapalıyken ağır inceleme yapılmaz, çalma günlüğü kalıcı.  
