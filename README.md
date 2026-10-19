@@ -29,6 +29,9 @@ Tını: telefondaki şarkılarını çalan ücretsiz müzik çalar. 10 bant ekol
 | **Seçerek ekleme** | Birden çok dosya eklerken liste açılır, istediklerini işaretlersin; kitaplıktan kaldırdıkların işaretsiz gelir, "Yeniden tara" onları geri getirmez |
 | **Telefonda YouTube Music'e geç** | YouTube'dan çalarken mini oynatıcıdaki kırmızı düğme ya da YouTube çalma ekranındaki *YouTube Music'te sürdür* düğmesi şarkıyı kaldığı yerden YouTube Music (ya da YouTube) uygulamasında açar, Tını durur. Telefonda ana ekrana dönünce otomatik geçişi tarayıcı engeller; bu yüzden tek dokunuş |
 | **Bilgisayarda YouTube Music'e geç** | Bilgisayarda Tını küçültülünce ya da arkada kalınca YouTube'dan çalan şarkı kaldığı saniyeden YouTube Music (ya da YouTube) penceresinde sürer, Tını durur. Bir kez *açılır pencere izni* gerekir (Ayarlar › YouTube ve Spotify › İzin nasıl verilir?). Elle geçiş: şarkı menüsü › *YouTube Music'te sürdür* |
+| **Ayarlar akordiyon** | Bölümler katlanır; açılışta yalnız ilk bölüm (Görünüm ve sekmeler) açık. Kaydırırken ya da parmak kayınca düğmeler tetiklenmez (yanlışlıkla dokunma koruması) |
+| **Sekme gizleme** | Kuyruk ve Spotify sekmeleri varsayılan gizli; Ayarlar › Görünüm ve sekmeler'den açılır. Kuyruğa çalma ekranından her zaman ulaşılır |
+| **Ferah kitaplık** | Tümünü çal / Karıştır çubuğu ve her şarkı ince çerçeveli, zeminli ayrı kartta; çalan şarkı vurgulu |
 | **Pasif müzikler** | Şarkının ⋮ menüsünden *Pasife al*: kitaplıkta görünmez, çalınmaz, kuyruktan çıkar. Albüm/sanatçı sayfasında tümü birden pasife alınabilir. *Listeler › Pasif müzikler*'de görünür; *Aktif yap* / *Tümünü aktif yap* ile geri gelir (favori, çalma sayısı korunur) |
 | **Tekrar yükleme yok** | Dosya eklerken kitaplıkta (aktif) ya da Pasif listesinde olan dosyalar ve aynı seçimde iki kez gelenler atlanır |
 | **YouTube albüm** | "albüm/album" içeren aramada yalnız uzun tek videolar (tam albüm) gelir; oynatma listesi aktarılırken hangi videoların alınacağını seçersin |
@@ -54,7 +57,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**5.5** — Telefonda tek dokunuşla YouTube Music uygulamasına geçiş (mini oynatıcı + YouTube çalma ekranı düğmesi).  
+**5.6** — Ayarlar akordiyon + dokunma koruması, Kuyruk/Spotify sekmesi gizleme (varsayılan gizli), kitaplıkta çerçeveli ferah şarkı kartları.  
+5.5 — Telefonda tek dokunuşla YouTube Music uygulamasına geçiş (mini oynatıcı + YouTube çalma ekranı düğmesi).  
 5.4 — Bilgisayarda küçültünce YouTube'dan çalan şarkı YouTube Music'te kaldığı yerden sürer (açılır pencere izni gerekir); elle geçiş menüsü.  
 5.3 — Pasif müzikler listesi: pasife alınan şarkılar yerel listede görünmez, çalınmaz; yüklerken aktif ve pasif dosyalar yeniden yüklenmez.  
 5.2 — `?cal=1` ile açılınca telefondaki müzikler kaldığı yerden çalar (Milli Emlak › Multimedya › Tını bu adresi açar).  

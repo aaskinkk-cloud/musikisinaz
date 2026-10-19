@@ -466,6 +466,22 @@ body.car-on .ytbox{z-index:51}
 .ytnp .np-ses{padding:8px 12px}
 #ytnpRep.on{color:var(--accent)}
 body.ytnp-acik .ytbox{z-index:60;border-radius:14px}
+/* 5.6: sekme gizleme, ayar akordiyonu, ferah kitaplık */
+.nav{grid-auto-flow:column;grid-template-columns:none!important;grid-auto-columns:1fr}
+body.kuyruk-gizli #nav [data-view="queue"],body.sp-gizli #nav [data-view="sp"]{display:none}
+.ayarbol .ayarbas{cursor:pointer;user-select:none;margin:0;padding:4px 0 10px;min-height:44px}
+.ayarbol .ayarbas .ok{margin-left:auto;width:22px;height:22px;transition:transform .2s;color:var(--muted)}
+.ayarbol:not(.kapali) .ayarbas .ok{transform:rotate(180deg)}
+.ayarbol.kapali{gap:0}
+.ayarbol.kapali>.ayarbas{border-bottom-color:transparent;padding-bottom:4px}
+.ayarbol.kapali>:not(.ayarbas){display:none!important}
+#v-set .row2{padding:10px 0;border-bottom:1px solid color-mix(in srgb,var(--line) 55%,transparent)}
+#v-set .row2:last-child{border-bottom:0}
+#v-set .sw{padding:6px;margin:-6px}
+#libBody>.actions{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:10px 12px;margin:6px 0 12px}
+#libBody .row{background:var(--surface);border:1px solid color-mix(in srgb,var(--line) 80%,transparent);border-radius:14px;padding:9px 10px;margin-bottom:8px;transition:border-color .15s,background .15s}
+#libBody .row:hover{border-color:var(--accent)}
+#libBody .row.cur{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 9%,var(--surface))}
 /* 4.5 basit mod */
 .basit-cik{display:none;border:1px solid var(--accent);color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent);border-radius:999px;padding:5px 10px;font:700 12px var(--f-body,system-ui);white-space:nowrap}
 body.basit .basit-cik{display:inline-block}
@@ -714,6 +730,8 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
           <button class="chip" data-theme-set="light">Açık</button>
         </div>
         <div class="row2" style="margin-top:10px"><div>Basit mod<div class="muted small">Yalnız gerekenler: büyük yazı ve düğmeler; kuyruk, ekolayzır ve ayrıntılı ayarlar gizlenir. Ayarların hiçbiri silinmez, çıkınca hepsi yerinde.</div></div><label class="sw"><input type="checkbox" id="basitOn" aria-label="Basit mod"><i></i></label></div>
+        <div class="row2"><div>Kuyruk sekmesi<div class="muted small">Alttaki çubukta Kuyruk sekmesi görünsün. Kapalıyken kuyruğa çalma ekranındaki liste düğmesinden ulaşırsın.</div></div><label class="sw"><input type="checkbox" id="kuyrukGosterOn" aria-label="Kuyruk sekmesini göster"><i></i></label></div>
+        <div class="row2"><div>Spotify sekmesi<div class="muted small">Alttaki çubukta Spotify sekmesi görünsün. Gizlemek listeni silmez.</div></div><label class="sw"><input type="checkbox" id="spGosterOn" aria-label="Spotify sekmesini göster"><i></i></label></div>
       </div>
       <div class="panel">
         <h2 style="font-size:19px">Kitaplık</h2>
@@ -731,7 +749,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 5.5 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 5.6 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -3167,6 +3185,7 @@ function ayarDuzen(){
   const P_=[...v.querySelectorAll(':scope > .panel')],tut=id=>{const el=document.getElementById(id);if(!el)return null;const pan=el.closest('.panel');if(!pan||!v.contains(pan))return null;let n=el;while(n.parentElement&&n.parentElement!==pan)n=n.parentElement;return n.parentElement===pan?n:null};
   const panelOf=id=>{const el=document.getElementById(id);return el?el.closest('.panel'):null};
   const G=[
+    ['hizli','Görünüm ve sekmeler','gear',['basitOn','kuyrukGosterOn','spGosterOn'],[]],
     ['calma','Çalma','play',['acilisChips','spd','fadeOn','autoPlayOn','silOn','clipChips','aralikOn','normalCal'],[]],
     ['icerik','Şarkı bölümleri','mic-off',['icerikChips'],[]],
     ['ses','Ses','vol',['hqOn'],[['eq','Ekolayzır ve vokal']]],
@@ -3174,7 +3193,7 @@ function ayarDuzen(){
     ['kitaplik','Kitaplık','lib',['libStat','artAlbOn','longAyriOn','yeniSorOn'],[['lib','Kitaplığa git']]],
     ['akis','YouTube ve Spotify','yt',['ytmOn','ytKeyIn','spIdIn2'],[['yt','YouTube'],['sp','Spotify']]],
     ['arac','Araç','car',['btnCar2','wakeOn','carLinkKop'],[]],
-    ['genel','Görünüm ve uygulama','gear',['themeChips','btnUpd'],[]]];
+    ['genel','Tema ve uygulama','gear',['themeChips','btnUpd'],[]]];
   const nav=document.createElement('div');nav.className='ayarnav';nav.innerHTML=G.map(g=>'<button data-ayar="'+g[0]+'">'+ico(g[2])+g[1]+'</button>').join('');
   const kap=document.createElement('div');
   G.forEach(([k,ad,ic,ids,git])=>{const pn=document.createElement('div');pn.className='panel ayarbol';pn.id='ay-'+k;
@@ -3717,6 +3736,26 @@ document.addEventListener('visibilitychange',()=>{
     else if(ytmOldu&&Date.now()-ytmOldu<6*3600e3){ytmOldu=0;toast('Şarkı '+(prefs.ytmHedef==='yt'?'YouTube\'da ':'YouTube Music\'te ')+'sürüyor · burada sürdürmek için ▶',3500)}
   }
 });
+/* --- 5.6: Kuyruk / Spotify sekmesini gizle (varsayılan gizli) --- */
+function sekmeUygula(){const b=document.body;b.classList.toggle('kuyruk-gizli',!prefs.kuyrukGoster);b.classList.toggle('sp-gizli',!prefs.spGoster);
+  const k=$('#kuyrukGosterOn'),sp=$('#spGosterOn');if(k)k.checked=!!prefs.kuyrukGoster;if(sp)sp.checked=!!prefs.spGoster;
+  if((ui.view==='queue'&&!prefs.kuyrukGoster&&!ui.kuyrukElle)||(ui.view==='sp'&&!prefs.spGoster))showView('lib')}
+$('#kuyrukGosterOn').addEventListener('change',e=>{prefs.kuyrukGoster=e.target.checked;savePrefs();sekmeUygula();toast(prefs.kuyrukGoster?'Kuyruk sekmesi görünür':'Kuyruk sekmesi gizlendi')});
+$('#spGosterOn').addEventListener('change',e=>{prefs.spGoster=e.target.checked;savePrefs();sekmeUygula();toast(prefs.spGoster?'Spotify sekmesi görünür':'Spotify sekmesi gizlendi')});
+/* --- 5.6: Ayarlar akordiyon; açılışta yalnız ilk bölüm açık --- */
+function ayarAkordiyon(){const v=$('#v-set');if(!v||v.dataset.akor)return;const bs=[...v.querySelectorAll('.ayarbol')];if(!bs.length)return;v.dataset.akor='1';
+  bs.forEach((b,i)=>{const h=b.querySelector(':scope>.ayarbas');if(!h)return;h.setAttribute('role','button');h.tabIndex=0;h.insertAdjacentHTML('beforeend','<svg class="ico ok"><use href="#i-down"/></svg>');
+    h.setAttribute('aria-expanded',i===0?'true':'false');if(i)b.classList.add('kapali');
+    const tog=()=>{const k=b.classList.toggle('kapali');h.setAttribute('aria-expanded',k?'false':'true');if(!k)setTimeout(()=>{const nav=v.querySelector('.ayarnav');v.scrollTo({top:b.offsetTop-(nav?nav.offsetHeight:0)-8,behavior:'smooth'})},30)};
+    h.addEventListener('click',tog);h.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tog()}})});
+  /* üstteki bölüm düğmeleri: bölümü açıp oraya gider */
+  const nav=v.querySelector('.ayarnav');if(nav)nav.addEventListener('click',e=>{const b=e.target.closest('[data-ayar]');if(!b)return;const p=document.getElementById('ay-'+b.dataset.ayar);if(p&&p.classList.contains('kapali')){p.classList.remove('kapali');const h=p.querySelector('.ayarbas');if(h)h.setAttribute('aria-expanded','true')}},true);
+  /* yanlışlıkla dokunma koruması: kaydırma sırasında/hemen ardından ya da parmak kayarsa dokunuş sayılmaz */
+  let x0=0,y0=0,sonKay=0,iptal=false;
+  v.addEventListener('scroll',()=>{sonKay=Date.now()},{passive:true});
+  v.addEventListener('pointerdown',e=>{x0=e.clientX;y0=e.clientY;iptal=Date.now()-sonKay<350},true);
+  v.addEventListener('pointermove',e=>{if(Math.abs(e.clientX-x0)>10||Math.abs(e.clientY-y0)>10)iptal=true},true);
+  v.addEventListener('click',e=>{if(!e.isTrusted||e.detail===0)return;if(iptal||Date.now()-sonKay<250){e.preventDefault();e.stopPropagation()}},true)}
 function init(){
   offlineSetup();
   try{const sat=$('#ytmSatir');if(sat&&!MASA){const m=sat.querySelector('.muted'),sel=$('#ytmHedef'),d1=$('#ytmDene'),d2=$('#ytmNasil');sat.querySelector('.sw').hidden=true;d1.hidden=d2.hidden=true;
@@ -3739,7 +3778,7 @@ function init(){
   audio.playbackRate=prefs.speed;
   $('#fadeOn').checked=prefs.fade;$('#wakeOn').checked=prefs.wake;$('#artAlbOn').checked=prefs.artAlb!==false;$('#longAyriOn').checked=prefs.longAyri!==false;$('#hqOn').checked=prefs.hq!==false;$('#yeniSorOn').checked=prefs.yeniSor!==false;aralikCiz();$('#autoPlayOn').checked=!!prefs.autoPlay;
   $$('#sortSel option').forEach(o=>{if(o.value===prefs.sort)$('#sortSel').value=prefs.sort});
-  initMedia();UI.state();UI.sleep();try{ayarDuzen()}catch(e){console.warn('ayar',e)}try{hizCiz()}catch(e){}
+  initMedia();UI.state();UI.sleep();try{ayarDuzen()}catch(e){console.warn('ayar',e)}try{ayarAkordiyon()}catch(e){console.warn('akor',e)}try{sekmeUygula()}catch(e){}try{hizCiz()}catch(e){}
   if(prefs.wake)wake(true);
   if(!prefs.m27){prefs.m27=1;prefs.autoPlay=true;savePrefs();$('#autoPlayOn').checked=true}
   if(!prefs.acilis){prefs.acilis=prefs.autoPlay===false?'yok':'sor';savePrefs();acilisAyarCiz()}
