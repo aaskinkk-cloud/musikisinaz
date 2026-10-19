@@ -466,6 +466,22 @@ body.car-on .ytbox{z-index:51}
 .ytnp .np-ses{padding:8px 12px}
 #ytnpRep.on{color:var(--accent)}
 body.ytnp-acik .ytbox{z-index:60;border-radius:14px}
+/* 5.8: kitaplık üst alanı tek satır: ara · sekmeler · sırala menüsü; sayı Tümünü çal kartında */
+.libbar{display:flex;align-items:center;gap:6px;position:relative;padding-block:8px 6px}
+.libbar>#libTabs{flex:1;min-width:0;padding-block:0;gap:6px;mask-image:linear-gradient(90deg,#000 88%,transparent);-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);padding-right:14px}
+.libbar .chip{padding:7px 11px}
+#libBody>.actions{gap:8px;padding:10px}
+#libBody>.actions .btn{padding:9px 14px;font-size:14px;min-width:0}
+.libbar>.ib{width:38px;height:38px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--fg)}
+.libbar>.ib .ico{width:19px;height:19px}
+.libbar>#libAra.on{border-color:var(--accent);color:var(--accent)}
+.libbar>.search{position:absolute;left:0;right:0;top:8px;bottom:6px;height:auto;margin:0;z-index:3;display:none;padding-right:4px}
+.libbar.ara>.search{display:flex}
+.libbar>.search .ib{width:34px;height:34px}
+#libTools{display:none!important}
+#libBody>.actions{flex-wrap:nowrap;align-items:center}
+#libBody>.actions .btn{white-space:nowrap}
+#libBody>.actions .acount{flex:none;margin-left:auto;align-self:center;color:var(--muted);font-size:12.5px;font-variant-numeric:tabular-nums;text-align:right;line-height:1.3}
 /* 5.7: A-B düğmesi çalma ekranından kaldırıldı (taşıyordu, yanlışlıkla dokunuluyordu) */
 #npAB{display:none!important}
 /* 5.6: sekme gizleme, ayar akordiyonu, ferah kitaplık */
@@ -751,7 +767,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 5.7 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 5.8 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -3758,6 +3774,33 @@ function ayarAkordiyon(){const v=$('#v-set');if(!v||v.dataset.akor)return;const 
   v.addEventListener('pointerdown',e=>{x0=e.clientX;y0=e.clientY;iptal=Date.now()-sonKay<350},true);
   v.addEventListener('pointermove',e=>{if(Math.abs(e.clientX-x0)>10||Math.abs(e.clientY-y0)>10)iptal=true},true);
   v.addEventListener('click',e=>{if(!e.isTrusted||e.detail===0)return;if(iptal||Date.now()-sonKay<250){e.preventDefault();e.stopPropagation()}},true)}
+/* --- 5.8: kitaplık üst alanı tek satır --- */
+(function(){
+  const v=$('#v-lib'),sr=$('#q').parentElement,tabs=$('#libTabs');if(!v||!sr||!tabs)return;
+  const bar=document.createElement('div');bar.className='libbar';bar.id='libBar';
+  {const K={songs:'Şarkı',albums:'Albüm',artists:'Sanatçı',lists:'Liste'};tabs.querySelectorAll('.chip').forEach(c=>{if(K[c.dataset.tab])c.textContent=K[c.dataset.tab]})}
+  bar.innerHTML='<button class="ib" id="libAra" aria-label="Kitaplıkta ara">'+ico('search')+'</button>';
+  v.insertBefore(bar,sr);bar.appendChild(tabs);
+  bar.insertAdjacentHTML('beforeend','<button class="ib" id="libMenu" aria-label="Sıralama ve tarama">'+ico('eq')+'</button>');
+  bar.appendChild(sr);sr.insertAdjacentHTML('beforeend','<button class="ib" id="libAraX" aria-label="Aramayı kapat">'+ico('close')+'</button>');
+  const ac=()=>{bar.classList.add('ara');$('#libAra').classList.add('on');setTimeout(()=>{try{$('#q').focus()}catch(e){}},30)};
+  const kapa=()=>{bar.classList.remove('ara');$('#libAra').classList.toggle('on',!!ui.q);if(ui.q){ui.q='';$('#q').value='';renderLib()}};
+  $('#libAra').addEventListener('click',ac);$('#libAraX').addEventListener('click',kapa);
+  $('#q').addEventListener('keydown',e=>{if(e.key==='Escape')kapa()});
+  $('#q').addEventListener('blur',()=>{if(!ui.q)setTimeout(()=>{if(document.activeElement!==$('#q')&&!ui.q)bar.classList.remove('ara')},150)});
+  const SIR=[['title','Ada göre'],['artist','Sanatçıya göre'],['added','Son eklenen'],['plays','En çok çalınan'],['duration','Süreye göre']];
+  $('#libMenu').addEventListener('click',()=>{
+    const L=(ui.tab==='songs'?SIR.map(([k,ad])=>({icon:'list',label:(prefs.sort===k?'✓ ':'')+ad,fn:()=>{prefs.sort=k;savePrefs();const ss=$('#sortSel');if(ss)ss.value=k;renderLib()}})):[]);
+    L.push({icon:'folder',label:'Yeniden tara',fn:()=>{const b=$('#btnScan');if(b)b.click()}});
+    L.push({icon:'moon',label:'Pasif müzikler ('+Object.keys(PAS()).length+')',fn:()=>{ui.detail={type:'pasif',key:'pasif'};renderLib()}});
+    menuSheet(ui.tab==='songs'?'Sırala':'Kitaplık',L)});
+  const _rl=renderLib;renderLib=function(){const r=_rl.apply(this,arguments);try{
+    const det=!!ui.detail,bos=!lib.length&&!det;bar.hidden=bos;
+    $('#libAra').hidden=false;tabs.classList.toggle('hide',det);$('#libMenu').hidden=det;
+    if(ui.q)bar.classList.add('ara');$('#libAra').classList.toggle('on',!!ui.q);
+    const a=$('#libBody>.actions');if(a&&!det&&ui.tab==='songs'){const c=$('#libCount').textContent;if(c){const sp=document.createElement('span');sp.className='acount';const pr=c.split(' · ');sp.innerHTML=esc(pr[0])+(pr[1]?'<br>'+esc(pr[1]):'');a.appendChild(sp)}}
+  }catch(e){}return r};
+})();
 function init(){
   offlineSetup();
   try{const sat=$('#ytmSatir');if(sat&&!MASA){const m=sat.querySelector('.muted'),sel=$('#ytmHedef'),d1=$('#ytmDene'),d2=$('#ytmNasil');sat.querySelector('.sw').hidden=true;d1.hidden=d2.hidden=true;

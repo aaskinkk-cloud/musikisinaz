@@ -30,6 +30,7 @@ Tını: telefondaki şarkılarını çalan ücretsiz müzik çalar. 10 bant ekol
 | **Bilgisayarda YouTube Music'e geç** | Bilgisayarda Tını küçültülünce ya da arkada kalınca YouTube'dan çalan şarkı kaldığı saniyeden YouTube Music (ya da YouTube) penceresinde sürer, Tını durur. Bir kez *açılır pencere izni* gerekir (Ayarlar › YouTube ve Spotify › İzin nasıl verilir?). Elle geçiş: şarkı menüsü › *YouTube Music'te sürdür* |
 | **Ayarlar akordiyon** | Bölümler katlanır; açılışta yalnız ilk bölüm (Görünüm ve sekmeler) açık. Kaydırırken ya da parmak kayınca düğmeler tetiklenmez (yanlışlıkla dokunma koruması) |
 | **Sekme gizleme** | Kuyruk ve Spotify sekmeleri varsayılan gizli; Ayarlar › Görünüm ve sekmeler'den açılır. Kuyruğa çalma ekranından her zaman ulaşılır |
+| **Tek satır üst alan** | Kitaplıkta arama · Şarkı/Albüm/Sanatçı/Liste · sıralama menüsü tek satırda; 🔍 dokununca arama kutusu açılır (✕ kapatır). Sıralama, Yeniden tara ve Pasif müzikler sağdaki menüde; şarkı sayısı ve süre Tümünü çal kartında |
 | **Ferah kitaplık** | Tümünü çal / Karıştır çubuğu ve her şarkı ince çerçeveli, zeminli ayrı kartta; çalan şarkı vurgulu |
 | **Pasif müzikler** | Şarkının ⋮ menüsünden *Pasife al*: kitaplıkta görünmez, çalınmaz, kuyruktan çıkar. Albüm/sanatçı sayfasında tümü birden pasife alınabilir. *Listeler › Pasif müzikler*'de görünür; *Aktif yap* / *Tümünü aktif yap* ile geri gelir (favori, çalma sayısı korunur) |
 | **Tekrar yükleme yok** | Dosya eklerken kitaplıkta (aktif) ya da Pasif listesinde olan dosyalar ve aynı seçimde iki kez gelenler atlanır |
@@ -56,7 +57,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**5.7** — Çalma ekranındaki A-B düğmesi kaldırıldı (alt çubuktan taşıyordu).  
+**5.8** — Kitaplık üst alanı 5 satırdan 2 satıra indi (arama, sekmeler ve sıralama tek satır; sayı Tümünü çal kartında).  
+5.7 — Çalma ekranındaki A-B düğmesi kaldırıldı (alt çubuktan taşıyordu).  
 5.6 — Ayarlar akordiyon + dokunma koruması, Kuyruk/Spotify sekmesi gizleme (varsayılan gizli), kitaplıkta çerçeveli ferah şarkı kartları.  
 5.5 — Telefonda tek dokunuşla YouTube Music uygulamasına geçiş (mini oynatıcı + YouTube çalma ekranı düğmesi).  
 5.4 — Bilgisayarda küçültünce YouTube'dan çalan şarkı YouTube Music'te kaldığı yerden sürer (açılır pencere izni gerekir); elle geçiş menüsü.  
