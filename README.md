@@ -19,7 +19,6 @@ Tını: telefondaki şarkılarını çalan ücretsiz müzik çalar. 10 bant ekol
 | **Benzer adlı sanatçılar** | Neşet Ertaş · NEŞET ERTAŞ · Neset Ertas · "feat." ekli adlar tek sanatçıda toplanır |
 | **Sıralama** | Kuyruk, çalma listesi ve YouTube listende ⋮⋮ tutamağını **0,3 sn basılı tut + sürükle**; hızlı kaydırma yanlışlıkla taşımaz |
 | **Çalma ekranı** | Tek sayfa; kapağı sola/sağa kaydır → sonraki/önceki şarkı; kapağın sağına/soluna çift dokun → ±10 sn; üstte sıra ve sıradaki şarkı |
-| **A-B tekrar** | Bir bölümü döngüde çal (A-B düğmesi: başlangıç, bitiş, kapat) |
 | **Şarkılar arası geçiş** | Biten şarkı kısılır, yenisi yavaşça açılır (3/6/10 sn) |
 | **Kaldığım yer** | 10 dk+ kayıtlar kaldığı saniyeden başlar |
 | **İstatistik** | Bugün, son 7 gün, en çok dinlenen şarkı ve sanatçılar |
@@ -57,7 +56,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**5.6** — Ayarlar akordiyon + dokunma koruması, Kuyruk/Spotify sekmesi gizleme (varsayılan gizli), kitaplıkta çerçeveli ferah şarkı kartları.  
+**5.7** — Çalma ekranındaki A-B düğmesi kaldırıldı (alt çubuktan taşıyordu).  
+5.6 — Ayarlar akordiyon + dokunma koruması, Kuyruk/Spotify sekmesi gizleme (varsayılan gizli), kitaplıkta çerçeveli ferah şarkı kartları.  
 5.5 — Telefonda tek dokunuşla YouTube Music uygulamasına geçiş (mini oynatıcı + YouTube çalma ekranı düğmesi).  
 5.4 — Bilgisayarda küçültünce YouTube'dan çalan şarkı YouTube Music'te kaldığı yerden sürer (açılır pencere izni gerekir); elle geçiş menüsü.  
 5.3 — Pasif müzikler listesi: pasife alınan şarkılar yerel listede görünmez, çalınmaz; yüklerken aktif ve pasif dosyalar yeniden yüklenmez.  

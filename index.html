@@ -466,6 +466,8 @@ body.car-on .ytbox{z-index:51}
 .ytnp .np-ses{padding:8px 12px}
 #ytnpRep.on{color:var(--accent)}
 body.ytnp-acik .ytbox{z-index:60;border-radius:14px}
+/* 5.7: A-B düğmesi çalma ekranından kaldırıldı (taşıyordu, yanlışlıkla dokunuluyordu) */
+#npAB{display:none!important}
 /* 5.6: sekme gizleme, ayar akordiyonu, ferah kitaplık */
 .nav{grid-auto-flow:column;grid-template-columns:none!important;grid-auto-columns:1fr}
 body.kuyruk-gizli #nav [data-view="queue"],body.sp-gizli #nav [data-view="sp"]{display:none}
@@ -749,7 +751,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 5.6 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 5.7 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
