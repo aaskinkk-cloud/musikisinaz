@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="tr">
 <head>
+<style>@media (display-mode: fullscreen){#rFull,[data-fs],[data-m="full"],#tamBtn,.tam-ekran{display:none!important}}</style>
 <script>
 /* SESSİZ EKRAN (22.10.2026) — tüm uygulamalarda aynı blok
    1) Tam ekran isteği yalnız tam ekran düğmesiyle gönderilir; kendiliğinden (dokununca/açılışta) gönderilmez → Chrome'un "Tam ekrandan çıkmak için yukarıdan sürükleyip…" uyarısı çıkmaz.
@@ -12,11 +13,13 @@
   /* v2: sayfanın tamamı (html/body) için tam ekran isteği YALNIZ tam ekran düğmesine basınca gönderilir.
      Dokununca / açılışta / dosya seçiciden dönünce kendiliğinden tam ekran isteği engellenir → uyarı çıkmaz.
      Kurulu uygulama zaten tam ekran açılır. Video/önizleme gibi tek bir öğenin tam ekranı serbesttir. */
+  function kurulu(){try{return matchMedia('(display-mode: fullscreen)').matches}catch(e){return false}}
+  /* v3: ana ekrandan açılan uygulama zaten tam ekrandır; düğmeye basınca da istek gönderilmez (yoksa uyarı + sayfa yeniden dizilir) */
   var sonDugme=0,DUGME='[data-fs],[data-m="full"],#rFull,#tamBtn,.tam-ekran,[data-tam],[aria-label*="am ekran"],[title*="am ekran"]';
   document.addEventListener('click',function(e){try{if(e.isTrusted&&e.target.closest&&e.target.closest(DUGME))sonDugme=Date.now()}catch(x){}},true);
   try{['requestFullscreen','webkitRequestFullscreen'].forEach(function(k){var o=Element.prototype[k];if(!o)return;
     Element.prototype[k]=function(){var kok=this===document.documentElement||this===document.body;
-      if(kok&&Date.now()-sonDugme>1500)return Promise.resolve();return o.apply(this,arguments)}})}catch(e){}
+      if(kok&&(kurulu()||Date.now()-sonDugme>1500))return Promise.resolve();return o.apply(this,arguments)}})}catch(e){}
   function bos(){}
   function kok(d){try{if(!d||d.__sessiz)return;d.__sessiz=1;var b=d.body||d.documentElement;if(!b)return;
       if(!b.hasAttribute('tabindex'))b.setAttribute('tabindex','-1');b.style.outline='none';
