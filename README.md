@@ -1,5 +1,10 @@
 # Tını
 
+## 5.9 (22.10.2026) — Sessiz ekran
+- **Tam ekran uyarısı:** Ana ekrandan açılan (kurulu, tam ekran) uygulamada içeriden tam ekran isteği gönderilmez → Chrome'un "Tam ekrandan çıkmak için yukarıdan sürükleyip…" uyarısı çıkmaz. Chrome sekmesinde tam ekrana her girişte bu uyarıyı tarayıcı kendisi gösterir; sayfa kapatamaz.
+- **Kelimeye dokununca Google paneli:** Chrome'un "Dokunarak ara" paneli açılmasın diye sayfa (ve içindeki çerçeveler) dokunuşu kendisi karşılar. Uzun basıp seçme çalışır.
+- Blok `/* SESSİZ EKRAN */` adıyla `index.html`'in başındadır; tüm uygulamalarda aynıdır.
+
 Tını: telefondaki şarkılarını çalan ücretsiz müzik çalar. 10 bant ekolayzır, vokal azaltma (yalnız müzik), sessizlik atlama, uyku zamanlayıcısı, araç modu, çalma listeleri, YouTube ve Spotify listeleri.
 
 **Uygulamayı aç:** https://aaskinkk-cloud.github.io/musikisinaz/

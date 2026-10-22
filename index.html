@@ -1,6 +1,30 @@
 <!doctype html>
 <html lang="tr">
 <head>
+<script>
+/* SESSİZ EKRAN (22.10.2026) — tüm uygulamalarda aynı blok
+   1) Kurulu uygulama (ana ekrandan açılan, tam ekran) zaten tam ekrandır: uygulama içinden tam ekran isteği
+      gönderilmez → Chrome'un "Tam ekrandan çıkmak için yukarıdan sürükleyip…" uyarısı çıkmaz.
+      (Chrome sekmesinde tam ekrana her girişte bu uyarıyı tarayıcının kendisi gösterir; sayfa kapatamaz.)
+   2) Bir kelimeye dokununca Chrome'un "Dokunarak ara" (Google açıklaması) paneli açılmaz:
+      sayfa ve içindeki çerçeveler (EPUB sayfaları) dokunuşu kendisi karşılar. Uzun basıp seçme çalışmaya devam eder. */
+(function(){
+  if(window.__sessiz)return;window.__sessiz=1;
+  function kurulu(){try{return matchMedia('(display-mode: fullscreen)').matches}catch(e){return false}}
+  try{['requestFullscreen','webkitRequestFullscreen'].forEach(function(k){var o=Element.prototype[k];if(!o)return;
+    Element.prototype[k]=function(){if(kurulu())return Promise.resolve();return o.apply(this,arguments)}})}catch(e){}
+  function bos(){}
+  function kok(d){try{if(!d||d.__sessiz)return;d.__sessiz=1;var b=d.body||d.documentElement;if(!b)return;
+      if(!b.hasAttribute('tabindex'))b.setAttribute('tabindex','-1');b.style.outline='none';
+      b.addEventListener('click',bos);d.documentElement.addEventListener('click',bos)}catch(e){}}
+  function cerceve(f){try{var t=function(){try{kok(f.contentDocument)}catch(e){}};t();f.addEventListener('load',t)}catch(e){}}
+  function bak(n){try{if(!n||n.nodeType!==1)return;if(n.tagName==='IFRAME')cerceve(n);else if(n.querySelectorAll)n.querySelectorAll('iframe').forEach(cerceve)}catch(e){}}
+  function basla(){kok(document);bak(document.body);
+    try{new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes&&m.addedNodes.forEach(bak)})}).observe(document.body,{childList:true,subtree:true})}catch(e){}}
+  if(document.body)basla();else document.addEventListener('DOMContentLoaded',basla);
+})();
+</script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <!-- seo -->
