@@ -57,7 +57,7 @@ public class CalmaServisi extends Service {
             nm.createNotificationChannel(k);
         }
         try { simge = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher); } catch (Exception e) { }
-        oturum = new MediaSession(this, "Tını");
+        oturum = new MediaSession(this, "Tını Çalar");
         oturum.setCallback(new MediaSession.Callback() {
             @Override public void onPlay() { MainActivity.komut("play"); }
             @Override public void onPause() { MainActivity.komut("pause"); }

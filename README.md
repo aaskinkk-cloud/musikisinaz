@@ -7,6 +7,7 @@
 
 | | |
 |---|---|
+| **Simge ve ad** | Turuncu zemin, beyaz nota; ana ekranda **Tını Çalar** adıyla görünür (tarayıcıdan yüklenen koyu simgeli Tını'dan ayırt edilir) |
 | **Kalıcı tam ekran** | Durum ve gezinme çubukları gizli; Chrome'un "Tam ekrandan çıkmak için…" uyarısı yok. Kaydırınca çubuklar geçici görünür |
 | **Telefondaki müzikler** | İzin verince telefondaki bütün şarkılar kendiliğinden listelenir (dosya seçmeye, kopyalamaya gerek yok); yeni indirilen şarkı listeye kendiliğinden gelir. Zil/bildirim sesleri, 15 sn'den kısa kayıtlar, WhatsApp sesli mesajları ve arama kayıtları alınmaz |
 | **Arka planda çalma** | Ana ekrana dönünce ya da ekran kapanınca müzik (YouTube dahil) sürer; geri tuşu uygulamayı kapatmaz, arkaya alır |
