@@ -1,5 +1,28 @@
 # Tını
 
+**Uygulamayı aç:** https://aaskinkk-cloud.github.io/musikisinaz/ · Yedek: https://ahmet-uygulamalar.pages.dev/musikisinaz/
+**Android uygulaması (APK):** https://github.com/aaskinkk-cloud/musikisinaz/releases/download/android/tini.apk
+
+## Android uygulaması (APK)
+
+| | |
+|---|---|
+| **Kalıcı tam ekran** | Durum ve gezinme çubukları gizli; Chrome'un "Tam ekrandan çıkmak için…" uyarısı yok. Kaydırınca çubuklar geçici görünür |
+| **Telefondaki müzikler** | İzin verince telefondaki bütün şarkılar kendiliğinden listelenir (dosya seçmeye, kopyalamaya gerek yok); yeni indirilen şarkı listeye kendiliğinden gelir. Zil/bildirim sesleri, 15 sn'den kısa kayıtlar, WhatsApp sesli mesajları ve arama kayıtları alınmaz |
+| **Arka planda çalma** | Ana ekrana dönünce ya da ekran kapanınca müzik (YouTube dahil) sürer; geri tuşu uygulamayı kapatmaz, arkaya alır |
+| **Bildirim ve kilit ekranı** | Önceki · Çal/Duraklat · Sonraki düğmeleri |
+| **Araç / kulaklık** | Bluetooth ve direksiyon ileri-geri, çal/duraklat düğmeleri çalışır |
+| **Bağlantılar** | YouTube, YouTube Music vb. bağlantılar telefondaki uygulamada açılır |
+| **Güncelleme** | Uygulama sayfayı GitHub'dan açar: web sürümüne gelen her güncelleme APK'ya da kendiliğinden gelir; GitHub açılmazsa Cloudflare kopyası açılır |
+
+**Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
+
+## 6.0 (28.10.2026) — Android uygulaması + klasik görünüm
+- **Android uygulaması (APK)** — yukarıdaki tablo.
+- **Klasik görünüm (Winamp tarzı):** Ayarlar › Görünüm ve sekmeler › Klasik görünüm › Aç. Yeşil süre ekranı (dokun: kalan/geçen), kayan şarkı adı, spektrum, kbps/kHz, ses ve denge, konum çubuğu, ⏮ ▶ ‖ ■ ⏭ ⏏, ışıklı Karışık/Tekrar; 10 bant ekolayzır (ön yükseltme, hazır ayarlar, eğri) ve çalma listesi (ara, + Ekle, Tümü). EQ/PL pencereleri gizler; ekranın tamamını kaplar. "Açılışta klasik görünüm" seçilebilir.
+- Tarayıcı sekmesinde açılınca "Uygulama olarak yükle" düğmesi.
+- Büyük yazı boyutunda yana kayma giderildi.
+
 ## 5.13 (23.10.2026) — Tam ekran düğmesi geri
 - Kurulu uygulamada gizlenen tam ekran düğmesi yeniden görünür ve çalışır. Düğmeye basınca Chrome kendi "Tam ekrandan çıkmak için…" uyarısını bir kez gösterir (tarayıcı kuralı). Dokununca kendiliğinden tam ekran isteği gönderilmez.
 
@@ -50,6 +73,7 @@ Tını: telefondaki şarkılarını çalan ücretsiz müzik çalar. 10 bant ekol
 | **Sekme gizleme** | Kuyruk ve Spotify sekmeleri varsayılan gizli; Ayarlar › Görünüm ve sekmeler'den açılır. Kuyruğa çalma ekranından her zaman ulaşılır |
 | **Tek satır üst alan** | Kitaplıkta arama · Şarkı/Albüm/Sanatçı/Liste · sıralama menüsü tek satırda; 🔍 dokununca arama kutusu açılır (✕ kapatır). Sıralama, Yeniden tara ve Pasif müzikler sağdaki menüde; şarkı sayısı ve süre Tümünü çal kartında |
 | **Ferah kitaplık** | Tümünü çal / Karıştır çubuğu ve her şarkı ince çerçeveli, zeminli ayrı kartta; çalan şarkı vurgulu |
+| **Klasik görünüm (Winamp tarzı)** | Ayarlar › Görünüm ve sekmeler › Klasik görünüm. Çalar, 10 bant ekolayzır ve çalma listesi tek ekranda; aynı kitaplık ve kuyruk. × ya da geri tuşu modern görünüme döndürür |
 | **Pasif müzikler** | Şarkının ⋮ menüsünden *Pasife al*: kitaplıkta görünmez, çalınmaz, kuyruktan çıkar. Albüm/sanatçı sayfasında tümü birden pasife alınabilir. *Listeler › Pasif müzikler*'de görünür; *Aktif yap* / *Tümünü aktif yap* ile geri gelir (favori, çalma sayısı korunur) |
 | **Tekrar yükleme yok** | Dosya eklerken kitaplıkta (aktif) ya da Pasif listesinde olan dosyalar ve aynı seçimde iki kez gelenler atlanır |
 | **YouTube albüm** | "albüm/album" içeren aramada yalnız uzun tek videolar (tam albüm) gelir; oynatma listesi aktarılırken hangi videoların alınacağını seçersin |
@@ -71,11 +95,15 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 |---|---|
 | `index.html` | Uygulamanın tamamı (tek dosya) |
 | `sw.js` | Çevrimdışı önbellek ve sürüm güncelleme |
-| `manifest.webmanifest`, simgeler | Ana ekran simgesi ve uygulama bilgileri |
+| `manifest.webmanifest`, `icon-*.png`, `icon.svg` | Ana ekran simgesi ve uygulama bilgileri |
+| `index.cloudflare.html` | Cloudflare kopyası için kaynak (simge adları farklı) |
+| `android/` | Android uygulaması (WebView kabuğu, çalma hizmeti, simgeler) |
+| `.github/workflows/android.yml` | APK'yı derleyip *android* sürümüne yükler |
 
 ## Sürüm
 
-**5.8** — Kitaplık üst alanı 5 satırdan 2 satıra indi (arama, sekmeler ve sıralama tek satır; sayı Tümünü çal kartında).  
+**6.0** — Android uygulaması (APK), klasik (Winamp tarzı) görünüm.  
+5.8 — Kitaplık üst alanı 5 satırdan 2 satıra indi (arama, sekmeler ve sıralama tek satır; sayı Tümünü çal kartında).  
 5.7 — Çalma ekranındaki A-B düğmesi kaldırıldı (alt çubuktan taşıyordu).  
 5.6 — Ayarlar akordiyon + dokunma koruması, Kuyruk/Spotify sekmesi gizleme (varsayılan gizli), kitaplıkta çerçeveli ferah şarkı kartları.  
 5.5 — Telefonda tek dokunuşla YouTube Music uygulamasına geçiş (mini oynatıcı + YouTube çalma ekranı düğmesi).  

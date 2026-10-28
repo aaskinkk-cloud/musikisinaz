@@ -1,0 +1,30 @@
+# Tını Android uygulamasını (APK) derler ve "android" sürümüne yükler.
+# İndirme: https://github.com/aaskinkk-cloud/musikisinaz/releases/download/android/tini.apk
+name: Tını Android APK
+on:
+  workflow_dispatch:
+  push:
+    paths: ['android/**', '.github/workflows/android.yml']
+permissions:
+  contents: write
+jobs:
+  derle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '17' }
+      - uses: gradle/actions/setup-gradle@v4
+        with: { gradle-version: '8.9' }
+      - name: Derle
+        working-directory: android
+        run: gradle --no-daemon assembleRelease
+      - name: APK adını düzelt
+        run: cp android/app/build/outputs/apk/release/app-release.apk tini.apk
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: android
+          name: Tını Android
+          body: "Tını Android uygulaması — kalıcı tam ekran, telefondaki müzikler kendiliğinden listelenir, arka planda / ekran kapalıyken çalar, kilit ekranı ve araç (direksiyon) düğmeleri çalışır. Telefona indir ve aç (bilinmeyen kaynak izni ister)."
+          files: tini.apk
+          make_latest: true

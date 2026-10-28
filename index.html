@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="tr">
-<head>
+<head><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
 <script>
 /* SESSİZ EKRAN (22.10.2026) — tüm uygulamalarda aynı blok
    1) Tam ekran isteği yalnız tam ekran düğmesiyle gönderilir; kendiliğinden (dokununca/açılışta) gönderilmez → Chrome'un "Tam ekrandan çıkmak için yukarıdan sürükleyip…" uyarısı çıkmaz.
@@ -496,6 +496,112 @@ body.car-on .ytbox{z-index:51}
 .ytnp .np-ses{padding:8px 12px}
 #ytnpRep.on{color:var(--accent)}
 body.ytnp-acik .ytbox{z-index:60;border-radius:14px}
+/* 5.9: Klasik görünüm (Winamp tarzı) */
+.wa{position:fixed;inset:0;z-index:55;display:none;overflow-y:auto;overflow-x:hidden;touch-action:pan-y;background:radial-gradient(120% 80% at 50% 0%,#0e8a8a,#006b6b 60%,#044f55);padding:calc(env(safe-area-inset-top,0px) + 14px) 10px calc(env(safe-area-inset-bottom,0px) + 18px);font:12px/1.2 Tahoma,Verdana,"DejaVu Sans",sans-serif;color:#dcdcec;-webkit-tap-highlight-color:transparent;user-select:none}
+.wa.open{display:block}
+.wa-in{max-width:460px;width:100%;min-width:0;margin:0 auto;display:grid;gap:0;filter:drop-shadow(0 10px 22px rgba(0,0,0,.45))}
+.waw{background:linear-gradient(180deg,#3a3a5c,#262640 70%,#22223a);border:2px solid;border-color:#6c6c94 #101018 #101018 #6c6c94;padding:0 6px 7px}
+.waw+.waw{border-top-width:1px}
+.wat{display:flex;align-items:center;gap:6px;height:24px;margin:0 -6px 6px;padding:0 4px;background:linear-gradient(#20202f,#151522)}
+.wat .ln{flex:1;height:7px;background:repeating-linear-gradient(180deg,#c9a43a 0 1px,transparent 1px 3px);opacity:.85}
+.wat b{font:700 10.5px/1 Tahoma,Verdana,sans-serif;letter-spacing:.18em;color:#e2e2f2;white-space:nowrap;text-shadow:0 1px 0 #000}
+.wat button{width:22px;height:18px;padding:0;display:grid;place-items:center;border:1px solid;border-color:#9a9ab8 #2a2a3a #2a2a3a #9a9ab8;background:linear-gradient(#5c5c7e,#3a3a56);color:#e6e6f6;font:700 11px/1 Tahoma,sans-serif;border-radius:1px}
+.wat button:active{border-color:#2a2a3a #9a9ab8 #9a9ab8 #2a2a3a}
+.wa-top{display:grid;grid-template-columns:minmax(0,46%) minmax(0,1fr);gap:7px}
+.wa-lcd{background:#000;border:2px solid;border-color:#0a0a10 #5a5a78 #5a5a78 #0a0a10;padding:6px 7px 5px;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto 1fr;gap:2px 8px;min-height:96px;cursor:pointer}
+.wa-st{grid-row:1/3;display:grid;gap:5px;align-content:start;padding-top:4px}
+.wa-st i{display:block;width:9px;height:9px;opacity:.18;background:#00e000}
+.wa-st i.on{opacity:1;box-shadow:0 0 6px #00e000}
+.wa-st .p{clip-path:polygon(0 0,100% 50%,0 100%)}
+.wa-st .z{background:linear-gradient(90deg,#00e000 0 35%,transparent 35% 65%,#00e000 65%)}
+.wa-time{font:700 32px/1 "Courier New",ui-monospace,monospace;color:#00e83a;letter-spacing:-.02em;text-align:right;text-shadow:0 0 8px rgba(0,232,58,.55);font-variant-numeric:tabular-nums}
+.wa-viz{width:100%;height:42px;display:block;align-self:end;image-rendering:pixelated}
+.wa-info{display:grid;gap:6px;min-width:0;align-content:start}
+.wa-mq{background:#000;border:2px solid;border-color:#0a0a10 #5a5a78 #5a5a78 #0a0a10;height:26px;overflow:hidden;white-space:nowrap;position:relative}
+.wa-mq span{position:absolute;left:0;top:5px;color:#00e83a;font:700 12.5px/1 Tahoma,Verdana,sans-serif;padding-left:100%;animation:waMq 14s linear infinite}
+@keyframes waMq{to{transform:translateX(-100%)}}
+.wa-kb{display:flex;align-items:center;gap:5px;font-size:9.5px;color:#b6b6cc;letter-spacing:.04em;flex-wrap:wrap}
+.wa-kb b{background:#000;color:#00e83a;font:700 11px/1 "Courier New",monospace;padding:3px 4px;min-width:26px;text-align:center;border:1px solid #0a0a10}
+.wa-kb i{font-style:normal;font-weight:700;color:#4a4a62;margin-left:auto}
+.wa-kb i+i{margin-left:0}
+.wa-kb i.on{color:#00e83a;text-shadow:0 0 5px rgba(0,232,58,.6)}
+.wa-sl{display:flex;align-items:center;gap:6px}
+.wa-tg{height:22px;min-width:30px;padding:0 6px;border:1px solid;border-color:#a8a8c4 #24243a #24243a #a8a8c4;background:linear-gradient(#56567a,#36364e);color:#dcdcec;font:700 9.5px/1 Tahoma,sans-serif;letter-spacing:.06em;display:inline-flex;align-items:center;gap:4px;border-radius:1px;white-space:nowrap}
+.wa-tg:before{content:"";width:6px;height:6px;background:#1b3a1b;box-shadow:inset 0 0 0 1px #000}
+.wa-tg.on:before{background:#00ff3c;box-shadow:0 0 5px #00ff3c}
+.wa-tg:active{border-color:#24243a #a8a8c4 #a8a8c4 #24243a}
+/* kaydırıcılar */
+.wa input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;margin:0;touch-action:none}
+.wa input[type=range]::-webkit-slider-runnable-track{height:8px;border:1px solid;border-color:#0a0a10 #6a6a88 #6a6a88 #0a0a10;background:#14141f}
+.wa input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:14px;margin-top:-4px;border:1px solid;border-color:#f0e0a0 #5a4a14 #5a4a14 #f0e0a0;background:linear-gradient(#e2c463,#a8852a);border-radius:1px}
+.wa input[type=range]::-moz-range-track{height:8px;background:#14141f;border:1px solid #0a0a10}
+.wa input[type=range]::-moz-range-thumb{width:16px;height:14px;border-radius:1px;border:1px solid #5a4a14;background:linear-gradient(#e2c463,#a8852a)}
+#waVol{flex:1.4;min-width:0;height:22px}
+#waVol::-webkit-slider-runnable-track{background:linear-gradient(90deg,#1f6e1f,#c8c81e 65%,#c8321e)}
+#waBal{flex:1;min-width:0;height:22px}
+#waBal::-webkit-slider-runnable-track{background:linear-gradient(90deg,#c8321e,#1f6e1f 50%,#c8321e)}
+.wa-seek{width:100%;height:26px;margin:6px 0 2px!important}
+.wa-seek::-webkit-slider-runnable-track{height:10px!important;background:#0c0c14!important}
+.wa-seek::-webkit-slider-thumb{width:30px!important;height:14px!important;margin-top:-3px!important}
+.wa-ctl{display:flex;align-items:center;gap:3px;flex-wrap:nowrap}
+.wa-ctl .wb{flex:1 1 0;min-width:0;height:40px;display:grid;place-items:center;border:1px solid;border-color:#e4e4f0 #4a4a5c #4a4a5c #e4e4f0;background:linear-gradient(#cfcfdd,#9696ac);color:#15152a;border-radius:2px;padding:0}
+.wa-ctl .wb:active{background:linear-gradient(#9696ac,#c4c4d4);border-color:#4a4a5c #e4e4f0 #e4e4f0 #4a4a5c}
+.wa-ctl .wb .ico,.wa-ctl .wb svg{width:18px;height:18px}
+.wa-ctl .wa-tg{height:40px;flex:none;padding:0 7px}
+.wa-ctl .gap{width:6px;flex:none}
+/* ekolayzır */
+.wa-eqbar{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.wa-eqbar canvas{flex:1;min-width:0;height:26px;background:#000;border:1px solid;border-color:#0a0a10 #5a5a78 #5a5a78 #0a0a10}
+.wa-bands{display:grid;grid-template-columns:30px 22px repeat(10,minmax(0,1fr));align-items:stretch;gap:2px;height:150px}
+.wa-band{display:grid;grid-template-rows:1fr auto;justify-items:center;gap:3px;min-width:0}
+.wa-band span{font:700 8.5px/1 Tahoma,sans-serif;color:#c6c6da;white-space:nowrap}
+.wa-band input{writing-mode:vertical-lr;direction:rtl;width:22px!important;height:100%!important}
+.wa-band input::-webkit-slider-runnable-track{width:8px;height:auto!important;background:linear-gradient(0deg,#1f6e1f,#c8c81e 55%,#c8321e)!important}
+.wa-band input::-webkit-slider-thumb{width:16px!important;height:10px!important;margin-top:0!important;margin-left:-5px}
+.wa-db{display:flex;flex-direction:column;justify-content:space-between;padding:2px 0 14px;font:700 8px/1 Tahoma,sans-serif;color:#9a9ab4;text-align:right}
+/* çalma listesi */
+.wa-list{background:#000;border:2px solid;border-color:#0a0a10 #5a5a78 #5a5a78 #0a0a10;height:max(150px,calc(100dvh - 600px));overflow-y:auto;overscroll-behavior:contain;user-select:none}
+.wa-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:7px 8px;color:#00e83a;font:13px/1.25 Arial,Helvetica,sans-serif;cursor:pointer;border-bottom:1px solid #071107}
+.wa-row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wa-row em{font-style:normal;font-variant-numeric:tabular-nums;color:#00b82e}
+.wa-row.cur{background:#0000c6;color:#fff}
+.wa-row.cur em{color:#fff}
+.wa-row:active{background:#002a00}
+.wa-plbar{display:flex;align-items:center;gap:4px;margin-top:6px;flex-wrap:wrap}
+.wa-plbar .wa-tg{height:30px}
+.wa-plbar .wa-tg:before{display:none}
+.wa-tot{margin-left:auto;background:#000;color:#00e83a;font:700 11px/1 "Courier New",monospace;padding:6px 7px;border:1px solid #0a0a10;white-space:nowrap}
+.wa-q{width:100%;margin-top:6px;height:32px;background:#000;color:#00e83a;border:2px solid;border-color:#0a0a10 #5a5a78 #5a5a78 #0a0a10;padding:0 8px;font:13px Arial,sans-serif;outline:0}
+.wa .hid{display:none!important}
+.wa-ipucu{margin:12px auto 0;max-width:460px;text-align:center;color:rgba(255,255,255,.75);font:12px/1.5 system-ui,sans-serif}
+.wa-ipucu button{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:7px 14px;font:600 13px system-ui,sans-serif;margin-top:6px}
+body.wa-on,html:has(body.wa-on){overflow:hidden}
+.wa *{min-width:0}
+.wa-sl input[type=range]{width:0;flex:1 1 0}
+.wa .wa-seek{width:100%!important;display:block}
+.wa-ctl .wi{flex:0 0 42px;height:40px;padding:0;justify-content:center;gap:3px}
+.wa-ctl .wi .ico{width:17px;height:17px}
+.wa-ctl .wi:before{position:absolute;margin:-26px 0 0 -26px}
+.wa-ctl .wi{position:relative}
+.wa-ctl .wi small{font:700 9px/1 Tahoma,sans-serif}
+.wat .fs{width:26px}
+/* 5.12: kenar boşluksuz, ekranı dolduran klasik görünüm */
+.wa{padding:0;background:#1a1a2c}
+.wa-in{max-width:none;min-height:100dvh;display:flex;flex-direction:column;filter:none}
+.waw{border-left:0;border-right:0;padding-top:env(safe-area-inset-top,0px)}
+.waw+.waw{padding-top:0}
+#waPl{flex:1;display:flex;flex-direction:column;min-height:0;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 7px)}
+#waPl .wa-list{flex:1;height:auto;min-height:140px}
+.wa-ipucu{display:none}
+.wa-kb{flex-wrap:nowrap;gap:4px;font-size:9px}
+.wa-kb b{min-width:0;padding:3px 3px}
+.wa-kb i{font-size:8.5px;letter-spacing:0}
+.wa-lcd{min-height:0}
+@media (min-width:600px){.wa{padding:16px 0;background:radial-gradient(120% 80% at 50% 0%,#0e8a8a,#006b6b 60%,#044f55)}.wa-in{max-width:460px;min-height:0}.waw{border-left:2px solid #6c6c94;border-right:2px solid #101018}}
+body.wa-on .scrim{z-index:60}
+body.wa-on .sheet{z-index:61}
+body.wa-on .toast{z-index:62}
+
 /* 5.8: kitaplık üst alanı tek satır: ara · sekmeler · sırala menüsü; sayı Tümünü çal kartında */
 .libbar{display:flex;align-items:center;gap:6px;position:relative;padding-block:8px 6px}
 .libbar>#libTabs{flex:1;min-width:0;padding-block:0;gap:6px;mask-image:linear-gradient(90deg,#000 88%,transparent);-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);padding-right:14px}
@@ -778,6 +884,8 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
           <button class="chip" data-theme-set="light">Açık</button>
         </div>
         <div class="row2" style="margin-top:10px"><div>Basit mod<div class="muted small">Yalnız gerekenler: büyük yazı ve düğmeler; kuyruk, ekolayzır ve ayrıntılı ayarlar gizlenir. Ayarların hiçbiri silinmez, çıkınca hepsi yerinde.</div></div><label class="sw"><input type="checkbox" id="basitOn" aria-label="Basit mod"><i></i></label></div>
+        <div class="row2"><div>Klasik görünüm<div class="muted small">Winamp tarzı çalar: yeşil ekran, spektrum, 10 bant ekolayzır ve çalma listesi tek ekranda. Aynı kitaplık ve kuyruk; × ile modern görünüme dönülür.</div></div><button class="btn sm primary" id="waAcBtn">Aç</button></div>
+        <div class="row2"><div>Açılışta klasik görünüm<div class="muted small">Tını her açıldığında doğrudan klasik görünüm gelsin.</div></div><label class="sw"><input type="checkbox" id="waAcOn" aria-label="Açılışta klasik görünüm"><i></i></label></div>
         <div class="row2"><div>Kuyruk sekmesi<div class="muted small">Alttaki çubukta Kuyruk sekmesi görünsün. Kapalıyken kuyruğa çalma ekranındaki liste düğmesinden ulaşırsın.</div></div><label class="sw"><input type="checkbox" id="kuyrukGosterOn" aria-label="Kuyruk sekmesini göster"><i></i></label></div>
         <div class="row2"><div>Spotify sekmesi<div class="muted small">Alttaki çubukta Spotify sekmesi görünsün. Gizlemek listeni silmez.</div></div><label class="sw"><input type="checkbox" id="spGosterOn" aria-label="Spotify sekmesini göster"><i></i></label></div>
       </div>
@@ -797,7 +905,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 5.8 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.0 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -1217,7 +1325,7 @@ async function loadLibrary(){
 }
 
 /* ---------- Ses motoru: 10 bant ekolayzır, bas, denge, sınırlayıcı, analizör ---------- */
-const audio=new Audio();audio.preload='auto';
+const audio=new Audio();audio.preload='auto';if(NATIVE)audio.crossOrigin='anonymous';
 let ctx=null,graph=null;
 const FREQS=[31,62,125,250,500,1000,2000,4000,8000,16000];
 const FL=['31','62','125','250','500','1K','2K','4K','8K','16K'];
@@ -2704,8 +2812,20 @@ UI.track=function(){
 UI.queue=function(){if(ui.view==='queue')renderQueue()};
 function nativePlay(p){
   if(!NATIVE)return;
-  try{window.Android.setPlaying(!!p,cur?cur.title:'',cur?cur.artist:'')}catch(e){}
+  try{const y=typeof carIsYT==='function'&&carIsYT(),it=y?ytCurItem():null;
+    const pl=y?!!ytPlaying:!!p,t=y?((it&&it.title)||'YouTube'):(cur?cur.title:''),a=y?((it&&it.author)||'YouTube'):(cur?cur.artist:'');
+    window.Android.setPlaying(pl,t,a)}catch(e){}
 }
+/* APK: bildirim, kilit ekranı, Bluetooth / direksiyon düğmeleri buraya gelir */
+window.tiniKomut=function(k){try{
+  const y=carIsYT();
+  if(k==='play'){if(y){if(!ytPlaying)ytToggle()}else if(!cur){if(queue.length)loadCurrent(true);else if(lib.length)playList(lib.filter(t=>!t.yt).map(t=>t.id))}else if(audio.paused)play()}
+  else if(k==='pause'){if(y){if(ytPlaying)ytToggle()}else if(cur&&!audio.paused)pause()}
+  else if(k==='toggle')ctlToggle();
+  else if(k==='next')ctlStep(1);
+  else if(k==='prev')ctlStep(-1);
+  else if(k==='stop'){if(y)ytPauseIfPlaying();else if(cur)pause()}
+}catch(e){}};
 UI.state=function(){
   const playing=!audio.paused&&!audio.ended&&!!cur;
   nativePlay(playing);
@@ -3233,7 +3353,7 @@ function ayarDuzen(){
   const P_=[...v.querySelectorAll(':scope > .panel')],tut=id=>{const el=document.getElementById(id);if(!el)return null;const pan=el.closest('.panel');if(!pan||!v.contains(pan))return null;let n=el;while(n.parentElement&&n.parentElement!==pan)n=n.parentElement;return n.parentElement===pan?n:null};
   const panelOf=id=>{const el=document.getElementById(id);return el?el.closest('.panel'):null};
   const G=[
-    ['hizli','Görünüm ve sekmeler','gear',['basitOn','kuyrukGosterOn','spGosterOn'],[]],
+    ['hizli','Görünüm ve sekmeler','gear',['waAcBtn','waAcOn','basitOn','kuyrukGosterOn','spGosterOn'],[]],
     ['calma','Çalma','play',['acilisChips','spd','fadeOn','autoPlayOn','silOn','clipChips','aralikOn','normalCal'],[]],
     ['icerik','Şarkı bölümleri','mic-off',['icerikChips'],[]],
     ['ses','Ses','vol',['hqOn'],[['eq','Ekolayzır ve vokal']]],
@@ -3784,6 +3904,147 @@ document.addEventListener('visibilitychange',()=>{
     else if(ytmOldu&&Date.now()-ytmOldu<6*3600e3){ytmOldu=0;toast('Şarkı '+(prefs.ytmHedef==='yt'?'YouTube\'da ':'YouTube Music\'te ')+'sürüyor · burada sürdürmek için ▶',3500)}
   }
 });
+/* --- 5.9: Klasik görünüm (Winamp tarzı) — aynı çalar, aynı kuyruk; yalnız görünüm farklı --- */
+let waOn=false,waRaf=0,waSig='',waKalan=false,waSurukle=false,waQ='';
+const WA_FL=['60','170','310','600','1K','3K','6K','12K','14K','16K'];
+function waKur(){
+  if($('#wa'))return;
+  const d=document.createElement('div');d.className='wa';d.id='wa';d.setAttribute('role','dialog');d.setAttribute('aria-label','Klasik görünüm');
+  const stopSvg='<svg viewBox="0 0 24 24" class="ico"><rect x="6" y="6" width="12" height="12" fill="currentColor"/></svg>';
+  const ejSvg='<svg viewBox="0 0 24 24" class="ico"><path d="M12 5l7 8H5z M5 16h14v3H5z" fill="currentColor"/></svg>';
+  d.innerHTML='<div class="wa-in">'+
+   '<section class="waw" id="waMain"><header class="wat"><button id="waMenu" aria-label="Menü">≡</button><i class="ln"></i><b>TINI</b><i class="ln"></i><button class="fs" id="waFs" data-fs aria-label="Tam ekran">⛶</button><button id="waX" aria-label="Modern görünüme dön">×</button></header>'+
+    '<div class="wa-top"><div class="wa-lcd" id="waLcd" aria-label="Süre (dokun: kalan / geçen)"><div class="wa-st"><i class="p" id="waSp"></i><i class="z" id="waSz"></i></div><div class="wa-time" id="waTime">00:00</div><canvas class="wa-viz" id="waViz" width="152" height="42"></canvas></div>'+
+     '<div class="wa-info"><div class="wa-mq"><span id="waMq">Tını</span></div>'+
+      '<div class="wa-kb"><b id="waKb">---</b>kbps<b id="waKhz">--</b>kHz<i id="waMono">mono</i><i id="waSter">stereo</i></div>'+
+      '<div class="wa-sl"><input type="range" id="waVol" min="0" max="100" aria-label="Ses"><input type="range" id="waBal" min="-1" max="1" step="0.05" aria-label="Denge"></div>'+
+      '<div class="wa-sl"><button class="wa-tg" id="waEqT">EQ</button><button class="wa-tg" id="waPlT">PL</button></div></div></div>'+
+    '<input type="range" class="wa-seek" id="waSeek" min="0" max="1000" value="0" aria-label="Konum">'+
+    '<div class="wa-ctl"><button class="wb" data-wa="prev" aria-label="Önceki">'+ico('prev')+'</button><button class="wb" data-wa="play" aria-label="Çal">'+ico('play')+'</button><button class="wb" data-wa="pause" aria-label="Duraklat">'+ico('pause')+'</button><button class="wb" data-wa="stop" aria-label="Durdur">'+stopSvg+'</button><button class="wb" data-wa="next" aria-label="Sonraki">'+ico('next')+'</button><i class="gap"></i><button class="wb" data-wa="ej" aria-label="Müzik ekle" style="flex:.8 1 0">'+ejSvg+'</button><i class="gap"></i><button class="wa-tg wi" data-wa="shuf" id="waShuf" aria-label="Karışık">'+ico('shuffle')+'</button><button class="wa-tg wi" data-wa="rep" id="waRep" aria-label="Tekrar">'+ico('repeat')+'<small id="waRep1"></small></button></div></section>'+
+   '<section class="waw" id="waEq"><header class="wat"><i class="ln"></i><b>TINI EKOLAYZIR</b><i class="ln"></i></header>'+
+    '<div class="wa-eqbar"><button class="wa-tg" id="waEqOn">AÇIK</button><canvas id="waCurve" width="200" height="26"></canvas><button class="wa-tg" id="waPres">HAZIR AYAR</button></div>'+
+    '<div class="wa-bands"><div class="wa-band"><input type="range" id="waPre" min="-12" max="12" step="0.5" aria-label="Ön yükseltme"><span>ÖN</span></div><div class="wa-db"><span>+12</span><span>0</span><span>-12</span></div>'+
+     WA_FL.map((l,i)=>'<div class="wa-band"><input type="range" min="-12" max="12" step="0.5" data-wb="'+i+'" aria-label="'+l+' Hz"><span>'+l+'</span></div>').join('')+'</div></section>'+
+   '<section class="waw" id="waPl"><header class="wat"><i class="ln"></i><b>TINI ÇALMA LİSTESİ</b><i class="ln"></i></header>'+
+    '<div class="wa-list" id="waList"></div><input class="wa-q hid" id="waQ" type="search" placeholder="Listede ara…" autocomplete="off">'+
+    '<div class="wa-plbar"><button class="wa-tg" data-wa="ej">+ EKLE</button><button class="wa-tg" data-wa="ara">ARA</button><button class="wa-tg" data-wa="hep">TÜMÜ</button><span class="wa-tot" id="waTot">0:00/0:00</span></div></section>'+
+  '</div><div class="wa-ipucu">Klasik görünüm · aynı kitaplık ve kuyruk<br><button id="waGeri">Modern görünüme dön</button></div>';
+  document.body.appendChild(d);
+  /* olaylar */
+  $('#waX').addEventListener('click',waKapa);$('#waGeri').addEventListener('click',waKapa);
+  $('#waMenu').addEventListener('click',()=>menuSheet('Klasik görünüm',[
+    {icon:'back',label:'Modern görünüme dön',fn:waKapa},
+    {icon:'gear',label:(prefs.waAc?'✓ ':'')+'Açılışta klasik görünüm',fn:()=>{prefs.waAc=!prefs.waAc;savePrefs();waAyarCiz();toast(prefs.waAc?'Tını açılınca klasik görünüm gelir':'Tını açılınca modern görünüm gelir')}},
+    {icon:'car',label:'Araç modu',fn:()=>{waKapa();openCar()}},
+    {icon:'gear',label:'Ayarlar',fn:()=>{waKapa();showView('set')}}]));
+  $('#waLcd').addEventListener('click',()=>{waKalan=!waKalan});
+  if(NATIVE)$('#waFs').hidden=true;
+  $('#waFs').addEventListener('click',()=>{try{window.__tamIzin=Date.now();const de=document.documentElement;if(document.fullscreenElement)document.exitFullscreen();else de.requestFullscreen({navigationUI:'hide'}).catch(()=>toast('Tarayıcı tam ekrana izin vermedi'))}catch(e){}});
+  d.addEventListener('click',e=>{const b=e.target.closest('[data-wa]');if(!b)return;const a=b.dataset.wa,y=carIsYT();
+    if(a==='play'){if(y){if(!ytPlaying)ytToggle()}else if(!cur){if(lib.length)playList(lib.filter(t=>!t.yt).map(t=>t.id))}else if(audio.paused)play()}
+    else if(a==='pause'){if(y){if(ytPlaying)ytToggle()}else if(cur&&!audio.paused)pause();else if(cur)play()}
+    else if(a==='stop'){if(y){ytPauseIfPlaying();try{ytP&&ytReady&&ytP.seekTo(0,true)}catch(x){}}else if(cur)stopAtEnd()}
+    else if(a==='prev')ctlStep(-1);else if(a==='next')ctlStep(1);
+    else if(a==='ej')pickFiles();
+    else if(a==='shuf'){setShuffle(!prefs.shuffle);toast(prefs.shuffle?'Karışık çalma açık':'Karışık çalma kapalı')}
+    else if(a==='rep')cycleRepeat();
+    else if(a==='ara'){const q=$('#waQ');q.classList.toggle('hid');if(!q.classList.contains('hid'))q.focus();else{q.value='';waQ='';waSig='';waListe()}}
+    else if(a==='hep'){const ids=lib.filter(t=>!t.yt&&!pasifMi(t)).map(t=>t.id);if(ids.length){playList(ids,cur&&ids.indexOf(cur.id)>=0?cur.id:ids[0]);toast('Tüm kitaplık listede')}}
+    setTimeout(waDurum,60)});
+  $('#waQ').addEventListener('input',e=>{waQ=e.target.value;waSig='';waListe()});
+  $('#waList').addEventListener('click',e=>{const r=e.target.closest('.wa-row');if(!r)return;const i=+r.dataset.i;
+    if(r.dataset.yt){ytPlay(i);return}
+    if(r.dataset.q){if(queue[i]!=null){qi=i;loadCurrent(true)}}else playList(waIds(),r.dataset.id);setTimeout(()=>{waSig='';waListe()},120)});
+  const seek=$('#waSeek');
+  seek.addEventListener('input',()=>{waSurukle=true});
+  seek.addEventListener('change',()=>{const v=+seek.value/1000;if(carIsYT()){const dd=ytDur();try{dd&&ytP.seekTo(v*dd,true)}catch(x){}}else if(cur){const dd=(isFinite(audio.duration)&&audio.duration)||cur.duration||0;if(dd)audio.currentTime=v*dd}waSurukle=false});
+  $('#waVol').addEventListener('input',e=>{prefs.vol=+e.target.value;savePrefs();syncVol();if(!fadeT)setVol(volLevel());if(ytP&&ytReady){try{ytP.setVolume(prefs.vol)}catch(x){}}});
+  $('#waBal').addEventListener('input',e=>{const v=+e.target.value;prefs.pan=Math.abs(v)<0.06?0:v;fxChanged()});
+  $('#waEqT').addEventListener('click',()=>{prefs.waEq=prefs.waEq===false;savePrefs();waPencere()});
+  $('#waPlT').addEventListener('click',()=>{prefs.waPl=prefs.waPl===false;savePrefs();waPencere()});
+  $('#waEqOn').addEventListener('click',()=>{prefs.eqOn=!prefs.eqOn;fxChanged();waEqCiz()});
+  $('#waPres').addEventListener('click',()=>menuSheet('Hazır ayarlar',Object.keys(PRESETS).map(n=>({icon:'eq',label:(prefs.preset===n?'✓ ':'')+n,fn:()=>{prefs.gains=PRESETS[n].slice();prefs.preset=n;prefs.eqOn=true;fxChanged();waEqCiz()}}))));
+  $('#waPre').addEventListener('input',e=>{prefs.pre=+e.target.value;fxChanged();waEqCiz()});
+  d.querySelector('.wa-bands').addEventListener('input',e=>{const i=e.target.dataset.wb;if(i==null)return;prefs.gains[+i]=+e.target.value;prefs.preset='Özel';fxChanged();waEqCiz()});
+}
+const pasifMi=t=>{try{return !!PAS()[t.key]}catch(e){return false}};
+function waIds(){
+  if(waQ){const q=fold(waQ);return lib.filter(t=>!t.yt&&fold(t.title+' '+t.artist+' '+t.album).indexOf(q)>=0).map(t=>t.id)}
+  return lib.filter(t=>!t.yt).slice().sort(sortFn(prefs.sort)).map(t=>t.id)}
+function waListe(){
+  const box=$('#waList');if(!box)return;const y=carIsYT();
+  const sig=(y?'y'+ytCur+':'+P.yt.length:'q'+queue.length+':'+qi+':'+(cur&&cur.id))+':'+waQ+':'+lib.length;
+  if(sig===waSig)return;waSig=sig;let html='',tot=0;
+  if(y){P.yt.forEach((it,i)=>{if(waQ&&fold((it.title||'')+' '+(it.author||'')).indexOf(fold(waQ))<0)return;html+='<div class="wa-row'+(i===ytCur?' cur':'')+'" data-yt="1" data-i="'+i+'"><span>'+(i+1)+'. '+esc(it.title||'YouTube videosu')+'</span><em>YT</em></div>'})}
+  else if(queue.length&&!waQ){queue.forEach((id,i)=>{const t=byId.get(id);if(!t)return;tot+=t.duration||0;html+='<div class="wa-row'+(i===qi?' cur':'')+'" data-q="1" data-i="'+i+'"><span>'+(i+1)+'. '+esc((t.artist&&t.artist.indexOf('Bilinmeyen')!==0?t.artist+' - ':'')+t.title)+'</span><em>'+fmt(t.duration)+'</em></div>'})}
+  else{waIds().forEach((id,i)=>{const t=byId.get(id);if(!t)return;tot+=t.duration||0;html+='<div class="wa-row'+(cur&&cur.id===id?' cur':'')+'" data-id="'+esc(id)+'" data-i="'+i+'"><span>'+(i+1)+'. '+esc((t.artist&&t.artist.indexOf('Bilinmeyen')!==0?t.artist+' - ':'')+t.title)+'</span><em>'+fmt(t.duration)+'</em></div>'})}
+  box.innerHTML=html||'<div class="wa-row"><span>'+(waQ?'Sonuç yok':'Liste boş · + EKLE ile müzik ekle')+'</span><em></em></div>';
+  box.dataset.tot=fmt(tot);
+  const c=box.querySelector('.cur');if(c)c.scrollIntoView({block:'nearest'});
+}
+function waEqCiz(){
+  const on=$('#waEqOn');if(!on)return;on.classList.toggle('on',!!prefs.eqOn);
+  $('#waPre').value=prefs.pre;$$('#wa [data-wb]').forEach((el,i)=>{el.value=prefs.gains[i]||0});
+  const c=$('#waCurve'),g=c.getContext('2d'),W=c.width,H=c.height;g.clearRect(0,0,W,H);
+  g.strokeStyle='#1f3a1f';g.beginPath();g.moveTo(0,H/2);g.lineTo(W,H/2);g.stroke();
+  const pts=prefs.gains.map((v,i)=>[i/(prefs.gains.length-1)*(W-8)+4,H/2-(v/12)*(H/2-3)]);
+  const gr=g.createLinearGradient(0,0,0,H);gr.addColorStop(0,'#c8321e');gr.addColorStop(.5,'#c8c81e');gr.addColorStop(1,'#1f9e1f');
+  g.strokeStyle=prefs.eqOn?gr:'#3a5a3a';g.lineWidth=1.6;g.beginPath();
+  pts.forEach((p,i)=>{if(!i)g.moveTo(p[0],p[1]);else{const q=pts[i-1],mx=(q[0]+p[0])/2;g.bezierCurveTo(mx,q[1],mx,p[1],p[0],p[1])}});g.stroke();
+}
+function waPencere(){const eq=prefs.waEq!==false,pl=prefs.waPl!==false;$('#waEq').classList.toggle('hid',!eq);$('#waPl').classList.toggle('hid',!pl);$('#waEqT').classList.toggle('on',eq);$('#waPlT').classList.toggle('on',pl)}
+let waMqT='';
+function waDurum(){
+  if(!waOn)return;const y=carIsYT(),it=ytCurItem();
+  const pl=y?ytPlaying:(!!cur&&!audio.paused);
+  $('#waSp').classList.toggle('on',pl);$('#waSz').classList.toggle('on',!pl&&(y?!!it:!!cur));
+  $('#waShuf').classList.toggle('on',!!prefs.shuffle);const r=$('#waRep');r.classList.toggle('on',!!prefs.repeat);$('#waRep1').textContent=prefs.repeat===2?'1':'';
+  let t;if(y)t=it?(it.author?it.author+' - ':'')+(it.title||'YouTube videosu'):'';
+  else t=cur?((cur.artist&&cur.artist.indexOf('Bilinmeyen')!==0?cur.artist+' - ':'')+cur.title+' ('+fmt(cur.duration)+')'):'Tını · bir şarkı seç ya da TÜMÜ ile kitaplığı çal';
+  const n=y?ytCur+1:(qi>=0?qi+1:0),mq=(n&&(cur||it)?n+'. ':'')+t;
+  if(mq!==waMqT){waMqT=mq;const s=$('#waMq');s.textContent=mq+'   ***   ';s.style.animationDuration=Math.max(8,mq.length*0.28)+'s'}
+  let kb='---',khz='--';
+  if(!y&&cur){if(cur.duration>0&&cur.size)kb=String(Math.round(cur.size*8/cur.duration/1000));if(ctx)khz=String(Math.round(ctx.sampleRate/1000))}else if(y){kb='YT';khz='--'}
+  $('#waKb').textContent=kb;$('#waKhz').textContent=khz;$('#waSter').classList.toggle('on',!!(cur||it));
+  $('#waVol').value=prefs.vol;$('#waBal').value=prefs.pan||0;
+  waListe();$('#waTot').textContent=(()=>{const c=y?ytNow():(audio.currentTime||0);return fmt(c)+'/'+($('#waList').dataset.tot||'0:00')})();
+}
+function waCiz(){
+  if(!waOn)return;waRaf=requestAnimationFrame(waCiz);if(document.hidden)return;
+  const y=carIsYT(),c=y?ytNow():(audio.currentTime||0),dd=y?ytDur():((isFinite(audio.duration)&&audio.duration)||(cur?cur.duration:0));
+  const sn=waKalan&&dd?Math.max(0,dd-c):c,m=Math.floor(sn/60),s=Math.floor(sn%60);
+  const tx=(waKalan?'-':'')+(m<100?String(m).padStart(2,'0'):m)+':'+String(s).padStart(2,'0');const te=$('#waTime');if(te.textContent!==tx)te.textContent=tx;
+  if(!waSurukle)$('#waSeek').value=dd?Math.round(c/dd*1000):0;
+  /* spektrum */
+  const cv=$('#waViz'),g=cv.getContext('2d'),W=cv.width,H=cv.height,N=19,bw=Math.floor(W/N);g.clearRect(0,0,W,H);
+  const pl=y?ytPlaying:(!!cur&&!audio.paused);let data=null;
+  if(!y&&graph&&graph.an&&pl){try{data=new Uint8Array(graph.an.frequencyBinCount);graph.an.getByteFrequencyData(data)}catch(e){data=null}}
+  const tt=performance.now()/1000;
+  for(let i=0;i<N;i++){
+    let v;if(data){const a=Math.floor(Math.pow(i/N,1.6)*data.length*0.7),b=Math.max(a+1,Math.floor(Math.pow((i+1)/N,1.6)*data.length*0.7));let mx=0;for(let k=a;k<b;k++)mx=Math.max(mx,data[k]);v=mx/255}
+    else v=pl?Math.max(0,0.35+0.3*Math.sin(tt*3.1+i*0.9)*Math.sin(tt*1.7+i*0.45)+0.25*Math.sin(tt*7+i*2.3))*(1-i/N*0.45):0;
+    const h=Math.round(v*(H-2)/2)*2;
+    for(let yy=H-2;yy>H-2-h;yy-=2){const r=1-(yy/H);g.fillStyle=r>0.8?'#d8361e':r>0.55?'#d8c81e':'#1fcf3a';g.fillRect(i*bw,yy,bw-2,1)}
+  }
+}
+function waAc(acilis){
+  waKur();waOn=true;if(!acilis)closeSheet();$('#wa').classList.add('open');document.body.classList.add('wa-on');
+  waPencere();waEqCiz();waSig='';waMqT='';waDurum();cancelAnimationFrame(waRaf);waCiz();
+  try{if(!(history.state&&history.state.wa))history.pushState({wa:1},'')}catch(e){}
+  if(!acilis){try{window.__tamIzin=Date.now();const de=document.documentElement;if(de.requestFullscreen&&!document.fullscreenElement)de.requestFullscreen({navigationUI:'hide'}).catch(()=>{})}catch(e){}}
+}
+function waKapa(){
+  if(!waOn)return;waOn=false;cancelAnimationFrame(waRaf);const w=$('#wa');if(w)w.classList.remove('open');document.body.classList.remove('wa-on');
+  try{if(history.state&&history.state.wa)history.back()}catch(e){}
+}
+window.addEventListener('popstate',()=>{if(waOn){waOn=false;cancelAnimationFrame(waRaf);const w=$('#wa');if(w)w.classList.remove('open');document.body.classList.remove('wa-on')}});
+{const _us=UI.state;UI.state=function(){const r=_us.apply(this,arguments);try{waDurum()}catch(e){}return r}}
+{const _ut=UI.track;UI.track=function(){const r=_ut.apply(this,arguments);try{waSig='';waDurum()}catch(e){}return r}}
+{const _uq=UI.queue;UI.queue=function(){const r=_uq.apply(this,arguments);try{waSig='';waDurum()}catch(e){}return r}}
+{const _ys=ytState;ytState=function(){const r=_ys.apply(this,arguments);try{waSig='';waDurum()}catch(e){}try{nativePlay(!audio.paused&&!!cur)}catch(e){}return r}}
+setInterval(()=>{if(waOn&&!document.hidden)try{waDurum()}catch(e){}},1000);
+function waAyarCiz(){const c=$('#waAcOn');if(c)c.checked=!!prefs.waAc}
+
 /* --- 5.6: Kuyruk / Spotify sekmesini gizle (varsayılan gizli) --- */
 function sekmeUygula(){const b=document.body;b.classList.toggle('kuyruk-gizli',!prefs.kuyrukGoster);b.classList.toggle('sp-gizli',!prefs.spGoster);
   const k=$('#kuyrukGosterOn'),sp=$('#spGosterOn');if(k)k.checked=!!prefs.kuyrukGoster;if(sp)sp.checked=!!prefs.spGoster;
@@ -3853,7 +4114,8 @@ function init(){
   audio.playbackRate=prefs.speed;
   $('#fadeOn').checked=prefs.fade;$('#wakeOn').checked=prefs.wake;$('#artAlbOn').checked=prefs.artAlb!==false;$('#longAyriOn').checked=prefs.longAyri!==false;$('#hqOn').checked=prefs.hq!==false;$('#yeniSorOn').checked=prefs.yeniSor!==false;aralikCiz();$('#autoPlayOn').checked=!!prefs.autoPlay;
   $$('#sortSel option').forEach(o=>{if(o.value===prefs.sort)$('#sortSel').value=prefs.sort});
-  initMedia();UI.state();UI.sleep();try{ayarDuzen()}catch(e){console.warn('ayar',e)}try{ayarAkordiyon()}catch(e){console.warn('akor',e)}try{sekmeUygula()}catch(e){}try{hizCiz()}catch(e){}
+  initMedia();UI.state();UI.sleep();try{ayarDuzen()}catch(e){console.warn('ayar',e)}try{ayarAkordiyon()}catch(e){console.warn('akor',e)}try{sekmeUygula()}catch(e){}
+  try{$('#waAcBtn').addEventListener('click',()=>waAc());waAyarCiz();$('#waAcOn').addEventListener('change',e=>{prefs.waAc=e.target.checked;savePrefs();toast(prefs.waAc?'Tını açılınca klasik görünüm gelir':'Tını açılınca modern görünüm gelir')});if(prefs.waAc)setTimeout(()=>{if(!carOn)waAc(true)},250)}catch(e){console.warn('wa',e)}try{hizCiz()}catch(e){}
   if(prefs.wake)wake(true);
   if(!prefs.m27){prefs.m27=1;prefs.autoPlay=true;savePrefs();$('#autoPlayOn').checked=true}
   if(!prefs.acilis){prefs.acilis=prefs.autoPlay===false?'yok':'sor';savePrefs();acilisAyarCiz()}
@@ -3885,6 +4147,25 @@ init();
     setInterval(function(){reg.update().catch(function(){})},30*60*1000);
   }).catch(function(){});
   navigator.serviceWorker.addEventListener('controllerchange',function(){if(!had){had=true;return}banner()});
+  /* 5.10: Chrome sekmesinde açıldıysa "Uygulama olarak yükle" düğmesi — kurulu uygulama kendiliğinden tam ekran açılır */
+  var kurP=null;
+  function sekmede(){try{if(window.Android||/TiniAndroid/.test(navigator.userAgent))return false;return !matchMedia('(display-mode: fullscreen)').matches&&!matchMedia('(display-mode: standalone)').matches&&!navigator.standalone}catch(e){return false}}
+  function yukleDugme(){
+    if(!sekmede()||document.getElementById('tiniYukle'))return;
+    var b=document.createElement('button');b.id='tiniYukle';b.type='button';
+    b.textContent=kurP?'⬇ Uygulama olarak yükle (tam ekran)':'Tam ekran için: ⋮ › Uygulamayı yükle';
+    b.style.cssText='position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 8px);z-index:70;background:#e4502a;color:#fff;border:0;border-radius:999px;padding:10px 16px;font:700 14px system-ui,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.35);white-space:nowrap';
+    var x=document.createElement('span');x.textContent='  ✕';x.style.cssText='opacity:.8;padding-left:6px';b.appendChild(x);
+    b.addEventListener('click',function(e){
+      if(e.target===x){b.remove();try{sessionStorage.setItem('tiniYukleKapa','1')}catch(z){}return}
+      if(kurP){kurP.prompt();kurP.userChoice.then(function(r){if(r&&r.outcome==='accepted')b.remove()});kurP=null}
+      else alert('Chrome menüsü (⋮) › "Uygulamayı yükle" ya da "Ana ekrana ekle" › çıkan pencerede "Yükle"yi seç (Kısayol değil). Sonra Tını\'yi ana ekrandaki simgeden aç; tam ekran açılır.');
+    });
+    document.body.appendChild(b);
+  }
+  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();kurP=e;var o=document.getElementById('tiniYukle');if(o)o.remove();try{if(sessionStorage.getItem('tiniYukleKapa'))return}catch(z){}yukleDugme()});
+  window.addEventListener('appinstalled',function(){var o=document.getElementById('tiniYukle');if(o)o.remove()});
+  setTimeout(function(){try{if(sessionStorage.getItem('tiniYukleKapa'))return}catch(z){}yukleDugme()},2500);
   function banner(){
     if(document.getElementById('swUpd'))return;
     var b=document.createElement('div');b.id='swUpd';b.setAttribute('role','status');
