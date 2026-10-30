@@ -905,7 +905,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.0 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.1 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -1918,7 +1918,30 @@ const tint=s=>'background:radial-gradient(circle at 72% 26%,rgba(255,255,255,.12
 /* 3.5: kapağı olmayan şarkıya aynı sanatçının bir kapağı */
 let _saK=-1,_saM=new Map();const sanatciKapak=t=>{if(!t||!t.artist)return '';if(_saK!==lib.length){_saK=lib.length;_saM=new Map();lib.forEach(x=>{if(x.coverUrl&&x.artist&&!_saM.has(x.artist))_saM.set(x.artist,x.coverUrl)})}return _saM.get(t.artist)||''};
 const initial=s=>(String(s||'').trim().charAt(0)||'♪').toLocaleUpperCase('tr');
-const artInner=(t,fb)=>t&&(t.coverUrl||sanatciKapak(t))?'<img src="'+(t.coverUrl||sanatciKapak(t))+'" alt="'+esc(initial(fb||t.title))+'" loading="lazy" decoding="async" onerror="this.replaceWith(document.createTextNode(this.alt))">':esc(initial(fb||(t&&t.title)));
+/* 6.1: kapak yoksa sanatçı fotoğrafı (Deezer, anahtarsız, ücretsiz); bulunanlar telefonda saklanır, harf yalnız bulunamazsa kalır */
+const SR=(()=>{try{return JSON.parse(localStorage.getItem('tini.sanatciResim')||'{}')||{}}catch(e){return {}}})();
+const srKaydet=()=>{try{localStorage.setItem('tini.sanatciResim',JSON.stringify(SR))}catch(e){}};
+const srAnahtar=t=>{if(!t||t.yt||!t.artist)return '';const a=String(t.artist).trim();if(!a||/^(bilinmeyen|unknown|<unknown>|music|müzik|türkü|turku|various|çeşitli|youtube)/i.test(a))return '';return a.split(/\s*(?:,|&|feat\.?|ft\.?|\bve\b|\/)\s*/i)[0].trim()};
+const artInner=(t,fb)=>{const L=esc(initial(fb||(t&&t.title))),k=srAnahtar(t),ka=k?' data-sa="'+esc(k)+'"':'';
+  const u=t&&(t.coverUrl||sanatciKapak(t));
+  if(u)return '<img src="'+u+'" alt="'+L+'"'+ka+' loading="lazy" decoding="async" onerror="kapakYok(this)">';
+  if(k&&SR[k])return '<img src="'+esc(SR[k])+'" alt="'+L+'" loading="lazy" decoding="async" onerror="this.replaceWith(document.createTextNode(this.alt))">';
+  return k?'<span class="sa-h"'+ka+'>'+L+'</span>':L};
+window.kapakYok=function(img){const k=img.getAttribute('data-sa');
+  if(k&&SR[k]&&img.src!==SR[k]){img.removeAttribute('data-sa');img.src=SR[k];return}
+  const sp=document.createElement('span');sp.className='sa-h';sp.textContent=img.alt;if(k)sp.setAttribute('data-sa',k);img.replaceWith(sp);srSira()};
+let srKuyruk=[],srCalis=false,srT=0;
+function srSira(){clearTimeout(srT);srT=setTimeout(srTara,350)}
+function srTara(){if(!navigator.onLine)return;document.querySelectorAll('span.sa-h[data-sa]').forEach(el=>{const k=el.getAttribute('data-sa');
+  if(SR[k]){const i=document.createElement('img');i.src=SR[k];i.alt=el.textContent;i.onerror=()=>i.replaceWith(document.createTextNode(i.alt));el.replaceWith(i)}
+  else if(!(k in SR)&&srKuyruk.indexOf(k)<0)srKuyruk.push(k)});if(!srCalis)srSonraki()}
+function srSonraki(){const k=srKuyruk.shift();if(!k){srCalis=false;return}srCalis=true;
+  const cb='__sr'+Math.random().toString(36).slice(2),sc=document.createElement('script');let bitti=false;
+  const son=url=>{if(bitti)return;bitti=true;try{delete window[cb]}catch(e){}sc.remove();if(url!==null){SR[k]=url;srKaydet();if(url)srTara()}setTimeout(srSonraki,250)};
+  window[cb]=d=>{let url='';try{const q=fold(k),L=(d&&d.data)||[];const m=L.find(x=>fold(x.name)===q)||L.find(x=>fold(x.name).replace(/[^a-z0-9]/g,'')===q.replace(/[^a-z0-9]/g,''));
+    if(m&&m.picture_medium&&!/\/artist\/\/|\/images\/artist\/\//.test(m.picture_medium))url=m.picture_medium}catch(e){}son(url)};
+  sc.onerror=()=>son(null);setTimeout(()=>son(null),8000);
+  sc.src='https://api.deezer.com/search/artist?q='+encodeURIComponent(k)+'&limit=5&output=jsonp&callback='+cb;document.head.appendChild(sc)}
 const bigIco=n=>'<svg class="ico" style="width:38px;height:38px"><use href="#i-'+n+'"/></svg>';
 const cmp=(a,b)=>String(a).localeCompare(String(b),'tr');
 function sortFn(k){
@@ -4045,6 +4068,11 @@ window.addEventListener('popstate',()=>{if(waOn){waOn=false;cancelAnimationFrame
 setInterval(()=>{if(waOn&&!document.hidden)try{waDurum()}catch(e){}},1000);
 function waAyarCiz(){const c=$('#waAcOn');if(c)c.checked=!!prefs.waAc}
 
+/* --- 6.1: sanatçı fotoğrafları — liste her çizildiğinde eksikler sırayla bulunur --- */
+{const _rl=renderLib;renderLib=function(){const r=_rl.apply(this,arguments);try{srSira()}catch(e){}return r}}
+{const _ut=UI.track;UI.track=function(){const r=_ut.apply(this,arguments);try{srSira()}catch(e){}return r}}
+{const _uq=UI.queue;UI.queue=function(){const r=_uq.apply(this,arguments);try{srSira()}catch(e){}return r}}
+window.addEventListener('online',()=>srSira());
 /* --- 5.6: Kuyruk / Spotify sekmesini gizle (varsayılan gizli) --- */
 function sekmeUygula(){const b=document.body;b.classList.toggle('kuyruk-gizli',!prefs.kuyrukGoster);b.classList.toggle('sp-gizli',!prefs.spGoster);
   const k=$('#kuyrukGosterOn'),sp=$('#spGosterOn');if(k)k.checked=!!prefs.kuyrukGoster;if(sp)sp.checked=!!prefs.spGoster;

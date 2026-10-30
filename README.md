@@ -18,6 +18,9 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.1 (30.10.2026) — Sanatçı fotoğrafları
+- Kapağı olmayan şarkılarda harf yerine **sanatçının fotoğrafı** (Deezer, ücretsiz, anahtarsız). Bulunan fotoğraflar telefonda saklanır, bir daha indirilmez; internet yokken ya da bulunamazsa harf kalır. "Türkü", "Music", "Bilinmeyen" gibi genel etiketler aranmaz; ad tam eşleşmezse fotoğraf konmaz.
+
 ## 6.0 (28.10.2026) — Android uygulaması + klasik görünüm
 - **Android uygulaması (APK)** — yukarıdaki tablo.
 - **Klasik görünüm (Winamp tarzı):** Ayarlar › Görünüm ve sekmeler › Klasik görünüm › Aç. Yeşil süre ekranı (dokun: kalan/geçen), kayan şarkı adı, spektrum, kbps/kHz, ses ve denge, konum çubuğu, ⏮ ▶ ‖ ■ ⏭ ⏏, ışıklı Karışık/Tekrar; 10 bant ekolayzır (ön yükseltme, hazır ayarlar, eğri) ve çalma listesi (ara, + Ekle, Tümü). EQ/PL pencereleri gizler; ekranın tamamını kaplar. "Açılışta klasik görünüm" seçilebilir.
@@ -103,7 +106,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**6.0** — Android uygulaması (APK), klasik (Winamp tarzı) görünüm.  
+**6.1** — Kapaksız şarkılarda sanatçı fotoğrafı.  
+6.0 — Android uygulaması (APK), klasik (Winamp tarzı) görünüm.  
 5.8 — Kitaplık üst alanı 5 satırdan 2 satıra indi (arama, sekmeler ve sıralama tek satır; sayı Tümünü çal kartında).  
 5.7 — Çalma ekranındaki A-B düğmesi kaldırıldı (alt çubuktan taşıyordu).  
 5.6 — Ayarlar akordiyon + dokunma koruması, Kuyruk/Spotify sekmesi gizleme (varsayılan gizli), kitaplıkta çerçeveli ferah şarkı kartları.  

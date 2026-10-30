@@ -1,5 +1,5 @@
 /* musikisinaz çevrimdışı önbelleği. Yalnızca kendi önbelleğini siler (aynı adresteki diğer uygulamalara dokunmaz). */
-const P='musikisinaz-',V=P+'6.0';
+const P='musikisinaz-',V=P+'6.1';
 const SHELL=['./','index.html','manifest.webmanifest','icon.svg','icon-192.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.indexOf(P)===0&&k!==V).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
@@ -14,7 +14,7 @@ self.addEventListener('fetch',e=>{
   }
   if(r.method!=='GET')return;
   const u=new URL(r.url);
-  if(/youtube\.com|ytimg\.com|googlevideo\.com|googleapis\.com|archive\.org|spotify\.com|scdn\.co/.test(u.hostname))return; /* her zaman ağdan */
+  if(/youtube\.com|ytimg\.com|googlevideo\.com|googleapis\.com|archive\.org|spotify\.com|scdn\.co|deezer\.com|dzcdn\.net/.test(u.hostname))return; /* her zaman ağdan */
   if(u.hostname==='appassets.androidplatform.net')return; /* APK: telefondaki müzik ve kapaklar uygulamadan gelir, önbelleğe alınmaz */
   if(r.mode==='navigate'){
     /* Önce ağ (güncelleme gelsin); 3 sn'de yanıt yoksa önbellek: internetsiz açılış takılmaz. Geç gelen yanıt yine önbelleğe yazılır. */
