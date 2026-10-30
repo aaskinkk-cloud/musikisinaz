@@ -580,7 +580,7 @@ body.ytnp-acik .ytbox{z-index:60;border-radius:14px}
 #waBar .wa-tg{flex:none}
 /* Winamp tarzı menü */
 .wa-menu-ort{position:fixed;inset:0;z-index:69;background:rgba(0,0,0,.25)}
-.wa-menu{position:fixed;z-index:70;width:min(372px,calc(100vw - 12px));background:linear-gradient(180deg,#3a3a5c,#262640);border:2px solid;border-color:#8a8ab0 #101018 #101018 #8a8ab0;box-shadow:0 10px 28px rgba(0,0,0,.6);padding:3px;font:13px/1.2 Tahoma,Verdana,"DejaVu Sans",sans-serif;color:#dcdcec;user-select:none}
+.wa-menu{position:fixed;z-index:70;width:min(300px,calc(100vw - 24px));background:linear-gradient(180deg,#3a3a5c,#262640);border:2px solid;border-color:#8a8ab0 #101018 #101018 #8a8ab0;box-shadow:0 10px 28px rgba(0,0,0,.6);padding:3px;font:13px/1.2 Tahoma,Verdana,"DejaVu Sans",sans-serif;color:#dcdcec;user-select:none}
 .wa-menu .bas{background:#000;color:#00e83a;font-weight:700;padding:7px 8px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:1px solid;border-color:#0a0a10 #5a5a78 #5a5a78 #0a0a10}
 .wa-menu .tas{display:flex;gap:3px;margin-bottom:3px}
 .wa-menu .tas button{flex:1;height:38px;border:1px solid;border-color:#e4e4f0 #4a4a5c #4a4a5c #e4e4f0;background:linear-gradient(#cfcfdd,#9696ac);color:#15152a;font:700 16px/1 Tahoma,sans-serif;border-radius:2px}
@@ -591,9 +591,9 @@ body.ytnp-acik .ytbox{z-index:60;border-radius:14px}
 .wa-menu .iki>button:active{background:#0000c6;color:#fff}
 .wa-menu .iki>button[hidden]{display:none}
 .wa-menu .iki>button:last-child:nth-child(odd){grid-column:1/-1}
-.wa-menu>button{display:flex;align-items:center;gap:10px;width:100%;height:38px;padding:0 10px;background:transparent;border:0;color:inherit;font:inherit;text-align:left;border-radius:1px}
+.wa-menu>button{display:flex;align-items:center;gap:14px;width:100%;height:46px;padding:0 12px;font-size:14px;background:transparent;border:0;color:inherit;font:inherit;text-align:left;border-radius:1px}
 .wa-menu>button:active{background:#0000c6;color:#fff}
-.wa-menu .ik{font-style:normal;width:18px;text-align:center;color:#e2c463}
+.wa-menu .ik{font-style:normal;width:22px;text-align:center;color:#e2c463;font-size:17px}
 .wa-menu .tehlike{color:#ff9a8a}
 .wa-menu .ayr{height:1px;background:#55557a;margin:3px 2px;box-shadow:0 1px 0 #15151f}
 #waPl.secim .wa-row{user-select:none;-webkit-user-select:none}
@@ -969,7 +969,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.6 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.7 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -4051,9 +4051,7 @@ function waKur(){
   $('#waList').addEventListener('click',e=>{const r=e.target.closest('.wa-row');if(!r)return;const i=+r.dataset.i;
     if(waUzunBasti){waUzunBasti=false;return}
     if(waSecim){if(r.dataset.k==null)return;waSecDegis(r.dataset.k);return}
-    if(r.dataset.k==null)return;
-    if(waMenuK!=null&&String(waMenuK)===String(r.dataset.k)){waMenuKapa();waSatirCal(r);return}
-    waMenuAc(r.dataset.k,r)});
+    waSatirCal(r)});
   const seek=$('#waSeek');
   seek.addEventListener('input',()=>{waSurukle=true});
   seek.addEventListener('change',()=>{const v=+seek.value/1000;if(carIsYT()){const dd=ytDur();try{dd&&ytP.seekTo(v*dd,true)}catch(x){}}else if(cur){const dd=(isFinite(audio.duration)&&audio.duration)||cur.duration||0;if(dd)audio.currentTime=v*dd}waSurukle=false});
@@ -4118,25 +4116,22 @@ function waMenuAc(k,r){
   let bas;if(tek){const a=[...WS][0];if(yt){const it=P.yt.find(v=>String(v.id)===String(a));bas=it?(it.title||'YouTube videosu'):'YouTube'}else{const t=byId.get(ids[0]);bas=t?((t.artist&&t.artist.indexOf('Bilinmeyen')!==0?t.artist+' - ':'')+t.title):''}}else bas=n+' şarkı seçili';
   const ara=tur==='ara',B=(k,ik,ad,c)=>'<button data-m="'+k+'"'+(c?' class="'+c+'"':'')+'><i class="ik">'+ik+'</i><span>'+ad+'</span></button>';
   let h='<div class="bas">'+esc(bas)+'</div>';
+  /* 6.7: kısa menü — en çok gerekenler (taşıma okları + 6 seçenek) */
   if(!ara)h+='<div class="tas"><button data-m="ust" aria-label="En üste">⤒</button><button data-m="yukari" aria-label="Yukarı">▲</button><button data-m="asagi" aria-label="Aşağı">▼</button><button data-m="alt" aria-label="En alta">⤓</button></div>';
-  h+='<div class="iki">';
-  if(tek&&!waSecim)h+=B('cal','▶','Çal');
-  if(!yt){if(!(tek&&!waSecim))h+=B('cal2','▶','Seçilenleri çal');h+=B('sira','⏭','Sıradaki çal')}
+  if(!yt)h+=B('sira','⏭','Sıradaki olarak çal');
+  if(!yt)h+=B('liste','☰','Çalma listesine ekle');
   if(ara)h+=B('sona','＋','Listenin sonuna ekle');
-  if(!yt)h+=B('liste','☰','Listeye ekle…');
-  if(tek&&!yt)h+=B('bilgi','ⓘ','Şarkı bilgisi');
-  if(!ara)h+=B('cikar','✕',yt?'Listeden çıkar':'Listeden çıkar');
-  if(!yt)h+=B('pasif','☾','Pasife al')+B('sil','🗑','Kitaplıktan sil','tehlike');
-  if(tek&&!yt)h+=B('telsil','⚠','Telefondan sil…','tehlike');
-  if(!waSecim)h+=B('coklu','☑','Birden çok seç');
-  h+='</div>';
+  else h+=B('cikar','✕','Listeden çıkar');
+  if(!yt)h+=B('pasif','☾','Pasife al');
+  h+=waSecim?B('cal2','▶','Seçilenleri çal'):B('coklu','☑','Çoklu seçim');
+  if(!yt)h+=B('sil','🗑',n>1?n+' şarkıyı sil':'Şarkıyı sil','tehlike');
   const ort=document.createElement('div');ort.id='waMenuOrt';ort.className='wa-menu-ort';document.body.appendChild(ort);
   const m=document.createElement('div');m.id='waSarki';m.className='wa-menu';m.innerHTML=h;document.body.appendChild(m);
   waMenuYer(r);
   ort.addEventListener('pointerdown',e=>{e.preventDefault();const r=document.elementsFromPoint(e.clientX,e.clientY).find(x=>x.classList&&x.classList.contains('wa-row'));const ayni=r&&waMenuK!=null&&String(r.dataset.k)===String(waMenuK);const d={i:r&&r.dataset.i,yt:r&&r.dataset.yt,q:r&&r.dataset.q,id:r&&r.dataset.id};waMenuKapa();if(ayni)waSatirCal({dataset:d})});
   m.addEventListener('click',async e=>{const b=e.target.closest('[data-m]');if(!b)return;e.stopPropagation();const c=b.dataset.m;
     if(c==='yukari'||c==='asagi'||c==='ust'||c==='alt'){waTasi(c);setTimeout(()=>{const r2=waSeciliSatir();if(r2&&waTekli)waMenuK=r2.dataset.k;waMenuYer(r2)},30);return}
-    if(c==='sil'){if(Date.now()-waSilMenu>3000){waSilMenu=Date.now();b.querySelector('span').textContent='Emin? Tekrar dokun';return}waSilMenu=0;const ids2=waSeciliIdler();waMenuK=null;waTekli=false;$('#waSarki').remove();$('#waMenuOrt').remove();for(const id of ids2){try{await removeTrack(id)}catch(x){}}WS=new Set();if(waSecim)waSecKapa();else{waSig='';waListe()}toast(ids2.length+' şarkı kitaplıktan kaldırıldı · dosyalar telefonda');return}
+    if(c==='sil'){if(Date.now()-waSilMenu>3000){waSilMenu=Date.now();b.querySelector('span').textContent='Emin misin? Tekrar dokun (dosya telefonda kalır)';return}waSilMenu=0;const ids2=waSeciliIdler();waMenuK=null;waTekli=false;$('#waSarki').remove();$('#waMenuOrt').remove();for(const id of ids2){try{await removeTrack(id)}catch(x){}}WS=new Set();if(waSecim)waSecKapa();else{waSig='';waListe()}toast(ids2.length+' şarkı kitaplıktan kaldırıldı · dosyalar telefonda');return}
     const ids2=waSeciliIdler(),kk=waMenuK!=null?waMenuK:k;waMenuKapa();
     if(c==='cal'){const row=[...document.querySelectorAll('#waList .wa-row')].find(x=>String(x.dataset.k)===String(kk));if(row)waSatirCal(row)}
     else if(c==='cal2'){if(ids2.length){playList(ids2,ids2[0]);waSecKapa()}}
@@ -4151,7 +4146,7 @@ function waMenuAc(k,r){
   });
 }
 function waSeciliSatir(){return document.querySelector('#waList .wa-row.sec')}
-function waMenuYer(r){const m=$('#waSarki');if(!m)return;const H=innerHeight,W=innerWidth,mh=m.offsetHeight,mw=Math.min(m.offsetWidth,W-12);let top,left=Math.max(6,(W-mw)/2);
+function waMenuYer(r){const m=$('#waSarki');if(!m)return;const H=innerHeight,W=innerWidth,mh=m.offsetHeight,mw=Math.min(m.offsetWidth,W-12);let top,left=Math.max(6,W-mw-6);
   if(r){const b=r.getBoundingClientRect();top=b.bottom+4;if(top+mh>H-6)top=b.top-mh-4;if(top<6)top=Math.max(6,H-mh-6)}else{const bar=$('#waBar').getBoundingClientRect();top=bar.top-mh-6}
   m.style.top=Math.max(6,top)+'px';m.style.left=left+'px'}
 function waSecAc(k){if(!waSecim){waSecim=true;WS=new Set();$('#waPl').classList.add('secim')}if(k!=null){const a=waAnahtar(k);if(!WS.has(a))WS.add(a)}waSecSay++;waSig='';waListe()}
@@ -4221,7 +4216,7 @@ function waDahasi(){const tur=waTur(),ids=waSeciliIdler(),L=[];
 function waSecKur(){
   const L=$('#waList');let t=0,x0=0,y0=0;
   L.addEventListener('pointerdown',e=>{const r=e.target.closest('.wa-row');if(!r||r.dataset.k==null)return;x0=e.clientX;y0=e.clientY;clearTimeout(t);
-    t=setTimeout(()=>{waUzunBasti=true;try{navigator.vibrate&&navigator.vibrate(18)}catch(_){}if(waSecim)waSecDegis(r.dataset.k);else waSecAc(r.dataset.k)},480)});
+    t=setTimeout(()=>{waUzunBasti=true;try{navigator.vibrate&&navigator.vibrate(18)}catch(_){}if(waSecim)waSecDegis(r.dataset.k);else waMenuAc(r.dataset.k,r)},480)});
   const iptal=()=>clearTimeout(t);
   L.addEventListener('pointermove',e=>{if(Math.abs(e.clientX-x0)>8||Math.abs(e.clientY-y0)>8)iptal()});
   L.addEventListener('pointerup',iptal);L.addEventListener('pointercancel',iptal);L.addEventListener('scroll',iptal,{passive:true});

@@ -18,6 +18,10 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.7 (31.10.2026) — Dokun çal, basılı tut menü
+- Klasik görünümde şarkıya **dokun → çalar**; **basılı tut → kısa menü** (tek sütun, sağda): üstte ⤒ ▲ ▼ ⤓ (taşırken açık kalır) ve 6 seçenek — Sıradaki olarak çal · Çalma listesine ekle · Listeden çıkar · Pasife al · Çoklu seçim · Şarkıyı sil (iki dokunuş, dosya telefonda kalır).
+- Çoklu seçimde İŞLEM aynı menüyü seçilenler için açar ("Çoklu seçim" yerine "Seçilenleri çal").
+
 ## 6.6 (31.10.2026) — Klasik görünümde şarkı menüsü
 - **Şarkıya dokun → menü açılır** (Winamp tarzı, iki sütun): ⤒ ▲ ▼ ⤓ (taşırken menü açık kalır, satır vurgulu ilerler) · Çal · Sıradaki çal · Listeye ekle · Şarkı bilgisi · Listeden çıkar · Pasife al · Kitaplıktan sil (iki dokunuş) · Telefondan sil · Birden çok seç.
 - Menü açıkken **aynı şarkıya yine dokun → çalar**. Menünün dışına dokun → kapanır.
@@ -133,7 +137,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**6.6** — Klasik görünümde şarkıya dokununca menü; alt çubuk tek sıra.  
+**6.7** — Dokun çal, basılı tut kısa menü.  
+6.6 — Klasik görünümde şarkıya dokununca menü; alt çubuk tek sıra.  
 6.5 — Klasik görünümde listeden çıkarma, taşıma, pasif, silme (seçim modu).  
 6.4 — Klasik görünümde üst, yan ve alt boşluklar kaldırıldı.  
 6.3 — Ekolayzır frekans yazıları kesilmez.  
