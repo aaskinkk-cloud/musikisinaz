@@ -598,6 +598,23 @@ body.wa-on,html:has(body.wa-on){overflow:hidden}
 .wa-kb i{font-size:8.5px;letter-spacing:0}
 .wa-lcd{min-height:0}
 @media (min-width:600px){.wa{padding:16px 0;background:radial-gradient(120% 80% at 50% 0%,#0e8a8a,#006b6b 60%,#044f55)}.wa-in{max-width:460px;min-height:0}.waw{border-left:2px solid #6c6c94;border-right:2px solid #101018}}
+/* 6.2: klasik görünüm tek ekrana sığar — sayfa kaymaz; yalnız çalma listesi kendi asansörüyle kayar */
+@media (max-width:599px){
+.wa{overflow:hidden;height:100dvh}
+.wa-in{height:100dvh;min-height:0}
+#waMain{padding-top:0}
+#waMain>.wat{height:calc(24px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);align-items:center}
+.wa-bands{height:clamp(88px,17dvh,150px)}
+#waPl{flex:1 1 0;min-height:0;overflow:hidden}
+.wa-liste{flex:1 1 0;min-height:0;display:flex;gap:3px}
+#waPl .wa-list{flex:1 1 0;min-height:0;height:auto;overflow-y:auto;scrollbar-width:none}
+#waPl .wa-list::-webkit-scrollbar{display:none}
+}
+.wa-liste{display:flex;gap:3px}
+.wa-liste .wa-list{flex:1;min-width:0;position:relative}
+.wa-asan{flex:0 0 16px;position:relative;background:#0c0c14;border:1px solid;border-color:#0a0a10 #5a5a78 #5a5a78 #0a0a10;touch-action:none}
+.wa-asan i{position:absolute;left:1px;right:1px;top:0;min-height:30px;border:1px solid;border-color:#f0e0a0 #5a4a14 #5a4a14 #f0e0a0;background:linear-gradient(90deg,#e2c463,#a8852a);border-radius:1px}
+.wa-asan.hid-a i{display:none}
 body.wa-on .scrim{z-index:60}
 body.wa-on .sheet{z-index:61}
 body.wa-on .toast{z-index:62}
@@ -905,7 +922,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.1 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.2 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -3949,7 +3966,7 @@ function waKur(){
     '<div class="wa-bands"><div class="wa-band"><input type="range" id="waPre" min="-12" max="12" step="0.5" aria-label="Ön yükseltme"><span>ÖN</span></div><div class="wa-db"><span>+12</span><span>0</span><span>-12</span></div>'+
      WA_FL.map((l,i)=>'<div class="wa-band"><input type="range" min="-12" max="12" step="0.5" data-wb="'+i+'" aria-label="'+l+' Hz"><span>'+l+'</span></div>').join('')+'</div></section>'+
    '<section class="waw" id="waPl"><header class="wat"><i class="ln"></i><b>TINI ÇALMA LİSTESİ</b><i class="ln"></i></header>'+
-    '<div class="wa-list" id="waList"></div><input class="wa-q hid" id="waQ" type="search" placeholder="Listede ara…" autocomplete="off">'+
+    '<div class="wa-liste"><div class="wa-list" id="waList"></div><div class="wa-asan" id="waAsan" aria-label="Listeyi kaydır"><i></i></div></div><input class="wa-q hid" id="waQ" type="search" placeholder="Listede ara…" autocomplete="off">'+
     '<div class="wa-plbar"><button class="wa-tg" data-wa="ej">+ EKLE</button><button class="wa-tg" data-wa="ara">ARA</button><button class="wa-tg" data-wa="hep">TÜMÜ</button><span class="wa-tot" id="waTot">0:00/0:00</span></div></section>'+
   '</div><div class="wa-ipucu">Klasik görünüm · aynı kitaplık ve kuyruk<br><button id="waGeri">Modern görünüme dön</button></div>';
   document.body.appendChild(d);
@@ -3988,6 +4005,16 @@ function waKur(){
   $('#waEqOn').addEventListener('click',()=>{prefs.eqOn=!prefs.eqOn;fxChanged();waEqCiz()});
   $('#waPres').addEventListener('click',()=>menuSheet('Hazır ayarlar',Object.keys(PRESETS).map(n=>({icon:'eq',label:(prefs.preset===n?'✓ ':'')+n,fn:()=>{prefs.gains=PRESETS[n].slice();prefs.preset=n;prefs.eqOn=true;fxChanged();waEqCiz()}}))));
   $('#waPre').addEventListener('input',e=>{prefs.pre=+e.target.value;fxChanged();waEqCiz()});
+  {const L=$('#waList'),A=$('#waAsan'),T=A.firstElementChild;
+    const ciz=()=>{const h=L.scrollHeight,g=L.clientHeight,ah=A.clientHeight;if(h<=g+2){A.classList.add('hid-a');return}A.classList.remove('hid-a');
+      const th=Math.max(30,ah*g/h);T.style.height=th+'px';T.style.top=((ah-th)*L.scrollTop/(h-g))+'px'};
+    L.addEventListener('scroll',ciz,{passive:true});window.addEventListener('resize',ciz);new MutationObserver(ciz).observe(L,{childList:true});
+    let sur=false,y0=0,s0=0;
+    const git=e=>{const r=A.getBoundingClientRect(),th=T.offsetHeight,h=L.scrollHeight-L.clientHeight;L.scrollTop=Math.max(0,Math.min(1,(e.clientY-r.top-th/2)/(r.height-th)))*h};
+    A.addEventListener('pointerdown',e=>{e.preventDefault();A.setPointerCapture(e.pointerId);if(e.target===T){sur=true;y0=e.clientY;s0=L.scrollTop}else{git(e);sur=true;y0=e.clientY;s0=L.scrollTop}});
+    A.addEventListener('pointermove',e=>{if(!sur)return;const r=A.getBoundingClientRect(),th=T.offsetHeight,h=L.scrollHeight-L.clientHeight;L.scrollTop=s0+(e.clientY-y0)*h/Math.max(1,r.height-th)});
+    A.addEventListener('pointerup',()=>{sur=false});A.addEventListener('pointercancel',()=>{sur=false});
+    window.__waAsan=ciz}
   d.querySelector('.wa-bands').addEventListener('input',e=>{const i=e.target.dataset.wb;if(i==null)return;prefs.gains[+i]=+e.target.value;prefs.preset='Özel';fxChanged();waEqCiz()});
 }
 const pasifMi=t=>{try{return !!PAS()[t.key]}catch(e){return false}};
@@ -4003,7 +4030,9 @@ function waListe(){
   else{waIds().forEach((id,i)=>{const t=byId.get(id);if(!t)return;tot+=t.duration||0;html+='<div class="wa-row'+(cur&&cur.id===id?' cur':'')+'" data-id="'+esc(id)+'" data-i="'+i+'"><span>'+(i+1)+'. '+esc((t.artist&&t.artist.indexOf('Bilinmeyen')!==0?t.artist+' - ':'')+t.title)+'</span><em>'+fmt(t.duration)+'</em></div>'})}
   box.innerHTML=html||'<div class="wa-row"><span>'+(waQ?'Sonuç yok':'Liste boş · + EKLE ile müzik ekle')+'</span><em></em></div>';
   box.dataset.tot=fmt(tot);
-  const c=box.querySelector('.cur');if(c)c.scrollIntoView({block:'nearest'});
+  /* çalan satır görünür kalsın — yalnız liste kayar, sayfa kaymaz */
+  const c=box.querySelector('.cur');if(c){const t=c.offsetTop,b=t+c.offsetHeight;if(t<box.scrollTop)box.scrollTop=t;else if(b>box.scrollTop+box.clientHeight)box.scrollTop=b-box.clientHeight}
+  try{window.__waAsan&&setTimeout(window.__waAsan,30)}catch(e){}
 }
 function waEqCiz(){
   const on=$('#waEqOn');if(!on)return;on.classList.toggle('on',!!prefs.eqOn);

@@ -18,6 +18,11 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.2 (30.10.2026) — Klasik görünüm tek ekran
+- Klasik görünüm telefon ekranına tam sığar: sayfa yukarı-aşağı kaymaz, başlık en üstte, alt çubuk (+ Ekle · Ara · Tümü) ekranın içinde.
+- Çalma listesi kendi içinde kayar; sağda Winamp tarzı **asansör** (sürükle ya da çubuğa dokun). Çalan şarkı listede görünür tutulur.
+- Ekolayzır sürgüleri kısa ekranlarda biraz kısalır, listeye yer açılır.
+
 ## 6.1 (30.10.2026) — Sanatçı fotoğrafları
 - Kapağı olmayan şarkılarda harf yerine **sanatçının fotoğrafı** (Deezer, ücretsiz, anahtarsız). Bulunan fotoğraflar telefonda saklanır, bir daha indirilmez; internet yokken ya da bulunamazsa harf kalır. "Türkü", "Music", "Bilinmeyen" gibi genel etiketler aranmaz; ad tam eşleşmezse fotoğraf konmaz.
 
@@ -106,7 +111,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**6.1** — Kapaksız şarkılarda sanatçı fotoğrafı.  
+**6.2** — Klasik görünüm tek ekrana sığar, listede asansör.  
+6.1 — Kapaksız şarkılarda sanatçı fotoğrafı.  
 6.0 — Android uygulaması (APK), klasik (Winamp tarzı) görünüm.  
 5.8 — Kitaplık üst alanı 5 satırdan 2 satıra indi (arama, sekmeler ve sıralama tek satır; sayı Tümünü çal kartında).  
 5.7 — Çalma ekranındaki A-B düğmesi kaldırıldı (alt çubuktan taşıyordu).  
