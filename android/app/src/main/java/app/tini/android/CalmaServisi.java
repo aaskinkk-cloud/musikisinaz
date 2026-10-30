@@ -35,12 +35,28 @@ public class CalmaServisi extends Service {
     private PowerManager.WakeLock kilit;
     private Bitmap simge;
     private boolean ilkBaslat = true;
+    private boolean onPlanda = false;
+
+    private static final android.os.Handler ana = new android.os.Handler(android.os.Looper.getMainLooper());
+    /** Şarkı geçişinde sayfa çok kısa "durdu" der; bu süre içinde yeniden çalarsa hiçbir şey değişmez. */
+    private static final Runnable duraklat = () -> { if (!istenen && canli != null) { sonCal = false; canli.uygula(); } };
+    /** Gerçekten durdurulduysa: 45 sn sonra ön plan bırakılır (bildirim kalır, oradan yeniden çalınır). */
+    private static final Runnable birak = () -> { if (!istenen && canli != null) canli.onPlandanCik(); };
+    private static volatile boolean istenen = false;
 
     /** Sayfadan gelen çalma durumu. Hizmet yoksa ve çalıyorsa başlatılır. */
     static void guncelle(Context c, boolean cal, String baslik, String sanatci) {
-        sonCal = cal; sonBaslik = baslik == null ? "" : baslik; sonSanatci = sanatci == null ? "" : sanatci;
-        if (canli != null) { canli.uygula(); return; }
+        istenen = cal;
+        if (baslik != null && !baslik.isEmpty()) sonBaslik = baslik;
+        if (sanatci != null && !sanatci.isEmpty()) sonSanatci = sanatci;
+        ana.removeCallbacks(duraklat); ana.removeCallbacks(birak);
+        if (canli != null) {
+            if (cal) { sonCal = true; canli.uygula(); }
+            else { ana.postDelayed(duraklat, 2500); ana.postDelayed(birak, 45000); }
+            return;
+        }
         if (!cal) return;
+        sonCal = true;
         try {
             Intent i = new Intent(c, CalmaServisi.class);
             if (Build.VERSION.SDK_INT >= 26) c.startForegroundService(i); else c.startService(i);
@@ -113,20 +129,26 @@ public class CalmaServisi extends Service {
          .addAction(new Notification.Action.Builder(android.graphics.drawable.Icon.createWithResource(this, R.drawable.ic_sonraki), "Sonraki", eylem("next", 3)).build())
          .setStyle(new Notification.MediaStyle().setMediaSession(oturum.getSessionToken()).setShowActionsInCompactView(0, 1, 2));
         Notification n = b.build();
-        if (sonCal || ilkBaslat) {
-            ilkBaslat = false;
+        if (sonCal || ilkBaslat || onPlanda) {
+            ilkBaslat = false; onPlanda = true;
             try {
                 if (Build.VERSION.SDK_INT >= 29) startForeground(NO, n, ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK);
                 else startForeground(NO, n);
             } catch (Exception e) { getSystemService(NotificationManager.class).notify(NO, n); }
         }
-        if (sonCal) { try { kilit.acquire(6 * 60 * 60 * 1000L); } catch (Exception e) { } }
-        else {
-            try { if (kilit.isHeld()) kilit.release(); } catch (Exception e) { }
-            /* Duraklayınca bildirim kalır (oradan yeniden çalınır) ama hizmet ön planda tutulmaz */
-            if (Build.VERSION.SDK_INT >= 24) stopForeground(Service.STOP_FOREGROUND_DETACH); else stopForeground(false);
-            getSystemService(NotificationManager.class).notify(NO, n);
-        }
+        if (onPlanda) { try { if (!kilit.isHeld()) kilit.acquire(6 * 60 * 60 * 1000L); } catch (Exception e) { } }
+        /* Duraklatılınca hemen ön plandan çıkılmaz: hizmet ön planda kalır, yalnız bildirim "duraklatıldı" görünür */
+        if (!sonCal) { try { getSystemService(NotificationManager.class).notify(NO, n); } catch (Exception e) { } }
+    }
+
+    /** Uzun süre duraklatıldı: ön plan ve uyanık kalma bırakılır, bildirim kalır. */
+    void onPlandanCik() {
+        onPlanda = false;
+        try { if (kilit.isHeld()) kilit.release(); } catch (Exception e) { }
+        MainActivity.caliyor = false;
+        if (Build.VERSION.SDK_INT >= 24) stopForeground(Service.STOP_FOREGROUND_DETACH); else stopForeground(false);
+        ilkBaslat = false;
+        try { uygula(); } catch (Exception e) { }
     }
 
     @Override public void onTaskRemoved(Intent i) {

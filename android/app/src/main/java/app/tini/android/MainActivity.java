@@ -87,6 +87,10 @@ public class MainActivity extends Activity {
             if (v != View.VISIBLE && caliyor) return;
             super.onWindowVisibilityChanged(v);
         }
+        @Override protected void onVisibilityChanged(View d, int v) {
+            if (v != View.VISIBLE && caliyor) return;
+            super.onVisibilityChanged(d, v);
+        }
     }
 
     @Override
@@ -172,6 +176,25 @@ public class MainActivity extends Activity {
 
         if (b != null) web.restoreState(b); else web.loadUrl(ADRES);
         tamEkran();
+        pilSor();
+    }
+
+    /** Samsung pil tasarrufu arka plandaki çalmayı durdurmasın: bir kez "Kısıtlama yok" izni istenir. */
+    private void pilSor() {
+        try {
+            android.os.PowerManager pm = getSystemService(android.os.PowerManager.class);
+            if (pm == null || pm.isIgnoringBatteryOptimizations(getPackageName())) return;
+            android.content.SharedPreferences sp = getSharedPreferences("tini", MODE_PRIVATE);
+            if (sp.getBoolean("pilSoruldu", false)) return;
+            sp.edit().putBoolean("pilSoruldu", true).apply();
+            ana.postDelayed(() -> {
+                try {
+                    Intent i = new Intent(android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, Uri.parse("package:" + getPackageName()));
+                    startActivity(i);
+                    Toast.makeText(this, "Arka planda kesintisiz çalma için \"İzin ver\" de", Toast.LENGTH_LONG).show();
+                } catch (Exception e) { }
+            }, 2500);
+        } catch (Exception e) { }
     }
 
     /* ---------- Tam ekran ---------- */
@@ -438,7 +461,7 @@ public class MainActivity extends Activity {
         }
         /** Çalma durumu: bildirim, kilit ekranı ve araç ekranı güncellenir; çalarken uygulama arka planda kapanmaz. */
         @JavascriptInterface public void setPlaying(boolean p, String baslik, String sanatci) {
-            caliyor = p;
+            if (p) caliyor = true; /* false'a çalma hizmeti uzun duraklamada çevirir */
             ana.post(() -> CalmaServisi.guncelle(MainActivity.this, p, baslik, sanatci));
         }
         @JavascriptInterface public void kaydet(String ad, String tur, String b64) {

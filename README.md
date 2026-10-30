@@ -18,6 +18,12 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## APK düzeltmesi (30.10.2026) — arka planda 2–3 şarkıdan sonra durma
+- Şarkı geçişindeki çok kısa duraklamada uygulama "çalma bitti" sayılıp Android'in arka plan korumasından çıkıyordu; birkaç dakika sonra telefon uygulamayı uyutunca sıradaki şarkıya geçilemiyordu. Artık geçişlerde koruma sürer; yalnız gerçekten 45 sn'den uzun duraklatılınca bırakılır (bildirim kalır, oradan yeniden çalınır).
+- Sayfa arka planda "görünmez" sayılmaz (iki yoldan da korunur) → zamanlayıcılar kısılmaz.
+- İlk açılışta bir kez **pil kısıtlaması yok** izni istenir (Samsung'un pil tasarrufu arka plandaki çalmayı durdurmasın).
+- **Yeni APK'yı kurmak gerekir** (eskinin üzerine).
+
 ## 6.5 (30.10.2026) — Klasik görünümde liste düzenleme
 - **Seçim modu:** çalma listesinde bir satıra **basılı tut** ya da alttaki **SEÇ**'e dokun → satırlara dokunarak seç (☑).
 - **▲ / ▼** seçilenleri bir sıra yukarı/aşağı taşır (birden çok seçili satır birlikte taşınır).
