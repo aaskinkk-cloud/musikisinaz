@@ -18,6 +18,16 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.5 (30.10.2026) — Klasik görünümde liste düzenleme
+- **Seçim modu:** çalma listesinde bir satıra **basılı tut** ya da alttaki **SEÇ**'e dokun → satırlara dokunarak seç (☑).
+- **▲ / ▼** seçilenleri bir sıra yukarı/aşağı taşır (birden çok seçili satır birlikte taşınır).
+- **ÇIKAR** listeden çıkarır (şarkı kitaplıkta kalır; çalan şarkı çıkarılırsa sıradakine geçer).
+- **PASİF** pasife alır (Listeler › Pasif müzikler'den geri alınır).
+- **SİL** kitaplıktan kaldırır — yanlışlıkla olmasın diye **iki kez** dokunulur; dosyalar telefonda kalır.
+- **⋯** Tümünü seç · Seçimi temizle · En üste / En alta taşı · Seçilenleri çal · Sıradaki olarak çal · Çalma listesine ekle · Telefondan da sil (tek şarkı) · Listeyi karıştır (çalan başta) · Listeyi çalma listesi olarak kaydet · Listeyi temizle.
+- **BİTTİ (n)** seçim modundan çıkar. YouTube listesinde ▲▼ ve ÇIKAR çalışır; aramadayken PASİF, SİL ve ⋯ (sıraya/listeye ekle).
+- Kitaplık listesinde düzenleyince görünen sıra kuyruk olur; ▶ ile o sırayla çalar.
+
 ## 6.2 (30.10.2026) — Klasik görünüm tek ekran
 - Klasik görünüm telefon ekranına tam sığar ve hiçbir yerde boşluk bırakmaz (üstte kamera şeridi yok, kenarlar ve alt sıfır; TINI yazısı solda, kamera deliğinin altında kalmaz — 6.4): sayfa yukarı-aşağı kaymaz, başlık en üstte, alt çubuk (+ Ekle · Ara · Tümü) ekranın içinde.
 - Çalma listesi kendi içinde kayar; sağda Winamp tarzı **asansör** (sürükle ya da çubuğa dokun). Çalan şarkı listede görünür tutulur.
@@ -111,7 +121,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**6.4** — Klasik görünümde üst, yan ve alt boşluklar kaldırıldı.  
+**6.5** — Klasik görünümde listeden çıkarma, taşıma, pasif, silme (seçim modu).  
+6.4 — Klasik görünümde üst, yan ve alt boşluklar kaldırıldı.  
 6.3 — Ekolayzır frekans yazıları kesilmez.  
 6.2 — Klasik görünüm tek ekrana sığar, listede asansör.  
 6.1 — Kapaksız şarkılarda sanatçı fotoğrafı.  
