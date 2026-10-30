@@ -605,6 +605,11 @@ body.wa-on,html:has(body.wa-on){overflow:hidden}
 #waMain{padding-top:0}
 #waMain>.wat{height:calc(24px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);align-items:center}
 .wa-bands{height:clamp(88px,17dvh,150px)}
+.wa-bands{overflow:hidden}
+.wa-band{grid-template-rows:minmax(0,1fr) 14px;height:100%;min-height:0;overflow:hidden}
+.wa-band input{height:100%!important;max-height:100%;min-height:0}
+.wa-band span{line-height:14px}
+.wa-db{padding-bottom:16px}
 #waPl{flex:1 1 0;min-height:0;overflow:hidden}
 .wa-liste{flex:1 1 0;min-height:0;display:flex;gap:3px}
 #waPl .wa-list{flex:1 1 0;min-height:0;height:auto;overflow-y:auto;scrollbar-width:none}
@@ -922,7 +927,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.2 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.3 · çevrimdışı destekli</p></div>
     </section>
   </div>
 

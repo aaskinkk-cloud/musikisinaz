@@ -21,7 +21,7 @@
 ## 6.2 (30.10.2026) — Klasik görünüm tek ekran
 - Klasik görünüm telefon ekranına tam sığar: sayfa yukarı-aşağı kaymaz, başlık en üstte, alt çubuk (+ Ekle · Ara · Tümü) ekranın içinde.
 - Çalma listesi kendi içinde kayar; sağda Winamp tarzı **asansör** (sürükle ya da çubuğa dokun). Çalan şarkı listede görünür tutulur.
-- Ekolayzır sürgüleri kısa ekranlarda biraz kısalır, listeye yer açılır.
+- Ekolayzır sürgüleri kısa ekranlarda biraz kısalır, listeye yer açılır; frekans yazıları (ÖN, 60 … 16K) her ekran boyunda görünür (6.3).
 
 ## 6.1 (30.10.2026) — Sanatçı fotoğrafları
 - Kapağı olmayan şarkılarda harf yerine **sanatçının fotoğrafı** (Deezer, ücretsiz, anahtarsız). Bulunan fotoğraflar telefonda saklanır, bir daha indirilmez; internet yokken ya da bulunamazsa harf kalır. "Türkü", "Music", "Bilinmeyen" gibi genel etiketler aranmaz; ad tam eşleşmezse fotoğraf konmaz.
@@ -111,7 +111,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**6.2** — Klasik görünüm tek ekrana sığar, listede asansör.  
+**6.3** — Ekolayzır frekans yazıları kesilmez.  
+6.2 — Klasik görünüm tek ekrana sığar, listede asansör.  
 6.1 — Kapaksız şarkılarda sanatçı fotoğrafı.  
 6.0 — Android uygulaması (APK), klasik (Winamp tarzı) görünüm.  
 5.8 — Kitaplık üst alanı 5 satırdan 2 satıra indi (arama, sekmeler ve sıralama tek satır; sayı Tümünü çal kartında).  
