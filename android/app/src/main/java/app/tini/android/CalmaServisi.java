@@ -37,12 +37,12 @@ public class CalmaServisi extends Service {
     private boolean ilkBaslat = true;
     private boolean onPlanda = false;
 
+    private static volatile boolean istenen = false;
     private static final android.os.Handler ana = new android.os.Handler(android.os.Looper.getMainLooper());
     /** Şarkı geçişinde sayfa çok kısa "durdu" der; bu süre içinde yeniden çalarsa hiçbir şey değişmez. */
-    private static final Runnable duraklat = () -> { if (!istenen && canli != null) { sonCal = false; canli.uygula(); } };
+    private static final Runnable duraklat = () -> { if (!CalmaServisi.istenen && CalmaServisi.canli != null) { CalmaServisi.sonCal = false; CalmaServisi.canli.uygula(); } };
     /** Gerçekten durdurulduysa: 45 sn sonra ön plan bırakılır (bildirim kalır, oradan yeniden çalınır). */
-    private static final Runnable birak = () -> { if (!istenen && canli != null) canli.onPlandanCik(); };
-    private static volatile boolean istenen = false;
+    private static final Runnable birak = () -> { if (!CalmaServisi.istenen && CalmaServisi.canli != null) CalmaServisi.canli.onPlandanCik(); };
 
     /** Sayfadan gelen çalma durumu. Hizmet yoksa ve çalıyorsa başlatılır. */
     static void guncelle(Context c, boolean cal, String baslik, String sanatci) {

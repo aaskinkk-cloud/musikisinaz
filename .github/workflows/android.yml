@@ -18,7 +18,9 @@ jobs:
         with: { gradle-version: '8.9' }
       - name: Derle
         working-directory: android
-        run: gradle --no-daemon assembleRelease
+        run: |
+          set -o pipefail
+          gradle --no-daemon assembleRelease 2>&1 | tee derle.log || { grep -E "error:|e: |What went wrong|\.java:[0-9]+" derle.log | head -30 | sed 's/^/::error::/'; exit 1; }
       - name: APK adını düzelt
         run: cp android/app/build/outputs/apk/release/app-release.apk tini.apk
       - uses: softprops/action-gh-release@v2
