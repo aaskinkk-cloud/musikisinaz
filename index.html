@@ -569,13 +569,33 @@ body.ytnp-acik .ytbox{z-index:60;border-radius:14px}
 .wa-row.sec{background:#2b2b55;color:#fff}
 .wa-row.sec.cur{background:#3a3ad8}
 .wa-row .ck{font-weight:400;margin-right:6px;color:#9cf7a8}
-.wa-secbar{display:none}
-#waPl.secim .wa-plbar:not(.wa-secbar){display:none}
-#waPl.secim .wa-secbar{display:flex;flex-wrap:nowrap;gap:3px}
-#waPl.secim .wa-secbar .wa-tg{flex:1 1 0;min-width:0;justify-content:center;padding:0 2px;font-size:9.5px}
-#waPl.secim .wa-secbar [data-ws="bitti"]{flex:1.6 1 0;background:linear-gradient(#3d6b3d,#244424)}
-#waPl.secim.yt-sec [data-ws="pasif"],#waPl.secim.yt-sec [data-ws="sil"]{display:none}
-#waPl.secim.ara-sec [data-ws="yukari"],#waPl.secim.ara-sec [data-ws="asagi"],#waPl.secim.ara-sec [data-ws="cikar"]{display:none}
+/* 6.6: alt çubuk her zaman TEK sıra — normal · arama · seçim düzenleri yer değiştirir */
+#waBar{flex-wrap:nowrap!important}
+#waBar .a,#waBar .s{display:none}
+#waBar.ara .n,#waBar.ara .wa-tot{display:none}
+#waBar.ara .a{display:inline-flex}
+#waBar.ara .wa-q{display:block;flex:1;min-width:0;margin:0!important;height:30px}
+#waPl.secim #waBar .n,#waPl.secim #waBar .a{display:none}
+#waPl.secim #waBar .s{display:inline-flex}
+#waBar .wa-tg{flex:none}
+/* Winamp tarzı menü */
+.wa-menu-ort{position:fixed;inset:0;z-index:69;background:rgba(0,0,0,.25)}
+.wa-menu{position:fixed;z-index:70;width:min(372px,calc(100vw - 12px));background:linear-gradient(180deg,#3a3a5c,#262640);border:2px solid;border-color:#8a8ab0 #101018 #101018 #8a8ab0;box-shadow:0 10px 28px rgba(0,0,0,.6);padding:3px;font:13px/1.2 Tahoma,Verdana,"DejaVu Sans",sans-serif;color:#dcdcec;user-select:none}
+.wa-menu .bas{background:#000;color:#00e83a;font-weight:700;padding:7px 8px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:1px solid;border-color:#0a0a10 #5a5a78 #5a5a78 #0a0a10}
+.wa-menu .tas{display:flex;gap:3px;margin-bottom:3px}
+.wa-menu .tas button{flex:1;height:38px;border:1px solid;border-color:#e4e4f0 #4a4a5c #4a4a5c #e4e4f0;background:linear-gradient(#cfcfdd,#9696ac);color:#15152a;font:700 16px/1 Tahoma,sans-serif;border-radius:2px}
+.wa-menu .tas button:active{background:linear-gradient(#9696ac,#c4c4d4);border-color:#4a4a5c #e4e4f0 #e4e4f0 #4a4a5c}
+.wa-menu .iki{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.wa-menu .iki>button{display:flex;align-items:center;gap:7px;min-width:0;height:40px;padding:0 7px;background:transparent;border:0;color:inherit;font:inherit;font-size:12px;text-align:left;border-radius:1px;white-space:nowrap;overflow:hidden}
+.wa-menu .iki>button span{overflow:hidden;text-overflow:ellipsis}
+.wa-menu .iki>button:active{background:#0000c6;color:#fff}
+.wa-menu .iki>button[hidden]{display:none}
+.wa-menu .iki>button:last-child:nth-child(odd){grid-column:1/-1}
+.wa-menu>button{display:flex;align-items:center;gap:10px;width:100%;height:38px;padding:0 10px;background:transparent;border:0;color:inherit;font:inherit;text-align:left;border-radius:1px}
+.wa-menu>button:active{background:#0000c6;color:#fff}
+.wa-menu .ik{font-style:normal;width:18px;text-align:center;color:#e2c463}
+.wa-menu .tehlike{color:#ff9a8a}
+.wa-menu .ayr{height:1px;background:#55557a;margin:3px 2px;box-shadow:0 1px 0 #15151f}
 #waPl.secim .wa-row{user-select:none;-webkit-user-select:none}
 .wa-row.cur em{color:#fff}
 .wa-row:active{background:#002a00}
@@ -949,7 +969,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.5 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.6 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -3993,9 +4013,11 @@ function waKur(){
     '<div class="wa-bands"><div class="wa-band"><input type="range" id="waPre" min="-12" max="12" step="0.5" aria-label="Ön yükseltme"><span>ÖN</span></div><div class="wa-db"><span>+12</span><span>0</span><span>-12</span></div>'+
      WA_FL.map((l,i)=>'<div class="wa-band"><input type="range" min="-12" max="12" step="0.5" data-wb="'+i+'" aria-label="'+l+' Hz"><span>'+l+'</span></div>').join('')+'</div></section>'+
    '<section class="waw" id="waPl"><header class="wat"><i class="ln"></i><b>TINI ÇALMA LİSTESİ</b><i class="ln"></i></header>'+
-    '<div class="wa-liste"><div class="wa-list" id="waList"></div><div class="wa-asan" id="waAsan" aria-label="Listeyi kaydır"><i></i></div></div><input class="wa-q hid" id="waQ" type="search" placeholder="Listede ara…" autocomplete="off">'+
-    '<div class="wa-plbar"><button class="wa-tg" data-wa="ej">+ EKLE</button><button class="wa-tg" data-wa="ara">ARA</button><button class="wa-tg" data-wa="hep">TÜMÜ</button><button class="wa-tg" data-wa="sec">SEÇ</button><span class="wa-tot" id="waTot">0:00/0:00</span></div>'+
-    '<div class="wa-plbar wa-secbar"><button class="wa-tg" data-ws="yukari" aria-label="Yukarı taşı">▲</button><button class="wa-tg" data-ws="asagi" aria-label="Aşağı taşı">▼</button><button class="wa-tg" data-ws="cikar">ÇIKAR</button><button class="wa-tg" data-ws="pasif">PASİF</button><button class="wa-tg" data-ws="sil">SİL</button><button class="wa-tg" data-ws="dahasi" aria-label="Diğer işlemler">⋯</button><button class="wa-tg on" data-ws="bitti" id="waSecN">BİTTİ</button></div></section>'+
+    '<div class="wa-liste"><div class="wa-list" id="waList"></div><div class="wa-asan" id="waAsan" aria-label="Listeyi kaydır"><i></i></div></div>'+
+    '<div class="wa-plbar" id="waBar"><button class="wa-tg n" data-wa="ej">+ EKLE</button><button class="wa-tg n" data-wa="ara">ARA</button><button class="wa-tg n" data-wa="hep">TÜMÜ</button><button class="wa-tg n" data-wa="sec">SEÇ</button>'+
+    '<input class="wa-q a" id="waQ" type="search" placeholder="Listede ara…" autocomplete="off"><button class="wa-tg a" data-wa="arakapa" aria-label="Aramayı kapat">✕</button>'+
+    '<button class="wa-tg s on" data-wa="islem" id="waSecN">İŞLEM</button><button class="wa-tg s" data-wa="hepsec">TÜMÜNÜ SEÇ</button><button class="wa-tg s" data-wa="bitti">BİTTİ</button>'+
+    '<span class="wa-tot" id="waTot">0:00/0:00</span></div></section>'+
   '</div><div class="wa-ipucu">Klasik görünüm · aynı kitaplık ve kuyruk<br><button id="waGeri">Modern görünüme dön</button></div>';
   document.body.appendChild(d);
   /* olaylar */
@@ -4016,8 +4038,12 @@ function waKur(){
     else if(a==='ej')pickFiles();
     else if(a==='shuf'){setShuffle(!prefs.shuffle);toast(prefs.shuffle?'Karışık çalma açık':'Karışık çalma kapalı')}
     else if(a==='rep')cycleRepeat();
-    else if(a==='ara'){const q=$('#waQ');q.classList.toggle('hid');if(!q.classList.contains('hid'))q.focus();else{q.value='';waQ='';waSig='';waListe()}}
-    else if(a==='sec'){if(waSecim)waSecKapa();else waSecAc(null);toast('Seçim modu: satırlara dokunarak seç · ▲▼ taşı · ÇIKAR · PASİF · SİL · ⋯',3200)}
+    else if(a==='ara'){$('#waBar').classList.add('ara');const q=$('#waQ');q.focus()}
+    else if(a==='arakapa'){$('#waBar').classList.remove('ara');const q=$('#waQ');q.value='';waQ='';waSig='';waListe()}
+    else if(a==='sec'){waSecAc(null);toast('Şarkılara dokunarak seç, sonra İŞLEM',2600)}
+    else if(a==='islem'){if(!WS.size){toast('Önce şarkı seç');return}waMenuAc(null,null)}
+    else if(a==='hepsec'){waHepsiniSec()}
+    else if(a==='bitti'){waSecKapa()}
     else if(a==='hep'){const ids=lib.filter(t=>!t.yt&&!pasifMi(t)).map(t=>t.id);if(ids.length){playList(ids,cur&&ids.indexOf(cur.id)>=0?cur.id:ids[0]);toast('Tüm kitaplık listede')}}
     setTimeout(waDurum,60)});
   $('#waQ').addEventListener('input',e=>{waQ=e.target.value;waSig='';waListe()});
@@ -4025,8 +4051,9 @@ function waKur(){
   $('#waList').addEventListener('click',e=>{const r=e.target.closest('.wa-row');if(!r)return;const i=+r.dataset.i;
     if(waUzunBasti){waUzunBasti=false;return}
     if(waSecim){if(r.dataset.k==null)return;waSecDegis(r.dataset.k);return}
-    if(r.dataset.yt){ytPlay(i);return}
-    if(r.dataset.q){if(queue[i]!=null){qi=i;loadCurrent(true)}}else playList(waIds(),r.dataset.id);setTimeout(()=>{waSig='';waListe()},120)});
+    if(r.dataset.k==null)return;
+    if(waMenuK!=null&&String(waMenuK)===String(r.dataset.k)){waMenuKapa();waSatirCal(r);return}
+    waMenuAc(r.dataset.k,r)});
   const seek=$('#waSeek');
   seek.addEventListener('input',()=>{waSurukle=true});
   seek.addEventListener('change',()=>{const v=+seek.value/1000;if(carIsYT()){const dd=ytDur();try{dd&&ytP.seekTo(v*dd,true)}catch(x){}}else if(cur){const dd=(isFinite(audio.duration)&&audio.duration)||cur.duration||0;if(dd)audio.currentTime=v*dd}waSurukle=false});
@@ -4061,22 +4088,72 @@ function waListe(){
   const sig=(y?'y'+ytCur+':'+P.yt.length:'q'+queue.length+':'+qi+':'+(cur&&cur.id))+':'+waQ+':'+lib.length+':'+(waSecim?'s'+waSecSay:'');
   if(sig===waSig)return;waSig=sig;let html='',tot=0;
   const ck=k=>waSecim?'<b class="ck">'+(WS.has(k)?'☑':'☐')+'</b>':'';
-  const sat=(k,cls,attr,no,ad,sag)=>'<div class="wa-row'+cls+(waSecim&&WS.has(k)?' sec':'')+'" data-k="'+esc(String(k))+'" '+attr+'><span>'+ck(k)+no+'. '+ad+'</span><em>'+sag+'</em></div>';
+  const sat=(k,cls,attr,no,ad,sag)=>'<div class="wa-row'+cls+((waSecim||waTekli)&&WS.has(k)?' sec':'')+'" data-k="'+esc(String(k))+'" '+attr+'><span>'+ck(k)+no+'. '+ad+'</span><em>'+sag+'</em></div>';
   const ad=t=>esc((t.artist&&t.artist.indexOf('Bilinmeyen')!==0?t.artist+' - ':'')+t.title);
   if(y){P.yt.forEach((it,i)=>{if(waQ&&fold((it.title||'')+' '+(it.author||'')).indexOf(fold(waQ))<0)return;html+=sat(it.id,i===ytCur?' cur':'','data-yt="1" data-i="'+i+'"',i+1,esc(it.title||'YouTube videosu'),'YT')})}
   else if(tur==='q'){queue.forEach((id,i)=>{const t=byId.get(id);if(!t)return;tot+=t.duration||0;html+=sat(i,i===qi?' cur':'','data-q="1" data-i="'+i+'"',i+1,ad(t),fmt(t.duration))})}
   else{const ara=tur==='ara';waIds().forEach((id,i)=>{const t=byId.get(id);if(!t)return;tot+=t.duration||0;html+=sat(ara?id:i,cur&&cur.id===id?' cur':'','data-id="'+esc(id)+'" data-i="'+i+'"',i+1,ad(t),fmt(t.duration))})}
-  const st=box.scrollTop;
+  const st=box.scrollTop,menuAcik=!!document.getElementById('waSarki');
   box.innerHTML=html||'<div class="wa-row"><span>'+(waQ?'Sonuç yok':'Liste boş · + EKLE ile müzik ekle')+'</span><em></em></div>';
   box.dataset.tot=fmt(tot);
-  if(waSecim){box.scrollTop=st;const n=$('#waSecN');if(n)n.textContent=WS.size?'BİTTİ ('+WS.size+')':'BİTTİ';$('#waPl').classList.toggle('yt-sec',tur==='yt');$('#waPl').classList.toggle('ara-sec',tur==='ara')}
+  if(waSecim||menuAcik){box.scrollTop=st}
+  if(waSecim){const n=$('#waSecN');if(n)n.textContent=WS.size?'İŞLEM ('+WS.size+')':'İŞLEM';$('#waPl').classList.toggle('yt-sec',tur==='yt');$('#waPl').classList.toggle('ara-sec',tur==='ara')}
   /* çalan satır görünür kalsın — yalnız liste kayar, sayfa kaymaz */
-  const c=waSecim?null:box.querySelector('.cur');if(c){const t=c.offsetTop,b=t+c.offsetHeight;if(t<box.scrollTop)box.scrollTop=t;else if(b>box.scrollTop+box.clientHeight)box.scrollTop=b-box.clientHeight}
+  const c=(waSecim||menuAcik)?null:box.querySelector('.cur');if(c){const t=c.offsetTop,b=t+c.offsetHeight;if(t<box.scrollTop)box.scrollTop=t;else if(b>box.scrollTop+box.clientHeight)box.scrollTop=b-box.clientHeight}
   try{window.__waAsan&&setTimeout(window.__waAsan,30)}catch(e){}
 }
 let waUzunBasti=false;
 function waAnahtar(k){const tur=waTur();return (tur==='q'||tur==='lib')?+k:String(k)}
 function waSecDegis(k){k=waAnahtar(k);if(WS.has(k))WS.delete(k);else WS.add(k);waSecSay++;waSig='';waListe()}
+function waSatirCal(r){const i=+r.dataset.i;if(r.dataset.yt){ytPlay(i);return}
+  if(r.dataset.q){if(queue[i]!=null){qi=i;loadCurrent(true)}}else playList(waIds(),r.dataset.id);setTimeout(()=>{waSig='';waListe()},120)}
+function waHepsiniSec(){const tur=waTur();WS=new Set();if(tur==='yt')P.yt.forEach(v=>WS.add(String(v.id)));else if(tur==='ara')waIds().forEach(id=>WS.add(id));else{const n=tur==='q'?queue.length:waIds().length;for(let i=0;i<n;i++)WS.add(i)}waSecSay++;waSig='';waListe()}
+/* 6.6: Winamp tarzı şarkı menüsü — satıra dokununca açılır; ▲▼ ile taşırken menü açık kalır */
+let waMenuK=null,waTekli=false,waSilMenu=0;
+function waMenuKapa(){const m=$('#waSarki');if(m)m.remove();const o=$('#waMenuOrt');if(o)o.remove();if(waTekli&&!waSecim){WS=new Set();waSecSay++;waSig='';waListe()}waMenuK=null;waTekli=false}
+function waMenuAc(k,r){
+  waMenuKapa();const tur=waTur(),yt=tur==='yt';
+  if(k!=null){waTekli=true;waMenuK=k;WS=new Set([waAnahtar(k)]);waSecSay++;waSig='';waListe()}
+  const ids=waSeciliIdler(),tek=WS.size===1,n=WS.size;
+  let bas;if(tek){const a=[...WS][0];if(yt){const it=P.yt.find(v=>String(v.id)===String(a));bas=it?(it.title||'YouTube videosu'):'YouTube'}else{const t=byId.get(ids[0]);bas=t?((t.artist&&t.artist.indexOf('Bilinmeyen')!==0?t.artist+' - ':'')+t.title):''}}else bas=n+' şarkı seçili';
+  const ara=tur==='ara',B=(k,ik,ad,c)=>'<button data-m="'+k+'"'+(c?' class="'+c+'"':'')+'><i class="ik">'+ik+'</i><span>'+ad+'</span></button>';
+  let h='<div class="bas">'+esc(bas)+'</div>';
+  if(!ara)h+='<div class="tas"><button data-m="ust" aria-label="En üste">⤒</button><button data-m="yukari" aria-label="Yukarı">▲</button><button data-m="asagi" aria-label="Aşağı">▼</button><button data-m="alt" aria-label="En alta">⤓</button></div>';
+  h+='<div class="iki">';
+  if(tek&&!waSecim)h+=B('cal','▶','Çal');
+  if(!yt){if(!(tek&&!waSecim))h+=B('cal2','▶','Seçilenleri çal');h+=B('sira','⏭','Sıradaki çal')}
+  if(ara)h+=B('sona','＋','Listenin sonuna ekle');
+  if(!yt)h+=B('liste','☰','Listeye ekle…');
+  if(tek&&!yt)h+=B('bilgi','ⓘ','Şarkı bilgisi');
+  if(!ara)h+=B('cikar','✕',yt?'Listeden çıkar':'Listeden çıkar');
+  if(!yt)h+=B('pasif','☾','Pasife al')+B('sil','🗑','Kitaplıktan sil','tehlike');
+  if(tek&&!yt)h+=B('telsil','⚠','Telefondan sil…','tehlike');
+  if(!waSecim)h+=B('coklu','☑','Birden çok seç');
+  h+='</div>';
+  const ort=document.createElement('div');ort.id='waMenuOrt';ort.className='wa-menu-ort';document.body.appendChild(ort);
+  const m=document.createElement('div');m.id='waSarki';m.className='wa-menu';m.innerHTML=h;document.body.appendChild(m);
+  waMenuYer(r);
+  ort.addEventListener('pointerdown',e=>{e.preventDefault();const r=document.elementsFromPoint(e.clientX,e.clientY).find(x=>x.classList&&x.classList.contains('wa-row'));const ayni=r&&waMenuK!=null&&String(r.dataset.k)===String(waMenuK);const d={i:r&&r.dataset.i,yt:r&&r.dataset.yt,q:r&&r.dataset.q,id:r&&r.dataset.id};waMenuKapa();if(ayni)waSatirCal({dataset:d})});
+  m.addEventListener('click',async e=>{const b=e.target.closest('[data-m]');if(!b)return;e.stopPropagation();const c=b.dataset.m;
+    if(c==='yukari'||c==='asagi'||c==='ust'||c==='alt'){waTasi(c);setTimeout(()=>{const r2=waSeciliSatir();if(r2&&waTekli)waMenuK=r2.dataset.k;waMenuYer(r2)},30);return}
+    if(c==='sil'){if(Date.now()-waSilMenu>3000){waSilMenu=Date.now();b.querySelector('span').textContent='Emin? Tekrar dokun';return}waSilMenu=0;const ids2=waSeciliIdler();waMenuK=null;waTekli=false;$('#waSarki').remove();$('#waMenuOrt').remove();for(const id of ids2){try{await removeTrack(id)}catch(x){}}WS=new Set();if(waSecim)waSecKapa();else{waSig='';waListe()}toast(ids2.length+' şarkı kitaplıktan kaldırıldı · dosyalar telefonda');return}
+    const ids2=waSeciliIdler(),kk=waMenuK!=null?waMenuK:k;waMenuKapa();
+    if(c==='cal'){const row=[...document.querySelectorAll('#waList .wa-row')].find(x=>String(x.dataset.k)===String(kk));if(row)waSatirCal(row)}
+    else if(c==='cal2'){if(ids2.length){playList(ids2,ids2[0]);waSecKapa()}}
+    else if(c==='sira'){ids2.slice().reverse().forEach(id=>enqueue(id,true));toast(ids2.length+' şarkı sıradaki olarak eklendi');waSig='';waListe()}
+    else if(c==='sona'){ids2.forEach(id=>enqueue(id,false));toast(ids2.length+' şarkı listeye eklendi')}
+    else if(c==='liste'){plSheet(ids2)}
+    else if(c==='bilgi'){const t=byId.get(ids2[0]);if(t)infoSheet(t)}
+    else if(c==='telsil'){if(ids2[0])telSilSheet(ids2[0])}
+    else if(c==='coklu'){waSecAc(kk)}
+    else{WS=new Set(c==='cikar'||c==='pasif'?(kk!=null?[waAnahtar(kk)]:[...WS]):[]);if(k==null&&waSecim){}/* çoklu seçimde WS zaten dolu */
+      if(c==='cikar')waCikar();else if(c==='pasif')waPasif();if(waSecim)waSecKapa()}
+  });
+}
+function waSeciliSatir(){return document.querySelector('#waList .wa-row.sec')}
+function waMenuYer(r){const m=$('#waSarki');if(!m)return;const H=innerHeight,W=innerWidth,mh=m.offsetHeight,mw=Math.min(m.offsetWidth,W-12);let top,left=Math.max(6,(W-mw)/2);
+  if(r){const b=r.getBoundingClientRect();top=b.bottom+4;if(top+mh>H-6)top=b.top-mh-4;if(top<6)top=Math.max(6,H-mh-6)}else{const bar=$('#waBar').getBoundingClientRect();top=bar.top-mh-6}
+  m.style.top=Math.max(6,top)+'px';m.style.left=left+'px'}
 function waSecAc(k){if(!waSecim){waSecim=true;WS=new Set();$('#waPl').classList.add('secim')}if(k!=null){const a=waAnahtar(k);if(!WS.has(a))WS.add(a)}waSecSay++;waSig='';waListe()}
 function waSecKapa(){waSecim=false;WS=new Set();$('#waPl').classList.remove('secim','yt-sec','ara-sec');waSig='';waListe()}
 /* kitaplık görünümünde düzenleme: önce görünen sırayla kuyruk kurulur (çalma başlamaz) */
@@ -4149,8 +4226,6 @@ function waSecKur(){
   L.addEventListener('pointermove',e=>{if(Math.abs(e.clientX-x0)>8||Math.abs(e.clientY-y0)>8)iptal()});
   L.addEventListener('pointerup',iptal);L.addEventListener('pointercancel',iptal);L.addEventListener('scroll',iptal,{passive:true});
   L.addEventListener('contextmenu',e=>e.preventDefault());
-  $('#waPl').addEventListener('click',e=>{const b=e.target.closest('[data-ws]');if(!b)return;e.stopPropagation();const k=b.dataset.ws;
-    if(k==='bitti')waSecKapa();else if(k==='yukari'||k==='asagi')waTasi(k);else if(k==='cikar')waCikar();else if(k==='pasif')waPasif();else if(k==='sil')waSil(b);else if(k==='dahasi')waDahasi()});
 }
 function waEqCiz(){
   const on=$('#waEqOn');if(!on)return;on.classList.toggle('on',!!prefs.eqOn);

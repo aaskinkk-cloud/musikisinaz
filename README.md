@@ -18,6 +18,12 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.6 (31.10.2026) — Klasik görünümde şarkı menüsü
+- **Şarkıya dokun → menü açılır** (Winamp tarzı, iki sütun): ⤒ ▲ ▼ ⤓ (taşırken menü açık kalır, satır vurgulu ilerler) · Çal · Sıradaki çal · Listeye ekle · Şarkı bilgisi · Listeden çıkar · Pasife al · Kitaplıktan sil (iki dokunuş) · Telefondan sil · Birden çok seç.
+- Menü açıkken **aynı şarkıya yine dokun → çalar**. Menünün dışına dokun → kapanır.
+- **Alt çubuk her zaman tek sıra:** + EKLE · ARA · TÜMÜ · SEÇ. ARA'da kutu aynı sıraya açılır (✕ kapatır). Seçimde: İŞLEM (n) · TÜMÜNÜ SEÇ · BİTTİ — İŞLEM aynı menüyü seçilenler için açar. Satıra basılı tutmak da seçimi başlatır.
+- 6.5'teki ikinci düğme sırası kaldırıldı.
+
 ## APK düzeltmesi (30.10.2026) — arka planda 2–3 şarkıdan sonra durma
 - Şarkı geçişindeki çok kısa duraklamada uygulama "çalma bitti" sayılıp Android'in arka plan korumasından çıkıyordu; birkaç dakika sonra telefon uygulamayı uyutunca sıradaki şarkıya geçilemiyordu. Artık geçişlerde koruma sürer; yalnız gerçekten 45 sn'den uzun duraklatılınca bırakılır (bildirim kalır, oradan yeniden çalınır).
 - Sayfa arka planda "görünmez" sayılmaz (iki yoldan da korunur) → zamanlayıcılar kısılmaz.
@@ -127,7 +133,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**6.5** — Klasik görünümde listeden çıkarma, taşıma, pasif, silme (seçim modu).  
+**6.6** — Klasik görünümde şarkıya dokununca menü; alt çubuk tek sıra.  
+6.5 — Klasik görünümde listeden çıkarma, taşıma, pasif, silme (seçim modu).  
 6.4 — Klasik görünümde üst, yan ve alt boşluklar kaldırıldı.  
 6.3 — Ekolayzır frekans yazıları kesilmez.  
 6.2 — Klasik görünüm tek ekrana sığar, listede asansör.  
