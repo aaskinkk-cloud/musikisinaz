@@ -907,7 +907,9 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
       <div class="panel">
         <div><div>YouTube arama anahtarı</div><div class="muted small" style="margin-bottom:8px">Uygulamada YouTube araması için. Anahtar yalnızca bu telefonda saklanır, GitHub'a gitmez.</div>
           <div class="keyrow"><input id="ytKeyIn" type="password" autocomplete="off" placeholder="AIza ile başlayan anahtar" aria-label="YouTube anahtarı"><button class="btn sm" id="ytKeySave">Kaydet</button><button class="btn sm" id="ytKeyTest">Dene</button></div>
-          <div class="muted small" id="ytKeyState" style="margin-top:6px"></div></div>
+          <div class="muted small" id="ytKeyState" style="margin-top:6px"></div>
+          <div class="muted small" style="margin-top:6px">Anahtar yalnız aramaya yarar; reklamla ilgisi yoktur. Hangi Google hesabının anahtarı olursa olsun aynı çalışır.</div></div>
+        <div class="row2" id="ytGirisSatir" hidden><div>YouTube hesabı (reklamsız)<div class="muted small" id="ytGirisDurum">Premium hesabınla giriş yaparsan videolar uygulamada da reklamsız çalar. Bir kez yeterli.</div></div><button class="btn sm primary" id="ytGirisBtn">Giriş yap</button></div>
       </div>
       <div class="panel">
         <div><div>Spotify Client ID</div><div class="muted small" style="margin-bottom:8px">Yalnız Spotify sekmesinde arama, listelerim ve beğendiklerim için. Parola istenmez; giriş Spotify'ın kendi sayfasında yapılır. Bu telefonda saklanır.</div>
@@ -969,7 +971,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.7 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.8 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -2586,6 +2588,10 @@ $('#ytRes').addEventListener('click',e=>{
 });
 uzunBas($('#ytRes'),'[data-ri]','res');uzunBas($('#ytList'),'[data-yi]','list');
 $('#sheet').addEventListener('click',e=>{if(e.target.closest('[data-ks]')&&saveKey($('#ksIn').value)){closeSheet();if(prefs.ytKey&&$('#ytQ').value.trim())ytSearch()}});
+/* 6.8: APK'da YouTube hesabına giriş (Premium → reklamsız) */
+try{if(window.Android&&Android.ytGiris){const sat=$('#ytGirisSatir');sat.hidden=false;
+  const durum=()=>{let v=false;try{v=Android.ytGirisVar&&Android.ytGirisVar()}catch(e){}$('#ytGirisDurum').textContent=v?'Giriş yapıldı ✓ — Premium hesapsa videolar reklamsız çalar. Başka hesaba geçmek için yeniden giriş yap.':'Premium hesabınla giriş yaparsan videolar uygulamada da reklamsız çalar. Bir kez yeterli.';$('#ytGirisBtn').textContent=v?'Yeniden giriş':'Giriş yap'};durum();
+  $('#ytGirisBtn').addEventListener('click',()=>{try{Android.ytGiris()}catch(e){toast('Giriş açılamadı')}})}}catch(e){}
 $('#ytKeySave').addEventListener('click',()=>{saveKey($('#ytKeyIn').value);$('#ytKeyIn').value=''});
 $('#ytKeyTest').addEventListener('click',async()=>{
   const v=$('#ytKeyIn').value.trim();if(v&&!saveKey(v))return;$('#ytKeyIn').value='';
@@ -3446,7 +3452,7 @@ function ayarDuzen(){
     ['ses','Ses','vol',['hqOn'],[['eq','Ekolayzır ve vokal']]],
     ['uyku','Uyku zamanlayıcısı','clock',['sleepChips'],[]],
     ['kitaplik','Kitaplık','lib',['libStat','artAlbOn','longAyriOn','yeniSorOn'],[['lib','Kitaplığa git']]],
-    ['akis','YouTube ve Spotify','yt',['ytmOn','ytKeyIn','spIdIn2'],[['yt','YouTube'],['sp','Spotify']]],
+    ['akis','YouTube ve Spotify','yt',['ytmOn','ytKeyIn','ytGirisSatir','spIdIn2'],[['yt','YouTube'],['sp','Spotify']]],
     ['arac','Araç','car',['btnCar2','wakeOn','carLinkKop'],[]],
     ['genel','Tema ve uygulama','gear',['themeChips','btnUpd'],[]]];
   const nav=document.createElement('div');nav.className='ayarnav';nav.innerHTML=G.map(g=>'<button data-ayar="'+g[0]+'">'+ico(g[2])+g[1]+'</button>').join('');

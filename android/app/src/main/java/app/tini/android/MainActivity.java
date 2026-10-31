@@ -122,20 +122,33 @@ public class MainActivity extends Activity {
         s.setTextZoom(100);
         s.setSupportMultipleWindows(true);
         s.setJavaScriptCanOpenWindowsAutomatically(true);
-        s.setUserAgentString(s.getUserAgentString() + " TiniAndroid/1");
+        s.setUserAgentString(s.getUserAgentString().replace("; wv)", ")") + " TiniAndroid/1");
+        android.webkit.CookieManager cm = android.webkit.CookieManager.getInstance();
+        cm.setAcceptCookie(true);
+        cm.setAcceptThirdPartyCookies(web, true); /* YouTube oynatıcısı Premium hesabını tanır → reklamsız */
         web.addJavascriptInterface(new Kopru(), "Android");
 
         web.setWebViewClient(new WebViewClient() {
             @Override public WebResourceResponse shouldInterceptRequest(WebView v, WebResourceRequest r) { return medya(r); }
             @Override public boolean shouldOverrideUrlLoading(WebView v, WebResourceRequest r) {
                 if (!r.isForMainFrame()) return false;
+                if (giris && girisAdresi(r.getUrl())) return false; /* YouTube / Google girişi uygulamanın içinde */
                 return disariAc(r.getUrl());
             }
-            @Override public void onPageFinished(WebView v, String url) { v.evaluateJavascript(INDIR_JS, null); tamEkran(); }
+            @Override public void onPageFinished(WebView v, String url) {
+                if (giris) {
+                    Uri u = Uri.parse(url); String h = u.getHost() == null ? "" : u.getHost();
+                    if (h.endsWith("youtube.com") && !h.startsWith("accounts")) { girisBitir(true); return; }
+                    return;
+                }
+                v.evaluateJavascript(INDIR_JS, null); tamEkran();
+            }
             @Override public void onReceivedHttpError(WebView v, WebResourceRequest r, WebResourceResponse res) {
+                if (giris) return;
                 if (r.isForMainFrame() && res != null && (res.getStatusCode() == 404 || res.getStatusCode() >= 500)) yedegeGec(v);
             }
             @Override public void onReceivedError(WebView v, WebResourceRequest r, android.webkit.WebResourceError e) {
+                if (giris) return;
                 if (r.isForMainFrame()) yedegeGec(v);
             }
         });
@@ -234,7 +247,32 @@ public class MainActivity extends Activity {
 
     /** Geri: önce sayfanın içindeki geri (açık pencere, klasik görünüm); en sonda uygulama kapanmaz, arkaya alınır → müzik sürer. */
     @Override public void onBackPressed() {
+        if (giris) { girisBitir(false); return; }
         if (web != null && web.canGoBack()) web.goBack(); else moveTaskToBack(true);
+    }
+
+    /* ---------- YouTube hesabına giriş (Premium → reklamsız) ---------- */
+    private boolean giris = false;
+    private String donAdres = ADRES;
+    private boolean girisAdresi(Uri u) {
+        String h = u == null || u.getHost() == null ? "" : u.getHost();
+        return h.endsWith("google.com") || h.endsWith("youtube.com") || h.endsWith("gstatic.com") || h.endsWith("googleusercontent.com") || h.endsWith("google.com.tr") || h.endsWith("youtube-nocookie.com");
+    }
+    void girisBaslat() {
+        if (giris) return;
+        giris = true;
+        String su = web.getUrl(); if (su != null && (su.contains("github.io") || su.contains("pages.dev"))) donAdres = su;
+        Toast.makeText(this, "YouTube Premium hesabınla giriş yap. Bitince Tını'ya kendiliğinden dönülür.", Toast.LENGTH_LONG).show();
+        web.loadUrl("https://accounts.google.com/ServiceLogin?service=youtube&hl=tr&passive=true&continue=" + Uri.encode("https://m.youtube.com/?app=m&persist_app=1"));
+    }
+    void girisBitir(boolean tamam) {
+        giris = false;
+        try { android.webkit.CookieManager.getInstance().flush(); } catch (Exception e) { }
+        Toast.makeText(this, tamam ? "YouTube hesabı bağlandı — Premium ise reklam çıkmaz" : "Giriş iptal edildi", Toast.LENGTH_LONG).show();
+        web.loadUrl(donAdres);
+    }
+    boolean girisVar() {
+        try { String c = android.webkit.CookieManager.getInstance().getCookie("https://www.youtube.com"); return c != null && (c.contains("SAPISID") || c.contains("LOGIN_INFO")); } catch (Exception e) { return false; }
     }
 
     @Override protected void onActivityResult(int req, int res, Intent d) {
@@ -450,6 +488,8 @@ public class MainActivity extends Activity {
     /* ---------- Sayfa ile köprü: window.Android ---------- */
     class Kopru {
         @JavascriptInterface public String scan() { return tara(); }
+        @JavascriptInterface public void ytGiris() { ana.post(MainActivity.this::girisBaslat); }
+        @JavascriptInterface public boolean ytGirisVar() { return girisVar(); }
         @JavascriptInterface public boolean hasPermission() { return izinVar(); }
         @JavascriptInterface public void requestPermission() {
             ana.post(() -> {
