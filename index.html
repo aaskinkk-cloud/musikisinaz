@@ -1016,7 +1016,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.12 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.13 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -2647,28 +2647,27 @@ async function albumBul(vid){
       if(L.some(x=>x.vid===vid)||L.some(x=>albEs(x.title,albTemiz(parca,sanatci)))){sonuc={pl:c.pl,ad:albAd||c.title.replace(/^Album\s*-\s*/i,''),sanatci,L};break}}
   }catch(e){return null}
   ALB[vid]=sonuc?{pl:sonuc.pl,ad:sonuc.ad,sanatci:sonuc.sanatci,L:sonuc.L}:null;albKaydet();return ALB[vid]}
-function albumEkle(a,tekId){
+function albumEkle(a,tekId,secVid){
   const kay=a.pl,kayAd='Albüm: '+a.ad+(a.sanatci?' — '+a.sanatci:'');const var_=new Map(P.yt.filter(x=>x.vid).map(x=>[x.vid,x]));let n=0;
   const tek=P.yt.find(x=>x.id===tekId);if(tek){tek.kay=kay;tek.kayAd=kayAd}
-  /* albüm sırası korunur: tek şarkının yerine albümün tamamı gelir */
-  const yeni=a.L.map(x=>{const o=var_.get(x.vid);if(o){if(o===tek||!o.kay){o.kay=kay;o.kayAd=kayAd}return o}n++;return {id:uid(),vid:x.vid,title:x.title,author:x.author||a.sanatci,s:0,e:0,kay,kayAd}});
+  /* albüm sırası korunur; yalnız seçilen şarkılar (ve çalan şarkı) gelir */
+  const L=secVid?a.L.filter(x=>secVid.has(x.vid)||(tek&&x.vid===tek.vid)):a.L;
+  const yeni=L.map(x=>{const o=var_.get(x.vid);if(o){if(o===tek||!o.kay){o.kay=kay;o.kayAd=kayAd}return o}n++;return {id:uid(),vid:x.vid,title:x.title,author:x.author||a.sanatci,s:0,e:0,kay,kayAd}});
   const cal=P.yt[ytCur],baska=P.yt.filter(x=>yeni.indexOf(x)<0),at=tek?P.yt.indexOf(tek):P.yt.length;
   const once=P.yt.slice(0,Math.max(0,at)).filter(x=>yeni.indexOf(x)<0);P.yt=once.concat(yeni,baska.filter(x=>once.indexOf(x)<0));
   ytCur=cal?P.yt.indexOf(cal):-1;try{ytAcik.add(kay);store.set('ytAcik',[...ytAcik])}catch(e){}
-  saveP();try{ytSync()}catch(e){}renderYT();toast(n?'Albüm eklendi: '+n+' şarkı ("'+a.ad+'")':'Albümün şarkıları zaten listedeydi')}
+  saveP();try{ytSync()}catch(e){}renderYT();toast(n?n+' şarkı eklendi · "'+a.ad+'" listesinde':'Seçtiğin şarkılar zaten listedeydi')}
 async function albumSor(x){
   if(prefs.ytAlbSor===false||!prefs.ytKey||!x||x.pl||!x.vid)return;
   const it=P.yt.find(y=>y.vid===x.vid);if(!it||it.kay)return;
+  if(!(x.vid in ALB))toast('Albümün şarkıları aranıyor…',1800);
   const a=await albumBul(x.vid);if(!a||!a.L||a.L.length<2)return;
-  const eksik=a.L.filter(y=>!P.yt.some(z=>z.vid===y.vid)).length;if(!eksik)return;
-  openSheet('<h3>Albümün tamamı eklensin mi?</h3><p class="muted small" style="margin:0 4px 10px;line-height:1.5"><b>'+esc(a.ad)+'</b>'+(a.sanatci?' — '+esc(a.sanatci):'')+' · '+a.L.length+' şarkı. Albüm, YouTube listende ayrı bir liste olarak durur; çalan şarkı kesilmez.</p>'+
-    '<button class="si" data-alb="hepsi">'+ico('list')+'<span>Albümün tamamını ekle ('+eksik+' yeni şarkı)</span></button>'+
-    '<button class="si" data-alb="tek">'+ico('play')+'<span>Yalnız bu şarkı</span></button>'+
-    '<label class="small muted" style="display:flex;align-items:center;gap:8px;margin:10px 6px 2px"><input type="checkbox" id="albSorma"> Bir daha sorma (Ayarlar › YouTube ve Spotify\'dan açılır)</label>');
-  const sh=$('#sheet'),h=e=>{const b=e.target.closest('[data-alb]');if(!b)return;e.stopPropagation();sh.removeEventListener('click',h,true);
-    if($('#albSorma')&&$('#albSorma').checked){prefs.ytAlbSor=false;savePrefs();try{$('#ytAlbSorOn').checked=false}catch(_){}}
-    closeSheet();if(b.dataset.alb==='hepsi')albumEkle(a,it.id)};
-  sh.addEventListener('click',h,true)}
+  const var_=new Set(P.yt.map(z=>z.vid).filter(Boolean));
+  const og=a.L.map((y,k)=>{const bu=y.vid===x.vid,zaten=!bu&&var_.has(y.vid);return {v:y.vid,ad:(k+1)+'. '+(y.title||'Şarkı'),not:bu?'seçtiğin ♪':(zaten?'listede':''),sec:bu,kal:zaten}});
+  const sec=await secimSheet('Albüm: '+a.ad,(a.sanatci?esc(a.sanatci)+' · ':'')+a.L.length+' şarkı. Eklemek istediklerini işaretle.',og,'Seçilenleri ekle','Yalnız bu şarkı');
+  if(!sec)return;const S_=new Set(sec);S_.delete(x.vid);
+  if(!S_.size){toast('Yalnız bu şarkı eklendi');return}
+  albumEkle(a,it.id,S_)}
 {const _ar=ytAddResult;ytAddResult=function(i,play){const x=ytResults[i];const r=_ar.apply(this,arguments);try{if(x&&!x.pl)setTimeout(()=>albumSor(x),play?1200:300)}catch(e){}return r}}
 /* 6.9: tek kutu — bağlantı yapıştırılırsa listeye ekler, yazı yazılırsa arar */
 const ytBag=v=>/(^https?:\/\/)|youtu\.?be|youtube\.com|music\.youtube/i.test(String(v||'').trim());
@@ -4045,10 +4044,10 @@ audio.addEventListener('timeupdate',()=>{if(!document.hidden||src!=='local'||!cu
 audio.addEventListener('ended',()=>{try{if(ctx&&ctx.state!=='running')ctx.resume()}catch(e){}},true);
 audio.addEventListener('playing',()=>{try{if(ctx)gunYaz('ses motoru: '+ctx.state)}catch(e){}});
 /* --- 5.0: eklerken seçim; kaldırdığın şarkılar işaretsiz gelir --- */
-function secimSheet(baslik,aciklama,ogeler,onay){return new Promise(res=>{let bitti=false;const son=v=>{if(bitti)return;bitti=true;res(v)};
+function secimSheet(baslik,aciklama,ogeler,onay,iptalAd){return new Promise(res=>{let bitti=false;const son=v=>{if(bitti)return;bitti=true;res(v)};
   openSheet('<h3>'+esc(baslik)+'</h3><div class="eks-ust"><span class="muted">'+aciklama+'</span><button class="btn sm" data-eks="hepsi">Tümünü seç</button><button class="btn sm" data-eks="hic">Hiçbiri</button></div>'+
     '<div class="eks-l">'+ogeler.map((o,i)=>'<label class="eks'+(o.kal?' kal':'')+'"><input type="checkbox" data-eki="'+i+'"'+(o.sec?' checked':'')+'><span>'+esc(o.ad)+'</span><small>'+esc(o.not||'')+'</small></label>').join('')+'</div>'+
-    '<div class="eks-alt"><button class="btn" data-eks="iptal">Vazgeç</button><button class="btn primary" data-eks="tamam">'+esc(onay)+' (<b id="eksN">0</b>)</button></div>');
+    '<div class="eks-alt"><button class="btn" data-eks="iptal">'+esc(iptalAd||'Vazgeç')+'</button><button class="btn primary" data-eks="tamam">'+esc(onay)+' (<b id="eksN">0</b>)</button></div>');
   const sh=$('#sheet'),say=()=>{const n=sh.querySelectorAll('[data-eki]:checked').length;const b=$('#eksN');if(b)b.textContent=n};say();
   const h=e=>{const b=e.target.closest('[data-eks]');if(e.target.closest('[data-eki]')){setTimeout(say,0);return}if(!b)return;e.stopPropagation();const v=b.dataset.eks;
     if(v==='hepsi'||v==='hic'){sh.querySelectorAll('[data-eki]').forEach(c=>c.checked=v==='hepsi');say();return}

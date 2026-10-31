@@ -18,6 +18,10 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.13 (31.10.2026) — Albümden seçerek ekle
+- Arama sonucundaki şarkıya dokununca şarkı çalar ve hemen **albümün şarkı listesi** açılır: yalnız seçtiğin şarkı işaretli (♪), listende olanlar soluk. İstediklerini işaretle → **Seçilenleri ekle**; hiçbirini istemiyorsan **Yalnız bu şarkı**. Artık albümün tamamı kendiliğinden eklenmez.
+- Eklenenler albüm adıyla ayrı liste olarak durur (albüm sırasıyla).
+
 ## 6.12 (31.10.2026) — Modern başlık simgeleri
 - Tını yazısının yanındaki simgeler yenilendi: ince çizgi, yumuşak zeminli yuvarlak kutular. İnternette ara → küre+büyüteç (kitaplık aramasından ayrışır), araç → yeni önden araç simgesi, tema → açıkta ay / koyuda güneş, ＋ gölgeli.
 - Yeni araç simgesi uygulamanın her yerinde (araç modu düğmeleri dahil) kullanılır.
@@ -164,7 +168,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**6.12** — Modern başlık simgeleri.  
+**6.13** — Albüm şarkıları seçilebilir liste olarak; yalnız seçilenler eklenir.  
+6.12 — Modern başlık simgeleri.  
 6.11 — YouTube aramasından eklenen şarkının albümünü bulup ayrı liste olarak ekleme sorusu.  
 6.10 — Liste bul: YouTube Music / YouTube uygulamasını açan küçük düğmeler.  
 6.9 — YouTube sayfası sade; listeler arası karışık çalma; tekrarları temizle.  
