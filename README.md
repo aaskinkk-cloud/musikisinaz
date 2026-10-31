@@ -18,6 +18,10 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.12 (31.10.2026) — Modern başlık simgeleri
+- Tını yazısının yanındaki simgeler yenilendi: ince çizgi, yumuşak zeminli yuvarlak kutular. İnternette ara → küre+büyüteç (kitaplık aramasından ayrışır), araç → yeni önden araç simgesi, tema → açıkta ay / koyuda güneş, ＋ gölgeli.
+- Yeni araç simgesi uygulamanın her yerinde (araç modu düğmeleri dahil) kullanılır.
+
 ## 6.11 (31.10.2026) — Albümü sor
 - YouTube aramasından bir şarkıyı çaldığında ya da eklediğinde şarkı hemen çalar; Tını arka planda şarkının **albümünü** bulur (YouTube Music albüm listesi) ve sorar: **Albümün tamamını ekle (n yeni şarkı)** · **Yalnız bu şarkı**.
 - "Tamamını ekle" → albüm, YouTube listende **ayrı liste** olarak durur ("Albüm: Ad — Sanatçı"), albüm sırasıyla; çalan şarkı kesilmez, zaten olan şarkılar tekrar eklenmez.
@@ -160,7 +164,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**6.11** — YouTube aramasından eklenen şarkının albümünü bulup ayrı liste olarak ekleme sorusu.  
+**6.12** — Modern başlık simgeleri.  
+6.11 — YouTube aramasından eklenen şarkının albümünü bulup ayrı liste olarak ekleme sorusu.  
 6.10 — Liste bul: YouTube Music / YouTube uygulamasını açan küçük düğmeler.  
 6.9 — YouTube sayfası sade; listeler arası karışık çalma; tekrarları temizle.  
 6.8 — APK'da YouTube hesabına giriş (Premium → reklamsız).  
