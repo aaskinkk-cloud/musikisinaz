@@ -18,6 +18,11 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.14 (31.10.2026) — YouTube listesi sadeleşti
+- **Arama artık yalnız şarkı (video) döndürür.** Listeye 20 şarkı dolması, arama sonuçlarında çalma listelerinin çıkıp dokununca tümünün eklenmesinden kaynaklanıyordu. Çalma listesi sonuçları yalnız aramada "liste" / "playlist" geçerse gelir.
+- Üst çubuktaki yeni simge düğmeleri soluk ve çerçevesiz.
+- YouTube listesindeki her şarkının önünde **✕**: ilk dokunuş "Sil?" der, 3 sn içinde ikinci dokunuş siler.
+
 ## 6.13 (31.10.2026) — Albümden seçerek ekle
 - Arama sonucundaki şarkıya dokununca şarkı çalar ve hemen **albümün şarkı listesi** açılır: yalnız seçtiğin şarkı işaretli (♪), listende olanlar soluk. İstediklerini işaretle → **Seçilenleri ekle**; hiçbirini istemiyorsan **Yalnız bu şarkı**. Artık albümün tamamı kendiliğinden eklenmez.
 - Eklenenler albüm adıyla ayrı liste olarak durur (albüm sırasıyla).
@@ -168,6 +173,7 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
+**6.14** — Arama yalnız şarkı; soluk üst düğmeler; YouTube listesinde ✕ ile onaylı silme.
 **6.13** — Albüm şarkıları seçilebilir liste olarak; yalnız seçilenler eklenir.  
 6.12 — Modern başlık simgeleri.  
 6.11 — YouTube aramasından eklenen şarkının albümünü bulup ayrı liste olarak ekleme sorusu.  

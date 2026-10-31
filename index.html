@@ -95,10 +95,10 @@ h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance}
 .ib.on{color:var(--accent)}
 .ib.solid{background:var(--accent);color:var(--on-accent)}
 /* 6.12: başlık simgeleri — modern, ince çizgi, yumuşak zemin */
-.top .ib:not(.solid){width:40px;height:40px;border-radius:12px;background:var(--surface);border:1px solid var(--line);color:var(--fg)}
+.top .ib:not(.solid){width:40px;height:40px;border-radius:12px;background:transparent;border:0;color:var(--muted);opacity:.75}
 .top .ib:not(.solid):active{background:var(--raise);color:var(--accent)}
 .top .ib:not(.solid) .ico{width:20px;height:20px}
-.top .ib.solid{width:44px;height:44px;border-radius:14px;box-shadow:0 6px 16px color-mix(in srgb,var(--accent) 35%,transparent)}
+.top .ib.solid{width:42px;height:42px;border-radius:13px;box-shadow:none}
 .top{gap:8px}
 
 /* görünümler */
@@ -600,7 +600,9 @@ body.ytnp-acik .ytbox{z-index:60;border-radius:14px}
 #v-yt .ytgrp .act:active{background:var(--raise)!important;color:var(--accent)!important}
 #v-yt .ytgrp .act .ico{width:16px;height:16px}
 #v-yt .ytgrp-bas b{font-size:14px}
-#v-yt .row.yr{padding:6px 8px}
+#v-yt .row.yr{padding:6px 8px 6px 24px;grid-template-columns:30px 56px minmax(0,1fr) auto auto;position:relative}
+#v-yt .ysil{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--muted);font:600 13px/1 system-ui;display:grid;place-items:center;padding:0;transition:all .15s}
+#v-yt .ysil.onay{width:auto;min-width:40px;padding:0 6px;border-radius:9px;background:var(--danger,#e5484d);border-color:transparent;color:#fff;font-size:12px}
 #v-yt .ytbilgi{margin-top:14px;font-size:12.5px;color:var(--muted)}
 #v-yt .ytbilgi summary{cursor:pointer;font-weight:600;color:var(--fg);list-style:none}
 #v-yt .ytbilgi summary::before{content:"ⓘ  "}
@@ -1016,7 +1018,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.13 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.14 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -2545,8 +2547,9 @@ function ytKeyState(){
   $('#ytKeyState').textContent=k?'Kayıtlı: '+k.slice(0,6)+'…'+k.slice(-4):'Anahtar kayıtlı değil';
 }
 async function ytApiGet(q){
-  const alb=/alb[uü]m|album/i.test(q);
-  const u='https://www.googleapis.com/youtube/v3/search?part=snippet&'+(alb?'type=video&videoDuration=long':'type=video,playlist')+'&maxResults=25&safeSearch=none&q='+encodeURIComponent(q)+'&key='+encodeURIComponent(prefs.ytKey);
+  const alb=/alb[uü]m|album/i.test(q),lst=/\b(liste|listesi|playlist)\b/i.test(q);
+  /* 6.14: standart — aramada yalnız tek şarkılar; oynatma listeleri yalnız "liste/playlist" yazılınca */
+  const u='https://www.googleapis.com/youtube/v3/search?part=snippet&'+(alb?'type=video&videoDuration=long':(lst?'type=video,playlist':'type=video'))+'&maxResults=25&safeSearch=none&q='+encodeURIComponent(q)+'&key='+encodeURIComponent(prefs.ytKey);
   let r;try{r=await fetch(u)}catch(e){throw new Error('İnternet yok ya da bu ortam aramaya izin vermiyor')}
   const d=await r.json().catch(()=>({}));
   if(!r.ok){
@@ -3519,6 +3522,12 @@ function ytGrupla(){
     rs[0].before(h);const kap=document.createElement('div');kap.className='ytgrp-ic';kap.hidden=!ac;h.after(kap);rs.forEach(r=>kap.appendChild(r))}
 }
 {const _r=renderYT;renderYT=function(){_r.apply(this,arguments);try{ytGrupla()}catch(e){console.warn(e)}}}
+/* 6.14: her şarkının önünde ✕ — ilk dokunuş "Sil?" der, 3 sn içinde ikinci dokunuş siler */
+{const _r=renderYT;renderYT=function(){_r.apply(this,arguments);try{if(!ytNoEmbed)$$('#ytList .row.yr[data-yi]').forEach(r=>{if(r.querySelector('.ysil'))return;const b=document.createElement('button');b.className='ysil';b.dataset.ysil=r.dataset.yi;b.setAttribute('aria-label','Listeden sil');b.textContent='✕';r.prepend(b)})}catch(e){}}}
+$('#ytList').addEventListener('click',e=>{const b=e.target.closest('[data-ysil]');if(!b)return;e.stopPropagation();e.preventDefault();
+  if(!b.classList.contains('onay')){$$('#ytList .ysil.onay').forEach(x=>{x.classList.remove('onay');x.textContent='✕'});b.classList.add('onay');b.textContent='Sil?';clearTimeout(b._t);b._t=setTimeout(()=>{if(b.isConnected){b.classList.remove('onay');b.textContent='✕'}},3000);return}
+  const i=+b.dataset.ysil;ytRemove(i)},true);
+$('#ytList').addEventListener('pointerdown',e=>{if(e.target.closest('[data-ysil]'))e.stopPropagation()},true);
 $('#ytList').addEventListener('click',e=>{
   const g=e.target.closest('[data-gac],[data-gcal],[data-gkar],[data-gsil]');if(!g)return;e.stopPropagation();e.preventDefault();
   const k=g.dataset.gac||g.dataset.gcal||g.dataset.gkar||g.dataset.gsil,L=P.yt.filter(x=>x.kay===k&&x.vid);
