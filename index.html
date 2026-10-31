@@ -1235,6 +1235,8 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
           <button class="chip" data-theme-set="dark">Koyu</button>
           <button class="chip" data-theme-set="light">Açık</button>
           <button class="chip" data-theme-set="gun">Gün batımı</button>
+          <button class="chip" data-wa-set="yesil">Klasik yeşil</button>
+          <button class="chip" data-wa-set="mavi">Klasik mavi</button>
         </div>
         <div class="row2" style="margin-top:10px"><div>Basit mod<div class="muted small">Yalnız gerekenler: büyük yazı ve düğmeler; kuyruk, ekolayzır ve ayrıntılı ayarlar gizlenir. Ayarların hiçbiri silinmez, çıkınca hepsi yerinde.</div></div><label class="sw"><input type="checkbox" id="basitOn" aria-label="Basit mod"><i></i></label></div>
         <div class="row2"><div>Klasik görünüm<div class="muted small">Winamp tarzı çalar: yeşil ekran, spektrum, 10 bant ekolayzır ve çalma listesi tek ekranda. Aynı kitaplık ve kuyruk; × ile modern görünüme dönülür.</div></div><button class="btn sm primary" id="waAcBtn">Aç</button></div>
@@ -1258,7 +1260,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.21 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.22 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -3842,7 +3844,7 @@ function ayarDuzen(){
   const P_=[...v.querySelectorAll(':scope > .panel')],tut=id=>{const el=document.getElementById(id);if(!el)return null;const pan=el.closest('.panel');if(!pan||!v.contains(pan))return null;let n=el;while(n.parentElement&&n.parentElement!==pan)n=n.parentElement;return n.parentElement===pan?n:null};
   const panelOf=id=>{const el=document.getElementById(id);return el?el.closest('.panel'):null};
   const G=[
-    ['hizli','Görünüm ve sekmeler','gear',['waAcBtn','waAcOn','basitOn','kuyrukGosterOn','spGosterOn'],[]],
+    ['hizli','Görünüm ve sekmeler','gear',['themeChips','waAcBtn','waAcOn','basitOn','kuyrukGosterOn','spGosterOn'],[]],
     ['calma','Çalma','play',['acilisChips','spd','fadeOn','autoPlayOn','silOn','clipChips','aralikOn','normalCal'],[]],
     ['icerik','Şarkı bölümleri','mic-off',['icerikChips'],[]],
     ['ses','Ses','vol',['hqOn'],[['eq','Ekolayzır ve vokal']]],
@@ -3850,7 +3852,7 @@ function ayarDuzen(){
     ['kitaplik','Kitaplık','lib',['libStat','artAlbOn','longAyriOn','yeniSorOn'],[['lib','Kitaplığa git']]],
     ['akis','YouTube ve Spotify','yt',['ytmOn','ytKeyIn','ytAlbSorSatir','ytGirisSatir','spIdIn2'],[['yt','YouTube'],['sp','Spotify']]],
     ['arac','Araç','car',['btnCar2','wakeOn','carLinkKop'],[]],
-    ['genel','Tema ve uygulama','gear',['themeChips','btnUpd'],[]]];
+    ['genel','Uygulama','gear',['btnUpd'],[]]];
   const nav=document.createElement('div');nav.className='ayarnav';nav.innerHTML=G.map(g=>'<button data-ayar="'+g[0]+'">'+ico(g[2])+g[1]+'</button>').join('');
   const kap=document.createElement('div');
   G.forEach(([k,ad,ic,ids,git])=>{const pn=document.createElement('div');pn.className='panel ayarbol';pn.id='ay-'+k;
@@ -4822,7 +4824,7 @@ function waCubukKur(){const d=$('#wa');if(!d)return;
   if(!$('#waUst')){$('#waMain>.wat').insertAdjacentHTML('afterend','<div class="wa-ust" id="waUst"><button data-wu="web" aria-label="İnternette müzik ara">'+ico('globe')+'<span>WEB</span></button><button data-wu="car" aria-label="Araç modu">'+ico('car')+'<span>ARAÇ</span></button><button data-wu="tema" aria-label="Klasik temayı değiştir"><b>◐</b><span>TEMA</span></button><button data-wu="ekle" class="ek" aria-label="Müzik ekle">'+ico('plus')+'<span>EKLE</span></button></div>');
     $('#waUst').addEventListener('click',e=>{const b=e.target.closest('[data-wu]');if(!b)return;const k=b.dataset.wu;
       if(k==='web')webSheet('');else if(k==='car'){waKapa();openCar()}else if(k==='ekle')pickFiles();
-      else{const t=Object.keys(WA_TEMA),i=t.indexOf(WAM?'mavi':'yesil');prefs.waTema=t[(i+1)%t.length];savePrefs();waTema();toast(WA_TEMA[prefs.waTema]+' tema')}})}
+      else gorunumSec()})}
   if(!$('#waAlt')){d.querySelector('.wa-in').insertAdjacentHTML('beforeend','<nav class="wa-alt" id="waAlt" aria-label="Sekmeler"></nav>');
     $('#waAlt').addEventListener('click',e=>{const b=e.target.closest('[data-wv]');if(!b)return;const v=b.dataset.wv;
       if(v==='lib'){waSayfa(null);return}
@@ -4851,6 +4853,18 @@ function waSayfa(v){const d=$('#wa');if(!d)return;
   try{waAltCiz()}catch(e){}requestAnimationFrame(()=>{try{placeYT()}catch(e){}})}
 {const _sv=showView;showView=function(v){const r=_sv.apply(this,arguments);try{if(waOn&&waSayfaV&&v!==waSayfaV)waSayfa(v)}catch(e){}return r}}
 {const _wk=waKapa;waKapa=function(){try{waSayfa(null)}catch(e){}return _wk.apply(this,arguments)}}
+/* 6.22: tek görünüm seçici — üstteki tema düğmesi, klasikteki TEMA ve Ayarlar aynı listeyi açar */
+const GOR_MOD=[['auto','Otomatik (telefona göre)'],['dark','Koyu'],['light','Açık'],['gun','Gün batımı']];
+function gorunumUygula(tip,k){
+  if(tip==='m'){if(waOn)waKapa();prefs.theme=k;savePrefs();applyTheme();toast(GOR_MOD.find(x=>x[0]===k)[1]+' görünüm')}
+  else{prefs.waTema=k;savePrefs();if(waOn)waTema();else waAc();toast(WA_TEMA[k]+' (klasik)')}
+  gorChipCiz()}
+function gorunumSec(){const wt=prefs.waTema==='mavi'?'mavi':'yesil';
+  menuSheet('Görünüm seç',GOR_MOD.map(([k,ad])=>({icon:'sun',label:(!waOn&&prefs.theme===k?'✓ ':'')+ad,fn:()=>gorunumUygula('m',k)})).concat(
+    Object.keys(WA_TEMA).map(k=>({icon:'eq',label:(waOn&&wt===k?'✓ ':'')+(k==='mavi'?'Klasik Winamp — gümüş-mavi':'Klasik Winamp — yeşil'),fn:()=>gorunumUygula('w',k)}))))}
+function gorChipCiz(){const wt=prefs.waTema==='mavi'?'mavi':'yesil';$$('#themeChips [data-wa-set]').forEach(c=>c.classList.toggle('on',waOn&&c.dataset.waSet===wt))}
+{const b=$('#btnTheme');if(b){const y=b.cloneNode(true);y.setAttribute('aria-label','Görünüm seç');y.title='Görünüm';b.replaceWith(y);y.addEventListener('click',gorunumSec)}}
+$('#themeChips').addEventListener('click',e=>{const c=e.target.closest('[data-wa-set]');if(!c)return;gorunumUygula('w',c.dataset.waSet)});
 {const _a=waAc;waAc=function(){waTema();const r=_a.apply(this,arguments);try{waDansKur()}catch(e){}return r}}
 })();
 </script>

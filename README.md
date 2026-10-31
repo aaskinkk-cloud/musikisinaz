@@ -18,6 +18,11 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.22 (31.10.2026) — Tek görünüm seçici
+- Üstteki güneş/ay düğmesi artık **Görünüm seç** listesini açıyor: Otomatik · Koyu · Açık · Gün batımı · Klasik Winamp yeşil · Klasik Winamp gümüş-mavi.
+- Klasik görünümdeki **TEMA** düğmesi de aynı listeyi açıyor; klasikten modern bir görünüme tek dokunuşla geçilebiliyor.
+- Ayarlarda görünüm seçenekleri ilk bölüme taşındı (**Görünüm ve sekmeler**, açık geliyor). Klasik yeşil ve Klasik mavi de orada.
+
 ## 6.21 (31.10.2026) — Klasik görünüm sekmelerde de kalıyor
 - Klasik görünümde YouTube, Ayarlar, Spotify ya da Kuyruk sekmesine geçince klasik görünüm artık kapanmıyor. Sayfa klasik pencerenin içinde ("TINI · YOUTUBE" vb.) açılıyor.
   - Başlık, üst çubuk (Web · Araç · Tema · Ekle), çalma düğmeleri ve alt sekmeler yerinde kalıyor.
@@ -223,6 +228,7 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
+**6.22** — Tek görünüm seçici (üst düğme, klasik TEMA, Ayarlar ilk bölüm).
 **6.21** — Klasikte sekme sayfaları klasik pencere içinde ve tema renklerinde.
 **6.20** — Klasik görünümde üst çubuk (Web · Araç · Tema · Ekle) ve alt sekmeler.
 **6.19** — Gün batımı teması; klasikte ◐ tema düğmesi; mavide EQ ışık hüzmeleri.
