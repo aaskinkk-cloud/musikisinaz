@@ -18,6 +18,14 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.19 (31.10.2026) — Gün batımı teması, EQ ışık hüzmeleri
+- **Gün batımı** (Ayarlar → Görünüm: Otomatik · Koyu · Açık · Gün batımı): modern arayüzün yeni görünümü.
+  - Arka planda gün batımı manzarası var (uygulamanın kendi çizimi, ek dosya yok); cam kartlar ve turuncu vurgular.
+  - Kitaplık başında "Müziğin En Güzel Hâli…" manşeti, Şimdi Dinle düğmesi ve dört hızlı kutu: Tümünü Çal, Favorilerim, Son Çalınan, Karışık.
+  - Çalma ekranında koyu manzara, yuvarlak kapak ve çevresinde turuncu hale; büyük turuncu çal düğmesi. Mini çalar ve alt sekmeler cam görünümünde.
+- Klasik görünümün başlığına **◐** düğmesi eklendi: Klasik yeşil ve Gümüş-mavi arasında tek dokunuşla geçiş yapıyor.
+- Gümüş-mavide dans sırasında her EQ düğmesinin altında mavi ışık hüzmesi yükselip iniyor, düğmenin üstünde parıltı var.
+
 ## 6.18 (31.10.2026) — Tema seçici, ayrıntılı gümüş-mavi
 - Varsayılan tema yine **Klasik yeşil**. ≡ → **Tema ›** artık liste açıyor (Klasik yeşil · Gümüş-mavi); yeni temalar buraya eklenecek.
 - Gümüş-mavi ayrıntıları:
@@ -197,6 +205,7 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
+**6.19** — Gün batımı teması; klasikte ◐ tema düğmesi; mavide EQ ışık hüzmeleri.
 **6.18** — Tema seçici (varsayılan yeşil); gümüş-mavi ayrıntılandı.
 **6.17** — Klasik görünüme gümüş-mavi tema (≡ → Tema).
 **6.16** — Klasik görünümde DANS: EQ düğmeleri müziğe göre oynar (yalnız görüntü).

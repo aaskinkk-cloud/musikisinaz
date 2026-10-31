@@ -823,6 +823,54 @@ body.wam .wa .wa-row.cur{box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
 /* alt süre kutusu: iki satır mini LCD (üstte süre, altta küçük kumanda simgeleri) */
 body.wam .wa .wa-tot{display:grid;gap:3px;padding:5px 10px 4px;border-radius:12px;font-size:11.5px;line-height:1}
 body.wam .wa .wa-tot:after{content:"⏮ ▶ ⏸ ■ ⏭ ⏏";font:9px/1 system-ui,sans-serif;letter-spacing:.12em;color:#c4d3f6;opacity:.85}
+.wa-gl{display:none}
+body.wam .wa.dans .wa-gl{display:block;position:absolute;left:50%;bottom:20px;width:18px;transform:translateX(-50%);height:calc(var(--p,0)*(100% - 37px) + 8px);border-radius:9px 9px 3px 3px;background:linear-gradient(0deg,rgba(40,110,255,0),rgba(50,125,255,.55) 45%,rgba(120,185,255,.95) 85%,#e6f0ff);box-shadow:0 0 12px 3px rgba(70,140,255,calc(.25 + var(--p,0)*.5));filter:blur(.6px);pointer-events:none}
+body.wam .wa.dans .wa-gl:before{content:"";position:absolute;left:50%;top:-14px;width:44px;height:30px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(150,195,255,.95),rgba(70,140,255,.45) 55%,transparent);opacity:calc(.4 + var(--p,0)*.6)}
+body.wam .wa.dans .wa-gl:after{content:"";position:absolute;left:50%;bottom:0;width:3px;height:100%;transform:translateX(-50%);background:linear-gradient(0deg,transparent,#fff);border-radius:2px;opacity:.9}
+body.wam .wa .wa-gk{z-index:2}
+/* 6.19: "Gün batımı" teması — cam kartlar, turuncu vurgular, gün batımı manzarası (kendi çizimi, görsel dosyası yok) */
+:root[data-theme="gun"]{--bg:transparent;--surface:rgba(255,255,255,.66);--raise:rgba(255,255,255,.5);--line:rgba(255,255,255,.75);--fg:#1f1b24;--muted:#5d5766;--accent:#f26a12;--on-accent:#fff;--danger:#d6344f;--shadow:0 12px 30px rgba(90,50,40,.18);color-scheme:light}
+:root[data-theme="gun"] body{background:#e9b39a url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 800' preserveAspectRatio='xMidYMid slice'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%237fa6cf'/%3E%3Cstop offset='.28' stop-color='%23c9b5c4'/%3E%3Cstop offset='.42' stop-color='%23f3b48e'/%3E%3Cstop offset='.5' stop-color='%23f8a46c'/%3E%3C/linearGradient%3E%3ClinearGradient id='d' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23e99a74'/%3E%3Cstop offset='.25' stop-color='%239c90a8'/%3E%3Cstop offset='1' stop-color='%233f5a85'/%3E%3C/linearGradient%3E%3CradialGradient id='s' cx='.68' cy='.46' r='.38'%3E%3Cstop offset='0' stop-color='%23fff2c6'/%3E%3Cstop offset='.12' stop-color='%23ffc37a' stop-opacity='.95'/%3E%3Cstop offset='.5' stop-color='%23ff9a5c' stop-opacity='.35'/%3E%3Cstop offset='1' stop-color='%23ff9a5c' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23g)'/%3E%3Crect y='398' width='400' height='402' fill='url(%23d)'/%3E%3Crect width='400' height='800' fill='url(%23s)'/%3E%3Cpath d='M0 380 C40 352 70 360 105 340 C140 322 170 344 205 330 C235 318 250 300 290 312 C330 324 360 300 400 316 V402 H0Z' fill='%236c6f93' opacity='.55'/%3E%3Cpath d='M0 392 C50 380 90 386 130 372 C170 360 210 380 260 370 C310 360 350 378 400 368 V402 H0Z' fill='%234c5a82' opacity='.7'/%3E%3Cg stroke='%23ffd9a6' stroke-linecap='round' opacity='.7'%3E%3Cpath d='M250 420h40M236 440h70M258 462h30M226 486h86M246 512h46M232 540h74M252 572h36' stroke-width='2.4'/%3E%3C/g%3E%3Cg fill='none' stroke='%233c4566' stroke-width='2' opacity='.55'%3E%3Cpath d='M120 160q8-7 16 0q8-7 16 0'/%3E%3C/g%3E%3C/svg%3E") center 38%/cover no-repeat fixed}
+:root[data-theme="gun"] body:before{content:"";position:fixed;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.05) 40%,rgba(255,255,255,.22));pointer-events:none;z-index:0}
+:root[data-theme="gun"] .app{position:relative;z-index:1}
+:root[data-theme="gun"] .top{margin:8px -6px 4px;padding:8px 10px;background:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.7);border-radius:22px;-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);box-shadow:0 8px 24px rgba(90,50,40,.12)}
+:root[data-theme="gun"] .logo{color:#1f1b24;display:flex;align-items:center;gap:6px}
+:root[data-theme="gun"] .logo:before{content:"";width:22px;height:22px;background:linear-gradient(135deg,#ff9a3d,#f05a12);clip-path:polygon(8% 4%,96% 50%,8% 96%,8% 74%,62% 50%,8% 26%)}
+:root[data-theme="gun"] .search,:root[data-theme="gun"] .libbar>.ib{background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.85);border-radius:16px;box-shadow:0 4px 14px rgba(90,50,40,.08)}
+:root[data-theme="gun"] .chip{background:rgba(255,255,255,.55);border-color:rgba(255,255,255,.85);color:#3b3542}
+:root[data-theme="gun"] .chip.on{background:linear-gradient(#ff8a3d,#f0601a);border-color:transparent;color:#fff;box-shadow:0 6px 16px rgba(240,96,26,.35)}
+:root[data-theme="gun"] #libBody .row{background:rgba(255,255,255,.62);border-color:rgba(255,255,255,.85);border-radius:16px}
+:root[data-theme="gun"] #libBody .row.cur{background:rgba(255,236,222,.85);border-color:#f7a26a}
+:root[data-theme="gun"] #libBody>.actions{background:rgba(255,255,255,.55);border-color:rgba(255,255,255,.85);border-radius:20px}
+:root[data-theme="gun"] .btn.primary{background:linear-gradient(#ff8a3d,#f0601a);border-color:transparent;color:#fff;box-shadow:0 6px 16px rgba(240,96,26,.3)}
+:root[data-theme="gun"] .mini{background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);border-radius:24px;-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2)}
+:root[data-theme="gun"] .mini .thumb{border-radius:14px}
+:root[data-theme="gun"] #miniPlay{width:46px;height:46px;border-radius:50%;background:linear-gradient(#ff8a3d,#f0601a);color:#fff;border:0;box-shadow:0 6px 16px rgba(240,96,26,.45)}
+:root[data-theme="gun"] .mini .prog i{background:linear-gradient(90deg,#ff9a3d,#f0601a)}
+:root[data-theme="gun"] .nav{background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.8);border-radius:24px;-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2)}
+:root[data-theme="gun"] .nav button{color:#4a4452}
+:root[data-theme="gun"] .nav button.on{background:linear-gradient(#ff8a3d,#f0601a);color:#fff;box-shadow:0 6px 16px rgba(240,96,26,.4)}
+:root[data-theme="gun"] .sheet{background:rgba(255,250,246,.9);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+/* Kitaplık başı: manşet + hızlı kutular (yalnız bu temada) */
+.gun-ust{display:none}
+:root[data-theme="gun"] .gun-ust{display:block;margin:2px 0 12px}
+.gun-hero{position:relative;height:150px;border-radius:24px;overflow:hidden;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 800' preserveAspectRatio='xMidYMid slice'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%237fa6cf'/%3E%3Cstop offset='.28' stop-color='%23c9b5c4'/%3E%3Cstop offset='.42' stop-color='%23f3b48e'/%3E%3Cstop offset='.5' stop-color='%23f8a46c'/%3E%3C/linearGradient%3E%3ClinearGradient id='d' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23e99a74'/%3E%3Cstop offset='.25' stop-color='%239c90a8'/%3E%3Cstop offset='1' stop-color='%233f5a85'/%3E%3C/linearGradient%3E%3CradialGradient id='s' cx='.68' cy='.46' r='.38'%3E%3Cstop offset='0' stop-color='%23fff2c6'/%3E%3Cstop offset='.12' stop-color='%23ffc37a' stop-opacity='.95'/%3E%3Cstop offset='.5' stop-color='%23ff9a5c' stop-opacity='.35'/%3E%3Cstop offset='1' stop-color='%23ff9a5c' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23g)'/%3E%3Crect y='398' width='400' height='402' fill='url(%23d)'/%3E%3Crect width='400' height='800' fill='url(%23s)'/%3E%3Cpath d='M0 380 C40 352 70 360 105 340 C140 322 170 344 205 330 C235 318 250 300 290 312 C330 324 360 300 400 316 V402 H0Z' fill='%236c6f93' opacity='.55'/%3E%3Cpath d='M0 392 C50 380 90 386 130 372 C170 360 210 380 260 370 C310 360 350 378 400 368 V402 H0Z' fill='%234c5a82' opacity='.7'/%3E%3Cg stroke='%23ffd9a6' stroke-linecap='round' opacity='.7'%3E%3Cpath d='M250 420h40M236 440h70M258 462h30M226 486h86M246 512h46M232 540h74M252 572h36' stroke-width='2.4'/%3E%3C/g%3E%3Cg fill='none' stroke='%233c4566' stroke-width='2' opacity='.55'%3E%3Cpath d='M120 160q8-7 16 0q8-7 16 0'/%3E%3C/g%3E%3C/svg%3E") center 55%/cover no-repeat;box-shadow:0 12px 28px rgba(90,50,40,.25);padding:18px 18px 16px;display:flex;flex-direction:column;justify-content:space-between}
+.gun-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(30,30,60,.38),rgba(30,30,60,0) 65%);pointer-events:none}
+.gun-hero h3{position:relative;z-index:1;margin:0;color:#fff;font:600 30px/1.02 'Dancing Script','Segoe Script','Brush Script MT',cursive;text-shadow:0 2px 10px rgba(0,0,0,.35)}
+.gun-hero h3 i{display:block;width:62%;height:3px;margin-top:6px;border-radius:3px;background:linear-gradient(90deg,#ff9a3d,transparent)}
+.gun-hero button{position:relative;z-index:1;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:9px 16px;background:#fff;color:#1f1b24;font:700 14px var(--f-body);box-shadow:0 6px 16px rgba(0,0,0,.18)}
+.gun-hero button .ico{width:16px;height:16px}
+.gun-kut{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px}
+.gun-kut button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 2px 10px;border-radius:18px;border:1px solid rgba(255,255,255,.85);background:rgba(255,255,255,.6);color:#1f1b24;font:600 12px var(--f-body);box-shadow:0 6px 16px rgba(90,50,40,.1);white-space:nowrap}
+.gun-kut button:active{transform:scale(.97)}
+.gun-kut .ico{width:24px;height:24px}
+.gun-kut .k1 .ico{color:#f26a12}.gun-kut .k2 .ico{color:#2f8cf0}.gun-kut .k3 .ico{color:#12a58e}.gun-kut .k4 .ico{color:#5b6bf0}
+/* Çalan şarkı ekranı: koyu manzara, yuvarlak kapak + turuncu hale, büyük turuncu çal düğmesi */
+:root[data-theme="gun"] .np{--fg:#fff;--muted:#e3dfe8;--surface:rgba(255,255,255,.12);--raise:rgba(255,255,255,.18);--line:rgba(255,255,255,.2);color:#fff;background:linear-gradient(180deg,rgba(28,30,52,.55),rgba(28,30,52,.86) 60%,rgba(20,22,40,.95)),#3f4a74 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 800' preserveAspectRatio='xMidYMid slice'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%237fa6cf'/%3E%3Cstop offset='.28' stop-color='%23c9b5c4'/%3E%3Cstop offset='.42' stop-color='%23f3b48e'/%3E%3Cstop offset='.5' stop-color='%23f8a46c'/%3E%3C/linearGradient%3E%3ClinearGradient id='d' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23e99a74'/%3E%3Cstop offset='.25' stop-color='%239c90a8'/%3E%3Cstop offset='1' stop-color='%233f5a85'/%3E%3C/linearGradient%3E%3CradialGradient id='s' cx='.68' cy='.46' r='.38'%3E%3Cstop offset='0' stop-color='%23fff2c6'/%3E%3Cstop offset='.12' stop-color='%23ffc37a' stop-opacity='.95'/%3E%3Cstop offset='.5' stop-color='%23ff9a5c' stop-opacity='.35'/%3E%3Cstop offset='1' stop-color='%23ff9a5c' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23g)'/%3E%3Crect y='398' width='400' height='402' fill='url(%23d)'/%3E%3Crect width='400' height='800' fill='url(%23s)'/%3E%3Cpath d='M0 380 C40 352 70 360 105 340 C140 322 170 344 205 330 C235 318 250 300 290 312 C330 324 360 300 400 316 V402 H0Z' fill='%236c6f93' opacity='.55'/%3E%3Cpath d='M0 392 C50 380 90 386 130 372 C170 360 210 380 260 370 C310 360 350 378 400 368 V402 H0Z' fill='%234c5a82' opacity='.7'/%3E%3Cg stroke='%23ffd9a6' stroke-linecap='round' opacity='.7'%3E%3Cpath d='M250 420h40M236 440h70M258 462h30M226 486h86M246 512h46M232 540h74M252 572h36' stroke-width='2.4'/%3E%3C/g%3E%3Cg fill='none' stroke='%233c4566' stroke-width='2' opacity='.55'%3E%3Cpath d='M120 160q8-7 16 0q8-7 16 0'/%3E%3C/g%3E%3C/svg%3E") center/cover no-repeat}
+:root[data-theme="gun"] .np .np-art{border-radius:50%;box-shadow:0 0 0 3px #ff9a3d,0 0 0 9px rgba(255,140,60,.18),0 0 38px 10px rgba(255,120,40,.45)}
+:root[data-theme="gun"] .np .ctrl .play{width:74px;height:74px;background:radial-gradient(circle at 40% 30%,#ffa04d,#f05a12 70%);color:#fff;box-shadow:0 0 0 6px rgba(255,140,60,.18),0 10px 26px rgba(240,96,26,.55)}
+:root[data-theme="gun"] .np .ctrl .ib{color:#fff}
+:root[data-theme="gun"] .np .npk{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
 body.wa-on .scrim{z-index:60}
 body.wa-on .sheet{z-index:61}
 body.wa-on .toast{z-index:62}
@@ -1119,6 +1167,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
           <button class="chip" data-theme-set="auto">Otomatik</button>
           <button class="chip" data-theme-set="dark">Koyu</button>
           <button class="chip" data-theme-set="light">Açık</button>
+          <button class="chip" data-theme-set="gun">Gün batımı</button>
         </div>
         <div class="row2" style="margin-top:10px"><div>Basit mod<div class="muted small">Yalnız gerekenler: büyük yazı ve düğmeler; kuyruk, ekolayzır ve ayrıntılı ayarlar gizlenir. Ayarların hiçbiri silinmez, çıkınca hepsi yerinde.</div></div><label class="sw"><input type="checkbox" id="basitOn" aria-label="Basit mod"><i></i></label></div>
         <div class="row2"><div>Klasik görünüm<div class="muted small">Winamp tarzı çalar: yeşil ekran, spektrum, 10 bant ekolayzır ve çalma listesi tek ekranda. Aynı kitaplık ve kuyruk; × ile modern görünüme dönülür.</div></div><button class="btn sm primary" id="waAcBtn">Aç</button></div>
@@ -1142,7 +1191,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.18 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.19 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -4671,7 +4720,8 @@ init();
 const WA_HZ=[60,170,310,600,1000,3000,6000,12000,14000,16000];let waDv=[],waElle=0;
 function waDansKur(){const d=$('#wa');if(!d||$('#waDans'))return;
   $('#waPres').insertAdjacentHTML('beforebegin','<button class="wa-tg" id="waDans" title="Düğmeler müziğe göre oynasın (sese dokunmaz)">DANS</button>');
-  d.querySelectorAll('.wa-band').forEach(b=>b.insertAdjacentHTML('beforeend','<i class="wa-gk"></i>'));
+  d.querySelectorAll('.wa-band').forEach(b=>b.insertAdjacentHTML('beforeend','<i class="wa-gl"></i><i class="wa-gk"></i>'));
+  if(!$('#waTemaB')){$('#waMenu').insertAdjacentHTML('afterend','<button id="waTemaB" aria-label="Temayı değiştir" title="Tema">◐</button>');$('#waTemaB').addEventListener('click',()=>{const k=Object.keys(WA_TEMA),i=k.indexOf(WAM?'mavi':'yesil');prefs.waTema=k[(i+1)%k.length];savePrefs();waTema();toast(WA_TEMA[prefs.waTema]+' tema')})}
   $('#waDans').addEventListener('click',()=>{prefs.waDans=prefs.waDans===false;savePrefs();$('#waDans').classList.toggle('on',prefs.waDans!==false);toast(prefs.waDans!==false?'Dans açık — yalnız görüntü, ses değişmez':'Dans kapalı')});
   $('#waDans').classList.toggle('on',prefs.waDans!==false);
   const bd=d.querySelector('.wa-bands');
@@ -4689,8 +4739,17 @@ function waDans(){const d=$('#wa');if(!d)return;if(!$('#waDans'))waDansKur();if(
     const r=i/9,dal=.5+.5*Math.sin(tt*(2.3+i*.37)+i*1.7);
     return Math.max(.06,Math.min(1,(1-r)*(.25+.6*vur)+r*(.18+.5*ara+.25*dal*vur)+.12*dal))});
   hed.unshift(hed.reduce((t,v)=>t+v,0)/hed.length*1.15);
-  gk.forEach((g,i)=>{const h=hed[i]||0,o=waDv[i]||0;const v=h>o?o+(h-o)*.65:o-Math.min(o-h,.045);waDv[i]=v;g.style.setProperty('--p',v.toFixed(3))})}
+  gk.forEach((g,i)=>{const h=hed[i]||0,o=waDv[i]||0;const v=h>o?o+(h-o)*.65:o-Math.min(o-h,.045);waDv[i]=v;g.style.setProperty('--p',v.toFixed(3));const gl=g.previousElementSibling;if(gl&&gl.classList.contains('wa-gl'))gl.style.setProperty('--p',v.toFixed(3))})}
 {const _c=waCiz;waCiz=function(){_c.apply(this,arguments);if(waOn&&!document.hidden){try{waDans()}catch(e){}}}}
+/* 6.19: Gün batımı teması — kitaplık başına manşet ve hızlı kutular */
+function gunUst(){
+  if(document.documentElement.getAttribute('data-theme')!=='gun'){if(!document.getElementById('gunFont'))return}
+  else if(!document.getElementById('gunFont')){const l=document.createElement('link');l.id='gunFont';l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap';document.head.appendChild(l)}
+  const b=$('#libBody');if(!b||ui.detail||ui.tab!=='songs'||!lib.length||(ui.q||'').trim()||b.querySelector('.gun-ust'))return;
+  b.insertAdjacentHTML('afterbegin','<div class="gun-ust"><div class="gun-hero"><h3>Müziğin<br>En Güzel Hâli…<i></i></h3><button data-act="playall">'+ico('play')+'Şimdi Dinle</button></div>'+
+    '<div class="gun-kut"><button class="k1" data-act="playall">'+ico('play')+'Tümünü Çal</button><button class="k2" data-d="smart" data-k="fav">'+ico('heart-f')+'Favorilerim</button><button class="k3" data-d="smart" data-k="recent">'+ico('clock')+'Son Çalınan</button><button class="k4" data-act="shuf">'+ico('shuffle')+'Karışık</button></div></div>')}
+{const _rl=renderLib;renderLib=function(){const r=_rl.apply(this,arguments);try{gunUst()}catch(e){}return r}}
+{const _at=applyTheme;applyTheme=function(){const r=_at.apply(this,arguments);try{renderLib()}catch(e){}return r}}
 {const _a=waAc;waAc=function(){waTema();const r=_a.apply(this,arguments);try{waDansKur()}catch(e){}return r}}
 })();
 </script>
