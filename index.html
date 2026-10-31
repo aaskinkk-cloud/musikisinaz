@@ -871,6 +871,30 @@ body.wam .wa .wa-gk{z-index:2}
 :root[data-theme="gun"] .np .ctrl .play{width:74px;height:74px;background:radial-gradient(circle at 40% 30%,#ffa04d,#f05a12 70%);color:#fff;box-shadow:0 0 0 6px rgba(255,140,60,.18),0 10px 26px rgba(240,96,26,.55)}
 :root[data-theme="gun"] .np .ctrl .ib{color:#fff}
 :root[data-theme="gun"] .np .npk{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+/* 6.20: klasik görünümde üst araç çubuğu ve alt sekmeler (her temaya uygun) */
+.wa-ust{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;margin:0 0 5px}
+.wa-ust button,.wa-alt button{display:flex;align-items:center;justify-content:center;gap:5px;height:30px;padding:0 4px;border:1px solid;border-color:#a8a8c4 #24243a #24243a #a8a8c4;background:linear-gradient(#56567a,#36364e);color:#dcdcec;font:700 10px/1 Tahoma,Verdana,sans-serif;letter-spacing:.06em;border-radius:1px;white-space:nowrap;overflow:hidden}
+.wa-ust button:active,.wa-alt button:active{border-color:#24243a #a8a8c4 #a8a8c4 #24243a;background:linear-gradient(#36364e,#4a4a6a)}
+.wa-ust .ico,.wa-alt .ico{width:15px;height:15px;color:#00e83a;flex:none}
+.wa-ust b{font:700 14px/1 Tahoma,sans-serif;color:#00e83a}
+.wa-ust .ek{background:linear-gradient(#e2c463,#a8852a);border-color:#f0e0a0 #5a4a14 #5a4a14 #f0e0a0;color:#1a1408}
+.wa-ust .ek .ico{color:#1a1408}
+.wa-alt{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:3px;padding:4px 3px calc(env(safe-area-inset-bottom,0px) + 4px);background:linear-gradient(#20202f,#151522);border-top:1px solid #6c6c94;flex:none}
+.wa-alt button{flex-direction:column;height:44px;gap:3px;font-size:9.5px;letter-spacing:.04em}
+.wa-alt button .ico{width:18px;height:18px;color:#b6b6cc}
+.wa-alt button.on{background:#000;border-color:#0a0a10 #5a5a78 #5a5a78 #0a0a10;color:#00e83a;text-shadow:0 0 5px rgba(0,232,58,.5)}
+.wa-alt button.on .ico{color:#00e83a}
+#waPl{padding-bottom:3px!important}
+/* gümüş-mavi */
+body.wam .wa-ust{margin:0 0 6px;gap:5px}
+body.wam .wa-ust button,body.wam .wa-alt button{border:1px solid #66718a;border-radius:999px;background:radial-gradient(circle at 40% 25%,#fff,#e4e8ef 45%,#b9c1cf);color:#1a2236;box-shadow:0 1px 2px rgba(0,0,0,.3),inset 0 -2px 3px rgba(0,0,0,.1);letter-spacing:.04em}
+body.wam .wa-ust .ico,body.wam .wa-alt .ico,body.wam .wa-ust b{color:#2f4a96}
+body.wam .wa-ust .ek{background:linear-gradient(#4a63a6,#263b7a 55%,#1c2d63);border-color:#121e48;color:#e3e9f8;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 1px 2px rgba(0,0,0,.35)}
+body.wam .wa-ust .ek .ico{color:#e3e9f8}
+body.wam .wa-alt{background:linear-gradient(#34477a,#1a2850 60%,#14204a);border-top:1px solid #5d70a6;gap:5px;padding-inline:6px}
+body.wam .wa-alt button{border-radius:14px;height:46px}
+body.wam .wa-alt button.on{background:radial-gradient(rgba(255,255,255,.09) .8px,transparent 1.2px) 0 0/3px 3px,linear-gradient(170deg,#3359ad,#1f3d86);border-color:#0f1d48;color:#eef3ff;text-shadow:0 0 6px rgba(170,200,255,.6);box-shadow:inset 0 2px 4px rgba(0,0,0,.45)}
+body.wam .wa-alt button.on .ico{color:#bcd2ff}
 body.wa-on .scrim{z-index:60}
 body.wa-on .sheet{z-index:61}
 body.wa-on .toast{z-index:62}
@@ -1191,7 +1215,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.19 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.20 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -4721,7 +4745,7 @@ const WA_HZ=[60,170,310,600,1000,3000,6000,12000,14000,16000];let waDv=[],waElle
 function waDansKur(){const d=$('#wa');if(!d||$('#waDans'))return;
   $('#waPres').insertAdjacentHTML('beforebegin','<button class="wa-tg" id="waDans" title="Düğmeler müziğe göre oynasın (sese dokunmaz)">DANS</button>');
   d.querySelectorAll('.wa-band').forEach(b=>b.insertAdjacentHTML('beforeend','<i class="wa-gl"></i><i class="wa-gk"></i>'));
-  if(!$('#waTemaB')){$('#waMenu').insertAdjacentHTML('afterend','<button id="waTemaB" aria-label="Temayı değiştir" title="Tema">◐</button>');$('#waTemaB').addEventListener('click',()=>{const k=Object.keys(WA_TEMA),i=k.indexOf(WAM?'mavi':'yesil');prefs.waTema=k[(i+1)%k.length];savePrefs();waTema();toast(WA_TEMA[prefs.waTema]+' tema')})}
+  waCubukKur();
   $('#waDans').addEventListener('click',()=>{prefs.waDans=prefs.waDans===false;savePrefs();$('#waDans').classList.toggle('on',prefs.waDans!==false);toast(prefs.waDans!==false?'Dans açık — yalnız görüntü, ses değişmez':'Dans kapalı')});
   $('#waDans').classList.toggle('on',prefs.waDans!==false);
   const bd=d.querySelector('.wa-bands');
@@ -4750,6 +4774,21 @@ function gunUst(){
     '<div class="gun-kut"><button class="k1" data-act="playall">'+ico('play')+'Tümünü Çal</button><button class="k2" data-d="smart" data-k="fav">'+ico('heart-f')+'Favorilerim</button><button class="k3" data-d="smart" data-k="recent">'+ico('clock')+'Son Çalınan</button><button class="k4" data-act="shuf">'+ico('shuffle')+'Karışık</button></div></div>')}
 {const _rl=renderLib;renderLib=function(){const r=_rl.apply(this,arguments);try{gunUst()}catch(e){}return r}}
 {const _at=applyTheme;applyTheme=function(){const r=_at.apply(this,arguments);try{renderLib()}catch(e){}return r}}
+/* 6.20: klasik görünümde de üst araç çubuğu (Web · Araç · Tema · Ekle) ve alt sekmeler */
+function waCubukKur(){const d=$('#wa');if(!d)return;
+  if(!$('#waUst')){$('#waMain>.wat').insertAdjacentHTML('afterend','<div class="wa-ust" id="waUst"><button data-wu="web" aria-label="İnternette müzik ara">'+ico('globe')+'<span>WEB</span></button><button data-wu="car" aria-label="Araç modu">'+ico('car')+'<span>ARAÇ</span></button><button data-wu="tema" aria-label="Klasik temayı değiştir"><b>◐</b><span>TEMA</span></button><button data-wu="ekle" class="ek" aria-label="Müzik ekle">'+ico('plus')+'<span>EKLE</span></button></div>');
+    $('#waUst').addEventListener('click',e=>{const b=e.target.closest('[data-wu]');if(!b)return;const k=b.dataset.wu;
+      if(k==='web')webSheet('');else if(k==='car'){waKapa();openCar()}else if(k==='ekle')pickFiles();
+      else{const t=Object.keys(WA_TEMA),i=t.indexOf(WAM?'mavi':'yesil');prefs.waTema=t[(i+1)%t.length];savePrefs();waTema();toast(WA_TEMA[prefs.waTema]+' tema')}})}
+  if(!$('#waAlt')){d.querySelector('.wa-in').insertAdjacentHTML('beforeend','<nav class="wa-alt" id="waAlt" aria-label="Sekmeler"></nav>');
+    $('#waAlt').addEventListener('click',e=>{const b=e.target.closest('[data-wv]');if(!b)return;const v=b.dataset.wv;
+      if(v==='eq'){prefs.waEq=prefs.waEq===false;savePrefs();waPencere();waAltCiz();return}
+      waKapa();const n=$('#nav [data-view="'+v+'"]');if(n)n.click()})}
+  waAltCiz()}
+function waAltCiz(){const n=$('#waAlt');if(!n)return;
+  const L=[...$$('#nav button')].filter(b=>getComputedStyle(b).display!=='none');
+  n.innerHTML=L.map(b=>'<button data-wv="'+b.dataset.view+'"'+(b.dataset.view==='eq'&&prefs.waEq!==false?' class="on"':'')+'>'+b.innerHTML.replace(/>([^<>]+)$/,'><span>$1</span>')+'</button>').join('')}
+{const _wp=waPencere;waPencere=function(){const r=_wp.apply(this,arguments);try{waAltCiz()}catch(e){}return r}}
 {const _a=waAc;waAc=function(){waTema();const r=_a.apply(this,arguments);try{waDansKur()}catch(e){}return r}}
 })();
 </script>

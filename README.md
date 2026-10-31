@@ -18,6 +18,14 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.20 (31.10.2026) — Klasik görünümde üst ve alt menüler
+- Klasik görünümde başlığın altına üst çubuk eklendi: **WEB** (internette müzik ara), **ARAÇ** (araç modu), **TEMA** (◐ yeşil ↔ gümüş-mavi) ve **EKLE**.
+- En alta modern arayüzdeki sekmeler geldi: Kitaplık · YouTube · Ekolayzır · Ayarlar. Ayarlarda gizlediğin sekmeler burada da gizli kalıyor.
+  - Ekolayzır sekmesi klasik görünümden çıkmadan EQ penceresini açıp kapatıyor ve açıkken yanık görünüyor.
+  - Diğer sekmeler ilgili modern sayfaya geçiyor.
+- Her iki tema kendi tarzında: yeşilde kabartma gri düğmeler ve yeşil simgeler, gümüş-mavide gümüş hap düğmeler ve lacivert sekme çubuğu.
+- Başlıktaki ayrı ◐ düğmesi kaldırıldı; aynı işi artık üst çubuktaki TEMA görüyor.
+
 ## 6.19 (31.10.2026) — Gün batımı teması, EQ ışık hüzmeleri
 - **Gün batımı** (Ayarlar → Görünüm: Otomatik · Koyu · Açık · Gün batımı): modern arayüzün yeni görünümü.
   - Arka planda gün batımı manzarası var (uygulamanın kendi çizimi, ek dosya yok); cam kartlar ve turuncu vurgular.
@@ -205,6 +213,7 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
+**6.20** — Klasik görünümde üst çubuk (Web · Araç · Tema · Ekle) ve alt sekmeler.
 **6.19** — Gün batımı teması; klasikte ◐ tema düğmesi; mavide EQ ışık hüzmeleri.
 **6.18** — Tema seçici (varsayılan yeşil); gümüş-mavi ayrıntılandı.
 **6.17** — Klasik görünüme gümüş-mavi tema (≡ → Tema).
