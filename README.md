@@ -18,6 +18,13 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.23 (31.10.2026) — Gün batımı teması yeniden tasarlandı
+- **Manzara:** derin lacivertten mora ve turuncuya geçen gökyüzü, parlayan güneş ve halesi, ışıklı kıyı kasabası, denizde güneş yolu, martılar; kenarlarda hafif karartma.
+- **Manşet:** el yazısıyla "Müziğin En Güzel Hâli…" ve turuncu kıvrım. Yazı tipi uygulamanın içine gömülü, internetsiz de çalışıyor. Yanında çizim bir çay bardağı, Şimdi Dinle düğmesi ve sayfa noktaları.
+- **Liste:** hızlı kutular buzlu beyaz cam. Altta hareketli ekolayzır simgeli "Şarkılarım" başlığı ve şarkı sayısı/süresi. Şarkılar tek parça, köşeleri yuvarlak cam bir listede; kapaklar büyüdü. Yinelenen Tümünü çal/Karıştır şeridi bu temada gizli.
+- **Üst ve alt çubuklar:** üst çubuk koyu cam, simgeleri beyaz. Mini çalar ve sekmeler buzlu beyaz cam, çal düğmesi parlayan turuncu.
+- **Çalma ekranı:** bulanık manzara; yuvarlak kapak turuncu haleyle parlıyor, çevresinde yavaşça dönen ışık yayı var. Çal düğmesi büyük ve turuncu, favori kalbi turuncu.
+
 ## 6.22 (31.10.2026) — Tek görünüm seçici
 - Üstteki güneş/ay düğmesi artık **Görünüm seç** listesini açıyor: Otomatik · Koyu · Açık · Gün batımı · Klasik Winamp yeşil · Klasik Winamp gümüş-mavi.
 - Klasik görünümdeki **TEMA** düğmesi de aynı listeyi açıyor; klasikten modern bir görünüme tek dokunuşla geçilebiliyor.
@@ -228,6 +235,7 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
+**6.23** — Gün batımı teması baştan: yeni manzara, gömülü el yazısı, çay bardağı, cam liste, dönen ışık halkası.
 **6.22** — Tek görünüm seçici (üst düğme, klasik TEMA, Ayarlar ilk bölüm).
 **6.21** — Klasikte sekme sayfaları klasik pencere içinde ve tema renklerinde.
 **6.20** — Klasik görünümde üst çubuk (Web · Araç · Tema · Ekle) ve alt sekmeler.
