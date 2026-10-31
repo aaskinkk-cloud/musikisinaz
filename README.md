@@ -18,6 +18,14 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.18 (31.10.2026) — Tema seçici, ayrıntılı gümüş-mavi
+- Varsayılan tema yine **Klasik yeşil**. ≡ → **Tema ›** artık liste açıyor (Klasik yeşil · Gümüş-mavi); yeni temalar buraya eklenecek.
+- Gümüş-mavi ayrıntıları:
+  - Süre, şarkı adı ve kbps/kHz tek mavi LCD ekranda; kaydırıcılar ve EQ/PL gümüş tepside.
+  - Ekolayzırda sekme başlık ve çerçeveli bant alanı; bantlar arasında noktalı çizgiler; 0 dB altı gölgeli; ölçek köşeli ve çentikli.
+  - Çalma listesinde kabartma başlık ve köşede boyutlandırma ızgarası.
+  - Alttaki süre kutusu iki satırlı mini LCD.
+
 ## 6.17 (31.10.2026) — Gümüş-mavi tema
 - Klasik görünüme ikinci tema geldi: gümüş metal paneller, noktalı mavi LCD ekranlar, yuvarlak gümüş çalma düğmeleri, lacivert hap düğmeler, yuvarlak EQ düğmeleri ve mavi çalma listesi.
 - Yerleşim aynı, yalnız görünüm değişti. Dans eden EQ düğmeleri de temaya uyuyor (yuvarlak, mavi parıltı).
@@ -189,6 +197,7 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
+**6.18** — Tema seçici (varsayılan yeşil); gümüş-mavi ayrıntılandı.
 **6.17** — Klasik görünüme gümüş-mavi tema (≡ → Tema).
 **6.16** — Klasik görünümde DANS: EQ düğmeleri müziğe göre oynar (yalnız görüntü).
 **6.15** — Son eklenenleri geri al (toplu gelenler işaretli).
