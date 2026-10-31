@@ -18,6 +18,11 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.15 (31.10.2026) — Son eklenenleri geri al
+- YouTube listesi ⋯ menüsü → **Son eklenenleri geri al…**: son 14 günde eklenen şarkılar yeniden eskiye, eklenme saatiyle listelenir.
+- Bir seferde topluca gelenler ("toplu (20)") hazır işaretli, tek tek eklediklerin işaretsiz gelir; kontrol edip **Seçilenleri sil**.
+- Eklenme zamanı her kaydın kimliğinden okunur; eski kayıtlar için de çalışır.
+
 ## 6.14 (31.10.2026) — YouTube listesi sadeleşti
 - **Arama artık yalnız şarkı (video) döndürür.** Listeye 20 şarkı dolması, arama sonuçlarında çalma listelerinin çıkıp dokununca tümünün eklenmesinden kaynaklanıyordu. Çalma listesi sonuçları yalnız aramada "liste" / "playlist" geçerse gelir.
 - Üst çubuktaki yeni simge düğmeleri soluk ve çerçevesiz.
@@ -173,6 +178,7 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
+**6.15** — Son eklenenleri geri al (toplu gelenler işaretli).
 **6.14** — Arama yalnız şarkı; soluk üst düğmeler; YouTube listesinde ✕ ile onaylı silme.
 **6.13** — Albüm şarkıları seçilebilir liste olarak; yalnız seçilenler eklenir.  
 6.12 — Modern başlık simgeleri.  

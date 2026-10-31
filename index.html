@@ -1018,7 +1018,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.14 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.15 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -3549,12 +3549,29 @@ async function ytListelerArasi(){
   const ids=shuffled(K.filter(g=>sec.indexOf(g.k)>=0).flatMap(g=>g.L.map(x=>'y:'+x.id)));
   if(!ids.length)return;playList(ids,ids[0]);toast(sec.length+' listeden '+ids.length+' şarkı karışık çalıyor')}
 function ytTekrarTemizle(){const gor=new Set(),cal=P.yt[ytCur];let n=0;P.yt=P.yt.filter(x=>{if(!x.vid)return true;if(gor.has(x.vid)){n++;return x===cal}gor.add(x.vid);return true});ytCur=cal?P.yt.indexOf(cal):-1;saveP();try{ytSync()}catch(e){}renderYT();toast(n?n+' tekrar eden video kaldırıldı':'Tekrar eden video yok')}
+/* 6.15: Son eklenenleri geri al — her kaydın kimliğinde eklenme zamanı var; aynı anda (toplu) gelenler işaretli, tek tek eklediklerin işaretsiz gelir */
+async function ytSonEklenenler(){
+  const simdi=Date.now(),zam=x=>{const t=parseInt(String(x.id||'').slice(0,8),36);return t>1.5e12&&t<=simdi+6e4?t:0};
+  const L=P.yt.map(x=>({x,t:zam(x)})).filter(o=>o.t&&simdi-o.t<14*864e5).sort((a,b)=>b.t-a.t).slice(0,200);
+  if(!L.length){toast('Son 14 günde eklenen şarkı yok');return}
+  const grup=[];L.forEach(o=>{const g=grup[grup.length-1];if(g&&g.son-o.t<4000){g.L.push(o);g.son=o.t}else grup.push({L:[o],son:o.t})});
+  const saat=t=>{const d=new Date(t),b=new Date();const h=d.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});return d.toDateString()===b.toDateString()?h:d.toLocaleDateString('tr-TR',{day:'numeric',month:'short'})+' '+h};
+  const cal=P.yt[ytCur],og=[];
+  grup.forEach(g=>{const toplu=g.L.length>1;g.L.forEach(o=>og.push({v:o.x.id,ad:o.x.title||('Video '+o.x.vid),not:(o.x===cal?'çalıyor · ':'')+(toplu?'toplu ('+g.L.length+') · ':'tek · ')+saat(o.t),sec:toplu&&o.x!==cal}))});
+  const nt=og.filter(o=>o.sec).length;
+  const sec=await secimSheet('Son eklenenler','Yeniden eskiye. Bir seferde topluca gelenler işaretli'+(nt?' ('+nt+')':'')+', tek tek eklediklerin işaretsiz. Silinecekleri işaretle.',og,'Seçilenleri sil');
+  if(!sec||!sec.length)return;
+  const S_=new Set(sec);
+  if(cal&&S_.has(cal.id)){try{ytP&&ytReady&&ytP.stopVideo()}catch(e){}ytPlaying=false;if(src==='yt')src='local'}
+  P.yt=P.yt.filter(x=>!S_.has(x.id));ytCur=cal&&!S_.has(cal.id)?P.yt.indexOf(cal):-1;
+  saveP();try{ytSync()}catch(e){}renderYT();try{UI.state()}catch(e){}toast(S_.size+' şarkı listeden çıkarıldı')}
 $('#ytKaris').addEventListener('click',ytListelerArasi);
 $('#ytKarisTum').addEventListener('click',ytListelerArasi);
 $('#ytDaha').addEventListener('click',()=>{const L=[
   {icon:'shuffle',label:'Listeler arası karışık çal',fn:ytListelerArasi},
   {icon:'play',label:'Hepsini sırayla çal',fn:()=>{const ids=P.yt.filter(x=>x.vid).map(x=>'y:'+x.id);if(ids.length)playList(ids,ids[0]);else toast('Liste boş')}},
   {icon:'list',label:'Seç (toplu işlem)',fn:()=>$('#ytSecList').click()},
+  {icon:'close',label:'Son eklenenleri geri al…',fn:ytSonEklenenler},
   {icon:'close',label:'Tekrar eden videoları temizle',fn:ytTekrarTemizle},
   {icon:'list',label:'Tümünü çalma listesine ekle (yerel)',fn:()=>{const ids=P.yt.filter(x=>x.vid).map(x=>'y:'+x.id);if(ids.length)plSheet(ids)}},
   {icon:'trash',label:'Bir YouTube listesini kaldır…',cls:'danger',fn:()=>$('#ytPlSil').click()}];
