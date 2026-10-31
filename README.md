@@ -18,6 +18,12 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.16 (31.10.2026) — Dans eden ekolayzır
+- Klasik görünümde ekolayzır çubuğuna **DANS** düğmesi eklendi (varsayılan açık). Şarkı çalarken ekolayzır düğmeleri müziğe göre oynuyor.
+- **Yalnız görüntü:** sese, ekolayzır ayarlarına ve hazır ayarlara dokunmuyor. Durunca ya da duraklatınca düğmeler gerçek ayarlarına dönüyor.
+- Bir banda dokununca dans duruyor ve gerçek düğmeler çıkıyor; elini çektikten 2,5 sn sonra dans yeniden başlıyor.
+- Yerel şarkılarda gerçek frekans verisi kullanılıyor (EQ açıkken). YouTube'da tarayıcı ses verisine erişim vermediği için ritim taklit ediliyor (~126 vuruş/dk).
+
 ## 6.15 (31.10.2026) — Son eklenenleri geri al
 - YouTube listesi ⋯ menüsü → **Son eklenenleri geri al…**: son 14 günde eklenen şarkılar yeniden eskiye, eklenme saatiyle listelenir.
 - Bir seferde topluca gelenler ("toplu (20)") hazır işaretli, tek tek eklediklerin işaretsiz gelir; kontrol edip **Seçilenleri sil**.
@@ -178,6 +184,7 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
+**6.16** — Klasik görünümde DANS: EQ düğmeleri müziğe göre oynar (yalnız görüntü).
 **6.15** — Son eklenenleri geri al (toplu gelenler işaretli).
 **6.14** — Arama yalnız şarkı; soluk üst düğmeler; YouTube listesinde ✕ ile onaylı silme.
 **6.13** — Albüm şarkıları seçilebilir liste olarak; yalnız seçilenler eklenir.  

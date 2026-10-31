@@ -699,6 +699,11 @@ body.wa-on,html:has(body.wa-on){overflow:hidden}
 .wa-asan{flex:0 0 16px;position:relative;background:#0c0c14;border:1px solid;border-color:#0a0a10 #5a5a78 #5a5a78 #0a0a10;touch-action:none}
 .wa-asan i{position:absolute;left:1px;right:1px;top:0;min-height:30px;border:1px solid;border-color:#f0e0a0 #5a4a14 #5a4a14 #f0e0a0;background:linear-gradient(90deg,#e2c463,#a8852a);border-radius:1px}
 .wa-asan.hid-a i{display:none}
+.wa-band{position:relative}
+.wa-gk{position:absolute;left:50%;bottom:calc(22px + var(--p,0)*(100% - 27px));width:16px;height:10px;transform:translate(-50%,50%);border:1px solid;border-color:#f0e0a0 #5a4a14 #5a4a14 #f0e0a0;background:linear-gradient(#e2c463,#a8852a);border-radius:1px;pointer-events:none;display:none;box-shadow:0 0 calc(var(--p,0)*9px) rgba(226,196,99,.8)}
+.wa.dans .wa-gk{display:block}
+.wa.dans .wa-band input::-webkit-slider-thumb{opacity:0}
+.wa.dans .wa-band input::-moz-range-thumb{opacity:0}
 body.wa-on .scrim{z-index:60}
 body.wa-on .sheet{z-index:61}
 body.wa-on .toast{z-index:62}
@@ -1018,7 +1023,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.15 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.16 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -4540,6 +4545,32 @@ function init(){
   setInterval(watch,100);
 }
 init();
+/* 6.16: Dans — ekolayzır düğmeleri müziğin ritmine göre oynar; yalnız görüntüdür, sese ve ayarlara dokunmaz.
+   Yerel şarkıda gerçek frekans verisi kullanılır; YouTube sesine tarayıcı erişim vermediği için orada ritim taklit edilir. */
+const WA_HZ=[60,170,310,600,1000,3000,6000,12000,14000,16000];let waDv=[],waElle=0;
+function waDansKur(){const d=$('#wa');if(!d||$('#waDans'))return;
+  $('#waPres').insertAdjacentHTML('beforebegin','<button class="wa-tg" id="waDans" title="Düğmeler müziğe göre oynasın (sese dokunmaz)">DANS</button>');
+  d.querySelectorAll('.wa-band').forEach(b=>b.insertAdjacentHTML('beforeend','<i class="wa-gk"></i>'));
+  $('#waDans').addEventListener('click',()=>{prefs.waDans=prefs.waDans===false;savePrefs();$('#waDans').classList.toggle('on',prefs.waDans!==false);toast(prefs.waDans!==false?'Dans açık — yalnız görüntü, ses değişmez':'Dans kapalı')});
+  $('#waDans').classList.toggle('on',prefs.waDans!==false);
+  const bd=d.querySelector('.wa-bands');
+  bd.addEventListener('pointerdown',()=>{waElle=Date.now()+1e9;d.classList.remove('dans')});
+  const birak=()=>{if(waElle>Date.now())waElle=Date.now()+2500};
+  ['pointerup','pointercancel'].forEach(t=>bd.addEventListener(t,birak))}
+function waDans(){const d=$('#wa');if(!d)return;if(!$('#waDans'))waDansKur();const gk=d.querySelectorAll('.wa-gk');if(!gk.length)return;
+  const y=carIsYT(),pl=y?ytPlaying:(!!cur&&!audio.paused),acik=prefs.waDans!==false&&pl&&waElle<Date.now();
+  d.classList.toggle('dans',acik);if(!acik){waDv=[];return}
+  let data=null,hzB=0;
+  if(!y&&graph&&graph.an){try{data=new Uint8Array(graph.an.frequencyBinCount);graph.an.getByteFrequencyData(data);hzB=graph.an.context.sampleRate/2/data.length}catch(e){data=null}}
+  const tt=performance.now()/1000,vur=Math.pow(1-((tt*2.1)%1),2.6),ara=Math.pow(1-((tt*4.2+.5)%1),4)*.35;
+  const hed=WA_HZ.map((f,i)=>{
+    if(data){const a=Math.max(0,Math.floor(f/1.35/hzB)),b=Math.min(data.length,Math.max(a+1,Math.ceil(f*1.35/hzB)));let mx=0;for(let k=a;k<b;k++)mx=Math.max(mx,data[k]);return Math.min(1,Math.pow(mx/255,1.4)*1.08)}
+    const r=i/9,dal=.5+.5*Math.sin(tt*(2.3+i*.37)+i*1.7);
+    return Math.max(.06,Math.min(1,(1-r)*(.25+.6*vur)+r*(.18+.5*ara+.25*dal*vur)+.12*dal))});
+  hed.unshift(hed.reduce((t,v)=>t+v,0)/hed.length*1.15);
+  gk.forEach((g,i)=>{const h=hed[i]||0,o=waDv[i]||0;const v=h>o?o+(h-o)*.65:o-Math.min(o-h,.045);waDv[i]=v;g.style.setProperty('--p',v.toFixed(3))})}
+{const _c=waCiz;waCiz=function(){_c.apply(this,arguments);if(waOn&&!document.hidden){try{waDans()}catch(e){}}}}
+{const _a=waAc;waAc=function(){const r=_a.apply(this,arguments);try{waDansKur()}catch(e){}return r}}
 })();
 </script>
 <script>
