@@ -947,6 +947,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
           <div class="keyrow"><input id="ytKeyIn" type="password" autocomplete="off" placeholder="AIza ile başlayan anahtar" aria-label="YouTube anahtarı"><button class="btn sm" id="ytKeySave">Kaydet</button><button class="btn sm" id="ytKeyTest">Dene</button></div>
           <div class="muted small" id="ytKeyState" style="margin-top:6px"></div>
           <div class="muted small" style="margin-top:6px">Anahtar yalnız aramaya yarar; reklamla ilgisi yoktur. Hangi Google hesabının anahtarı olursa olsun aynı çalışır.</div></div>
+        <div class="row2" id="ytAlbSorSatir"><div>Albümü sor<div class="muted small">YouTube aramasından şarkı ekleyince albümü bulunursa "albümün tamamı eklensin mi?" diye sorar.</div></div><label class="sw"><input type="checkbox" id="ytAlbSorOn" aria-label="Albümü sor"><i></i></label></div>
         <div class="row2" id="ytGirisSatir" hidden><div>YouTube hesabı (reklamsız)<div class="muted small" id="ytGirisDurum">Premium hesabınla giriş yaparsan videolar uygulamada da reklamsız çalar. Bir kez yeterli.</div></div><button class="btn sm primary" id="ytGirisBtn">Giriş yap</button></div>
       </div>
       <div class="panel">
@@ -1009,7 +1010,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.10 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.11 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -2614,6 +2615,55 @@ function ytAddResult(i,play){
   else if(!play)toast('Zaten listede');
   if(play)ytPlay(at);
 }
+/* --- 6.11: Arama sonucundan şarkı eklenince albümünü bul, "albümün tamamını ayrı liste olarak ekle?" diye sor --- */
+const ALB=(()=>{try{return JSON.parse(localStorage.getItem('tini.ytAlbum')||'{}')||{}}catch(e){return {}}})();
+const albKaydet=()=>{try{const k=Object.keys(ALB);if(k.length>400)k.slice(0,k.length-400).forEach(x=>delete ALB[x]);localStorage.setItem('tini.ytAlbum',JSON.stringify(ALB))}catch(e){}};
+async function ytJson(yol){const r=await fetch('https://www.googleapis.com/youtube/v3/'+yol+'&key='+encodeURIComponent(prefs.ytKey));if(!r.ok)throw new Error(r.status);return r.json()}
+async function ytListeOge(pl){let out=[],tok='';for(let s=0;s<4;s++){const d=await ytJson('playlistItems?part=snippet&maxResults=50&playlistId='+encodeURIComponent(pl)+(tok?'&pageToken='+tok:''));
+  (d.items||[]).forEach(x=>{const sn=x.snippet||{},v=sn.resourceId&&sn.resourceId.videoId;if(!v||/^(deleted|private) video$/i.test(sn.title||''))return;out.push({vid:v,title:decodeHtml(sn.title||''),author:String(sn.videoOwnerChannelTitle||'').replace(/ - Topic$/,'')})});
+  tok=d.nextPageToken;if(!tok)break}return out}
+const albTemiz=(t,a)=>{let x=String(t||'');if(a)x=x.replace(new RegExp(a.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'ig'),'');return x.replace(/[\(\[].*?[\)\]]/g,' ').replace(/official|video|klip|audio|lyrics?|hd|4k|full|albüm|album|-|\|/ig,' ').replace(/\s+/g,' ').trim()};
+const albEs=(a,b)=>{a=fold(a).replace(/[^a-z0-9]/g,'');b=fold(b).replace(/[^a-z0-9]/g,'');if(!a||!b)return false;const n=Math.min(a.length,b.length,14);return a.slice(0,n)===b.slice(0,n)||a.indexOf(b.slice(0,10))>=0||b.indexOf(a.slice(0,10))>=0};
+async function albumBul(vid){
+  if(vid in ALB)return ALB[vid];
+  let sonuc=null;
+  try{
+    const v=((await ytJson('videos?part=snippet&id='+vid)).items||[])[0];if(!v){ALB[vid]=null;albKaydet();return null}
+    const sn=v.snippet||{},desc=String(sn.description||''),sanatci=String(sn.channelTitle||'').replace(/ - Topic$/,'');
+    let albAd='',parca=sn.title||'';
+    if(/^Provided to YouTube by/i.test(desc)){const P_=desc.split(/\n\s*\n/);if(P_[1])parca=P_[1].split('·')[0].trim();if(P_[2]&&!/^℗|^Released on/i.test(P_[2].trim()))albAd=P_[2].trim()}
+    const sart=albAd?(sanatci+' '+albAd):(sanatci+' '+albTemiz(parca,sanatci));
+    const ara=await ytJson('search?part=snippet&type=playlist&maxResults=8&q='+encodeURIComponent(sart));
+    const ad=(ara.items||[]).map(x=>({pl:x.id&&x.id.playlistId,title:decodeHtml(x.snippet&&x.snippet.title||''),kanal:decodeHtml(x.snippet&&x.snippet.channelTitle||'')})).filter(x=>x.pl);
+    const aday=ad.filter(x=>/^OLAK5uy_/.test(x.pl)).concat(ad.filter(x=>!/^OLAK5uy_/.test(x.pl)&&/alb[uü]m|album/i.test(x.title))).slice(0,3);
+    for(const c of aday){if(albAd&&!albEs(c.title.replace(/^Album\s*-\s*/i,''),albAd)&&!/^OLAK5uy_/.test(c.pl))continue;
+      const L=await ytListeOge(c.pl);if(L.length<2||L.length>80)continue;
+      if(L.some(x=>x.vid===vid)||L.some(x=>albEs(x.title,albTemiz(parca,sanatci)))){sonuc={pl:c.pl,ad:albAd||c.title.replace(/^Album\s*-\s*/i,''),sanatci,L};break}}
+  }catch(e){return null}
+  ALB[vid]=sonuc?{pl:sonuc.pl,ad:sonuc.ad,sanatci:sonuc.sanatci,L:sonuc.L}:null;albKaydet();return ALB[vid]}
+function albumEkle(a,tekId){
+  const kay=a.pl,kayAd='Albüm: '+a.ad+(a.sanatci?' — '+a.sanatci:'');const var_=new Map(P.yt.filter(x=>x.vid).map(x=>[x.vid,x]));let n=0;
+  const tek=P.yt.find(x=>x.id===tekId);if(tek){tek.kay=kay;tek.kayAd=kayAd}
+  /* albüm sırası korunur: tek şarkının yerine albümün tamamı gelir */
+  const yeni=a.L.map(x=>{const o=var_.get(x.vid);if(o){if(o===tek||!o.kay){o.kay=kay;o.kayAd=kayAd}return o}n++;return {id:uid(),vid:x.vid,title:x.title,author:x.author||a.sanatci,s:0,e:0,kay,kayAd}});
+  const cal=P.yt[ytCur],baska=P.yt.filter(x=>yeni.indexOf(x)<0),at=tek?P.yt.indexOf(tek):P.yt.length;
+  const once=P.yt.slice(0,Math.max(0,at)).filter(x=>yeni.indexOf(x)<0);P.yt=once.concat(yeni,baska.filter(x=>once.indexOf(x)<0));
+  ytCur=cal?P.yt.indexOf(cal):-1;try{ytAcik.add(kay);store.set('ytAcik',[...ytAcik])}catch(e){}
+  saveP();try{ytSync()}catch(e){}renderYT();toast(n?'Albüm eklendi: '+n+' şarkı ("'+a.ad+'")':'Albümün şarkıları zaten listedeydi')}
+async function albumSor(x){
+  if(prefs.ytAlbSor===false||!prefs.ytKey||!x||x.pl||!x.vid)return;
+  const it=P.yt.find(y=>y.vid===x.vid);if(!it||it.kay)return;
+  const a=await albumBul(x.vid);if(!a||!a.L||a.L.length<2)return;
+  const eksik=a.L.filter(y=>!P.yt.some(z=>z.vid===y.vid)).length;if(!eksik)return;
+  openSheet('<h3>Albümün tamamı eklensin mi?</h3><p class="muted small" style="margin:0 4px 10px;line-height:1.5"><b>'+esc(a.ad)+'</b>'+(a.sanatci?' — '+esc(a.sanatci):'')+' · '+a.L.length+' şarkı. Albüm, YouTube listende ayrı bir liste olarak durur; çalan şarkı kesilmez.</p>'+
+    '<button class="si" data-alb="hepsi">'+ico('list')+'<span>Albümün tamamını ekle ('+eksik+' yeni şarkı)</span></button>'+
+    '<button class="si" data-alb="tek">'+ico('play')+'<span>Yalnız bu şarkı</span></button>'+
+    '<label class="small muted" style="display:flex;align-items:center;gap:8px;margin:10px 6px 2px"><input type="checkbox" id="albSorma"> Bir daha sorma (Ayarlar › YouTube ve Spotify\'dan açılır)</label>');
+  const sh=$('#sheet'),h=e=>{const b=e.target.closest('[data-alb]');if(!b)return;e.stopPropagation();sh.removeEventListener('click',h,true);
+    if($('#albSorma')&&$('#albSorma').checked){prefs.ytAlbSor=false;savePrefs();try{$('#ytAlbSorOn').checked=false}catch(_){}}
+    closeSheet();if(b.dataset.alb==='hepsi')albumEkle(a,it.id)};
+  sh.addEventListener('click',h,true)}
+{const _ar=ytAddResult;ytAddResult=function(i,play){const x=ytResults[i];const r=_ar.apply(this,arguments);try{if(x&&!x.pl)setTimeout(()=>albumSor(x),play?1200:300)}catch(e){}return r}}
 /* 6.9: tek kutu — bağlantı yapıştırılırsa listeye ekler, yazı yazılırsa arar */
 const ytBag=v=>/(^https?:\/\/)|youtu\.?be|youtube\.com|music\.youtube/i.test(String(v||'').trim());
 function ytAkilli(){const q=$('#ytQ'),v=q.value.trim();if(!v){q.focus();return}if(ytBag(v)){ytAdd(v);q.value=''}else ytSearch()}
@@ -2634,6 +2684,7 @@ $('#sheet').addEventListener('click',e=>{if(e.target.closest('[data-ks]')&&saveK
 try{if(window.Android&&Android.ytGiris){const sat=$('#ytGirisSatir');sat.hidden=false;
   const durum=()=>{let v=false;try{v=Android.ytGirisVar&&Android.ytGirisVar()}catch(e){}$('#ytGirisDurum').textContent=v?'Giriş yapıldı ✓ — Premium hesapsa videolar reklamsız çalar. Başka hesaba geçmek için yeniden giriş yap.':'Premium hesabınla giriş yaparsan videolar uygulamada da reklamsız çalar. Bir kez yeterli.';$('#ytGirisBtn').textContent=v?'Yeniden giriş':'Giriş yap'};durum();
   $('#ytGirisBtn').addEventListener('click',()=>{try{Android.ytGiris()}catch(e){toast('Giriş açılamadı')}})}}catch(e){}
+try{$('#ytAlbSorOn').checked=prefs.ytAlbSor!==false;$('#ytAlbSorOn').addEventListener('change',e=>{prefs.ytAlbSor=e.target.checked;savePrefs();toast(prefs.ytAlbSor?'Albüm sorulacak':'Albüm sorulmayacak')})}catch(e){}
 $('#ytKeySave').addEventListener('click',()=>{saveKey($('#ytKeyIn').value);$('#ytKeyIn').value=''});
 $('#ytKeyTest').addEventListener('click',async()=>{
   const v=$('#ytKeyIn').value.trim();if(v&&!saveKey(v))return;$('#ytKeyIn').value='';
@@ -3525,7 +3576,7 @@ function ayarDuzen(){
     ['ses','Ses','vol',['hqOn'],[['eq','Ekolayzır ve vokal']]],
     ['uyku','Uyku zamanlayıcısı','clock',['sleepChips'],[]],
     ['kitaplik','Kitaplık','lib',['libStat','artAlbOn','longAyriOn','yeniSorOn'],[['lib','Kitaplığa git']]],
-    ['akis','YouTube ve Spotify','yt',['ytmOn','ytKeyIn','ytGirisSatir','spIdIn2'],[['yt','YouTube'],['sp','Spotify']]],
+    ['akis','YouTube ve Spotify','yt',['ytmOn','ytKeyIn','ytAlbSorSatir','ytGirisSatir','spIdIn2'],[['yt','YouTube'],['sp','Spotify']]],
     ['arac','Araç','car',['btnCar2','wakeOn','carLinkKop'],[]],
     ['genel','Tema ve uygulama','gear',['themeChips','btnUpd'],[]]];
   const nav=document.createElement('div');nav.className='ayarnav';nav.innerHTML=G.map(g=>'<button data-ayar="'+g[0]+'">'+ico(g[2])+g[1]+'</button>').join('');

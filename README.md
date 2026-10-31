@@ -18,6 +18,12 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.11 (31.10.2026) — Albümü sor
+- YouTube aramasından bir şarkıyı çaldığında ya da eklediğinde şarkı hemen çalar; Tını arka planda şarkının **albümünü** bulur (YouTube Music albüm listesi) ve sorar: **Albümün tamamını ekle (n yeni şarkı)** · **Yalnız bu şarkı**.
+- "Tamamını ekle" → albüm, YouTube listende **ayrı liste** olarak durur ("Albüm: Ad — Sanatçı"), albüm sırasıyla; çalan şarkı kesilmez, zaten olan şarkılar tekrar eklenmez.
+- Albüm bulunamazsa soru çıkmaz. Sonuçlar telefonda saklanır (aynı şarkı için tekrar aranmaz). "Bir daha sorma" ya da Ayarlar › YouTube ve Spotify › **Albümü sor** ile kapatılır.
+- Albüm araması API anahtarının günlük hakkından yer (şarkı başına bir arama).
+
 ## 6.10 (31.10.2026) — Liste bul
 - YouTube sayfasında arama kutusunun altında küçük **Liste bul: YouTube Music · YouTube** düğmeleri: dokununca uygulamanın kendisi (listelerin sayfası) açılır. Listeyi bul → Paylaş → Bağlantıyı kopyala → Tını'ya dön → 📋 (dönüşte 📋 vurgulanır ve ipucu çıkar).
 
@@ -154,7 +160,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**6.10** — Liste bul: YouTube Music / YouTube uygulamasını açan küçük düğmeler.  
+**6.11** — YouTube aramasından eklenen şarkının albümünü bulup ayrı liste olarak ekleme sorusu.  
+6.10 — Liste bul: YouTube Music / YouTube uygulamasını açan küçük düğmeler.  
 6.9 — YouTube sayfası sade; listeler arası karışık çalma; tekrarları temizle.  
 6.8 — APK'da YouTube hesabına giriş (Premium → reklamsız).  
 6.7 — Dokun çal, basılı tut kısa menü.  
