@@ -18,6 +18,16 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.21 (31.10.2026) — Klasik görünüm sekmelerde de kalıyor
+- Klasik görünümde YouTube, Ayarlar, Spotify ya da Kuyruk sekmesine geçince klasik görünüm artık kapanmıyor. Sayfa klasik pencerenin içinde ("TINI · YOUTUBE" vb.) açılıyor.
+  - Başlık, üst çubuk (Web · Araç · Tema · Ekle), çalma düğmeleri ve alt sekmeler yerinde kalıyor.
+- Sayfalar temanın renklerine bürünüyor:
+  - Yeşil: siyah zemin, yeşil yazı, kabartma gri düğmeler, altın ana düğmeler.
+  - Gümüş-mavi: gümüş zemin, hap düğmeler, mavi LCD giriş kutuları, beyaz kartlar.
+- Kitaplık sekmesi ya da sayfa başlığındaki × klasik çalara (ekran, EQ, liste) geri dönüyor. Ekolayzır sekmesi klasik EQ penceresini açıyor.
+- YouTube videosu klasik pencerenin içindeki oynatıcı alanında görünüyor.
+- Klasik görünüm kapatılınca son açık sayfa modern arayüzde aynen sürüyor.
+
 ## 6.20 (31.10.2026) — Klasik görünümde üst ve alt menüler
 - Klasik görünümde başlığın altına üst çubuk eklendi: **WEB** (internette müzik ara), **ARAÇ** (araç modu), **TEMA** (◐ yeşil ↔ gümüş-mavi) ve **EKLE**.
 - En alta modern arayüzdeki sekmeler geldi: Kitaplık · YouTube · Ekolayzır · Ayarlar. Ayarlarda gizlediğin sekmeler burada da gizli kalıyor.
@@ -213,6 +223,7 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
+**6.21** — Klasikte sekme sayfaları klasik pencere içinde ve tema renklerinde.
 **6.20** — Klasik görünümde üst çubuk (Web · Araç · Tema · Ekle) ve alt sekmeler.
 **6.19** — Gün batımı teması; klasikte ◐ tema düğmesi; mavide EQ ışık hüzmeleri.
 **6.18** — Tema seçici (varsayılan yeşil); gümüş-mavi ayrıntılandı.
