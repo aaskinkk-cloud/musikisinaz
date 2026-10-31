@@ -569,6 +569,31 @@ body.ytnp-acik .ytbox{z-index:60;border-radius:14px}
 .wa-row.sec{background:#2b2b55;color:#fff}
 .wa-row.sec.cur{background:#3a3ad8}
 .wa-row .ck{font-weight:400;margin-right:6px;color:#9cf7a8}
+/* 6.9: YouTube sayfası — sade, küçük düğmeler */
+#v-yt .ytctl{gap:6px;padding-block:8px 4px;justify-content:center}
+#v-yt .ytctl .play{width:48px;height:48px}
+#v-yt .ytctl .play .ico{width:22px;height:22px}
+#v-yt .ytctl .ib{width:40px;height:40px;border-radius:12px}
+#v-yt .ytctl .yk{color:var(--muted);margin-inline:10px}
+#v-yt .ytctl #ytBg{color:#e00}
+#v-yt .ytara{margin-top:6px}
+#v-yt .ytara input{height:42px;border-radius:12px;font-size:15px}
+#v-yt .ytara .btn{height:42px;width:46px;padding:0;border-radius:12px;display:grid;place-items:center}
+#v-yt .ytara .btn .ico{margin:0}
+#v-yt .ytbas{display:flex;align-items:center;gap:4px;margin:14px 0 4px}
+#v-yt .ytbas h2{font-size:17px;margin:0}
+#v-yt .ytbas #ytCount{margin-right:auto;margin-left:6px}
+#v-yt .ytbas .ib{width:36px;height:36px;border-radius:10px;color:var(--muted)}
+#v-yt .ytbas .ib .ico{width:19px;height:19px}
+#v-yt .ytgrp{padding:4px 4px 4px 6px;margin:6px 0 2px;border-radius:12px}
+#v-yt .ytgrp .act{width:32px!important;height:32px!important;flex:0 0 32px;border-radius:9px!important;border:1px solid var(--line)!important;background:transparent!important;color:var(--muted)!important;box-shadow:none!important;display:grid;place-items:center;padding:0}
+#v-yt .ytgrp .act:active{background:var(--raise)!important;color:var(--accent)!important}
+#v-yt .ytgrp .act .ico{width:16px;height:16px}
+#v-yt .ytgrp-bas b{font-size:14px}
+#v-yt .row.yr{padding:6px 8px}
+#v-yt .ytbilgi{margin-top:14px;font-size:12.5px;color:var(--muted)}
+#v-yt .ytbilgi summary{cursor:pointer;font-weight:600;color:var(--fg);list-style:none}
+#v-yt .ytbilgi summary::before{content:"ⓘ  "}
 /* 6.6: alt çubuk her zaman TEK sıra — normal · arama · seçim düzenleri yer değiştirir */
 #waBar{flex-wrap:nowrap!important}
 #waBar .a,#waBar .s{display:none}
@@ -825,25 +850,30 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
     <section class="view" id="v-yt" aria-label="YouTube">
       <div class="ytslot" id="ytSlot">Listeden bir video seç. Oynatıcı burada açılır.</div>
       <div class="ytctl">
+        <button class="ib yk" id="ytKarisTum" aria-label="Listeler arası karışık çal" title="Listeler arası karışık"><svg class="ico"><use href="#i-shuffle"/></svg></button>
         <button class="ib" id="ytPrev" aria-label="Önceki video"><svg class="ico"><use href="#i-prev"/></svg></button>
         <button class="play" id="ytPlayBtn" aria-label="Çal veya durdur"><svg class="ico"><use href="#i-play"/></svg></button>
         <button class="ib" id="ytNext" aria-label="Sonraki video"><svg class="ico"><use href="#i-next"/></svg></button>
+        <button class="ib yk" id="ytBg" aria-label="YouTube uygulamasında arka planda çal (Premium)" title="YouTube uygulamasında çal"><svg class="ico"><use href="#i-yt"/></svg></button>
       </div>
-      <button class="btn" id="ytBg" style="width:100%;margin:6px 0">Arka planda çal · YouTube uygulamasında (Premium)</button>
-      <div class="ytadd">
-        <input id="ytQ" type="search" placeholder="YouTube'da şarkı ara" autocomplete="off" aria-label="YouTube'da ara" enterkeyhint="search">
-        <button class="btn primary" id="ytSearch"><svg class="ico"><use href="#i-search"/></svg>Ara</button>
+      <div class="ytadd ytara">
+        <input id="ytQ" type="search" placeholder="Ara ya da bağlantı yapıştır" autocomplete="off" aria-label="YouTube'da ara ya da bağlantı ekle" enterkeyhint="search">
+        <button class="btn" id="ytPaste" aria-label="Panodan yapıştır"><svg class="ico"><use href="#i-paste"/></svg></button>
+        <button class="btn primary" id="ytSearch" aria-label="Ara"><svg class="ico"><use href="#i-search"/></svg></button>
       </div>
       <div class="secbar" id="ytSecBar" hidden></div>
       <div class="ytres" id="ytRes"></div>
-      <div class="ytadd">
+      <div class="ytadd" hidden>
         <input id="ytUrl" type="url" inputmode="url" placeholder="YouTube bağlantısını yapıştır" autocomplete="off" aria-label="YouTube bağlantısı">
-        <button class="btn" id="ytPaste" aria-label="Panodan yapıştır"><svg class="ico"><use href="#i-paste"/></svg></button>
         <button class="btn primary" id="ytAdd">Ekle</button>
       </div>
-      <div class="sh"><h2>YouTube listem</h2><span class="muted small" id="ytCount"></span><button class="btn sm" id="ytPlSil" style="margin-left:auto" title="Bir YouTube listesinden gelen şarkıların hepsini kaldır">Listeyi kaldır</button><button class="btn sm" id="ytSecList">Seç</button></div>
+      <div class="sh ytbas"><h2>Listem</h2><span class="muted small" id="ytCount"></span>
+        <button class="ib" id="ytKaris" aria-label="Listeler arası karışık çal" title="Listeler arası karışık"><svg class="ico"><use href="#i-shuffle"/></svg></button>
+        <button class="ib" id="ytSecList" aria-label="Seç" title="Seç"><svg class="ico"><use href="#i-list"/></svg></button>
+        <button class="ib" id="ytDaha" aria-label="Diğer" title="Diğer"><svg class="ico"><use href="#i-more"/></svg></button>
+        <button id="ytPlSil" hidden>Listeyi kaldır</button></div>
       <div id="ytList"></div>
-      <div class="note"><b>Bilmen gerekenler.</b> Videolar YouTube'un kendi oynatıcısıyla çalar, indirme ya da ses ayıklama yapılmaz. Oynatıcı görünür kalmak zorundadır; başka sekmeye geçince köşede küçük pencere olarak durur. Ekran kapanınca ya da tarayıcı arka plana alınınca YouTube çalmayı durdurabilir. Kesit (başlangıç/bitiş) ve süre sınırı burada da çalışır; sessizlik atlama ve vokal azaltma çalışmaz.</div>
+      <details class="note ytbilgi"><summary>Bilmen gerekenler</summary> Videolar YouTube'un kendi oynatıcısıyla çalar, indirme ya da ses ayıklama yapılmaz. Oynatıcı görünür kalmak zorundadır; başka sekmeye geçince köşede küçük pencere olarak durur. Ekran kapanınca ya da tarayıcı arka plana alınınca YouTube çalmayı durdurabilir. Kesit (başlangıç/bitiş) ve süre sınırı burada da çalışır; sessizlik atlama ve vokal azaltma çalışmaz.</details>
     </section>
 
     <section class="view" id="v-sp" aria-label="Spotify">
@@ -971,7 +1001,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.8 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.9 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -2576,8 +2606,12 @@ function ytAddResult(i,play){
   else if(!play)toast('Zaten listede');
   if(play)ytPlay(at);
 }
-$('#ytSearch').addEventListener('click',ytSearch);
-$('#ytQ').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();e.target.blur();ytSearch()}});
+/* 6.9: tek kutu — bağlantı yapıştırılırsa listeye ekler, yazı yazılırsa arar */
+const ytBag=v=>/(^https?:\/\/)|youtu\.?be|youtube\.com|music\.youtube/i.test(String(v||'').trim());
+function ytAkilli(){const q=$('#ytQ'),v=q.value.trim();if(!v){q.focus();return}if(ytBag(v)){ytAdd(v);q.value=''}else ytSearch()}
+$('#ytSearch').addEventListener('click',ytAkilli);
+$('#ytQ').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();e.target.blur();ytAkilli()}});
+$('#ytQ').addEventListener('paste',()=>setTimeout(()=>{const q=$('#ytQ');if(ytBag(q.value)){ytAdd(q.value.trim());q.value=''}},0));
 $('#ytRes').addEventListener('click',e=>{
   {const k=$('#ytRes');if(k._yut){k._yut=0;return}}
   if(e.target.closest('[data-rsec]')){SEC.mod==='res'?secKapat():secAc('res');return}
@@ -2689,8 +2723,8 @@ $('#ytAdd').addEventListener('click',()=>ytAdd($('#ytUrl').value));
 $('#ytUrl').addEventListener('paste',()=>{setTimeout(()=>{const v=$('#ytUrl').value;if(/youtu/i.test(v))ytAdd(v)},0)});
 $('#ytUrl').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();ytAdd(e.target.value)}});
 $('#ytPaste').addEventListener('click',async()=>{
-  try{const t=await navigator.clipboard.readText();if(!t){toast('Pano boş');return}if(!ytAdd(t))$('#ytUrl').value=t}
-  catch(e){toast('Panoya erişilemedi; bağlantıyı kutuya uzun basıp yapıştır');$('#ytUrl').focus()}
+  try{const t=await navigator.clipboard.readText();if(!t){toast('Pano boş');return}if(!ytAdd(t))$('#ytQ').value=t}
+  catch(e){toast('Panoya erişilemedi; bağlantıyı kutuya uzun basıp yapıştır');$('#ytQ').focus()}
 });
 $('#ytPlayBtn').addEventListener('click',ytToggle);
 $('#ytPrev').addEventListener('click',()=>ytStep(-1));
@@ -3415,7 +3449,7 @@ function ytGrupla(){
   const calan=P.yt[ytCur];
   for(const [k,rs] of gr){if(rs.length<2)continue;const it0=P.yt[rs[0].dataset.yi!=null?+rs[0].dataset.yi:+rs[0].dataset.yix],ac=ytAcik.has(k)||(calan&&calan.kay===k);
     const h=document.createElement('div');h.className='ytgrp'+(ac?' acik':'');
-    h.innerHTML='<button class="ytgrp-bas" data-gac="'+esc(k)+'" aria-expanded="'+ac+'">'+ico('list')+'<span><b>'+esc(it0.kayAd||'YouTube listesi')+'</b><small>'+rs.length+' şarkı · dokun: '+(ac?'gizle':'göster')+'</small></span></button>'+
+    h.innerHTML='<button class="ytgrp-bas" data-gac="'+esc(k)+'" aria-expanded="'+ac+'">'+ico('list')+'<span><b>'+esc(it0.kayAd||'YouTube listesi')+'</b><small>'+rs.length+' şarkı '+(ac?'▴':'▾')+'</small></span></button>'+
       '<button class="act" data-gcal="'+esc(k)+'" aria-label="Sırayla çal">'+ico('play')+'</button><button class="act" data-gkar="'+esc(k)+'" aria-label="Karışık çal">'+ico('shuffle')+'</button><button class="act" data-gsil="'+esc(k)+'" aria-label="Listeyi kaldır">'+ico('trash')+'</button>';
     rs[0].before(h);const kap=document.createElement('div');kap.className='ytgrp-ic';kap.hidden=!ac;h.after(kap);rs.forEach(r=>kap.appendChild(r))}
 }
@@ -3429,6 +3463,28 @@ $('#ytList').addEventListener('click',e=>{
   if(g.dataset.gkar!=null){ids=shuffled(ids);toast('Liste karışık çalıyor')}else toast('Liste sırayla çalıyor');
   playList(ids,ids[0]);
 },true);
+/* --- 6.9: Listeler arası karışık çalma — istediğin listeleri seç, hepsinin şarkıları tek karışık sırada çalar (seçim hatırlanır) --- */
+function ytKaynaklar(){const m=new Map();P.yt.forEach(x=>{if(!x.vid)return;const k=x.kay||'__tek';if(!m.has(k))m.set(k,{k,ad:x.kay?(x.kayAd||'YouTube listesi'):'Tek tek eklediklerim',L:[]});m.get(k).L.push(x)});return [...m.values()]}
+async function ytListelerArasi(){
+  const K=ytKaynaklar();if(!K.length){toast('Önce YouTube listene şarkı ekle');return}
+  const once=new Set(store.get('ytKarisSec',[]));const hic=!once.size;
+  if(K.length===1){const ids=shuffled(K[0].L.map(x=>'y:'+x.id));playList(ids,ids[0]);toast(K[0].L.length+' şarkı karışık çalıyor');return}
+  const og=K.map(g=>({v:g.k,ad:g.ad,not:g.L.length+' şarkı',sec:hic||once.has(g.k)}));
+  const sec=await secimSheet('Listeler arası karışık','Seçtiğin listelerin bütün şarkıları tek bir karışık sırada çalar.',og,'Karışık çal');
+  if(!sec||!sec.length)return;store.set('ytKarisSec',sec);
+  const ids=shuffled(K.filter(g=>sec.indexOf(g.k)>=0).flatMap(g=>g.L.map(x=>'y:'+x.id)));
+  if(!ids.length)return;playList(ids,ids[0]);toast(sec.length+' listeden '+ids.length+' şarkı karışık çalıyor')}
+function ytTekrarTemizle(){const gor=new Set(),cal=P.yt[ytCur];let n=0;P.yt=P.yt.filter(x=>{if(!x.vid)return true;if(gor.has(x.vid)){n++;return x===cal}gor.add(x.vid);return true});ytCur=cal?P.yt.indexOf(cal):-1;saveP();try{ytSync()}catch(e){}renderYT();toast(n?n+' tekrar eden video kaldırıldı':'Tekrar eden video yok')}
+$('#ytKaris').addEventListener('click',ytListelerArasi);
+$('#ytKarisTum').addEventListener('click',ytListelerArasi);
+$('#ytDaha').addEventListener('click',()=>{const L=[
+  {icon:'shuffle',label:'Listeler arası karışık çal',fn:ytListelerArasi},
+  {icon:'play',label:'Hepsini sırayla çal',fn:()=>{const ids=P.yt.filter(x=>x.vid).map(x=>'y:'+x.id);if(ids.length)playList(ids,ids[0]);else toast('Liste boş')}},
+  {icon:'list',label:'Seç (toplu işlem)',fn:()=>$('#ytSecList').click()},
+  {icon:'close',label:'Tekrar eden videoları temizle',fn:ytTekrarTemizle},
+  {icon:'list',label:'Tümünü çalma listesine ekle (yerel)',fn:()=>{const ids=P.yt.filter(x=>x.vid).map(x=>'y:'+x.id);if(ids.length)plSheet(ids)}},
+  {icon:'trash',label:'Bir YouTube listesini kaldır…',cls:'danger',fn:()=>$('#ytPlSil').click()}];
+  menuSheet('YouTube listem',L)});
 /* --- Telefondan silme: tarayıcı telefondaki dosyayı silemez; yol gösterilir --- */
 function telSilSheet(id){
   const t=byId.get(id);if(!t)return;const ad=(t.file&&t.file.name)||t.name||t.title;

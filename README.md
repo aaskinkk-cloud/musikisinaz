@@ -18,6 +18,14 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.9 (31.10.2026) — YouTube sayfası sade
+- **Tek kutu:** "Ara ya da bağlantı yapıştır" — bağlantı yapıştırılırsa listeye ekler, yazı yazılırsa arar (ayrı bağlantı kutusu kalktı); yanında 📋 yapıştır ve 🔍.
+- **Küçük düğmeler:** oynatıcı altında ⇄ (listeler arası karışık) · ⏮ · ▶ · ⏭ · ▶YouTube (YouTube uygulamasında arka planda, Premium). Büyük "Arka planda çal" düğmesi simgeye dönüştü.
+- **Listem başlığı:** ⇄ · Seç · ⋯ (Hepsini sırayla çal · Seç · Tekrar eden videoları temizle · Tümünü çalma listesine ekle · Bir YouTube listesini kaldır).
+- **Listeler arası karışık çalma:** ⇄ → hangi listeler karışsın seç (tek tek eklediklerin de ayrı bir seçenek) → hepsi tek karışık sırada çalar; seçim hatırlanır.
+- Liste başlıklarındaki ▶ ⇄ 🗑 düğmeleri küçültüldü, ince çerçeve. "Bilmen gerekenler" katlanır bilgi oldu.
+- Çalma mantığına dokunulmadı.
+
 ## 6.8 (31.10.2026) — APK'da YouTube hesabına giriş (Premium → reklamsız)
 - Reklam, **API anahtarıyla ilgili değildir**; anahtar yalnız aramaya yarar ve hangi Google hesabının anahtarı olursa olsun aynı çalışır.
 - Reklamsız çalma için oynatıcının **Premium hesaba girişli** olması gerekir. APK'da: Ayarlar › YouTube ve Spotify › **YouTube hesabı (reklamsız) › Giriş yap** → Google girişi uygulamanın içinde açılır → giriş bitince Tını'ya kendiliğinden dönülür. Bir kez yeterli; satırda "Giriş yapıldı ✓" görünür.
@@ -119,6 +127,7 @@ Tını: telefondaki şarkılarını çalan ücretsiz müzik çalar. 10 bant ekol
 | **YouTube albüm** | "albüm/album" içeren aramada yalnız uzun tek videolar (tam albüm) gelir; oynatma listesi aktarılırken hangi videoların alınacağını seçersin |
 | **Araç modu** | Büyük düğmeler, kaydırarak şarkı değiştirme |
 | **Sanatçıyla birlikte** | Sanatçı/albüm sayfasında ve aramada, YouTube listendeki aynı sanatçının şarkıları altta; hepsini birlikte çal |
+| **Listeler arası karışık** | YouTube sayfasında ⇄: seçtiğin YouTube listelerinin bütün şarkıları tek karışık sırada çalar |
 | **YouTube ve Spotify** | Resmi oynatıcılarla liste; bağlantı yapıştırarak ekleme; YouTube listeleri başlık altında toplanır: sırayla ya da karışık çal, tek dokunuşla kaldır |
 
 ## Kurulum
@@ -142,7 +151,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**6.8** — APK'da YouTube hesabına giriş (Premium → reklamsız).  
+**6.9** — YouTube sayfası sade; listeler arası karışık çalma; tekrarları temizle.  
+6.8 — APK'da YouTube hesabına giriş (Premium → reklamsız).  
 6.7 — Dokun çal, basılı tut kısa menü.  
 6.6 — Klasik görünümde şarkıya dokununca menü; alt çubuk tek sıra.  
 6.5 — Klasik görünümde listeden çıkarma, taşıma, pasif, silme (seçim modu).  
