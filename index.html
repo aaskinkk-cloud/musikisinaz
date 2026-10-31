@@ -704,6 +704,80 @@ body.wa-on,html:has(body.wa-on){overflow:hidden}
 .wa.dans .wa-gk{display:block}
 .wa.dans .wa-band input::-webkit-slider-thumb{opacity:0}
 .wa.dans .wa-band input::-moz-range-thumb{opacity:0}
+/* 6.17: Gümüş-mavi kaplama (klasik görünümün ikinci teması) — yerleşim aynı, yalnız görünüm */
+body.wam .wa{background:#aeb7c6;color:#1d2438;font-family:Tahoma,Verdana,"DejaVu Sans",sans-serif}
+body.wam .wa .waw{background:linear-gradient(180deg,#f3f5f9,#d6dce6 55%,#bcc4d2);border-top:1px solid #7d879b}
+body.wam .wa .wat{background:linear-gradient(#34477a,#1a2850 60%,#14204a);box-shadow:inset 0 1px 0 #5d70a6,0 1px 0 #0c1430}
+body.wam .wa .wat b{color:#d3dcf2;text-shadow:0 1px 0 #000;letter-spacing:.22em}
+body.wam .wa .wat .ln{height:7px;opacity:1;background:linear-gradient(#a9b8de,#a9b8de) 0 0/100% 2px no-repeat,linear-gradient(#6f81b4,#6f81b4) 0 5px/100% 2px no-repeat}
+body.wam .wa .wat button{border:1px solid #0d1636;border-radius:3px;background:linear-gradient(#e9edf4,#aab3c4);color:#1a2850;box-shadow:inset 0 1px 0 #fff}
+/* EQ başlığı sekme gibi */
+body.wam #waEq>.wat,body.wam #waPl>.wat{background:linear-gradient(#2e4173,#18264d)}
+/* LCD'ler: noktalı mavi */
+body.wam .wa .wa-lcd,body.wam .wa .wa-mq,body.wam .wa .wa-kb b,body.wam .wa .wa-tot,body.wam .wa .wa-q{background:radial-gradient(rgba(255,255,255,.09) .8px,transparent 1.2px) 0 0/3px 3px,linear-gradient(170deg,#3359ad,#1f3d86 60%,#1a3477);border:1px solid #0f1d48;box-shadow:inset 0 2px 4px rgba(0,0,0,.45),0 1px 0 #fff;border-radius:7px}
+body.wam .wa .wa-lcd{border-radius:10px 10px 10px 22px}
+body.wam .wa .wa-time{color:#eef3ff;text-shadow:0 0 7px rgba(170,200,255,.55);font-weight:400;letter-spacing:.02em}
+body.wam .wa .wa-st i{background:#eef3ff}
+body.wam .wa .wa-st i.on{box-shadow:0 0 6px #bcd2ff}
+body.wam .wa .wa-mq span{color:#eef3ff;font-family:"Courier New",ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase}
+body.wam .wa .wa-kb{color:#2a3a66;font-weight:700}
+body.wam .wa .wa-kb b{color:#eef3ff;border-radius:4px}
+body.wam .wa .wa-kb i{color:#9aa4ba}
+body.wam .wa .wa-kb i.on{color:#1f3d86;text-shadow:none}
+body.wam .wa .wa-tot,body.wam .wa .wa-q{color:#eef3ff}
+body.wam .wa .wa-q::placeholder{color:#a9bbe6}
+/* kaydırıcılar: koyu oluk + gümüş hap */
+body.wam .wa input[type=range]::-webkit-slider-runnable-track{height:7px;border:1px solid #6f7a92;border-radius:4px;background:linear-gradient(#2a3247,#56617d)}
+body.wam .wa input[type=range]::-webkit-slider-thumb{width:28px;height:15px;margin-top:-5px;border:1px solid #66718a;border-radius:8px;background:linear-gradient(#ffffff,#dfe4ec 50%,#b4bccb);box-shadow:0 1px 2px rgba(0,0,0,.4)}
+body.wam .wa input[type=range]::-moz-range-thumb{width:28px;height:15px;border:1px solid #66718a;border-radius:8px;background:linear-gradient(#ffffff,#dfe4ec 50%,#b4bccb)}
+body.wam #waVol::-webkit-slider-runnable-track{background:linear-gradient(90deg,#1f3d86,#6f93e0)}
+body.wam #waBal::-webkit-slider-runnable-track{background:linear-gradient(90deg,#56617d,#2a3247 50%,#56617d)}
+body.wam .wa .wa-seek::-webkit-slider-runnable-track{height:10px!important;border-radius:6px;background:linear-gradient(#cfd5df,#f4f6fa)!important;border-color:#8892a8}
+body.wam .wa .wa-seek::-webkit-slider-thumb{width:46px!important;height:18px!important;margin-top:-5px!important;border-radius:9px}
+/* yuvarlak gümüş düğmeler */
+body.wam .wa-ctl{justify-content:space-between}
+body.wam .wa-ctl{gap:2px}
+body.wam .wa-ctl .wb{flex:0 0 auto;width:43px;height:43px;border-radius:50%;border:1px solid #66718a;background:radial-gradient(circle at 38% 30%,#fff,#e6eaf1 40%,#b5bdcc 85%);color:#1a2236;box-shadow:0 2px 3px rgba(0,0,0,.35),inset 0 -2px 3px rgba(0,0,0,.12)}
+body.wam .wa-ctl .wb:active{background:radial-gradient(circle at 50% 60%,#fff,#d3d9e3 50%,#a7b0c1);box-shadow:inset 0 2px 4px rgba(0,0,0,.35);border-color:#66718a}
+body.wam .wa-ctl .gap{flex:0 0 2px;width:2px}
+body.wam .wa-ctl .wa-tg.wi{flex:0 0 auto;width:43px;height:43px;padding:0;border-radius:50%}
+body.wam .wa-ctl .wi:before{margin:0;top:3px;right:3px}
+body.wam .wa-ctl .wb[data-wa=ej]{flex:0 0 auto!important;width:36px;height:36px}
+/* hap düğmeler: koyu lacivert (EQ/PL/AÇIK/DANS), açık zemin (HAZIR AYAR, alt çubuk) */
+body.wam .wa .wa-tg{border:1px solid #121e48;border-radius:999px;background:linear-gradient(#4a63a6,#263b7a 55%,#1c2d63);color:#e3e9f8;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 1px 2px rgba(0,0,0,.35);padding:0 10px;letter-spacing:.08em}
+body.wam .wa .wa-tg:active{background:linear-gradient(#1c2d63,#2f4688);border-color:#121e48}
+body.wam .wa .wa-tg:before{width:7px;height:7px;border-radius:50%;background:#14214a;box-shadow:inset 0 0 0 1px #0a1230}
+body.wam .wa .wa-tg.on:before{background:#8fc3ff;box-shadow:0 0 6px #8fc3ff}
+body.wam #waPres,body.wam .wa .wa-plbar .wa-tg,body.wam .wa-ctl .wa-tg.wi{border:1px solid #66718a;background:radial-gradient(circle at 40% 25%,#fff,#e4e8ef 45%,#b9c1cf);color:#1a2236;box-shadow:0 1px 2px rgba(0,0,0,.3),inset 0 -2px 3px rgba(0,0,0,.1)}
+body.wam #waPres:before{display:none}
+body.wam .wa .wa-plbar .wa-tg{height:34px}
+/* ekolayzır */
+body.wam .wa .wa-eqbar canvas{background:repeating-linear-gradient(90deg,transparent 0 11px,rgba(60,80,130,.12) 11px 12px),repeating-linear-gradient(0deg,transparent 0 6px,rgba(60,80,130,.12) 6px 7px),#e7ebf2;border:1px solid #8892a8;border-radius:3px}
+body.wam .wa .wa-band input::-webkit-slider-runnable-track{width:9px;border-radius:5px;border:1px solid #66718a;background:linear-gradient(90deg,#1f2536,#5b6682 50%,#1f2536)!important}
+body.wam .wa .wa-band input::-webkit-slider-thumb{width:20px!important;height:20px!important;margin-left:-7px;border-radius:50%;border:1px solid #5e6983;background:radial-gradient(circle at 38% 32%,#fff,#e3e8ef 45%,#aab3c4)}
+body.wam .wa .wa-band span{align-self:stretch;width:100%;text-align:center;background:linear-gradient(#9aa3b6,#7b859b);color:#fff;font-size:8px;letter-spacing:.04em;border-radius:2px}
+body.wam .wa .wa-db{color:#2a3a66}
+body.wam .wa .wa-gk{width:20px;height:20px;border-radius:50%;border:1px solid #5e6983;background:radial-gradient(circle at 38% 32%,#fff,#e3e8ef 45%,#aab3c4);bottom:calc(27px + var(--p,0)*(100% - 37px));box-shadow:0 0 calc(var(--p,0)*10px) rgba(120,170,255,.9)}
+/* çalma listesi */
+body.wam .wa .wa-list{background:linear-gradient(#24439a,#1c3784);border:1px solid #0f1d48;border-radius:4px;box-shadow:inset 0 2px 5px rgba(0,0,0,.4)}
+body.wam .wa .wa-row{color:#d5def6;border-bottom:1px solid rgba(255,255,255,.04)}
+body.wam .wa .wa-row em{color:#d5def6}
+body.wam .wa .wa-row.cur{background:linear-gradient(#7d97d8,#5b79c6);color:#fff}
+body.wam .wa .wa-row.sec{background:#33509e;color:#fff}
+body.wam .wa .wa-row.sec.cur{background:#6a87d0}
+body.wam .wa .wa-row .ck{color:#bcd2ff}
+body.wam .wa .wa-row:active{background:#2e4ea0}
+body.wam .wa .wa-asan{background:linear-gradient(90deg,#14204a,#24366a);border:1px solid #0f1d48;border-radius:4px}
+body.wam .wa .wa-asan i{border:1px solid #66718a;border-radius:4px;background:repeating-linear-gradient(0deg,#9aa4ba 0 1px,transparent 1px 4px) center/60% 14px no-repeat,linear-gradient(90deg,#fff,#cfd5e0)}
+/* şarkı menüsü */
+body.wam .wa-menu{background:linear-gradient(#f3f5f9,#c9d0dc);border:1px solid #66718a;border-radius:8px;color:#1a2236}
+body.wam .wa-menu .bas{background:linear-gradient(170deg,#3359ad,#1f3d86);color:#eef3ff;border:1px solid #0f1d48;border-radius:5px}
+body.wam .wa-menu .tas button{border:1px solid #66718a;border-radius:999px;background:radial-gradient(circle at 40% 25%,#fff,#e4e8ef 45%,#b9c1cf);color:#1a2236}
+body.wam .wa-menu .iki>button:active,body.wam .wa-menu>button:active{background:#5b79c6;color:#fff}
+body.wam .wa-menu .ik{color:#2f4a96}
+body.wam .wa-menu .tehlike{color:#b3261e}
+body.wam .wa-menu .ayr{background:#9aa4ba;box-shadow:0 1px 0 #fff}
+@media (min-width:600px){body.wam .wa{background:radial-gradient(120% 80% at 50% 0%,#5b78bd,#2c437f 60%,#1b2a55)}}
 body.wa-on .scrim{z-index:60}
 body.wa-on .sheet{z-index:61}
 body.wa-on .toast{z-index:62}
@@ -1023,7 +1097,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.16 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.17 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -4160,6 +4234,7 @@ document.addEventListener('visibilitychange',()=>{
 });
 /* --- 5.9: Klasik görünüm (Winamp tarzı) — aynı çalar, aynı kuyruk; yalnız görünüm farklı --- */
 let waOn=false,waRaf=0,waSig='',waKalan=false,waSurukle=false,waQ='';
+let WAM=false;function waTema(){WAM=prefs.waTema!=='yesil';document.body.classList.toggle('wam',WAM);try{waEqCiz()}catch(e){}}
 const WA_FL=['60','170','310','600','1K','3K','6K','12K','14K','16K'];
 function waKur(){
   if($('#wa'))return;
@@ -4192,6 +4267,7 @@ function waKur(){
   $('#waMenu').addEventListener('click',()=>menuSheet('Klasik görünüm',[
     {icon:'back',label:'Modern görünüme dön',fn:waKapa},
     {icon:'gear',label:(prefs.waAc?'✓ ':'')+'Açılışta klasik görünüm',fn:()=>{prefs.waAc=!prefs.waAc;savePrefs();waAyarCiz();toast(prefs.waAc?'Tını açılınca klasik görünüm gelir':'Tını açılınca modern görünüm gelir')}},
+    {icon:'eq',label:'Tema: '+(WAM?'Gümüş-mavi ✓ · Yeşil':'Yeşil ✓ · Gümüş-mavi'),fn:()=>{prefs.waTema=WAM?'yesil':'mavi';savePrefs();waTema();toast(WAM?'Gümüş-mavi tema':'Yeşil (klasik) tema')}},
     {icon:'car',label:'Araç modu',fn:()=>{waKapa();openCar()}},
     {icon:'gear',label:'Ayarlar',fn:()=>{waKapa();showView('set')}}]));
   $('#waLcd').addEventListener('click',()=>{waKalan=!waKalan});
@@ -4393,10 +4469,10 @@ function waEqCiz(){
   const on=$('#waEqOn');if(!on)return;on.classList.toggle('on',!!prefs.eqOn);
   $('#waPre').value=prefs.pre;$$('#wa [data-wb]').forEach((el,i)=>{el.value=prefs.gains[i]||0});
   const c=$('#waCurve'),g=c.getContext('2d'),W=c.width,H=c.height;g.clearRect(0,0,W,H);
-  g.strokeStyle='#1f3a1f';g.beginPath();g.moveTo(0,H/2);g.lineTo(W,H/2);g.stroke();
+  g.strokeStyle=WAM?'#aab4c8':'#1f3a1f';g.beginPath();g.moveTo(0,H/2);g.lineTo(W,H/2);g.stroke();
   const pts=prefs.gains.map((v,i)=>[i/(prefs.gains.length-1)*(W-8)+4,H/2-(v/12)*(H/2-3)]);
   const gr=g.createLinearGradient(0,0,0,H);gr.addColorStop(0,'#c8321e');gr.addColorStop(.5,'#c8c81e');gr.addColorStop(1,'#1f9e1f');
-  g.strokeStyle=prefs.eqOn?gr:'#3a5a3a';g.lineWidth=1.6;g.beginPath();
+  g.strokeStyle=WAM?(prefs.eqOn?'#3f5fae':'#9aa4ba'):(prefs.eqOn?gr:'#3a5a3a');g.lineWidth=1.6;g.beginPath();
   pts.forEach((p,i)=>{if(!i)g.moveTo(p[0],p[1]);else{const q=pts[i-1],mx=(q[0]+p[0])/2;g.bezierCurveTo(mx,q[1],mx,p[1],p[0],p[1])}});g.stroke();
 }
 function waPencere(){const eq=prefs.waEq!==false,pl=prefs.waPl!==false;$('#waEq').classList.toggle('hid',!eq);$('#waPl').classList.toggle('hid',!pl);$('#waEqT').classList.toggle('on',eq);$('#waPlT').classList.toggle('on',pl)}
@@ -4431,7 +4507,7 @@ function waCiz(){
     let v;if(data){const a=Math.floor(Math.pow(i/N,1.6)*data.length*0.7),b=Math.max(a+1,Math.floor(Math.pow((i+1)/N,1.6)*data.length*0.7));let mx=0;for(let k=a;k<b;k++)mx=Math.max(mx,data[k]);v=mx/255}
     else v=pl?Math.max(0,0.35+0.3*Math.sin(tt*3.1+i*0.9)*Math.sin(tt*1.7+i*0.45)+0.25*Math.sin(tt*7+i*2.3))*(1-i/N*0.45):0;
     const h=Math.round(v*(H-2)/2)*2;
-    for(let yy=H-2;yy>H-2-h;yy-=2){const r=1-(yy/H);g.fillStyle=r>0.8?'#d8361e':r>0.55?'#d8c81e':'#1fcf3a';g.fillRect(i*bw,yy,bw-2,1)}
+    for(let yy=H-2;yy>H-2-h;yy-=2){const r=1-(yy/H);g.fillStyle=WAM?(r>0.6?'#ffffff':'#c4d3f6'):(r>0.8?'#d8361e':r>0.55?'#d8c81e':'#1fcf3a');g.fillRect(i*bw,yy,bw-2,1)}
   }
 }
 function waAc(acilis){
@@ -4557,7 +4633,7 @@ function waDansKur(){const d=$('#wa');if(!d||$('#waDans'))return;
   bd.addEventListener('pointerdown',()=>{waElle=Date.now()+1e9;d.classList.remove('dans')});
   const birak=()=>{if(waElle>Date.now())waElle=Date.now()+2500};
   ['pointerup','pointercancel'].forEach(t=>bd.addEventListener(t,birak))}
-function waDans(){const d=$('#wa');if(!d)return;if(!$('#waDans'))waDansKur();const gk=d.querySelectorAll('.wa-gk');if(!gk.length)return;
+function waDans(){const d=$('#wa');if(!d)return;if(!$('#waDans'))waDansKur();if(WAM!==(prefs.waTema!=='yesil')||document.body.classList.contains('wam')!==WAM)waTema();const gk=d.querySelectorAll('.wa-gk');if(!gk.length)return;
   const y=carIsYT(),pl=y?ytPlaying:(!!cur&&!audio.paused),acik=prefs.waDans!==false&&pl&&waElle<Date.now();
   d.classList.toggle('dans',acik);if(!acik){waDv=[];return}
   let data=null,hzB=0;
@@ -4570,7 +4646,7 @@ function waDans(){const d=$('#wa');if(!d)return;if(!$('#waDans'))waDansKur();con
   hed.unshift(hed.reduce((t,v)=>t+v,0)/hed.length*1.15);
   gk.forEach((g,i)=>{const h=hed[i]||0,o=waDv[i]||0;const v=h>o?o+(h-o)*.65:o-Math.min(o-h,.045);waDv[i]=v;g.style.setProperty('--p',v.toFixed(3))})}
 {const _c=waCiz;waCiz=function(){_c.apply(this,arguments);if(waOn&&!document.hidden){try{waDans()}catch(e){}}}}
-{const _a=waAc;waAc=function(){const r=_a.apply(this,arguments);try{waDansKur()}catch(e){}return r}}
+{const _a=waAc;waAc=function(){waTema();const r=_a.apply(this,arguments);try{waDansKur()}catch(e){}return r}}
 })();
 </script>
 <script>

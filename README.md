@@ -18,6 +18,11 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.17 (31.10.2026) — Gümüş-mavi tema
+- Klasik görünüme ikinci tema geldi: gümüş metal paneller, noktalı mavi LCD ekranlar, yuvarlak gümüş çalma düğmeleri, lacivert hap düğmeler, yuvarlak EQ düğmeleri ve mavi çalma listesi.
+- Yerleşim aynı, yalnız görünüm değişti. Dans eden EQ düğmeleri de temaya uyuyor (yuvarlak, mavi parıltı).
+- Varsayılan tema gümüş-mavi. Değiştirmek için başlıktaki ≡ menüsünde **Tema** seçeneği var; seçim hatırlanıyor.
+
 ## 6.16 (31.10.2026) — Dans eden ekolayzır
 - Klasik görünümde ekolayzır çubuğuna **DANS** düğmesi eklendi (varsayılan açık). Şarkı çalarken ekolayzır düğmeleri müziğe göre oynuyor.
 - **Yalnız görüntü:** sese, ekolayzır ayarlarına ve hazır ayarlara dokunmuyor. Durunca ya da duraklatınca düğmeler gerçek ayarlarına dönüyor.
@@ -184,6 +189,7 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
+**6.17** — Klasik görünüme gümüş-mavi tema (≡ → Tema).
 **6.16** — Klasik görünümde DANS: EQ düğmeleri müziğe göre oynar (yalnız görüntü).
 **6.15** — Son eklenenleri geri al (toplu gelenler işaretli).
 **6.14** — Arama yalnız şarkı; soluk üst düğmeler; YouTube listesinde ✕ ile onaylı silme.
