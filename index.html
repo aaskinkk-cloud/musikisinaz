@@ -861,11 +861,14 @@ body.wam .wa .wa-gk{z-index:2}
 .gun-hero .gh-n i{width:7px;height:7px;border-radius:4px;background:rgba(255,255,255,.55)}
 .gun-hero .gh-n i:first-child{width:20px;background:#ff8a3d}
 /* hızlı kutular */
-.gun-kut{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:12px}
-.gun-kut button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;height:78px;padding:0 2px;border-radius:20px;border:1px solid rgba(255,255,255,.9);background:rgba(255,255,255,.8);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#1c1726;font:600 12px var(--f-body);box-shadow:0 10px 24px rgba(15,10,40,.2);white-space:nowrap}
-.gun-kut button:active{transform:scale(.96)}
-.gun-kut .ico{width:27px;height:27px}
-.gun-kut .k1 .ico{color:#f26a12}.gun-kut .k2 .ico{color:#2f8cf0}.gun-kut .k3 .ico{color:#10a58c}.gun-kut .k4 .ico{color:#5866f0}
+/* 6.24: hızlı kutular — simge renkli yumuşak bir halka içinde, yazı küçük ve kutuya sığar */
+.gun-kut{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
+.gun-kut button{--c:#f26a12;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;height:88px;min-width:0;padding:0 4px;border-radius:22px;border:1px solid rgba(255,255,255,.85);background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,255,255,.72));-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);color:#2a2236;box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 10px 26px -6px rgba(25,12,45,.32);overflow:hidden;transition:transform .15s,box-shadow .15s}
+.gun-kut button::after{content:"";position:absolute;inset:0 0 55% 0;background:linear-gradient(180deg,rgba(255,255,255,.55),transparent);pointer-events:none;border-radius:22px 22px 0 0}
+.gun-kut button:active{transform:scale(.95);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 4px 12px -4px rgba(25,12,45,.3)}
+.gun-kut .ico{width:22px;height:22px;color:var(--c);box-sizing:content-box;padding:10px;border-radius:50%;background:color-mix(in srgb,var(--c) 14%,#fff);box-shadow:0 0 0 1px color-mix(in srgb,var(--c) 18%,transparent) inset,0 4px 10px -3px color-mix(in srgb,var(--c) 45%,transparent)}
+.gun-kut .k1{--c:#f26a12}.gun-kut .k2{--c:#2f8cf0}.gun-kut .k3{--c:#10a58c}.gun-kut .k4{--c:#5866f0}
+.gun-kut button{font:600 10.5px/1.15 var(--f-body);letter-spacing:.01em;white-space:nowrap;text-overflow:ellipsis}
 /* bölüm başlığı + gruplu liste */
 .gun-bas{display:flex;align-items:center;gap:9px;margin:18px 4px 8px;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.35)}
 .gun-bas b{font:700 20px var(--f-display)}
@@ -1298,7 +1301,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.23 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.24 · çevrimdışı destekli</p></div>
     </section>
   </div>
 

@@ -18,6 +18,9 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.24 (31.10.2026) — Hızlı kutulara son dokunuş
+- Gün batımı temasındaki dört hızlı kutu (Tümünü Çal · Favorilerim · Son Çalınan · Karışık): simge kendi renginde yumuşak bir halkanın içinde, yazı küçültüldü (kutuya sığar, kenara değmez), kutular cam görünümlü, üstte ince ışık, basınca hafif içe çökme.
+
 ## 6.23 (31.10.2026) — Gün batımı teması yeniden tasarlandı
 - **Manzara:** derin lacivertten mora ve turuncuya geçen gökyüzü, parlayan güneş ve halesi, ışıklı kıyı kasabası, denizde güneş yolu, martılar; kenarlarda hafif karartma.
 - **Manşet:** el yazısıyla "Müziğin En Güzel Hâli…" ve turuncu kıvrım. Yazı tipi uygulamanın içine gömülü, internetsiz de çalışıyor. Yanında çizim bir çay bardağı, Şimdi Dinle düğmesi ve sayfa noktaları.
