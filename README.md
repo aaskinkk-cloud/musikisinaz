@@ -18,6 +18,9 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.10 (31.10.2026) — Liste bul
+- YouTube sayfasında arama kutusunun altında küçük **Liste bul: YouTube Music · YouTube** düğmeleri: dokununca uygulamanın kendisi (listelerin sayfası) açılır. Listeyi bul → Paylaş → Bağlantıyı kopyala → Tını'ya dön → 📋 (dönüşte 📋 vurgulanır ve ipucu çıkar).
+
 ## 6.9 (31.10.2026) — YouTube sayfası sade
 - **Tek kutu:** "Ara ya da bağlantı yapıştır" — bağlantı yapıştırılırsa listeye ekler, yazı yazılırsa arar (ayrı bağlantı kutusu kalktı); yanında 📋 yapıştır ve 🔍.
 - **Küçük düğmeler:** oynatıcı altında ⇄ (listeler arası karışık) · ⏮ · ▶ · ⏭ · ▶YouTube (YouTube uygulamasında arka planda, Premium). Büyük "Arka planda çal" düğmesi simgeye dönüştü.
@@ -151,7 +154,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
-**6.9** — YouTube sayfası sade; listeler arası karışık çalma; tekrarları temizle.  
+**6.10** — Liste bul: YouTube Music / YouTube uygulamasını açan küçük düğmeler.  
+6.9 — YouTube sayfası sade; listeler arası karışık çalma; tekrarları temizle.  
 6.8 — APK'da YouTube hesabına giriş (Premium → reklamsız).  
 6.7 — Dokun çal, basılı tut kısa menü.  
 6.6 — Klasik görünümde şarkıya dokununca menü; alt çubuk tek sıra.  

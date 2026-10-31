@@ -580,6 +580,10 @@ body.ytnp-acik .ytbox{z-index:60;border-radius:14px}
 #v-yt .ytara input{height:42px;border-radius:12px;font-size:15px}
 #v-yt .ytara .btn{height:42px;width:46px;padding:0;border-radius:12px;display:grid;place-items:center}
 #v-yt .ytara .btn .ico{margin:0}
+#v-yt .ytbul{display:flex;align-items:center;gap:6px;margin:6px 2px 0;font-size:12px;color:var(--muted)}
+#v-yt .ytbul button{display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 10px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);font:600 12px var(--f-body,system-ui)}
+#v-yt .ytbul button:active{background:var(--raise);color:var(--fg)}
+#v-yt #ytPaste.dikkat{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 30%,transparent)}
 #v-yt .ytbas{display:flex;align-items:center;gap:4px;margin:14px 0 4px}
 #v-yt .ytbas h2{font-size:17px;margin:0}
 #v-yt .ytbas #ytCount{margin-right:auto;margin-left:6px}
@@ -861,6 +865,10 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <button class="btn" id="ytPaste" aria-label="Panodan yapıştır"><svg class="ico"><use href="#i-paste"/></svg></button>
         <button class="btn primary" id="ytSearch" aria-label="Ara"><svg class="ico"><use href="#i-search"/></svg></button>
       </div>
+      <div class="ytbul"><span>Liste bul:</span>
+        <button data-ybul="ytm" aria-label="YouTube Music uygulamasını aç"><svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="11" fill="#f00"/><circle cx="12" cy="12" r="6.2" fill="none" stroke="#fff" stroke-width="1.4"/><path d="M10.2 9.2v5.6l4.6-2.8z" fill="#fff"/></svg>YouTube Music</button>
+        <button data-ybul="yt" aria-label="YouTube uygulamasını aç"><svg viewBox="0 0 24 24" width="16" height="16"><rect x="1" y="4.5" width="22" height="15" rx="4.5" fill="#f00"/><path d="M10 8.8v6.4l5.4-3.2z" fill="#fff"/></svg>YouTube</button>
+      </div>
       <div class="secbar" id="ytSecBar" hidden></div>
       <div class="ytres" id="ytRes"></div>
       <div class="ytadd" hidden>
@@ -1001,7 +1009,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.9 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.10 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -3485,6 +3493,15 @@ $('#ytDaha').addEventListener('click',()=>{const L=[
   {icon:'list',label:'Tümünü çalma listesine ekle (yerel)',fn:()=>{const ids=P.yt.filter(x=>x.vid).map(x=>'y:'+x.id);if(ids.length)plSheet(ids)}},
   {icon:'trash',label:'Bir YouTube listesini kaldır…',cls:'danger',fn:()=>$('#ytPlSil').click()}];
   menuSheet('YouTube listem',L)});
+/* --- 6.10: Liste bul — YouTube Music / YouTube uygulaması açılır; dönünce bağlantıyı yapıştırmak için ipucu --- */
+let ytBulGitti=0;
+document.querySelector('.ytbul').addEventListener('click',e=>{const b=e.target.closest('[data-ybul]');if(!b)return;const m=b.dataset.ybul==='ytm';
+  const u=m?'https://music.youtube.com/library/playlists':'https://www.youtube.com/feed/playlists',pk=m?'com.google.android.apps.youtube.music':'com.google.android.youtube';
+  ytBulGitti=Date.now();
+  if(IS_ANDROID||NATIVE)location.href='intent://'+u.replace(/^https:\/\//,'')+'#Intent;scheme=https;package='+pk+';S.browser_fallback_url='+encodeURIComponent(u)+';end';
+  else{try{window.open(u,'_blank')}catch(x){location.href=u}}});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState!=='visible'||!ytBulGitti||Date.now()-ytBulGitti>15*60e3)return;ytBulGitti=0;
+  setTimeout(()=>{if(ui.view==='yt'){toast('Listenin bağlantısını kopyaladıysan 📋 düğmesine dokun',4200);const p=$('#ytPaste');if(p){p.classList.add('dikkat');setTimeout(()=>p.classList.remove('dikkat'),4500)}}},400)});
 /* --- Telefondan silme: tarayıcı telefondaki dosyayı silemez; yol gösterilir --- */
 function telSilSheet(id){
   const t=byId.get(id);if(!t)return;const ad=(t.file&&t.file.name)||t.name||t.title;
