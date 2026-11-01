@@ -18,6 +18,21 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.25 (01.11.2026) — Klasikte sanatçı resmi ve görsel ekolayzır
+- **LCD'de sanatçı resmi:** sol üst ekranda, spektrumun yanında çalan şarkının sanatçısının küçük resmi var.
+  - Turuncu çerçeveli ve parlıyor: yeşil temada siyah iç çizgiyle, gümüş-mavide beyaz iç halkayla.
+  - YouTube'da başlıktaki "Sanatçı - Şarkı" kısmından sanatçı bulunuyor, bulunamazsa video kapağı gösteriliyor. Resim gelmezse baş harf çıkıyor.
+- **Ekolayzır penceresinde AYAR | GÖRSEL anahtarı** (pencere başlığında). Seçim hatırlanıyor.
+  - AYAR: kaydırıcılar, dans ve hazır ayarlar olduğu gibi duruyor.
+  - GÖRSEL: kaydırıcıların yerine büyük spektrum geliyor. Yalnız görüntüdür; EQ ayarları ve ses değişmiyor.
+- **Beş görsel çeşidi:**
+  - **ÇUBUK:** LED parçalı çubuklar ve düşen tepe çizgileri.
+  - **AYNA:** ortadan aşağı-yukarı simetrik çubuklar.
+  - **DALGA:** parlayan osiloskop çizgisi.
+  - **NOKTA:** LED nokta matrisi.
+  - **HALKA:** ortada sanatçı resmi, çevresinde dönen dairesel spektrum.
+- Her çeşit temanın renklerinde çiziliyor: yeşilde yeşil-sarı-kırmızı ve beyaz tepeler, gümüş-mavide mavi-beyaz ve turuncu tepeler.
+- Yerel şarkılarda gerçek ses verisi kullanılıyor (EQ açıkken); YouTube'da ritim taklit ediliyor.
 ## 6.24 (31.10.2026) — Hızlı kutulara son dokunuş
 - Gün batımı temasındaki dört hızlı kutu (Tümünü Çal · Favorilerim · Son Çalınan · Karışık): simge kendi renginde yumuşak bir halkanın içinde, yazı küçültüldü (kutuya sığar, kenara değmez), kutular cam görünümlü, üstte ince ışık, basınca hafif içe çökme.
 
@@ -238,6 +253,7 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
+**6.25** — Klasikte LCD'de sanatçı resmi; EQ penceresinde GÖRSEL kip (5 spektrum çeşidi).
 **6.23** — Gün batımı teması baştan: yeni manzara, gömülü el yazısı, çay bardağı, cam liste, dönen ışık halkası.
 **6.22** — Tek görünüm seçici (üst düğme, klasik TEMA, Ayarlar ilk bölüm).
 **6.21** — Klasikte sekme sayfaları klasik pencere içinde ve tema renklerinde.

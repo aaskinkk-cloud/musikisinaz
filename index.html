@@ -979,6 +979,35 @@ body.wam .wa-sb .row .t{color:#1a2236}body.wam .wa-sb .row .s{color:#56617d}
 body.wam .wa-sb .row.cur,body.wam .wa-sb .row.on{background:linear-gradient(#7d97d8,#5b79c6)!important;color:#fff}
 body.wam .wa-sb .ayarbol,body.wam .wa-sb .card{background:linear-gradient(#f7f9fc,#e1e6ee);border:1px solid #7d879b;border-radius:10px;box-shadow:inset 0 1px 0 #fff}
 body.wam .wa-sb .ytslot{border:1px solid #0f1d48;border-radius:8px}
+/* 6.24: LCD'de sanatçı resmi; EQ penceresinde AYAR / GÖRSEL (5 çeşit spektrum) */
+.wa-lcd{grid-template-columns:auto 48px minmax(0,1fr)!important;grid-template-rows:auto 1fr}
+.wa-lcd .wa-time{grid-column:2/4}
+.wa-art{grid-column:2;grid-row:2;align-self:end;width:46px;height:46px;border-radius:4px;overflow:hidden;display:grid;place-items:center;font:700 20px Tahoma,sans-serif;color:#1a1408;background:linear-gradient(135deg,#ffb35c,#e2731f);box-shadow:0 0 0 2px #000,0 0 0 4px #e8892c,0 0 10px 3px rgba(255,140,50,.45)}
+.wa-art img{width:100%;height:100%;object-fit:cover;display:block}
+.wa-art .sa-h{color:#1a1408}
+.wa-lcd .wa-viz{grid-column:3;grid-row:2;height:46px}
+body.wam .wa-art{border-radius:10px;box-shadow:0 0 0 2px #fff,0 0 0 4px #ff8f3a,0 0 14px 4px rgba(255,150,70,.55)}
+/* pencere başlığındaki AYAR | GÖRSEL anahtarı */
+.wa-sek{display:flex;gap:2px;margin-left:6px;flex:none}
+.wa .wat .wa-sek button,.wa #waEq>.wat .wa-sek button{width:auto;height:18px;padding:0 7px;font:700 9px/1 Tahoma,sans-serif;letter-spacing:.08em}
+.wa .wat .wa-sek button.on{background:#000;color:#00e83a;border-color:#2a2a3a #9a9ab8 #9a9ab8 #2a2a3a;text-shadow:0 0 5px rgba(0,232,58,.6)}
+body.wam #waEq>.wat .wa-sek{margin-left:auto;margin-right:6px;align-self:center}
+body.wam .wa .wat .wa-sek button{width:auto;padding:0 9px;font-size:9px;height:20px;border-radius:999px;border:1px solid #66718a;background:radial-gradient(circle at 40% 25%,#fff,#e4e8ef 45%,#b9c1cf);color:#1a2236}
+body.wam .wa .wat .wa-sek button.on{background:linear-gradient(#4a63a6,#1c2d63);border-color:#121e48;color:#e3e9f8;text-shadow:none}
+/* görsel kipte: kaydırıcılar yerine spektrum, ayar satırı yerine kip düğmeleri */
+.wa-modlar,.wa-gor{display:none}
+.wa.gorsel .wa-eqbar,.wa.gorsel .wa-bands{display:none!important}
+.wa.gorsel .wa-modlar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;margin-bottom:6px}
+.wa.gorsel .wa-gor{display:block;position:relative;height:150px;background:#000;border:2px solid;border-color:#0a0a10 #5a5a78 #5a5a78 #0a0a10;background-image:linear-gradient(rgba(0,232,58,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,232,58,.05) 1px,transparent 1px);background-size:100% 12px,16px 100%}
+@media (max-width:599px){.wa.gorsel .wa-gor{height:clamp(88px,17dvh,150px)}}
+.wa-gor canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.wa-modlar .wa-tg{justify-content:center;height:26px;padding:0 2px;font-size:9px}
+.wa-modlar .wa-tg:before{display:none}
+.wa-modlar .wa-tg.on{background:#000;color:#00e83a;border-color:#0a0a10 #5a5a78 #5a5a78 #0a0a10;text-shadow:0 0 5px rgba(0,232,58,.6)}
+body.wam .wa.gorsel .wa-modlar{margin:0;padding:6px 6px 5px;gap:4px;border:1px solid #7d879b;border-bottom:0;border-radius:0 10px 0 0;background:linear-gradient(#eef1f6,#e1e6ee)}
+body.wam .wa-modlar .wa-tg{height:26px;border:1px solid #66718a;background:radial-gradient(circle at 40% 25%,#fff,#e4e8ef 45%,#b9c1cf);color:#1a2236;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+body.wam .wa-modlar .wa-tg.on{background:linear-gradient(#4a63a6,#263b7a 55%,#1c2d63);border-color:#121e48;color:#e3e9f8;text-shadow:none}
+body.wam .wa.gorsel .wa-gor{border:1px solid #7d879b;border-top:0;border-radius:0 0 10px 10px;padding:0;background:radial-gradient(rgba(255,255,255,.08) .8px,transparent 1.2px) 0 0/3px 3px,linear-gradient(170deg,#3359ad,#1f3d86 60%,#1a3477);box-shadow:inset 0 3px 8px rgba(0,0,0,.45)}
 body.wa-on .scrim{z-index:60}
 body.wa-on .sheet{z-index:61}
 body.wa-on .toast{z-index:62}
@@ -1301,7 +1330,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.24 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.25 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -4447,7 +4476,7 @@ function waKur(){
   const ejSvg='<svg viewBox="0 0 24 24" class="ico"><path d="M12 5l7 8H5z M5 16h14v3H5z" fill="currentColor"/></svg>';
   d.innerHTML='<div class="wa-in">'+
    '<section class="waw" id="waMain"><header class="wat"><button id="waMenu" aria-label="Menü">≡</button><i class="ln"></i><b>TINI</b><i class="ln"></i><button class="fs" id="waFs" data-fs aria-label="Tam ekran">⛶</button><button id="waX" aria-label="Modern görünüme dön">×</button></header>'+
-    '<div class="wa-top"><div class="wa-lcd" id="waLcd" aria-label="Süre (dokun: kalan / geçen)"><div class="wa-st"><i class="p" id="waSp"></i><i class="z" id="waSz"></i></div><div class="wa-time" id="waTime">00:00</div><canvas class="wa-viz" id="waViz" width="152" height="42"></canvas></div>'+
+    '<div class="wa-top"><div class="wa-lcd" id="waLcd" aria-label="Süre (dokun: kalan / geçen)"><div class="wa-st"><i class="p" id="waSp"></i><i class="z" id="waSz"></i></div><div class="wa-time" id="waTime">00:00</div><div class="wa-art" id="waArt" aria-hidden="true">♪</div><canvas class="wa-viz" id="waViz" width="104" height="46"></canvas></div>'+
      '<div class="wa-info"><div class="wa-mq"><span id="waMq">Tını</span></div>'+
       '<div class="wa-kb"><b id="waKb">---</b>kbps<b id="waKhz">--</b>kHz<i id="waMono">mono</i><i id="waSter">stereo</i></div>'+
       '<div class="wa-sl"><input type="range" id="waVol" min="0" max="100" aria-label="Ses"><input type="range" id="waBal" min="-1" max="1" step="0.05" aria-label="Denge"></div>'+
@@ -4831,7 +4860,7 @@ const WA_HZ=[60,170,310,600,1000,3000,6000,12000,14000,16000];let waDv=[],waElle
 function waDansKur(){const d=$('#wa');if(!d||$('#waDans'))return;
   $('#waPres').insertAdjacentHTML('beforebegin','<button class="wa-tg" id="waDans" title="Düğmeler müziğe göre oynasın (sese dokunmaz)">DANS</button>');
   d.querySelectorAll('.wa-band').forEach(b=>b.insertAdjacentHTML('beforeend','<i class="wa-gl"></i><i class="wa-gk"></i>'));
-  waCubukKur();
+  waCubukKur();try{waGorKur()}catch(e){}
   $('#waDans').addEventListener('click',()=>{prefs.waDans=prefs.waDans===false;savePrefs();$('#waDans').classList.toggle('on',prefs.waDans!==false);toast(prefs.waDans!==false?'Dans açık — yalnız görüntü, ses değişmez':'Dans kapalı')});
   $('#waDans').classList.toggle('on',prefs.waDans!==false);
   const bd=d.querySelector('.wa-bands');
@@ -4906,6 +4935,71 @@ function gorunumSec(){const wt=prefs.waTema==='mavi'?'mavi':'yesil';
 function gorChipCiz(){const wt=prefs.waTema==='mavi'?'mavi':'yesil';$$('#themeChips [data-wa-set]').forEach(c=>c.classList.toggle('on',waOn&&c.dataset.waSet===wt))}
 {const b=$('#btnTheme');if(b){const y=b.cloneNode(true);y.setAttribute('aria-label','Görünüm seç');y.title='Görünüm';b.replaceWith(y);y.addEventListener('click',gorunumSec)}}
 $('#themeChips').addEventListener('click',e=>{const c=e.target.closest('[data-wa-set]');if(!c)return;gorunumUygula('w',c.dataset.waSet)});
+/* 6.24: LCD'de çalan şarkının sanatçı resmi (turuncu çerçeve) */
+let waArtSig='';
+function waArtYaz(){const k=$('#waArt');if(!k)return;
+  const y=carIsYT();let sig='',html='';
+  if(y){const x=P.yt[ytCur];if(x){sig='y'+x.vid;const tt=String(x.title||'');const m=tt.match(/^\s*([^-–|(]{2,40}?)\s+[-–]\s+/);
+      const t={title:tt,artist:m?m[1]:'',album:''};const u=srAnahtar(t);
+      const oe=' onerror="this.replaceWith(document.createTextNode(\''+esc(initial(tt)).replace(/'/g,'')+'\'))"';html=(u&&SR[u])?'<img src="'+esc(SR[u])+'" alt=""'+oe+'>':(u&&!(u in SR)?'<span class="sa-h" data-sa="'+esc(u)+'">'+esc(initial(tt))+'</span>':'<img src="https://i.ytimg.com/vi/'+x.vid+'/mqdefault.jpg" alt=""'+oe+'>')}}
+  else if(cur){sig='l'+cur.id;html=artInner(cur)}
+  sig+='|'+((html.match(/src="([^"]+)/)||[])[1]||'');
+  if(sig===waArtSig)return;waArtSig=sig;k.innerHTML=html||'♪';try{srSira()}catch(e){}}
+/* 6.24: EQ penceresinde GÖRSEL kip — 5 çeşit spektrum (yalnız görüntü, sese dokunmaz) */
+const WA_MOD=[['cubuk','ÇUBUK'],['ayna','AYNA'],['dalga','DALGA'],['nokta','NOKTA'],['halka','HALKA']];
+let waGv=[],waGp=[],waGa=0;
+function waGorKur(){const d=$('#wa');if(!d||$('#waGor'))return;
+  $('#waEq>.wat').insertAdjacentHTML('beforeend','<span class="wa-sek"><button data-wg="0">AYAR</button><button data-wg="1">GÖRSEL</button></span>');
+  $('#waEq .wa-eqbar').insertAdjacentHTML('beforebegin','<div class="wa-modlar">'+WA_MOD.map(m=>'<button class="wa-tg" data-wm="'+m[0]+'">'+m[1]+'</button>').join('')+'</div>');
+  $('#waEq .wa-bands').insertAdjacentHTML('afterend','<div class="wa-gor"><canvas id="waGor"></canvas></div>');
+  $('#waEq').addEventListener('click',e=>{const g=e.target.closest('[data-wg]'),m=e.target.closest('[data-wm]');
+    if(g){prefs.waGor=g.dataset.wg==='1';savePrefs();waGorDurum()}
+    else if(m){prefs.waGorMod=m.dataset.wm;savePrefs();waGorDurum()}});
+  waGorDurum()}
+function waGorDurum(){const d=$('#wa');if(!d)return;const on=!!prefs.waGor,md=prefs.waGorMod||'cubuk';
+  d.classList.toggle('gorsel',on);$$('#waEq [data-wg]').forEach(b=>b.classList.toggle('on',(b.dataset.wg==='1')===on));
+  $$('#waEq [data-wm]').forEach(b=>b.classList.toggle('on',b.dataset.wm===md))}
+function waSpek(N){const y=carIsYT(),pl=y?ytPlaying:(!!cur&&!audio.paused),o=new Array(N).fill(0);if(!pl)return o;
+  if(!y&&graph&&graph.an){try{const a=graph.an,d=new Uint8Array(a.frequencyBinCount);a.getByteFrequencyData(d);const hz=a.context.sampleRate/2/d.length;
+    for(let i=0;i<N;i++){const f0=45*Math.pow(16000/45,i/N),f1=45*Math.pow(16000/45,(i+1)/N);let b0=Math.floor(f0/hz),b1=Math.max(b0+1,Math.ceil(f1/hz)),mx=0;for(let k=b0;k<b1&&k<d.length;k++)mx=Math.max(mx,d[k]);o[i]=Math.min(1,Math.pow(mx/255,1.35)*1.05)}return o}catch(e){}}
+  const t=performance.now()/1000,v=Math.pow(1-((t*2.1)%1),2.6),a=Math.pow(1-((t*4.2+.5)%1),4);
+  for(let i=0;i<N;i++){const r=i/(N-1),s=.5+.5*Math.sin(t*(2+i*.31)+i*1.3),s2=.5+.5*Math.sin(t*(5.3+i*.17)+i*2.1);
+    o[i]=Math.max(.04,Math.min(1,(Math.pow(1-r,1.4)*(.28+.62*v)+r*(.14+.4*a)+.2*s*(.35+.65*v)+.08*s2)*(1-r*.3)))}return o}
+function waGorCiz(){const cv=$('#waGor');if(!cv||!prefs.waGor||prefs.waEq===false)return;
+  const dp=Math.min(2,devicePixelRatio||1),W=Math.round(cv.clientWidth*dp),H=Math.round(cv.clientHeight*dp);if(!W||!H)return;
+  if(cv.width!==W||cv.height!==H){cv.width=W;cv.height=H}
+  const g=cv.getContext('2d'),md=prefs.waGorMod||'cubuk',M=WAM;g.clearRect(0,0,W,H);
+  const N=md==='nokta'?16:md==='halka'?36:md==='ayna'?40:28,h=waSpek(N);
+  for(let i=0;i<N;i++){const o=waGv[i]||0,v=h[i]>o?o+(h[i]-o)*.6:o-Math.min(o-h[i],.03);waGv[i]=v;const p=waGp[i]||0;waGp[i]=v>p?v:Math.max(0,p-.007)}
+  const gr=(y0,y1)=>{const q=g.createLinearGradient(0,y0,0,y1);if(M){q.addColorStop(0,'#5f86dc');q.addColorStop(.6,'#bcd2ff');q.addColorStop(1,'#ffffff')}else{q.addColorStop(0,'#1fcf3a');q.addColorStop(.6,'#d8c81e');q.addColorStop(1,'#e8361e')}return q};
+  const tepe=M?'#ff9a3d':'#f4f4ff',par=M?'rgba(170,205,255,.9)':'rgba(0,232,58,.8)';
+  if(md==='cubuk'){const bw=W/N,sg=Math.max(3,Math.round(H/26));g.fillStyle=gr(H,0);
+    for(let i=0;i<N;i++){const x=i*bw+bw*.12,w=bw*.76,hh=waGv[i]*H*.94;for(let y=H-sg;y>H-hh-sg;y-=sg)g.fillRect(x,y+1,w,sg-dp*1.2);
+      g.fillStyle=tepe;g.fillRect(x,H-waGp[i]*H*.94-sg*.9,w,Math.max(2,dp*2));g.fillStyle=gr(H,0)}}
+  else if(md==='ayna'){const bw=W/N,m=H/2,q=g.createLinearGradient(0,0,0,H);if(M){q.addColorStop(0,'#fff');q.addColorStop(.5,'#9cbcff');q.addColorStop(1,'rgba(255,255,255,.35)')}else{q.addColorStop(0,'#e8361e');q.addColorStop(.25,'#d8c81e');q.addColorStop(.5,'#1fcf3a');q.addColorStop(.75,'#d8c81e');q.addColorStop(1,'rgba(232,54,30,.5)')}
+    g.fillStyle=q;g.shadowColor=par;g.shadowBlur=8*dp;
+    for(let i=0;i<N;i++){const k=i<N/2?N/2-1-i:i-N/2,v=waGv[Math.min(N-1,k*2)],hh=v*m*.92,x=i*bw+bw*.18,w=bw*.64;g.fillRect(x,m-hh,w,hh);g.globalAlpha=.55;g.fillRect(x,m,w,hh*.85);g.globalAlpha=1}
+    g.shadowBlur=0;g.fillStyle=M?'rgba(255,255,255,.7)':'rgba(0,232,58,.6)';g.fillRect(0,m-dp*.5,W,dp)}
+  else if(md==='dalga'){const P_=96,m=H/2,t=performance.now()/1000;let pts=[];let td=null;
+    if(!carIsYT()&&graph&&graph.an&&cur&&!audio.paused){try{td=new Uint8Array(graph.an.fftSize);graph.an.getByteTimeDomainData(td)}catch(e){td=null}}
+    const en=waGv.reduce((s,v)=>s+v,0)/N;
+    for(let i=0;i<=P_;i++){let y;if(td){y=(td[Math.floor(i/P_*(td.length-1))]-128)/128}else{const u=i/P_;y=en*(.55*Math.sin(u*Math.PI*6+t*7)+.3*Math.sin(u*Math.PI*15-t*11)+.15*Math.sin(u*Math.PI*31+t*17))*Math.sin(u*Math.PI)}pts.push([i/P_*W,m-y*m*.9])}
+    g.lineWidth=2.2*dp;g.strokeStyle=M?'#eef4ff':'#00e83a';g.shadowColor=par;g.shadowBlur=12*dp;g.beginPath();pts.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]));g.stroke();
+    g.shadowBlur=0;g.globalAlpha=.18;g.fillStyle=M?'#bcd2ff':'#1fcf3a';g.lineTo(W,m);g.lineTo(0,m);g.fill();g.globalAlpha=1;
+    g.strokeStyle=M?'rgba(255,154,61,.8)':'rgba(216,200,30,.5)';g.lineWidth=dp;g.setLineDash([4*dp,4*dp]);g.beginPath();g.moveTo(0,m);g.lineTo(W,m);g.stroke();g.setLineDash([])}
+  else if(md==='nokta'){const R=11,cw=W/N,rh=H/R,r=Math.min(cw,rh)*.32;
+    for(let i=0;i<N;i++)for(let j=0;j<R;j++){const on=j<Math.round(waGv[i]*R),pk=j===Math.min(R-1,Math.round(waGp[i]*R)),fr=j/(R-1);
+      g.fillStyle=pk?tepe:on?(M?(fr>.7?'#ffffff':fr>.4?'#cfe0ff':'#86a8ee'):(fr>.75?'#e8361e':fr>.45?'#d8c81e':'#1fcf3a')):(M?'rgba(255,255,255,.1)':'rgba(0,232,58,.09)');
+      g.beginPath();g.arc(i*cw+cw/2,H-(j+.5)*rh,r,0,7);g.fill()}}
+  else{const cx=W/2,cy=H/2,r0=Math.min(W,H)*.3,L=Math.min(W,H)*.19;waGa+=.004;
+    g.save();g.translate(cx,cy);g.rotate(waGa);g.lineCap='round';g.lineWidth=Math.max(2,dp*2.4);
+    for(let i=0;i<N*2;i++){const v=waGv[i<N?i:2*N-1-i],a=i/(N*2)*Math.PI*2;g.strokeStyle=M?(v>.7?'#ffffff':'#a9c4ff'):(v>.75?'#e8361e':v>.45?'#d8c81e':'#1fcf3a');
+      g.beginPath();g.moveTo(Math.cos(a)*(r0+3*dp),Math.sin(a)*(r0+3*dp));g.lineTo(Math.cos(a)*(r0+3*dp+v*L),Math.sin(a)*(r0+3*dp+v*L));g.stroke()}
+    g.restore();
+    const im=document.querySelector('#waArt img');g.save();g.beginPath();g.arc(cx,cy,r0,0,7);g.closePath();
+    if(im&&im.complete&&im.naturalWidth){g.clip();try{g.drawImage(im,cx-r0,cy-r0,r0*2,r0*2)}catch(e){}}else{g.fillStyle='#e2731f';g.fill()}
+    g.restore();g.lineWidth=2.5*dp;g.strokeStyle='#ff9a3d';g.shadowColor='rgba(255,140,50,.8)';g.shadowBlur=10*dp;g.beginPath();g.arc(cx,cy,r0,0,7);g.stroke();g.shadowBlur=0}}
+{const _c2=waCiz;waCiz=function(){_c2.apply(this,arguments);if(waOn&&!document.hidden){try{waArtYaz()}catch(e){}try{waGorCiz()}catch(e){}}}}
 {const _a=waAc;waAc=function(){waTema();const r=_a.apply(this,arguments);try{waDansKur()}catch(e){}return r}}
 })();
 </script>
