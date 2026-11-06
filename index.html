@@ -1019,7 +1019,7 @@ body.wam .wa.gorsel .wa-gor{border:1px solid #7d879b;border-top:0;border-radius:
 .ytm-av img{width:100%;height:100%;object-fit:cover}
 .ytm-ust{display:grid;grid-template-columns:44px minmax(0,1fr) auto auto;gap:10px;align-items:center}
 .ytm-ust .muted{display:block}
-.ytm-ust .ib.don .ico{animation:ytmDon 1s linear infinite}
+.ytm-ust .ib.don .ico,.ytgrp .act.don .ico{animation:ytmDon 1s linear infinite}
 @keyframes ytmDon{to{transform:rotate(360deg)}}
 .ytm-ses{display:flex;align-items:center;gap:10px;color:var(--muted)}
 .ytm-ses .ico{width:20px;height:20px;flex:none}
@@ -1377,7 +1377,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.26 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.27 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -3877,7 +3877,7 @@ function ytGrupla(){
   for(const [k,rs] of gr){if(rs.length<2)continue;const it0=P.yt[rs[0].dataset.yi!=null?+rs[0].dataset.yi:+rs[0].dataset.yix],ac=ytAcik.has(k)||(calan&&calan.kay===k);
     const h=document.createElement('div');h.className='ytgrp'+(ac?' acik':'');
     h.innerHTML='<button class="ytgrp-bas" data-gac="'+esc(k)+'" aria-expanded="'+ac+'">'+ico('list')+'<span><b>'+esc(it0.kayAd||'YouTube listesi')+'</b><small>'+rs.length+' şarkı '+(ac?'▴':'▾')+'</small></span></button>'+
-      '<button class="act" data-gcal="'+esc(k)+'" aria-label="Sırayla çal">'+ico('play')+'</button><button class="act" data-gkar="'+esc(k)+'" aria-label="Karışık çal">'+ico('shuffle')+'</button><button class="act" data-gsil="'+esc(k)+'" aria-label="Listeyi kaldır">'+ico('trash')+'</button>';
+      '<button class="act" data-gcal="'+esc(k)+'" aria-label="Sırayla çal">'+ico('play')+'</button><button class="act" data-gkar="'+esc(k)+'" aria-label="Karışık çal">'+ico('shuffle')+'</button>'+(/^[\w-]{10,}$/.test(k)&&!/^ytm:/.test(k)?'<button class="act" data-gyen="'+esc(k)+'" aria-label="YouTube’dan yenile: yeni eklenen şarkıları al">'+ico('repeat')+'</button>':'')+'<button class="act" data-gsil="'+esc(k)+'" aria-label="Listeyi kaldır">'+ico('trash')+'</button>';
     rs[0].before(h);const kap=document.createElement('div');kap.className='ytgrp-ic';kap.hidden=!ac;h.after(kap);rs.forEach(r=>kap.appendChild(r))}
 }
 {const _r=renderYT;renderYT=function(){_r.apply(this,arguments);try{ytGrupla()}catch(e){console.warn(e)}}}
@@ -3888,7 +3888,8 @@ $('#ytList').addEventListener('click',e=>{const b=e.target.closest('[data-ysil]'
   const i=+b.dataset.ysil;ytRemove(i)},true);
 $('#ytList').addEventListener('pointerdown',e=>{if(e.target.closest('[data-ysil]'))e.stopPropagation()},true);
 $('#ytList').addEventListener('click',e=>{
-  const g=e.target.closest('[data-gac],[data-gcal],[data-gkar],[data-gsil]');if(!g)return;e.stopPropagation();e.preventDefault();
+  const g=e.target.closest('[data-gac],[data-gcal],[data-gkar],[data-gsil],[data-gyen]');if(!g)return;e.stopPropagation();e.preventDefault();
+  if(g.dataset.gyen!=null){ytGrupYenile(g.dataset.gyen,g);return}
   const k=g.dataset.gac||g.dataset.gcal||g.dataset.gkar||g.dataset.gsil,L=P.yt.filter(x=>x.kay===k&&x.vid);
   if(g.dataset.gac!=null){ytAcik.has(k)?ytAcik.delete(k):ytAcik.add(k);store.set('ytAcik',[...ytAcik]);renderYT();return}
   if(g.dataset.gsil!=null){ytToplusil(L.map(x=>x.id),L[0]&&L[0].kayAd);return}
@@ -5260,6 +5261,33 @@ $('#ytmKut').addEventListener('input',e=>{
 {const _sv=showView;showView=function(v){const r=_sv.apply(this,arguments);if(v==='yt'){try{ytmCiz();ytmSekmeYukle()}catch(e){}}return r}}
 /* acilis seçenekleri: araç bağlantısıyla açılışta da YT Music */
 ytmCiz();
+/* 6.27: liste grubunu YouTube'dan yenile — listeye sonradan eklenen şarkılar gelir (herkese açık ve liste dışı listeler; giriş gerekmez) */
+async function ytGrupYenile(k,btn){
+  const L0=P.yt.filter(x=>x.kay===k);if(!L0.length)return;const ad=L0[0].kayAd||'YouTube listesi';
+  if(btn){if(btn.classList.contains('don'))return;btn.classList.add('don')}
+  const bitir=m=>{if(btn)btn.classList.remove('don');if(m)toast(m,4500)};
+  let ids=[];const bil={},key=String(prefs.ytKey||'').trim();
+  try{
+    if(key){let tk='';do{const r=await fetch('https://www.googleapis.com/youtube/v3/playlistItems?'+new URLSearchParams(Object.assign({part:'snippet,contentDetails',maxResults:50,playlistId:k,key},tk?{pageToken:tk}:{})));
+        const d=await r.json().catch(()=>({}));
+        if(!r.ok){if(r.status===404)return bitir('Liste okunamadı: gizli olabilir. YouTube’da listeyi “Liste dışı” yap.');throw new Error((d.error&&d.error.message)||('HTTP '+r.status))}
+        (d.items||[]).forEach(it=>{const v=(it.contentDetails||{}).videoId,s_=it.snippet||{};if(v&&!/^(Private video|Deleted video|Özel video|Silinmiş video)$/i.test(s_.title||'')){ids.push(v);bil[v]={t:s_.title||'',a:String(s_.videoOwnerChannelTitle||'').replace(/\s+-\s+Topic$/i,'')}}});
+        tk=d.nextPageToken||''}while(tk&&ids.length<2000)}
+    else{
+      if(src==='yt'&&ytPlaying)return bitir('Çalarken yenilemek için Ayarlar → YouTube’da arama anahtarı gerekir. Müziği duraklatıp yeniden dene.');
+      toast('Liste YouTube’dan okunuyor…');
+      try{await ytApi()}catch(e){return bitir('YouTube oynatıcısı açılamadı')}
+      ytEnsure(()=>{try{ytP.cuePlaylist({list:k,listType:'playlist',index:0})}catch(e){}});
+      for(let i=0;i<30&&!ids.length;i++){await new Promise(r=>setTimeout(r,400));try{const a=ytReady&&ytP.getPlaylist&&ytP.getPlaylist();if(Array.isArray(a)&&a.length)ids=a.filter(v=>/^[\w-]{11}$/.test(v))}catch(e){}}
+      if(!ids.length)return bitir('Liste okunamadı: gizli olabilir ya da internet yok. YouTube’da listeyi “Liste dışı” yap.')}
+  }catch(e){return bitir('Yenilenemedi: '+e.message)}
+  const var_=new Set(P.yt.filter(x=>x.kay===k).map(x=>x.vid)),gor=new Set(),yeni=ids.filter(v=>!var_.has(v)&&!gor.has(v)&&gor.add(v));
+  if(!yeni.length)return bitir('“'+ad+'” güncel — yeni şarkı yok');
+  const son=P.yt.map(x=>x.kay).lastIndexOf(k),cal=P.yt[ytCur];
+  const add=yeni.map(v=>({id:uid(),vid:v,title:(bil[v]||{}).t||'',author:(bil[v]||{}).a||'',s:0,e:0,kay:k,kayAd:ad}));
+  P.yt.splice(son+1,0,...add);ytCur=cal?P.yt.indexOf(cal):-1;saveP();try{ytSync()}catch(e){}renderYT();
+  add.filter(x=>!x.title).slice(0,60).forEach(x=>{try{ytTitle(x)}catch(e){}});
+  bitir(add.length+' yeni şarkı “'+ad+'” listesine eklendi')}
 {const _a=waAc;waAc=function(){waTema();const r=_a.apply(this,arguments);try{waDansKur()}catch(e){}return r}}
 })();
 </script>

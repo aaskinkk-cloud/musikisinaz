@@ -18,6 +18,12 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.27 (06.11.2026) — Listeyi YouTube'dan yenile (kurulumsuz yol)
+- YouTube sekmesinde her liste grubunun başlığına **↻ Yenile** düğmesi eklendi. Dokununca liste YouTube'dan yeniden okunuyor ve sonradan eklenen şarkılar listenin sonuna geliyor. Var olanlara ve Tını'da sildiklerine dokunulmuyor.
+- Herkese açık ve **liste dışı** listelerde çalışıyor; Google girişi ya da kurulum gerekmiyor.
+- Ayarlarda YouTube arama anahtarı varsa çalma sürerken de yenileniyor; yoksa müzik duraklatılıp yenileniyor.
+- Gizli liste okunamazsa "YouTube'da Liste dışı yap" diye uyarıyor.
+
 ## 6.26 (06.11.2026) — YouTube Music hesabım
 YouTube sekmesinde **YouTube Music hesabım** bölümü var. Google'ın resmî yolunu kullanıyor: OAuth, yalnız okuma izni (`youtube.readonly`) ve YouTube Data API v3. Ücretsiz.
 
@@ -295,6 +301,7 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
+**6.27** — Liste gruplarına ↻ YouTube'dan yenile (liste dışı listeler, kurulumsuz).
 **6.26** — YouTube Music hesabım: OAuth ile beğeniler, gizli/liste dışı listeler, abonelikler, yüklenenler; açılışta çal.
 **6.25** — Klasikte LCD'de sanatçı resmi; EQ penceresinde GÖRSEL kip (5 spektrum çeşidi).
 **6.23** — Gün batımı teması baştan: yeni manzara, gömülü el yazısı, çay bardağı, cam liste, dönen ışık halkası.
