@@ -1009,7 +1009,16 @@ body.wam .wa-modlar .wa-tg{height:26px;border:1px solid #66718a;background:radia
 body.wam .wa-modlar .wa-tg.on{background:linear-gradient(#4a63a6,#263b7a 55%,#1c2d63);border-color:#121e48;color:#e3e9f8;text-shadow:none}
 body.wam .wa.gorsel .wa-gor{border:1px solid #7d879b;border-top:0;border-radius:0 0 10px 10px;padding:0;background:radial-gradient(rgba(255,255,255,.08) .8px,transparent 1.2px) 0 0/3px 3px,linear-gradient(170deg,#3359ad,#1f3d86 60%,#1a3477);box-shadow:inset 0 3px 8px rgba(0,0,0,.45)}
 /* 6.26: YouTube Music hesabım */
-.ytm{margin:10px 0 14px}
+.ytm{margin:6px 0 14px}
+.ytm-akor{width:100%;display:grid;grid-template-columns:36px minmax(0,1fr) 22px;gap:10px;align-items:center;text-align:left;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:16px;color:var(--fg);font:inherit}
+.ytm-akor>.ico:first-child{width:36px;height:36px;padding:7px;border-radius:50%;background:#ff0033;color:#fff;box-sizing:border-box}
+.ytm-akor b{display:block;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ytm-akor small{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ytm-akor .ok{width:20px;height:20px;color:var(--muted);transition:transform .2s}
+.ytm-akor[aria-expanded="true"]{border-radius:16px 16px 0 0;border-bottom-color:transparent}
+.ytm-akor[aria-expanded="true"] .ok{transform:rotate(180deg)}
+.ytm-ic .ytm-kart{border-top:0;border-radius:0 0 16px 16px}
+#ytmAyarYer{margin-top:10px}
 .ytm-kart{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:12px;display:grid;gap:10px}
 .ytm-giris{grid-template-columns:44px minmax(0,1fr) auto;align-items:center}
 .ytm-giris b,.ytm-ust b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -1019,7 +1028,7 @@ body.wam .wa.gorsel .wa-gor{border:1px solid #7d879b;border-top:0;border-radius:
 .ytm-av img{width:100%;height:100%;object-fit:cover}
 .ytm-ust{display:grid;grid-template-columns:44px minmax(0,1fr) auto auto;gap:10px;align-items:center}
 .ytm-ust .muted{display:block}
-.ytm-ust .ib.don .ico,.ytgrp .act.don .ico{animation:ytmDon 1s linear infinite}
+.ytm-ses .ib.don .ico,.ytgrp .act.don .ico{animation:ytmDon 1s linear infinite}
 @keyframes ytmDon{to{transform:rotate(360deg)}}
 .ytm-ses{display:flex;align-items:center;gap:10px;color:var(--muted)}
 .ytm-ses .ico{width:20px;height:20px;flex:none}
@@ -1377,7 +1386,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.27 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.28 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -5204,12 +5213,21 @@ function ytmParcaHTML(id){
     (L.length>ytmGoster?'<button class="btn sm ytm-daha" data-ytm="daha">Daha fazla göster ('+(L.length-ytmGoster)+')</button>':'')+
     (c.devam?'<p class="muted small ytm-not">Liste çok uzun; ilk '+c.L.length+' kayıt alındı.</p>':'')+
     (gizN?'<p class="muted small ytm-not">'+gizN+' kayıt gösterilmiyor: başkasının gizli ya da silinmiş videosu (YouTube kimseye açmıyor).</p>':'')}
+function ytmYerlestir(k){
+  /* 6.28: bağlı değilken Ayarlar → YouTube ve Spotify içinde; bağlıyken YouTube sekmesinin en altında. İkisinde de akordiyon. */
+  let hedef=null,once=null;
+  if(YTM.kanal){const l=$('#ytList');if(l){hedef=l.parentNode;once=l.nextSibling}}
+  else{let y=$('#ytmAyarYer');if(!y){const pn=$('#ay-akis');if(pn){y=document.createElement('div');y.id='ytmAyarYer';pn.appendChild(y)}}hedef=y}
+  if(hedef&&k.parentNode!==hedef){once?hedef.insertBefore(k,once):hedef.appendChild(k)}
+  else if(hedef&&once&&k.nextSibling!==once&&k!==once)hedef.insertBefore(k,once)}
+function ytmAkor(ic,alt){const ac=!!store.get('ytmAk',false);
+  return '<button class="ytm-akor" data-ytm="akor" aria-expanded="'+ac+'">'+ico('yt')+'<span><b>'+(YTM.kanal?'YouTube Music · '+esc(YTM.kanal.ad):'YouTube Music hesabı')+'</b><small>'+alt+'</small></span>'+ico('down','ok')+'</button>'+(ac?'<div class="ytm-ic">'+ic+'</div>':'')}
 function ytmCiz(){
-  const k=$('#ytmKut');if(!k)return;
+  const k=$('#ytmKut');if(!k)return;ytmYerlestir(k);
   const idVar=/^[\w.-]+\.apps\.googleusercontent\.com$/.test(String(prefs.ytmId||''));
   if(!YTM.kanal){
-    k.innerHTML='<div class="ytm-kart ytm-giris"><div class="ytm-logo">'+ico('yt')+'</div><div style="min-width:0"><b>YouTube Music hesabım</b><span class="muted small">Beğendiklerin, kendi listelerin (gizli ve liste dışı dahil), aboneliklerin ve yüklediklerin Tını’da.</span></div>'+
-      '<button class="btn primary sm" data-ytm="bag">'+(idVar?'Google ile bağlan':'Kur ve bağlan')+'</button></div>';return}
+    k.innerHTML=ytmAkor('<div class="ytm-kart ytm-giris"><div class="ytm-logo">'+ico('yt')+'</div><div style="min-width:0"><b>YouTube Music hesabım</b><span class="muted small">Beğendiklerin, kendi listelerin (gizli ve liste dışı dahil), aboneliklerin ve yüklediklerin Tını’da.</span></div>'+
+      '<button class="btn primary sm" data-ytm="bag">'+(idVar?'Google ile bağlan':'Kur ve bağlan')+'</button></div>','İsteğe bağlı · Google hesabıyla gizli listeler ve beğeniler');return}
   const bag=ytmBagli(),sek=[['begen','Beğendiklerim'],['liste','Listelerim'],['abone','Sanatçılar'],['yukle','Yüklediklerim']];
   let govde='';
   if(ytmAcik){govde='<button class="back" data-ytm="geri">'+ico('back')+esc(ytmListeAdi(ytmAcik))+'</button>'+ytmParcaHTML(ytmAcik)}
@@ -5219,13 +5237,11 @@ function ytmCiz(){
     govde=L.length?'<div class="ytm-grid">'+L.map(l=>'<button class="ytm-pl" data-ytmpl="'+esc(l.id)+'"><span class="ytm-kap">'+(l.foto?'<img src="'+esc(l.foto)+'" alt="" loading="lazy">':ico('list'))+(YTM_GIZ[l.giz]?'<i>'+YTM_GIZ[l.giz]+'</i>':'')+'</span><b>'+esc(l.ad)+'</b><small>'+l.adet+' video'+(P.yt.some(x=>x.kay==='ytm:'+l.id)?' · Listem’de':'')+'</small></button>').join('')+'</div>':'<p class="muted small ytm-bos">'+(q?'Eşleşen liste yok.':'Hesabında oluşturduğun liste yok.')+'</p>'}
   else{const q=fold(ytmQ.trim()),L=YTM.abone.filter(a=>!q||fold(a.ad).indexOf(q)>=0);
     govde=L.length?'<div class="ytm-ab">'+L.map(a=>'<button data-ytmab="'+esc(a.id)+'"><span>'+(a.foto?'<img src="'+esc(a.foto)+'" alt="" loading="lazy">':esc(initial(a.ad)))+'</span><b>'+esc(a.ad)+'</b></button>').join('')+'</div>':'<p class="muted small ytm-bos">Abone olduğun kanal yok.</p>'}
-  k.innerHTML='<div class="ytm-kart">'+
-    '<div class="ytm-ust"><span class="ytm-av">'+(YTM.kanal.foto?'<img src="'+esc(YTM.kanal.foto)+'" alt="">':ico('yt'))+'</span><div style="min-width:0"><b>YouTube Music · '+esc(YTM.kanal.ad)+'</b><span class="muted small">'+(ytmYuk?'Eşitleniyor…':(bag?'Bağlı':'Kopyadan')+' · eşitleme '+ytmZaman(YTM.t))+'</span></div>'+
-      '<button class="ib'+(ytmYuk?' don':'')+'" data-ytm="esitle" aria-label="Eşitle" title="'+(bag?'Eşitle':'Bağlan ve eşitle')+'">'+ico('repeat')+'</button><button class="ib" data-ytm="menu" aria-label="Hesap seçenekleri">'+ico('more')+'</button></div>'+
-    '<div class="ytm-ses">'+ico('vol')+'<input type="range" id="ytmSes" min="0" max="100" value="'+(prefs.vol==null?80:prefs.vol)+'" aria-label="Ses"></div>'+
+  k.innerHTML=ytmAkor('<div class="ytm-kart">'+
+    '<div class="ytm-ses">'+ico('vol')+'<input type="range" id="ytmSes" min="0" max="100" value="'+(prefs.vol==null?80:prefs.vol)+'" aria-label="Ses"><button class="ib'+(ytmYuk?' don':'')+'" data-ytm="esitle" aria-label="Eşitle" title="'+(bag?'Eşitle':'Bağlan ve eşitle')+'">'+ico('repeat')+'</button><button class="ib" data-ytm="menu" aria-label="Hesap seçenekleri">'+ico('more')+'</button></div>'+
     '<div class="chips ytm-sek">'+sek.map(s=>'<button class="chip'+(!ytmAcik&&ytmSek===s[0]?' on':'')+'" data-ytmsek="'+s[0]+'">'+s[1]+'</button>').join('')+'</div>'+
     '<div class="search ytm-ara">'+ico('search')+'<input id="ytmQ" type="search" placeholder="Kitaplığımda ara" value="'+esc(ytmQ)+'" autocomplete="off"></div>'+
-    '<div class="ytm-govde">'+govde+'</div></div>'}
+    '<div class="ytm-govde">'+govde+'</div></div>',(ytmYuk?'Eşitleniyor…':(bag?'Bağlı':'Kopyadan')+' · eşitleme '+ytmZaman(YTM.t)))}
 async function ytmAc(id,ad){ytmAcik=id;ytmAcikAd=ad||'';ytmGoster=200;ytmCiz();
   if(!YTM.icerik[id]&&ytmBagli()){try{await ytmListeYukle(id)}catch(e){toast(e.message==='BAG'?'Bağlantı süresi doldu — Bağlan':'Yüklenemedi: '+e.message)}ytmCiz()}}
 async function ytmSekmeYukle(){if(ytmYuk)return;const id=ytmSek==='begen'?ytmLikes():ytmSek==='yukle'?(YTM.kanal&&YTM.kanal.uploads):'';
@@ -5252,6 +5268,7 @@ $('#ytmKut').addEventListener('click',e=>{
     if(x.giz==='private'){window.open('https://www.youtube.com/watch?v='+x.v,'_blank','noopener');return}
     ytmCal(aktif,+r.dataset.ytmi,false);return}
   if(!b)return;const k=b.dataset.ytm;
+  if(k==='akor'){store.set('ytmAk',!store.get('ytmAk',false));ytmCiz();if(store.get('ytmAk',false))ytmSekmeYukle();return}
   if(k==='bag')ytmGiris();else if(k==='esitle'){if(!ytmYuk){ytmBagli()?ytmEsitle(false):ytmGiris()}}else if(k==='menu')ytmMenu();
   else if(k==='geri'){ytmAcik=null;ytmCiz()}else if(k==='daha'){ytmGoster+=300;ytmCiz()}
   else if(aktif&&k==='cal')ytmCal(aktif,null,false);else if(aktif&&k==='karis')ytmCal(aktif,null,true);else if(aktif&&k==='ekle')ytmEkle(aktif)});
