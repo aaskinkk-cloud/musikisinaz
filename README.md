@@ -18,6 +18,48 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.26 (06.11.2026) — YouTube Music hesabım
+YouTube sekmesinde **YouTube Music hesabım** bölümü var. Google'ın resmî yolunu kullanıyor: OAuth, yalnız okuma izni (`youtube.readonly`) ve YouTube Data API v3. Ücretsiz.
+
+**Kurulum (bir kez):** kendi Google Cloud projende Web türünde bir OAuth istemcisi oluştur. Yönlendirme adresleri:
+- `https://aaskinkk-cloud.github.io/musikisinaz/`
+- `https://ahmet-uygulamalar.pages.dev/musikisinaz/`
+
+İzin ekranı "Test" durumunda kalabilir; kendi Gmail adresini test kullanıcısı olarak ekle. Ardından istemci kimliğini Tını'ya yapıştır. Adımlar ve bağlantılar uygulamada "Kur ve bağlan" altında.
+
+**Görünenler:**
+- Beğendiklerim (YT Music beğenileri dahil).
+- Kendi oluşturduğun listeler: **gizli ve liste dışı olanlar dahil**, kapak ve 🔒/🔗 rozetleriyle.
+- Abone olduğun kanallar/sanatçılar ve onların videoları.
+- Kendi kanalına yüklediklerin.
+- Kitaplıkta arama ve ses kaydırıcısı. Çalma, duraklatma, önceki ve sonraki için mevcut YouTube oynatıcısı kullanılıyor.
+
+**Çalma:**
+- Bir liste çalınınca Listem'e "YT Music · liste adı" grubu olarak eşitleniyor; "Çal", "Karışık" ve "Listeme" düğmeleri var.
+- Herkese açık ve liste dışı videolar uygulamanın içinde çalıyor.
+- **Gizli** videoları YouTube başka uygulamalarda oynatmıyor; bunlara dokununca YouTube uygulaması açılıyor.
+
+**Açılışta çal:**
+- Hesap ilk bağlandığında "Açılışta ne çalsın?" **YT Music** oluyor (varsayılan açık). Son çalınan liste, yoksa Beğendiklerim çalıyor.
+- Telefon ya da tarayıcı sesli otomatik başlatmayı engellerse tek dokunuşluk büyük **Çal** düğmesi çıkıyor.
+- Kapatmak için Ayarlar → Çalma → Açılışta ne çalsın ya da hesap menüsü.
+
+**Güvenlik:**
+- Kodda anahtar ya da belirteç yok. İstemci kimliği kullanıcı tarafından giriliyor ve gizli bilgi değil.
+- Erişim belirteci yalnız oturum boyunca tutuluyor (~1 saat).
+- Dönüşte `state` doğrulanıyor.
+- Kitaplık kopyası telefonda kalıyor; çalmak için yeniden giriş gerekmiyor, yalnız eşitleme için gerekiyor.
+
+**APK:** Google, uygulama içi tarayıcıda girişe izin vermiyor. Bu yüzden giriş telefonun tarayıcısında açılıyor; bitince "Tını Çalar'a dön" ile `tini://ytm` bağlantısı uygulamaya dönüyor. Bu özellik için yeni APK gerekiyor.
+
+**Resmî API'de olmayanlar (yapılamaz):**
+- YT Music'te kaydedilen albümler ve başkalarının listeleri.
+- Beğenmeden kitaplığa eklenen şarkılar.
+- YT Music'e yüklenen kişisel müzik dosyaları.
+- Dinleme geçmişi.
+
+Çerez ya da gizli API kullanan resmî olmayan yollar YouTube kurallarına aykırı olduğu için kullanılmadı.
+
 ## 6.25 (01.11.2026) — Klasikte sanatçı resmi ve görsel ekolayzır
 - **LCD'de sanatçı resmi:** sol üst ekranda, spektrumun yanında çalan şarkının sanatçısının küçük resmi var.
   - Turuncu çerçeveli ve parlıyor: yeşil temada siyah iç çizgiyle, gümüş-mavide beyaz iç halkayla.
@@ -253,6 +295,7 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 
 ## Sürüm
 
+**6.26** — YouTube Music hesabım: OAuth ile beğeniler, gizli/liste dışı listeler, abonelikler, yüklenenler; açılışta çal.
 **6.25** — Klasikte LCD'de sanatçı resmi; EQ penceresinde GÖRSEL kip (5 spektrum çeşidi).
 **6.23** — Gün batımı teması baştan: yeni manzara, gömülü el yazısı, çay bardağı, cam liste, dönen ışık halkası.
 **6.22** — Tek görünüm seçici (üst düğme, klasik TEMA, Ayarlar ilk bölüm).

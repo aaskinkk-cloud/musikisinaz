@@ -141,7 +141,7 @@ public class MainActivity extends Activity {
                     if (h.endsWith("youtube.com") && !h.startsWith("accounts")) { girisBitir(true); return; }
                     return;
                 }
-                v.evaluateJavascript(INDIR_JS, null); tamEkran();
+                v.evaluateJavascript(INDIR_JS, null); tamEkran(); ytmDene();
             }
             @Override public void onReceivedHttpError(WebView v, WebResourceRequest r, WebResourceResponse res) {
                 if (giris) return;
@@ -190,6 +190,31 @@ public class MainActivity extends Activity {
         if (b != null) web.restoreState(b); else web.loadUrl(ADRES);
         tamEkran();
         pilSor();
+        ytmAl(getIntent());
+    }
+
+    /* 6.26: YouTube Music girişi telefonun tarayıcısında yapılır (Google uygulama içi girişe izin vermez);
+       tarayıcı tini://ytm?d=... ile buraya döner, sonuç sayfaya iletilir. */
+    private String ytmBekleyen = null;
+    private void ytmAl(Intent i) {
+        try {
+            Uri u = i == null ? null : i.getData();
+            if (u != null && "tini".equals(u.getScheme()) && "ytm".equals(u.getHost())) {
+                String d = u.getQueryParameter("d");
+                if (d != null && !d.isEmpty()) { ytmBekleyen = d; ytmDene(); }
+            }
+        } catch (Exception e) { }
+    }
+    private void ytmDene() {
+        if (ytmBekleyen == null || web == null) return;
+        final String d = ytmBekleyen;
+        web.evaluateJavascript("(function(){if(window.ytmDonus){window.ytmDonus(" + JSONObject.quote(d) + ");return 1}return 0})()",
+            v -> { if ("1".equals(v) && d.equals(ytmBekleyen)) ytmBekleyen = null; });
+    }
+    @Override protected void onNewIntent(Intent i) {
+        super.onNewIntent(i);
+        setIntent(i);
+        ytmAl(i);
     }
 
     /** Samsung pil tasarrufu arka plandaki çalmayı durdurmasın: bir kez "Kısıtlama yok" izni istenir. */
@@ -489,6 +514,15 @@ public class MainActivity extends Activity {
     class Kopru {
         @JavascriptInterface public String scan() { return tara(); }
         @JavascriptInterface public void ytGiris() { ana.post(MainActivity.this::girisBaslat); }
+        @JavascriptInterface public void ytmGiris(String url) {
+            ana.post(() -> {
+                try {
+                    Uri u = Uri.parse(url);
+                    if (u == null || !"accounts.google.com".equals(u.getHost())) return;
+                    Intent i = new Intent(Intent.ACTION_VIEW, u); i.addCategory(Intent.CATEGORY_BROWSABLE); startActivity(i);
+                } catch (Exception e) { Toast.makeText(MainActivity.this, "Tarayıcı açılamadı", Toast.LENGTH_SHORT).show(); }
+            });
+        }
         @JavascriptInterface public boolean ytGirisVar() { return girisVar(); }
         @JavascriptInterface public boolean hasPermission() { return izinVar(); }
         @JavascriptInterface public void requestPermission() {

@@ -1008,6 +1008,52 @@ body.wam .wa.gorsel .wa-modlar{margin:0;padding:6px 6px 5px;gap:4px;border:1px s
 body.wam .wa-modlar .wa-tg{height:26px;border:1px solid #66718a;background:radial-gradient(circle at 40% 25%,#fff,#e4e8ef 45%,#b9c1cf);color:#1a2236;box-shadow:0 1px 2px rgba(0,0,0,.25)}
 body.wam .wa-modlar .wa-tg.on{background:linear-gradient(#4a63a6,#263b7a 55%,#1c2d63);border-color:#121e48;color:#e3e9f8;text-shadow:none}
 body.wam .wa.gorsel .wa-gor{border:1px solid #7d879b;border-top:0;border-radius:0 0 10px 10px;padding:0;background:radial-gradient(rgba(255,255,255,.08) .8px,transparent 1.2px) 0 0/3px 3px,linear-gradient(170deg,#3359ad,#1f3d86 60%,#1a3477);box-shadow:inset 0 3px 8px rgba(0,0,0,.45)}
+/* 6.26: YouTube Music hesabım */
+.ytm{margin:10px 0 14px}
+.ytm-kart{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:12px;display:grid;gap:10px}
+.ytm-giris{grid-template-columns:44px minmax(0,1fr) auto;align-items:center}
+.ytm-giris b,.ytm-ust b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ytm-giris .muted{display:block;line-height:1.35}
+.ytm-logo,.ytm-av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#ff0033;color:#fff;overflow:hidden;flex:none}
+.ytm-logo .ico,.ytm-av .ico{width:24px;height:24px}
+.ytm-av img{width:100%;height:100%;object-fit:cover}
+.ytm-ust{display:grid;grid-template-columns:44px minmax(0,1fr) auto auto;gap:10px;align-items:center}
+.ytm-ust .muted{display:block}
+.ytm-ust .ib.don .ico{animation:ytmDon 1s linear infinite}
+@keyframes ytmDon{to{transform:rotate(360deg)}}
+.ytm-ses{display:flex;align-items:center;gap:10px;color:var(--muted)}
+.ytm-ses .ico{width:20px;height:20px;flex:none}
+.ytm-ses input{flex:1;accent-color:var(--accent)}
+.ytm-sek{padding-block:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.ytm-sek::-webkit-scrollbar{display:none}
+.ytm-ara{margin:0}
+.ytm-govde{display:grid;gap:2px;min-width:0}
+.ytm-govde .back{justify-self:start;margin-bottom:4px}
+.ytm-lbas{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.ytm-lbas .muted{margin-left:auto}
+.ytm-r{grid-template-columns:48px minmax(0,1fr)!important}
+.ytm-r .thumb{width:48px;height:48px;border-radius:10px;background:var(--raise)}
+.ytm-r .thumb img{width:100%;height:100%;object-fit:cover}
+.ytm-rozet{font-weight:600;color:var(--accent)}
+.ytm-not,.ytm-bos{margin:8px 2px}
+.ytm-bos{display:grid;gap:8px;justify-items:start}
+.ytm-daha{justify-self:center;margin-top:6px}
+.ytm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:12px}
+.ytm-pl{display:grid;gap:4px;text-align:left;background:none;border:0;padding:0;color:inherit;min-width:0}
+.ytm-kap{position:relative;aspect-ratio:16/10;border-radius:12px;overflow:hidden;background:var(--raise);display:grid;place-items:center;color:var(--muted)}
+.ytm-kap img{width:100%;height:100%;object-fit:cover}
+.ytm-kap i{position:absolute;left:6px;bottom:6px;font:600 10.5px var(--f-body);font-style:normal;padding:2px 7px;border-radius:999px;background:rgba(0,0,0,.65);color:#fff}
+.ytm-pl b{font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ytm-pl small{color:var(--muted);font-size:11.5px}
+.ytm-ab{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:12px 8px}
+.ytm-ab button{display:grid;justify-items:center;gap:6px;background:none;border:0;color:inherit;padding:0;min-width:0}
+.ytm-ab span{width:64px;height:64px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:var(--raise);font:700 22px var(--f-display);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 45%,transparent)}
+.ytm-ab img{width:100%;height:100%;object-fit:cover}
+.ytm-ab b{font-size:12px;font-weight:600;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ytm-adim{margin:0 0 8px;padding-left:20px;display:grid;gap:10px;font-size:14px;line-height:1.45}
+.ytm-adim a{color:var(--accent);font-weight:600}
+.ytm-uri{display:flex;align-items:center;gap:6px;margin:5px 0}
+.ytm-uri code{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;background:var(--raise);padding:6px 8px;border-radius:8px}
 body.wa-on .scrim{z-index:60}
 body.wa-on .sheet{z-index:61}
 body.wa-on .toast{z-index:62}
@@ -1192,6 +1238,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <input id="ytUrl" type="url" inputmode="url" placeholder="YouTube bağlantısını yapıştır" autocomplete="off" aria-label="YouTube bağlantısı">
         <button class="btn primary" id="ytAdd">Ekle</button>
       </div>
+      <section class="ytm" id="ytmKut" aria-label="YouTube Music hesabım"></section>
       <div class="sh ytbas"><h2>Listem</h2><span class="muted small" id="ytCount"></span>
         <button class="ib" id="ytKaris" aria-label="Listeler arası karışık çal" title="Listeler arası karışık"><svg class="ico"><use href="#i-shuffle"/></svg></button>
         <button class="ib" id="ytSecList" aria-label="Seç" title="Seç"><svg class="ico"><use href="#i-list"/></svg></button>
@@ -1295,7 +1342,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <div class="row2"><div>Normal çal<div class="muted small">Aralık, çalma içeriği ve süre sınırını tek dokunuşla kapatır; şarkılar baştan sona çalar. Şarkılara tek tek verdiğin kesitler korunur.</div></div><button class="btn sm" id="normalCal">Tümünü kapat</button></div>
         <div class="row2"><div>Yeni müzik hatırlatıcısı<div class="muted small">Birkaç günde bir "yeni indirdiğin müzik var mı?" diye sorar; seçtiklerinden yalnız yenileri eklenir. Dosyalar uygulamasında şarkıyı Paylaş → Musikisinaz ile de doğrudan ekleyebilirsin.</div></div><label class="sw"><input type="checkbox" id="yeniSorOn" aria-label="Yeni müzik hatırlatıcısı"><i></i></label></div>
         <div class="row2" style="align-items:flex-start"><div style="flex:1">Açılışta ne çalsın?<div class="muted small">"Sor": her açılışta yerel / YouTube / Spotify listesinden hangisini çalacağını sorar. Araç bağlantısıyla (?car=1) açılınca soru sorulmaz.</div>
-          <div class="chips" id="acilisChips" style="margin-top:8px;flex-wrap:wrap"><button class="chip" data-ac="sor">Sor</button><button class="chip" data-ac="yerel">Yerel</button><button class="chip" data-ac="yt">YouTube</button><button class="chip" data-ac="sp">Spotify</button><button class="chip" data-ac="yok">Çalma</button></div></div></div>
+          <div class="chips" id="acilisChips" style="margin-top:8px;flex-wrap:wrap"><button class="chip" data-ac="sor">Sor</button><button class="chip" data-ac="yerel">Yerel</button><button class="chip" data-ac="ytm">YT Music</button><button class="chip" data-ac="yt">YouTube</button><button class="chip" data-ac="sp">Spotify</button><button class="chip" data-ac="yok">Çalma</button></div></div></div>
         <div class="row2" hidden><div>Açılınca kaldığı yerden çal<div class="muted small">Son şarkı, son saniyesinden başlar. Telefon izin vermezse büyük "Çal" düğmesi çıkar</div></div><label class="sw"><input type="checkbox" id="autoPlayOn" aria-label="Açılınca kaldığı yerden çal"><i></i></label></div>
       </div>
       <div class="panel">
@@ -1330,7 +1377,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.25 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.26 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -3773,7 +3820,7 @@ $('#acilisChips').addEventListener('click',e=>{const c=e.target.closest('[data-a
 acilisAyarCiz();
 function acilisBasla(carQ){const a=prefs.acilis||'sor';
   if(a==='yok')return;
-  if(carQ){acilisCal(a==='yt'||a==='sp'?a:'yerel');return}   /* araçta soru sorulmaz */
+  if(carQ){acilisCal(a==='yt'||a==='sp'||a==='ytm'?a:'yerel');return}   /* araçta soru sorulmaz */
   if(a==='sor'){if(lib.length+P.yt.length+P.sp.length)acilisSor();return}
   acilisCal(a)}
 
@@ -4853,6 +4900,18 @@ function init(){
   setInterval(()=>{if(sleep.end){if(Date.now()>=sleep.end)sleepFire();else UI.sleep()}},1000);
   setInterval(watch,100);
 }
+/* 6.26: APK'nın Google girişi telefonun tarayıcısında yapılır (Google, uygulama içi tarayıcıda girişi yasaklar).
+   Tarayıcı bu sayfaya döner; buradan tek dokunuşla Tını Çalar'a geri gönderilir. */
+function ytmDevirSayfasi(){
+  const h=location.hash||'';
+  if(window.Android||!/state=apk\./.test(h)||!/(access_token|error)=/.test(h))return false;
+  const iu='intent://ytm?d='+encodeURIComponent(h.slice(1))+'#Intent;scheme=tini;package=app.tini.android;end';
+  try{history.replaceState(null,'',location.pathname)}catch(e){}
+  const ok=/access_token=/.test(h);
+  document.body.innerHTML='<div style="position:fixed;inset:0;display:grid;place-items:center;padding:24px;background:#0d1118;color:#e8ecf2;font:16px/1.5 system-ui,sans-serif;text-align:center"><div style="max-width:360px"><div style="font-size:44px">'+(ok?'✓':'!')+'</div><h2 style="margin:6px 0 8px">'+(ok?'Google hesabı onaylandı':'Giriş tamamlanmadı')+'</h2><p style="color:#8b96a7;margin:0 0 22px">'+(ok?'Kitaplığın Tını Çalar’da açılacak.':'Tını Çalar’a dönüp yeniden dene.')+'</p><a href="'+iu+'" style="display:inline-block;padding:15px 26px;border-radius:14px;background:#ff6a3d;color:#1b0a03;font-weight:700;text-decoration:none">Tını Çalar’a dön</a></div></div>';
+  setTimeout(()=>{try{location.href=iu}catch(e){}},400);
+  return true}
+if(ytmDevirSayfasi())return;
 init();
 /* 6.16: Dans — ekolayzır düğmeleri müziğin ritmine göre oynar; yalnız görüntüdür, sese ve ayarlara dokunmaz.
    Yerel şarkıda gerçek frekans verisi kullanılır; YouTube sesine tarayıcı erişim vermediği için orada ritim taklit edilir. */
@@ -5000,6 +5059,207 @@ function waGorCiz(){const cv=$('#waGor');if(!cv||!prefs.waGor||prefs.waEq===fals
     if(im&&im.complete&&im.naturalWidth){g.clip();try{g.drawImage(im,cx-r0,cy-r0,r0*2,r0*2)}catch(e){}}else{g.fillStyle='#e2731f';g.fill()}
     g.restore();g.lineWidth=2.5*dp;g.strokeStyle='#ff9a3d';g.shadowColor='rgba(255,140,50,.8)';g.shadowBlur=10*dp;g.beginPath();g.arc(cx,cy,r0,0,7);g.stroke();g.shadowBlur=0}}
 {const _c2=waCiz;waCiz=function(){_c2.apply(this,arguments);if(waOn&&!document.hidden){try{waArtYaz()}catch(e){}try{waGorCiz()}catch(e){}}}}
+/* ===== 6.26: YouTube Music hesabım — Google OAuth (yalnız okuma) + YouTube Data API v3 =====
+   Anahtar/belirteç koda gömülmez: Client ID kullanıcının kendi Google Cloud projesinden girilir (gizli değildir),
+   erişim belirteci yalnız oturum boyunca (sessionStorage) tutulur, ~1 saat geçerlidir. Kitaplık telefonda önbelleğe alınır;
+   çalmak için belirteç gerekmez, yalnız eşitlemek için gerekir. */
+const YTM_KAPSAM='https://www.googleapis.com/auth/youtube.readonly';
+const YTM_GH='https://aaskinkk-cloud.github.io/musikisinaz/';
+let ytmTok=null;
+try{const s=JSON.parse(sessionStorage.getItem('ytmTok')||'null');if(s&&s.exp>Date.now()+60000)ytmTok=s}catch(e){}
+let YTM=store.get('ytmKut',null)||{kanal:null,listeler:[],abone:[],icerik:{},t:0};
+if(!YTM.icerik)YTM.icerik={};
+let ytmSek=store.get('ytmSek','begen'),ytmAcik=null,ytmAcikAd='',ytmQ='',ytmYuk=false,ytmGoster=200;
+const ytmBagli=()=>!!(ytmTok&&ytmTok.exp>Date.now()+30000);
+const ytmImg=t=>{t=t||{};const x=t.medium||t.high||t.default||t.standard;return x?x.url:''};
+const ytmLikes=()=>(YTM.kanal&&YTM.kanal.likes)||'LL';
+function ytmKaydet(){store.set('ytmKut',YTM);try{if(localStorage.getItem('tini.ytmKut')==null)throw 0}catch(e){YTM.icerik={};store.set('ytmKut',YTM)}}
+function ytmListeAdi(id){if(id===ytmLikes())return 'Beğendiklerim';if(YTM.kanal&&id===YTM.kanal.uploads)return 'Yüklediklerim';
+  const l=YTM.listeler.find(x=>x.id===id);if(l)return l.ad;const a=YTM.abone.find(x=>'UU'+String(x.id).slice(2)===id);return a?a.ad:(ytmAcikAd||'Liste')}
+const ytmDonusAdresi=()=>location.origin+location.pathname.replace(/index\.html$/,'');
+
+/* --- giriş --- */
+function ytmGiris(){
+  const id=String(prefs.ytmId||'').trim();
+  if(!/^[\w.-]+\.apps\.googleusercontent\.com$/.test(id)){ytmKurulum();return}
+  const apk=NATIVE&&window.Android&&typeof window.Android.ytmGiris==='function';
+  if(NATIVE&&!apk){toast('Bunun için Tını Çalar APK’sını güncelle (Ayarlar → Uygulama)',4000);return}
+  const st=(apk?'apk.':'web.')+Math.random().toString(36).slice(2)+Date.now().toString(36);
+  store.set('ytmState',st);
+  const p={client_id:id,redirect_uri:apk?YTM_GH:ytmDonusAdresi(),response_type:'token',scope:YTM_KAPSAM,include_granted_scopes:'true',state:st};
+  if(!YTM.kanal)p.prompt='select_account consent';
+  const u='https://accounts.google.com/o/oauth2/v2/auth?'+new URLSearchParams(p);
+  if(apk){window.Android.ytmGiris(u);toast('Google girişi tarayıcıda açılıyor; bitince "Tını Çalar’a dön"e dokun',5000)}else location.href=u}
+function ytmHashIsle(h){
+  const q=new URLSearchParams(String(h||'').replace(/^#/,''));
+  if(!q.get('access_token')&&!q.get('error'))return;
+  const bek=store.get('ytmState','');store.set('ytmState','');
+  if(!bek||q.get('state')!==bek){toast('Google dönüşü doğrulanamadı (güvenlik). Yeniden bağlan.',4000);return}
+  if(q.get('error')){toast(q.get('error')==='access_denied'?'İzin verilmedi':'Google: '+q.get('error'),4000);return}
+  ytmTok={t:q.get('access_token'),exp:Date.now()+(+q.get('expires_in')||3600)*1000};
+  try{sessionStorage.setItem('ytmTok',JSON.stringify(ytmTok))}catch(e){}
+  const ilk=!YTM.kanal;
+  const es=ytmEsitle(false);try{showView('yt')}catch(e){}
+  es.then(()=>{if(ilk&&YTM.kanal&&(prefs.acilis||'sor')!=='yok'){prefs.acilis='ytm';savePrefs();try{acilisAyarCiz()}catch(e){}toast('Hesap bağlandı. Tını açılınca YouTube Music’ten çalar (Ayarlar’dan kapatılır)',5000)}})}
+window.ytmDonus=function(h){try{ytmHashIsle(h)}catch(e){}};
+if(/(access_token|error)=/.test(location.hash)&&/state=web\./.test(location.hash)){const h=location.hash;try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}setTimeout(()=>ytmHashIsle(h),500)}
+function ytmCikis(){ytmTok=null;try{sessionStorage.removeItem('ytmTok')}catch(e){}
+  YTM={kanal:null,listeler:[],abone:[],icerik:{},t:0};ytmKaydet();ytmAcik=null;if(prefs.acilis==='ytm'){prefs.acilis='sor';savePrefs();try{acilisAyarCiz()}catch(e){}}
+  ytmCiz();toast('Hesap bağlantısı kesildi; telefondaki kitaplık kopyası silindi. Listem’e eklenenler duruyor.',4500)}
+
+/* --- API --- */
+async function ytmApi(yol,par){
+  if(!ytmBagli())throw new Error('BAG');
+  const r=await fetch('https://www.googleapis.com/youtube/v3/'+yol+'?'+new URLSearchParams(par),{headers:{Authorization:'Bearer '+ytmTok.t}});
+  if(r.status===401){ytmTok=null;try{sessionStorage.removeItem('ytmTok')}catch(e){}throw new Error('BAG')}
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok){const m=(d.error&&d.error.message)||('HTTP '+r.status);throw new Error(/quota/i.test(m)?'Günlük API kotası doldu, yarın yeniden dene':m)}
+  return d}
+async function ytmTum(yol,par,sinir){let L=[],tk='';do{const d=await ytmApi(yol,Object.assign({maxResults:50},par,tk?{pageToken:tk}:{}));L=L.concat(d.items||[]);tk=d.nextPageToken||''}while(tk&&L.length<(sinir||1000));return {L,devam:!!tk}}
+async function ytmListeYukle(id){
+  const r=await ytmTum('playlistItems',{part:'snippet,contentDetails,status',playlistId:id},2000);
+  const L=r.L.map(it=>{const s=it.snippet||{},v=(it.contentDetails||{}).videoId||(s.resourceId||{}).videoId||'',ad=s.title||'';
+    return {v,ad,kanal:String(s.videoOwnerChannelTitle||'').replace(/\s+-\s+(Topic|Konu)$/i,''),foto:ytmImg(s.thumbnails),giz:(it.status||{}).privacyStatus||'',yok:!v||/^(Private video|Deleted video|Özel video|Silinmiş video)$/i.test(ad)}});
+  YTM.icerik[id]={t:Date.now(),L,devam:r.devam};ytmKaydet();ytmGrupTazele(id);return YTM.icerik[id]}
+async function ytmEsitle(sessiz){
+  if(!ytmBagli()){ytmGiris();return}
+  ytmYuk=true;ytmCiz();
+  try{
+    const k=((await ytmApi('channels',{part:'snippet,contentDetails',mine:'true'})).items||[])[0];
+    const rp=k&&k.contentDetails&&k.contentDetails.relatedPlaylists||{};
+    YTM.kanal={id:k?k.id:'',ad:k?k.snippet.title:'Hesabım',foto:k?ytmImg(k.snippet.thumbnails):'',likes:rp.likes||'LL',uploads:rp.uploads||''};
+    const pl=await ytmTum('playlists',{part:'snippet,contentDetails,status',mine:'true'},1000);
+    YTM.listeler=pl.L.map(p=>({id:p.id,ad:p.snippet.title,adet:(p.contentDetails||{}).itemCount||0,foto:ytmImg(p.snippet.thumbnails),giz:(p.status||{}).privacyStatus||'public'}));
+    try{const ab=await ytmTum('subscriptions',{part:'snippet',mine:'true',order:'alphabetical'},1000);YTM.abone=ab.L.map(s=>({id:s.snippet.resourceId.channelId,ad:s.snippet.title,foto:ytmImg(s.snippet.thumbnails)}))}catch(e){YTM.abone=YTM.abone||[]}
+    YTM.t=Date.now();ytmKaydet();
+    const yen=new Set([ytmLikes()].concat(Object.keys(YTM.icerik)));
+    for(const id of yen){try{await ytmListeYukle(id)}catch(e){if(e.message==='BAG')throw e}}
+    if(!sessiz)toast('YouTube Music kitaplığı eşitlendi');
+  }catch(e){toast(e.message==='BAG'?'Bağlantı süresi doldu — "Bağlan"a dokun':'Eşitlenemedi: '+e.message,4500)}
+  ytmYuk=false;ytmCiz()}
+
+/* --- çalma: liste Listem'e "YT Music · ad" grubu olarak eşitlenir, sonra çalınır --- */
+function ytmGrupYaz(id){
+  const c=YTM.icerik[id];if(!c)return [];
+  const kay='ytm:'+id,kayAd='YT Music · '+ytmListeAdi(id),cal=P.yt[ytCur];
+  const eski=new Map(P.yt.filter(x=>x.kay===kay&&x.vid).map(x=>[x.vid,x])),gor=new Set();
+  const yeni=c.L.filter(x=>!x.yok&&x.giz!=='private'&&!gor.has(x.v)&&gor.add(x.v)).map(x=>{const o=eski.get(x.v);if(o){o.kayAd=kayAd;return o}return {id:uid(),vid:x.v,title:x.ad,author:x.kanal,s:0,e:0,kay,kayAd,ytm:1}});
+  const ilk=P.yt.findIndex(x=>x.kay===kay),kal=P.yt.filter(x=>x.kay!==kay),at=ilk<0?kal.length:P.yt.slice(0,ilk).filter(x=>x.kay!==kay).length;
+  P.yt=kal.slice(0,at).concat(yeni,kal.slice(at));ytCur=cal?P.yt.indexOf(cal):-1;
+  try{ytAcik.add(kay);store.set('ytAcik',[...ytAcik])}catch(e){}
+  saveP();try{ytSync()}catch(e){}try{renderYT()}catch(e){}return yeni}
+function ytmGrupTazele(id){if(P.yt.some(x=>x.kay==='ytm:'+id))ytmGrupYaz(id)}
+function ytmCal(id,bas,karis){
+  const c=YTM.icerik[id];if(!c){toast('Liste henüz yüklenmedi');return}
+  const yeni=ytmGrupYaz(id);if(!yeni.length){toast('Bu listede çalınabilir şarkı yok');return}
+  store.set('ytmSon',id);
+  if(karis&&!prefs.shuffle)setShuffle(true);else if(!karis&&bas==null&&prefs.shuffle)setShuffle(false);
+  let k=0;if(bas!=null){const v=c.L[bas]&&c.L[bas].v;k=Math.max(0,yeni.findIndex(x=>x.vid===v))}else if(karis)k=Math.floor(Math.random()*yeni.length);
+  const ids=yeni.map(x=>'y:'+x.id);playList(ids,ids[k])}
+function ytmEkle(id){const n=ytmGrupYaz(id).length;toast(n?n+' şarkı Listem’de "'+ytmListeAdi(id)+'" grubunda':'Eklenecek şarkı yok')}
+
+/* --- açılışta çal --- */
+function ytmAcilistaCal(){
+  let id=store.get('ytmSon','');if(!id||!YTM.icerik[id])id=ytmLikes();
+  const c=YTM.icerik[id];
+  if(!c||!c.L.some(x=>!x.yok&&x.giz!=='private')){if(P.yt.length)acilisCal('yt');else if(lib.length)acilisCal('yerel');return}
+  try{showView('yt')}catch(e){}ytmCal(id,null,!!prefs.shuffle||id===ytmLikes());
+  setTimeout(()=>{if(src==='yt'&&!ytPlaying&&!ytNoEmbed)ytmTekDokunus()},4000)}
+function ytmTekDokunus(){
+  openSheet('<h3>YouTube Music hazır</h3><p class="muted small" style="margin:0 2px 12px">Telefon/tarayıcı sesli müziğin kendiliğinden başlamasına izin vermedi. Tek dokunuşla başlat.</p><button class="btn primary" id="ytmBasla" style="width:100%;justify-content:center;height:58px;font-size:18px">'+ico('play')+'Çal</button>');
+  const b=$('#ytmBasla');if(b)b.addEventListener('click',()=>{closeSheet();try{if(!ytPlaying)ytToggle()}catch(e){}})}
+{const _ac=acilisCal;acilisCal=function(ne){if(ne==='ytm'){ytmAcilistaCal();return}return _ac.apply(this,arguments)}}
+{const _as=acilisSor;acilisSor=function(){_as.apply(this,arguments);const n=YTM.icerik[ytmLikes()]?YTM.icerik[ytmLikes()].L.length:0;
+  if(!YTM.kanal)return;const y=$('#sheet [data-acl="yt"]');if(y)y.insertAdjacentHTML('beforebegin','<button class="si" data-acl="ytm">'+ico('yt')+'<span>YouTube Music hesabım<br><span class="muted small">'+(store.get('ytmSon','')?'Son çalınan liste':'Beğendiklerim')+' · '+n+' beğeni</span></span></button>')}}
+
+/* --- kurulum (Google Cloud — ücretsiz) --- */
+function ytmKurulum(){
+  const r1='https://aaskinkk-cloud.github.io/musikisinaz/',r2='https://ahmet-uygulamalar.pages.dev/musikisinaz/';
+  const kop=v=>'<button class="btn sm" data-ykop="'+esc(v)+'">Kopyala</button>';
+  openSheet('<h3>YouTube Music hesabını bağla</h3><p class="muted small" style="margin:0 2px 10px">Ücretsiz, bir kez yapılır (5 dk). Google’ın resmî yolu: kendi Google Cloud projende bir “OAuth istemci kimliği”. Tını yalnız <b>okuma</b> izni ister; hesabında hiçbir şeyi değiştiremez.</p>'+
+   '<ol class="ytm-adim">'+
+   '<li><b>YouTube Data API v3</b> açık olsun (arama anahtarını aldığın proje olabilir). <a href="https://console.cloud.google.com/apis/library/youtube.googleapis.com" target="_blank" rel="noopener">API sayfasını aç</a></li>'+
+   '<li><b>İzin ekranı:</b> Uygulama adı “Tını”, tür <b>Harici (External)</b>, yayın durumu <b>Test</b>. <b>Test kullanıcıları</b>na kendi Gmail adresini ekle. <a href="https://console.cloud.google.com/auth/overview" target="_blank" rel="noopener">İzin ekranını aç</a></li>'+
+   '<li><b>İstemci oluştur:</b> Tür <b>Web uygulaması</b>. “Yetkilendirilmiş yönlendirme URI’leri”ne ikisini de ekle:<div class="ytm-uri"><code>'+r1+'</code>'+kop(r1)+'</div><div class="ytm-uri"><code>'+r2+'</code>'+kop(r2)+'</div><a href="https://console.cloud.google.com/auth/clients/create" target="_blank" rel="noopener">İstemci oluşturmayı aç</a></li>'+
+   '<li>Çıkan <b>İstemci kimliği</b>ni (…apps.googleusercontent.com) buraya yapıştır:</li></ol>'+
+   '<div class="ytadd" style="margin:4px 0 8px"><input id="ytmIdIn" placeholder="1234…apps.googleusercontent.com" autocomplete="off" value="'+esc(prefs.ytmId||'')+'"><button class="btn primary" id="ytmIdKay">Kaydet ve bağlan</button></div>'+
+   '<p class="muted small" style="margin:0 2px">Girişte Google “Bu uygulama doğrulanmadı” diyebilir: kendi projen olduğu için <b>Devam</b> de. İstemci kimliği gizli değildir; şifre ya da gizli anahtar istenmez, uygulamaya gömülmez.</p>');
+  const sh=$('#sheet');
+  sh.querySelectorAll('[data-ykop]').forEach(b=>b.addEventListener('click',()=>{try{navigator.clipboard.writeText(b.dataset.ykop);toast('Kopyalandı')}catch(e){toast(b.dataset.ykop)}}));
+  $('#ytmIdKay').addEventListener('click',()=>{const v=($('#ytmIdIn').value||'').trim();
+    if(!/^[\w.-]+\.apps\.googleusercontent\.com$/.test(v)){toast('İstemci kimliği “…apps.googleusercontent.com” ile bitmeli');return}
+    prefs.ytmId=v;savePrefs();closeSheet();ytmGiris()})}
+
+/* --- görünüm --- */
+function ytmZaman(t){if(!t)return 'hiç';const d=Math.round((Date.now()-t)/60000);return d<1?'az önce':d<60?d+' dk önce':d<1440?Math.round(d/60)+' sa önce':Math.round(d/1440)+' gün önce'}
+const YTM_GIZ={private:'🔒 Gizli',unlisted:'🔗 Liste dışı',public:''};
+function ytmParcaHTML(id){
+  const c=YTM.icerik[id];
+  if(!c)return ytmBagli()?'<p class="muted small ytm-bos">Yükleniyor…</p>':'<div class="ytm-bos"><p class="muted small">Bu liste telefonda yok. Görmek için hesabı bağla.</p><button class="btn primary sm" data-ytm="bag">Bağlan</button></div>';
+  const q=fold(ytmQ.trim()),L=c.L.map((x,i)=>[x,i]).filter(([x])=>!x.yok&&(!q||fold(x.ad+' '+x.kanal).indexOf(q)>=0));
+  const gizN=c.L.filter(x=>x.yok).length,cal=P.yt[ytCur],calV=cal&&String(cal.kay||'')==='ytm:'+id?cal.vid:'';
+  return '<div class="ytm-lbas"><button class="btn primary sm" data-ytm="cal">'+ico('play')+'Çal</button><button class="btn sm" data-ytm="karis">'+ico('shuffle')+'Karışık</button><button class="btn sm" data-ytm="ekle" title="Çalmadan Listem’e ekle">'+ico('plus')+'Listeme</button><span class="muted small">'+L.length+' şarkı</span></div>'+
+    L.slice(0,ytmGoster).map(([x,i])=>'<div class="row ytm-r'+(x.v===calV?' cur':'')+'" data-ytmi="'+i+'"><div class="thumb">'+(x.foto?'<img src="'+esc(x.foto)+'" alt="" loading="lazy" decoding="async">':'♪')+'</div><div style="min-width:0"><div class="t">'+esc(x.ad)+'</div><div class="s">'+esc(x.kanal||'')+(x.giz==='private'?' · <b class="ytm-rozet">🔒 yalnız YouTube’da</b>':x.giz==='unlisted'?' · <b class="ytm-rozet">🔗 liste dışı</b>':'')+'</div></div></div>').join('')+
+    (L.length>ytmGoster?'<button class="btn sm ytm-daha" data-ytm="daha">Daha fazla göster ('+(L.length-ytmGoster)+')</button>':'')+
+    (c.devam?'<p class="muted small ytm-not">Liste çok uzun; ilk '+c.L.length+' kayıt alındı.</p>':'')+
+    (gizN?'<p class="muted small ytm-not">'+gizN+' kayıt gösterilmiyor: başkasının gizli ya da silinmiş videosu (YouTube kimseye açmıyor).</p>':'')}
+function ytmCiz(){
+  const k=$('#ytmKut');if(!k)return;
+  const idVar=/^[\w.-]+\.apps\.googleusercontent\.com$/.test(String(prefs.ytmId||''));
+  if(!YTM.kanal){
+    k.innerHTML='<div class="ytm-kart ytm-giris"><div class="ytm-logo">'+ico('yt')+'</div><div style="min-width:0"><b>YouTube Music hesabım</b><span class="muted small">Beğendiklerin, kendi listelerin (gizli ve liste dışı dahil), aboneliklerin ve yüklediklerin Tını’da.</span></div>'+
+      '<button class="btn primary sm" data-ytm="bag">'+(idVar?'Google ile bağlan':'Kur ve bağlan')+'</button></div>';return}
+  const bag=ytmBagli(),sek=[['begen','Beğendiklerim'],['liste','Listelerim'],['abone','Sanatçılar'],['yukle','Yüklediklerim']];
+  let govde='';
+  if(ytmAcik){govde='<button class="back" data-ytm="geri">'+ico('back')+esc(ytmListeAdi(ytmAcik))+'</button>'+ytmParcaHTML(ytmAcik)}
+  else if(ytmSek==='begen')govde=ytmParcaHTML(ytmLikes());
+  else if(ytmSek==='yukle')govde=YTM.kanal.uploads?ytmParcaHTML(YTM.kanal.uploads):'<p class="muted small ytm-bos">Kanalında yüklenmiş video yok.</p>';
+  else if(ytmSek==='liste'){const q=fold(ytmQ.trim()),L=YTM.listeler.filter(l=>!q||fold(l.ad).indexOf(q)>=0);
+    govde=L.length?'<div class="ytm-grid">'+L.map(l=>'<button class="ytm-pl" data-ytmpl="'+esc(l.id)+'"><span class="ytm-kap">'+(l.foto?'<img src="'+esc(l.foto)+'" alt="" loading="lazy">':ico('list'))+(YTM_GIZ[l.giz]?'<i>'+YTM_GIZ[l.giz]+'</i>':'')+'</span><b>'+esc(l.ad)+'</b><small>'+l.adet+' video'+(P.yt.some(x=>x.kay==='ytm:'+l.id)?' · Listem’de':'')+'</small></button>').join('')+'</div>':'<p class="muted small ytm-bos">'+(q?'Eşleşen liste yok.':'Hesabında oluşturduğun liste yok.')+'</p>'}
+  else{const q=fold(ytmQ.trim()),L=YTM.abone.filter(a=>!q||fold(a.ad).indexOf(q)>=0);
+    govde=L.length?'<div class="ytm-ab">'+L.map(a=>'<button data-ytmab="'+esc(a.id)+'"><span>'+(a.foto?'<img src="'+esc(a.foto)+'" alt="" loading="lazy">':esc(initial(a.ad)))+'</span><b>'+esc(a.ad)+'</b></button>').join('')+'</div>':'<p class="muted small ytm-bos">Abone olduğun kanal yok.</p>'}
+  k.innerHTML='<div class="ytm-kart">'+
+    '<div class="ytm-ust"><span class="ytm-av">'+(YTM.kanal.foto?'<img src="'+esc(YTM.kanal.foto)+'" alt="">':ico('yt'))+'</span><div style="min-width:0"><b>YouTube Music · '+esc(YTM.kanal.ad)+'</b><span class="muted small">'+(ytmYuk?'Eşitleniyor…':(bag?'Bağlı':'Kopyadan')+' · eşitleme '+ytmZaman(YTM.t))+'</span></div>'+
+      '<button class="ib'+(ytmYuk?' don':'')+'" data-ytm="esitle" aria-label="Eşitle" title="'+(bag?'Eşitle':'Bağlan ve eşitle')+'">'+ico('repeat')+'</button><button class="ib" data-ytm="menu" aria-label="Hesap seçenekleri">'+ico('more')+'</button></div>'+
+    '<div class="ytm-ses">'+ico('vol')+'<input type="range" id="ytmSes" min="0" max="100" value="'+(prefs.vol==null?80:prefs.vol)+'" aria-label="Ses"></div>'+
+    '<div class="chips ytm-sek">'+sek.map(s=>'<button class="chip'+(!ytmAcik&&ytmSek===s[0]?' on':'')+'" data-ytmsek="'+s[0]+'">'+s[1]+'</button>').join('')+'</div>'+
+    '<div class="search ytm-ara">'+ico('search')+'<input id="ytmQ" type="search" placeholder="Kitaplığımda ara" value="'+esc(ytmQ)+'" autocomplete="off"></div>'+
+    '<div class="ytm-govde">'+govde+'</div></div>'}
+async function ytmAc(id,ad){ytmAcik=id;ytmAcikAd=ad||'';ytmGoster=200;ytmCiz();
+  if(!YTM.icerik[id]&&ytmBagli()){try{await ytmListeYukle(id)}catch(e){toast(e.message==='BAG'?'Bağlantı süresi doldu — Bağlan':'Yüklenemedi: '+e.message)}ytmCiz()}}
+async function ytmSekmeYukle(){if(ytmYuk)return;const id=ytmSek==='begen'?ytmLikes():ytmSek==='yukle'?(YTM.kanal&&YTM.kanal.uploads):'';
+  if(id&&!YTM.icerik[id]&&ytmBagli()){try{await ytmListeYukle(id)}catch(e){}ytmCiz()}}
+function ytmMenu(){menuSheet('YouTube Music hesabı',[
+  {icon:'play',label:(prefs.acilis==='ytm'?'✓ ':'')+'Açılışta YouTube Music’ten çal',fn:()=>{prefs.acilis=prefs.acilis==='ytm'?'sor':'ytm';savePrefs();try{acilisAyarCiz()}catch(e){}toast(prefs.acilis==='ytm'?'Açılışta YouTube Music çalar':'Açılışta ne çalacağı sorulur')}},
+  {icon:'repeat',label:ytmBagli()?'Şimdi eşitle':'Yeniden bağlan ve eşitle',fn:()=>ytmBagli()?ytmEsitle(false):ytmGiris()},
+  {icon:'gear',label:'Kurulum / İstemci kimliği',fn:ytmKurulum},
+  {icon:'info',label:'Neler görünür, neler görünmez?',fn:ytmBilgi},
+  {icon:'close',label:'Bağlantıyı kes',cls:'danger',fn:ytmCikis}])}
+function ytmBilgi(){openSheet('<h3>YouTube Music: neler var, neler yok</h3>'+
+  '<p class="small"><b>Görünür (resmî YouTube API ile):</b> beğendiğin şarkı/videolar (YT Music’teki beğeniler dahil), kendi oluşturduğun listeler — <b>gizli ve liste dışı olanlar da</b>, abone olduğun kanallar/sanatçılar ve onların videoları, kendi kanalına yüklediklerin (gizli/liste dışı dahil).</p>'+
+  '<p class="small"><b>Çalınır:</b> herkese açık ve liste dışı videolar Tını’nın içindeki YouTube oynatıcısında çalar. <b>Gizli</b> videoları YouTube başka sitelerde/uygulamalarda oynatmaz; bunlara dokununca YouTube uygulamasında açılır.</p>'+
+  '<p class="small"><b>Görünmez (YouTube resmî API’de yok):</b> YT Music’te kaydettiğin albümler ve başkalarının listeleri, beğenmeden kitaplığa eklediğin şarkılar, YT Music’e yüklediğin kendi müzik dosyaların (Yüklemeler), dinleme geçmişi. Bunlar için resmî olmayan yollar (çerez/gizli API) YouTube kurallarına aykırı olduğu için kullanılmadı.</p>'+
+  '<p class="small"><b>Güvenlik:</b> yalnız okuma izni; giriş belirteci ~1 saat geçerli, yalnız bu oturumda tutulur. Kitaplık kopyası telefonda kalır, çalmak için yeniden giriş gerekmez; eşitlemek için “Bağlan” bir dokunuş.</p>'+
+  '<p class="small muted">Reklamsız dinleme için YouTube Premium ve Ayarlar → YouTube’da “YouTube hesabıyla giriş” gerekir.</p>')}
+$('#ytmKut').addEventListener('click',e=>{
+  const b=e.target.closest('[data-ytm]'),s=e.target.closest('[data-ytmsek]'),p=e.target.closest('[data-ytmpl]'),a=e.target.closest('[data-ytmab]'),r=e.target.closest('[data-ytmi]');
+  const aktif=ytmAcik||(ytmSek==='begen'?ytmLikes():ytmSek==='yukle'?(YTM.kanal&&YTM.kanal.uploads):'');
+  if(s){ytmSek=s.dataset.ytmsek;store.set('ytmSek',ytmSek);ytmAcik=null;ytmGoster=200;ytmCiz();ytmSekmeYukle();return}
+  if(p){ytmAc(p.dataset.ytmpl);return}
+  if(a){const id='UU'+String(a.dataset.ytmab).slice(2),x=YTM.abone.find(z=>z.id===a.dataset.ytmab);ytmAc(id,x?x.ad:'');return}
+  if(r){const c=YTM.icerik[aktif],x=c&&c.L[+r.dataset.ytmi];if(!x)return;
+    if(x.giz==='private'){window.open('https://www.youtube.com/watch?v='+x.v,'_blank','noopener');return}
+    ytmCal(aktif,+r.dataset.ytmi,false);return}
+  if(!b)return;const k=b.dataset.ytm;
+  if(k==='bag')ytmGiris();else if(k==='esitle'){if(!ytmYuk){ytmBagli()?ytmEsitle(false):ytmGiris()}}else if(k==='menu')ytmMenu();
+  else if(k==='geri'){ytmAcik=null;ytmCiz()}else if(k==='daha'){ytmGoster+=300;ytmCiz()}
+  else if(aktif&&k==='cal')ytmCal(aktif,null,false);else if(aktif&&k==='karis')ytmCal(aktif,null,true);else if(aktif&&k==='ekle')ytmEkle(aktif)});
+$('#ytmKut').addEventListener('input',e=>{
+  if(e.target.id==='ytmQ'){ytmQ=e.target.value;const pos=e.target.selectionStart;ytmCiz();const q=$('#ytmQ');if(q){q.focus();try{q.setSelectionRange(pos,pos)}catch(x){}}}
+  else if(e.target.id==='ytmSes'){const v=$('#vol');if(v){v.value=e.target.value;v.dispatchEvent(new Event('input'))}}});
+{const _sv=showView;showView=function(v){const r=_sv.apply(this,arguments);if(v==='yt'){try{ytmCiz();ytmSekmeYukle()}catch(e){}}return r}}
+/* acilis seçenekleri: araç bağlantısıyla açılışta da YT Music */
+ytmCiz();
 {const _a=waAc;waAc=function(){waTema();const r=_a.apply(this,arguments);try{waDansKur()}catch(e){}return r}}
 })();
 </script>
