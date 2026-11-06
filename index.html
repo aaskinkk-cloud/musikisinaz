@@ -1139,6 +1139,26 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
 .eks-alt .btn{flex:1;justify-content:center}
 </style>
 <script async src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
+<style id="miniEqCss">
+/* 6.29: ana sayfa (Kitaplık) mini çalar — 3 satır: kapak+başlık / ritim çubukları / kontroller. Gün teması hariç */
+.mini .mEq,.mini .mx{display:none}
+body.mini-eq .dock .mini.show{grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:auto auto auto;gap:6px 4px;padding:10px 12px 12px}
+body.mini-eq .dock .mini.show>.thumb{grid-column:1;grid-row:1;width:48px;height:48px}
+body.mini-eq .dock .mini.show>.meta{grid-column:2/6;grid-row:1;padding-left:4px}
+body.mini-eq .dock .mini.show:has(#miniYtm:not([hidden]))>.meta{grid-column:2/5}
+body.mini-eq .dock .mini.show #miniYtm{grid-column:5;grid-row:1;justify-self:end}
+body.mini-eq .dock .mini.show .mEq{display:flex;grid-column:1/-1;grid-row:2;align-items:flex-end;gap:3px;height:22px;margin:2px 2px 0}
+.mEq i{flex:1;height:100%;background:var(--accent);border-radius:2px;transform-origin:bottom;transform:scaleY(.12);opacity:.5;will-change:transform}
+body.mini-eq .dock .mini.show .mx{display:inline-flex}
+body.mini-eq .dock .mini.show #miniShuf{grid-column:1;grid-row:3}
+body.mini-eq .dock .mini.show #miniPrev{grid-column:2;grid-row:3;display:inline-flex;margin:0}
+body.mini-eq .dock .mini.show #miniPlay{grid-column:3;grid-row:3}
+body.mini-eq .dock .mini.show #miniNext{grid-column:4;grid-row:3}
+body.mini-eq .dock .mini.show #miniRep{grid-column:5;grid-row:3}
+body.mini-eq .dock .mini.show>.ib{justify-self:center;width:44px;height:44px}
+body.mini-eq .dock .mini.show #miniPlay{background:var(--accent);color:#1a0f0a;border-radius:50%;width:50px;height:50px}
+body.mini-eq .dock .mini.show .mx.on{color:var(--accent)}
+</style>
 </head>
 <body>
 <noscript><h1>Tını</h1><p>Tını: telefondaki şarkılarını çalan ücretsiz müzik çalar. 10 bant ekolayzır, vokal azaltma (yalnız müzik), sessizlik atlama, uyku zamanlayıcısı, araç modu, çalma listeleri, YouTube ve Spotify listeleri.</p></noscript>
@@ -1386,7 +1406,7 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.28 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.29 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -1397,6 +1417,8 @@ body.basit #ytnp .sub>.ib:not(#ytnpListe):not(#ytnpUyku){display:none}
       <button class="ib" id="miniPrev" aria-label="Önceki" hidden><svg class="ico"><use href="#i-prev"/></svg></button><button class="ib" id="miniPlay" aria-label="Çal veya durdur"><svg class="ico"><use href="#i-play"/></svg></button>
       <button class="ib" id="miniYtm" aria-label="YouTube Music'te sürdür" title="YouTube Music'te sürdür" hidden><svg class="ico"><use href="#i-yt"/></svg></button>
       <button class="ib" id="miniNext" aria-label="Sonraki"><svg class="ico"><use href="#i-next"/></svg></button>
+      <div class="mEq" id="miniEq" aria-hidden="true"></div>
+      <button class="ib mx" id="miniShuf" aria-label="Karıştır"><svg class="ico"><use href="#i-shuffle"/></svg></button><button class="ib mx" id="miniRep" aria-label="Tekrar"><svg class="ico"><use href="#i-repeat"/></svg></button>
       <div class="prog"><i id="miniProg"></i></div>
     </div>
     <nav class="nav" id="nav">
@@ -5348,6 +5370,39 @@ async function ytGrupYenile(k,btn){
     document.body.appendChild(b);
   }
   try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
+})();
+</script>
+<script>
+/* 6.29: mini çalar ritim çubukları. Yerel şarkıda ses işleme hattı açıksa gerçek spektrum, değilse (YouTube/Spotify dahil) ritim benzetimi */
+(function(){
+  const m=document.getElementById('mini'),eq=document.getElementById('miniEq'),N=28,B=[];
+  for(let i=0;i<N;i++){const b=document.createElement('i');eq.appendChild(b);B.push(b)}
+  const bS=document.getElementById('btnShuf'),bR=document.getElementById('btnRep'),mS=document.getElementById('miniShuf'),mR=document.getElementById('miniRep');
+  mS.addEventListener('click',e=>{e.stopPropagation();bS.click()});mR.addEventListener('click',e=>{e.stopPropagation();bR.click()});
+  const es=()=>{mS.classList.toggle('on',bS.classList.contains('on'));mR.classList.toggle('on',bR.classList.contains('on'));if(mR.innerHTML!==bR.innerHTML)mR.innerHTML=bR.innerHTML};
+  new MutationObserver(es).observe(bS,{attributes:true,attributeFilter:['class']});new MutationObserver(es).observe(bR,{attributes:true,childList:true,subtree:true,attributeFilter:['class']});es();
+  const lib=document.getElementById('v-lib');let raf=0,last=0,fd=null;const lv=new Float32Array(N);
+  const aktif=()=>document.body.classList.contains('mini-eq')&&m.classList.contains('show')&&!document.hidden;
+  const caliyor=()=>{const p=document.getElementById('miniPlay');return !!p&&p.innerHTML.indexOf('i-pause')>=0};
+  function kare(t){raf=0;if(!aktif()){B.forEach(b=>b.style.transform='scaleY(.12)');return}
+    raf=requestAnimationFrame(kare);if(t-last<33)return;last=t;
+    const pl=caliyor();let d=null;
+    try{if(pl&&!m.classList.contains('kaynak')&&typeof graph!=='undefined'&&graph&&graph.an&&!audio.paused){const a=graph.an;if(!fd||fd.length!==a.frequencyBinCount)fd=new Uint8Array(a.frequencyBinCount);a.getByteFrequencyData(fd);d=fd}}catch(e){d=null}
+    const tt=t/1000,vur=Math.pow(Math.max(0,Math.sin(tt*Math.PI*2.05)),6);
+    for(let i=0;i<N;i++){let v;
+      if(d){const a=Math.floor(Math.pow(i/N,1.7)*d.length*0.75),b=Math.max(a+1,Math.floor(Math.pow((i+1)/N,1.7)*d.length*0.75));let mx=0;for(let k=a;k<b;k++)if(d[k]>mx)mx=d[k];v=mx/255}
+      else if(pl){v=(0.28+0.22*Math.sin(tt*3.1+i*0.9)*Math.sin(tt*1.7+i*0.45)+0.14*Math.sin(tt*7.3+i*2.3)+vur*0.5*(1-i/N))*(1-i/N*0.35)}
+      else v=0;
+      v=Math.max(0.12,Math.min(1,v));lv[i]+= (v-lv[i])*(v>lv[i]?0.6:0.25);
+      B[i].style.transform='scaleY('+lv[i].toFixed(3)+')';B[i].style.opacity=(0.45+lv[i]*0.55).toFixed(2)}
+  }
+  function kontrol(){const th=document.documentElement.getAttribute('data-theme');
+    const on=!!lib&&lib.classList.contains('active')&&th!=='gun';
+    document.body.classList.toggle('mini-eq',on);es();if(aktif()&&!raf)raf=requestAnimationFrame(kare)}
+  if(lib)new MutationObserver(kontrol).observe(lib,{attributes:true,attributeFilter:['class']});
+  new MutationObserver(kontrol).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  new MutationObserver(kontrol).observe(m,{attributes:true,attributeFilter:['class']});
+  document.addEventListener('visibilitychange',kontrol);kontrol();
 })();
 </script>
 </body>

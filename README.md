@@ -18,6 +18,11 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.29 (06.11.2026) — Ana sayfada ritimli mini çalar
+- Kitaplık (ana sayfa) açıkken alttaki mini çalar 3 satıra çıktı: kapak + şarkı/sanatçı · müziğe göre oynayan turuncu ışık çubukları · Karıştır, Önceki, Çal (büyük turuncu daire), Sonraki, Tekrar.
+- Yerel şarkıda ses işleme hattı açıksa (ekolayzır, vokal, sessizlik atlama vb.) çubuklar gerçek sese göre hareket ediyor; değilse ve YouTube/Spotify çalarken ritim benzetimi kullanılıyor. Duraklatınca çubuklar iniyor; ekran kapalıyken çizim durduğu için pil harcamıyor.
+- Karıştır/Tekrar düğmeleri büyük oynatıcıdakiyle aynı durumu gösteriyor. Diğer sekmelerde ve Gün temasında mini çalar eski tek satırlı halinde.
+
 ## 6.28 (06.11.2026) — YouTube Music kartı yerine taşındı
 - Hesap bağlı değilken "YouTube Music hesabı" kartı YouTube sekmesinde görünmüyor. Kart **Ayarlar → YouTube ve Spotify** bölümünün en altında, açılıp kapanan bir akordiyon olarak duruyor ve kapalı geliyor.
 - Hesap bağlanırsa kitaplık YouTube sekmesinde **Listem'in altında** aynı akordiyon olarak görünüyor; açık/kapalı durumu hatırlanıyor. Ses, eşitleme ve menü düğmeleri tek satırda.
@@ -304,6 +309,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 | `.github/workflows/android.yml` | APK'yı derleyip *android* sürümüne yükler |
 
 ## Sürüm
+
+**6.29** — Ana sayfada 3 satırlı ritimli mini çalar (ışık çubukları + tam kontrol düğmeleri).
 
 **6.28** — YouTube Music kartı: Ayarlar'da / Listem altında akordiyon.
 **6.27** — Liste gruplarına ↻ YouTube'dan yenile (liste dışı listeler, kurulumsuz).
