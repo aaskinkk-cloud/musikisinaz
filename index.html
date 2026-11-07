@@ -32,7 +32,7 @@
 </script>
 
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <!-- seo -->
 <meta name="description" content="Tını: telefondaki şarkılarını çalan ücretsiz müzik çalar. 10 bant ekolayzır, vokal azaltma (yalnız müzik), sessizlik atlama, uyku zamanlayıcısı, araç modu, çalma listeleri, YouTube ve Spotify listeleri.">
 <meta name="keywords" content="müzik çalar, mp3 çalar, ekolayzır, vokal kaldırma, karaoke, uyku zamanlayıcısı, araç modu, çalma listesi, ücretsiz müzik uygulaması">
@@ -77,6 +77,7 @@ img{max-width:100%}
   --danger:#d6344f; --shadow:0 14px 34px rgba(30,40,60,.16); color-scheme:light;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{touch-action:pan-x pan-y;-webkit-text-size-adjust:100%;text-size-adjust:100%} /* 6.31: iki parmakla/çift dokunuşla sayfa büyümesin */
 html,body{height:100%}
 body{background:var(--bg);color:var(--fg);font:15px/1.4 var(--f-body);margin:0;overflow:hidden}
 button,input,select{font:inherit;color:inherit}
@@ -1179,6 +1180,75 @@ body.mini-eq .dock .mini.show #miniPlay{box-shadow:0 0 0 6px color-mix(in srgb,v
 body.mini-eq .dock .mini.show .thumb{box-shadow:0 6px 16px rgba(0,0,0,.35)}
 @media (prefers-reduced-motion:reduce){.mini .mFil,.mDlg svg path{animation:none!important}}
 </style>
+<style id="yumusakCss">
+/* 6.31: "Yumuşak" tema — açık gri-mavi zemin, kabarık/çukur yumuşak gölgeler (neumorfik), lacivert yazı */
+:root[data-theme="yumusak"]{--bg:#e6ebf3;--surface:#e6ebf3;--raise:#dde3ee;--line:transparent;--fg:#2b3657;--muted:#7a85a3;--accent:#34467e;--on-accent:#fff;--danger:#c4455a;color-scheme:light;
+  --nu-a:#c3cbda;--nu-b:#ffffff;--nu:6px 6px 14px var(--nu-a),-6px -6px 14px var(--nu-b);--nu-s:3px 3px 7px var(--nu-a),-3px -3px 7px var(--nu-b);--nu-in:inset 4px 4px 9px var(--nu-a),inset -4px -4px 9px var(--nu-b);--shadow:var(--nu)}
+:root[data-theme="yumusak"] body{background:var(--bg) radial-gradient(circle at 12% 8%,rgba(255,255,255,.7),transparent 40%) fixed;color:var(--fg)}
+:root[data-theme="yumusak"] .top .logo{color:#2b3657;letter-spacing:.02em}
+:root[data-theme="yumusak"] .top .logo b{color:#5b6ea8}
+:root[data-theme="yumusak"] .ib{color:#34467e}
+:root[data-theme="yumusak"] .top .ib,:root[data-theme="yumusak"] .libbar>.ib{background:var(--bg);border:0;border-radius:14px;box-shadow:var(--nu-s)}
+:root[data-theme="yumusak"] .top .ib:active,:root[data-theme="yumusak"] .libbar>.ib:active,:root[data-theme="yumusak"] .ib.on{box-shadow:var(--nu-in)}
+:root[data-theme="yumusak"] .search{background:var(--bg);border:0;border-radius:16px;box-shadow:var(--nu-in)}
+:root[data-theme="yumusak"] .chip{background:var(--bg);border:0;color:#7a85a3;box-shadow:var(--nu-s);text-transform:uppercase;letter-spacing:.08em;font-size:11.5px;margin:4px 2px}
+:root[data-theme="yumusak"] .chip.on{color:#34467e;box-shadow:var(--nu-in)}
+:root[data-theme="yumusak"] .chips{padding-inline:4px}
+:root[data-theme="yumusak"] .sh h2,:root[data-theme="yumusak"] .view>h2{text-transform:uppercase;letter-spacing:.14em;font-size:14px;font-weight:600;color:#5b6ea8}
+:root[data-theme="yumusak"] .btn{background:var(--bg);border:0;color:#34467e;box-shadow:var(--nu-s);border-radius:14px}
+:root[data-theme="yumusak"] .btn:active{box-shadow:var(--nu-in)}
+:root[data-theme="yumusak"] .btn.primary{background:var(--bg);color:#2b3657;box-shadow:var(--nu)}
+:root[data-theme="yumusak"] .btn.primary .ico{color:#34467e}
+:root[data-theme="yumusak"] #libBody>.actions{padding:6px 2px}
+/* şarkı listesi: tek kabarık kart içinde, yuvarlak kapak */
+:root[data-theme="yumusak"] #libBody .row{background:var(--bg);border-radius:0;margin:0;padding:10px 12px;box-shadow:6px 0 14px -8px var(--nu-a),-6px 0 14px -8px var(--nu-b)}
+:root[data-theme="yumusak"] #libBody>.actions+.row{border-radius:22px 22px 0 0;box-shadow:6px -2px 14px -6px var(--nu-a),-6px -6px 14px -6px var(--nu-b)}
+:root[data-theme="yumusak"] #libBody>.row:last-child{border-radius:0 0 22px 22px;margin-bottom:16px;box-shadow:6px 6px 14px -4px var(--nu-a),-6px 2px 14px -6px var(--nu-b)}
+:root[data-theme="yumusak"] .row{grid-template-columns:44px minmax(0,1fr) auto auto}
+:root[data-theme="yumusak"] .row .thumb{width:44px;height:44px;border-radius:50%;box-shadow:0 0 0 3px var(--bg),var(--nu-s)}
+:root[data-theme="yumusak"] .row.cur{background:#dfe5f0}
+:root[data-theme="yumusak"] .row.cur .t{color:#34467e}
+:root[data-theme="yumusak"] .row .t{font-weight:700;color:#2b3657}
+/* albüm/sanatçı kartları: kabarık kare, yuvarlak resim */
+:root[data-theme="yumusak"] .grid{gap:18px 16px;padding:8px 4px}
+:root[data-theme="yumusak"] .grid .card{background:var(--bg);border-radius:22px;padding:16px 12px 14px;box-shadow:var(--nu);text-align:center}
+:root[data-theme="yumusak"] .grid .card .art{border-radius:50%;width:78%;margin:0 auto;box-shadow:0 0 0 5px var(--bg),var(--nu-s)}
+:root[data-theme="yumusak"] .grid .card .t{font-size:13.5px;font-weight:700;margin-top:12px}
+:root[data-theme="yumusak"] .grid .card .s{font-size:11.5px}
+:root[data-theme="yumusak"] .panel,:root[data-theme="yumusak"] .ayarbol,:root[data-theme="yumusak"] .npk{background:var(--bg);border:0;border-radius:22px;box-shadow:var(--nu)}
+/* alt sekmeler: kabarık kareler, seçili olan çukur */
+:root[data-theme="yumusak"] .nav{background:var(--bg);border:0;box-shadow:var(--nu);border-radius:24px;padding:8px;gap:8px}
+:root[data-theme="yumusak"] .nav button{color:#7a85a3;border-radius:14px;box-shadow:var(--nu-s)}
+:root[data-theme="yumusak"] .nav button.on{background:var(--bg);color:#34467e;box-shadow:var(--nu-in)}
+:root[data-theme="yumusak"] .sheet{background:var(--bg);border:0;box-shadow:0 -10px 30px var(--nu-a)}
+/* mini çalar (tek satır ve ana sayfa 3 satır) */
+:root[data-theme="yumusak"] .mini{background:var(--bg);border:0;box-shadow:var(--nu);border-radius:24px}
+:root[data-theme="yumusak"] .mini .thumb{border-radius:50%!important;box-shadow:0 0 0 3px var(--bg),var(--nu-s)!important}
+:root[data-theme="yumusak"] .mini .ib{color:#34467e}
+:root[data-theme="yumusak"] .mini .prog{background:#d5dce8}
+:root[data-theme="yumusak"] .mini .prog i{background:#34467e}
+:root[data-theme="yumusak"] body.mini-eq .dock .mini.show{background:var(--bg);-webkit-backdrop-filter:none;backdrop-filter:none;border:0;box-shadow:var(--nu)}
+:root[data-theme="yumusak"] body.mini-eq .dock .mini.show .mFil{opacity:.10;filter:blur(36px) saturate(.6)}
+:root[data-theme="yumusak"] body.mini-eq .dock .mini.show .mNot{color:#34467e;opacity:.05}
+:root[data-theme="yumusak"] .mDlg .d1,:root[data-theme="yumusak"] .mDlg .d2{fill:#5b6ea8}
+:root[data-theme="yumusak"] .mDlg .d1{opacity:.08}:root[data-theme="yumusak"] .mDlg .d2{opacity:.05}:root[data-theme="yumusak"] .mDlg .d3{fill:#fff;opacity:.35}
+:root[data-theme="yumusak"] body.mini-eq .dock .mini.show .mEq{justify-content:space-between;gap:0;height:26px}
+:root[data-theme="yumusak"] body.mini-eq .dock .mini.show .mEq i{flex:0 0 2px;background:#34467e;box-shadow:none;border-radius:2px}
+:root[data-theme="yumusak"] body.mini-eq .dock .mini.show>.ib:not(#miniPlay){background:var(--bg);box-shadow:var(--nu-s);border-radius:14px}
+:root[data-theme="yumusak"] body.mini-eq .dock .mini.show>.ib.on{box-shadow:var(--nu-in)}
+:root[data-theme="yumusak"] body.mini-eq .dock .mini.show #miniPlay,:root[data-theme="yumusak"] #miniPlay{background:var(--bg);color:#34467e;border-radius:16px;box-shadow:var(--nu)}
+:root[data-theme="yumusak"] #miniPlay:active{box-shadow:var(--nu-in)}
+/* çalma ekranı: büyük yuvarlak kapak, yumuşak halka; kare kabarık düğmeler */
+:root[data-theme="yumusak"] .np{background:var(--bg);color:#2b3657}
+:root[data-theme="yumusak"] .np .np-art{border-radius:50%;box-shadow:0 0 0 12px var(--bg),12px 12px 28px var(--nu-a),-12px -12px 28px var(--nu-b)}
+:root[data-theme="yumusak"] .np .np-art:after{content:"";position:absolute;left:50%;top:50%;width:18%;height:18%;transform:translate(-50%,-50%);border-radius:50%;background:var(--bg);box-shadow:var(--nu-in)}
+:root[data-theme="yumusak"] .np .np-title h2{color:#2b3657}
+:root[data-theme="yumusak"] .np .ctrl .ib{background:var(--bg);border-radius:16px;box-shadow:var(--nu-s);color:#34467e}
+:root[data-theme="yumusak"] .np .ctrl .ib.on{box-shadow:var(--nu-in)}
+:root[data-theme="yumusak"] .np .ctrl .play{background:var(--bg);color:#34467e;border-radius:20px;box-shadow:var(--nu)}
+:root[data-theme="yumusak"] .np .ctrl .play:active{box-shadow:var(--nu-in)}
+:root[data-theme="yumusak"] input[type=range]{accent-color:#34467e}
+</style>
 </head>
 <body>
 <noscript><h1>Tını</h1><p>Tını: telefondaki şarkılarını çalan ücretsiz müzik çalar. 10 bant ekolayzır, vokal azaltma (yalnız müzik), sessizlik atlama, uyku zamanlayıcısı, araç modu, çalma listeleri, YouTube ve Spotify listeleri.</p></noscript>
@@ -1401,6 +1471,7 @@ body.mini-eq .dock .mini.show .thumb{box-shadow:0 6px 16px rgba(0,0,0,.35)}
           <button class="chip" data-theme-set="dark">Koyu</button>
           <button class="chip" data-theme-set="light">Açık</button>
           <button class="chip" data-theme-set="gun">Gün batımı</button>
+          <button class="chip" data-theme-set="yumusak">Yumuşak</button>
           <button class="chip" data-wa-set="yesil">Klasik yeşil</button>
           <button class="chip" data-wa-set="mavi">Klasik mavi</button>
         </div>
@@ -1426,7 +1497,7 @@ body.mini-eq .dock .mini.show .thumb{box-shadow:0 6px 16px rgba(0,0,0,.35)}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.30 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.31 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -5427,6 +5498,8 @@ async function ytGrupYenile(k,btn){
     document.body.classList.toggle('mini-eq',on);es();if(aktif()&&!raf)raf=requestAnimationFrame(kare)}
   if(lib)new MutationObserver(kontrol).observe(lib,{attributes:true,attributeFilter:['class']});
   new MutationObserver(kontrol).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  const tc=document.querySelector('meta[name="theme-color"]');const tcGun=()=>{if(!tc)return;const b=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();tc.setAttribute('content',document.documentElement.getAttribute('data-theme')==='yumusak'?'#e6ebf3':(b&&b!=='transparent'?b:'#0d1118'))};
+  new MutationObserver(tcGun).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});tcGun();
   new MutationObserver(kontrol).observe(m,{attributes:true,attributeFilter:['class']});
   document.addEventListener('visibilitychange',kontrol);kontrol();
 })();

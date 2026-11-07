@@ -18,6 +18,10 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.31 (07.11.2026) — "Yumuşak" tema, ekran büyümesi kilitlendi
+- **Ayarlar → Tema → Yumuşak:** açık gri-mavi zemin, kabarık/çukur yumuşak gölgeler (neumorfik), lacivert yazı. Seçili sekme ve düğmeler içe basık görünür. Şarkılar tek kabarık kart içinde, kapaklar yuvarlak; albüm/sanatçı kartları kabarık kare + yuvarlak resim; başlıklar aralıklı büyük harf. Çalma ekranında yuvarlak plak görünümlü kapak, kare kabarık düğmeler. Ana sayfa mini çalarda ritim çubukları ince lacivert dalga formu. Telefonun üst çubuk rengi temaya uyar. Eski temalar olduğu gibi duruyor.
+- **Ekran büyümesi:** iki parmakla ya da çift dokunuşla sayfanın yanlışlıkla büyümesi kapatıldı (sayfa ayarı + APK'da WebView yakınlaştırması kapalı). Web güncellemesi APK'ya kendiliğinden gelir; yeniden kurmak gerekmez.
+
 ## 6.30 (07.11.2026) — Mini çalar: cam görünüm, önceki düğmesi
 - Ana sayfadaki 3 satırlı mini çalarda **Önceki** düğmesi artık her zaman görünüyor (önceden yerel şarkıda gizli kalıyordu; uygulamanın genel gizleme kuralı yüzünden).
 - Görünüm: yarı saydam buzlu cam (arkası bulanık görünür), çalan şarkının kapağı arka planda bulanık **filigran** olarak yavaşça süzülüyor, köşede silik nota filigranı.
@@ -315,6 +319,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 | `.github/workflows/android.yml` | APK'yı derleyip *android* sürümüne yükler |
 
 ## Sürüm
+
+**6.31** — Yumuşak (neumorfik) tema; sayfa büyümesi kilitlendi.
 
 **6.30** — Mini çalar cam görünüm (filigran, dalga), Önceki düğmesi.
 
