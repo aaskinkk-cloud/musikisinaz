@@ -18,6 +18,12 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.30 (07.11.2026) — Mini çalar: cam görünüm, önceki düğmesi
+- Ana sayfadaki 3 satırlı mini çalarda **Önceki** düğmesi artık her zaman görünüyor (önceden yerel şarkıda gizli kalıyordu; uygulamanın genel gizleme kuralı yüzünden).
+- Görünüm: yarı saydam buzlu cam (arkası bulanık görünür), çalan şarkının kapağı arka planda bulanık **filigran** olarak yavaşça süzülüyor, köşede silik nota filigranı.
+- Altta üç katmanlı **dalga**; dalgalar akarken yükseklikleri basın vuruşuna göre kabarıp iniyor. Ritim çubukları ışıltılı geçişli, Çal düğmesinde turuncu hale.
+- Telefonda "hareketi azalt" açıksa dalga/filigran hareketi durur.
+
 ## 6.29 (06.11.2026) — Ana sayfada ritimli mini çalar
 - Kitaplık (ana sayfa) açıkken alttaki mini çalar 3 satıra çıktı: kapak + şarkı/sanatçı · müziğe göre oynayan turuncu ışık çubukları · Karıştır, Önceki, Çal (büyük turuncu daire), Sonraki, Tekrar.
 - Yerel şarkıda ses işleme hattı açıksa (ekolayzır, vokal, sessizlik atlama vb.) çubuklar gerçek sese göre hareket ediyor; değilse ve YouTube/Spotify çalarken ritim benzetimi kullanılıyor. Duraklatınca çubuklar iniyor; ekran kapalıyken çizim durduğu için pil harcamıyor.
@@ -309,6 +315,8 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 | `.github/workflows/android.yml` | APK'yı derleyip *android* sürümüne yükler |
 
 ## Sürüm
+
+**6.30** — Mini çalar cam görünüm (filigran, dalga), Önceki düğmesi.
 
 **6.29** — Ana sayfada 3 satırlı ritimli mini çalar (ışık çubukları + tam kontrol düğmeleri).
 

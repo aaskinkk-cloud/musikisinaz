@@ -1158,6 +1158,26 @@ body.mini-eq .dock .mini.show #miniRep{grid-column:5;grid-row:3}
 body.mini-eq .dock .mini.show>.ib{justify-self:center;width:44px;height:44px}
 body.mini-eq .dock .mini.show #miniPlay{background:var(--accent);color:#1a0f0a;border-radius:50%;width:50px;height:50px}
 body.mini-eq .dock .mini.show .mx.on{color:var(--accent)}
+/* 6.30: önceki düğmesi her zaman (uygulamanın [hidden] kuralını yalnız bu görünümde geçersiz kılar) */
+body.mini-eq .dock .mini.show #miniPrev[hidden]{display:inline-flex!important}
+/* 6.30: cam görünüm — saydam, bulanık kapak filigranı, ritimle dalgalanan katmanlar */
+.mini .mFil,.mini .mDlg,.mini .mNot{display:none}
+body.mini-eq .dock .mini.show{isolation:isolate;background:color-mix(in srgb,var(--surface) 58%,transparent);-webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);border:1px solid color-mix(in srgb,#fff 10%,transparent);box-shadow:0 10px 30px rgba(0,0,0,.35),inset 0 1px 0 color-mix(in srgb,#fff 8%,transparent)}
+body.mini-eq .dock .mini.show>*:not(.mFil):not(.mDlg):not(.mNot):not(.prog){position:relative;z-index:2}
+body.mini-eq .dock .mini.show .mFil{display:block;position:absolute;inset:-30%;z-index:0;background:var(--mfil,radial-gradient(circle at 30% 30%,var(--accent),transparent 60%)) center/cover no-repeat;filter:blur(30px) saturate(1.6);opacity:.38;animation:mFilK 22s ease-in-out infinite alternate;pointer-events:none}
+@keyframes mFilK{0%{transform:scale(1.05) translate(-4%,-2%) rotate(0)}100%{transform:scale(1.25) translate(5%,3%) rotate(8deg)}}
+body.mini-eq .dock .mini.show .mNot{display:block;position:absolute;right:-14px;top:-22px;width:150px;height:150px;z-index:1;opacity:.06;color:var(--fg,#fff);transform:rotate(-14deg);pointer-events:none}
+body.mini-eq .dock .mini.show .mDlg{display:block;position:absolute;left:0;right:0;bottom:0;height:62%;z-index:1;pointer-events:none;overflow:hidden;transform-origin:bottom;transform:scaleY(calc(.55 + var(--lv,0) * .9));transition:transform .12s}
+.mDlg svg{position:absolute;bottom:0;left:0;width:200%;height:100%}
+.mDlg .d1{fill:var(--accent);opacity:.16;animation:mDlgK 9s linear infinite}
+.mDlg .d2{fill:var(--accent);opacity:.10;animation:mDlgK 14s linear infinite reverse}
+.mDlg .d3{fill:#fff;opacity:.04;animation:mDlgK 6s linear infinite}
+@keyframes mDlgK{to{transform:translateX(-50%)}}
+body.mini-eq .dock .mini.show .mEq i{background:linear-gradient(to top,var(--accent),color-mix(in srgb,var(--accent) 55%,#fff));border-radius:3px 3px 2px 2px;box-shadow:0 0 6px color-mix(in srgb,var(--accent) 45%,transparent)}
+body.mini-eq .dock .mini.show>.ib:not(#miniPlay){background:color-mix(in srgb,#fff 6%,transparent);border-radius:14px}
+body.mini-eq .dock .mini.show #miniPlay{box-shadow:0 0 0 6px color-mix(in srgb,var(--accent) 18%,transparent),0 6px 18px color-mix(in srgb,var(--accent) 45%,transparent)}
+body.mini-eq .dock .mini.show .thumb{box-shadow:0 6px 16px rgba(0,0,0,.35)}
+@media (prefers-reduced-motion:reduce){.mini .mFil,.mDlg svg path{animation:none!important}}
 </style>
 </head>
 <body>
@@ -1406,7 +1426,7 @@ body.mini-eq .dock .mini.show .mx.on{color:var(--accent)}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.29 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.30 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -1417,7 +1437,7 @@ body.mini-eq .dock .mini.show .mx.on{color:var(--accent)}
       <button class="ib" id="miniPrev" aria-label="Önceki" hidden><svg class="ico"><use href="#i-prev"/></svg></button><button class="ib" id="miniPlay" aria-label="Çal veya durdur"><svg class="ico"><use href="#i-play"/></svg></button>
       <button class="ib" id="miniYtm" aria-label="YouTube Music'te sürdür" title="YouTube Music'te sürdür" hidden><svg class="ico"><use href="#i-yt"/></svg></button>
       <button class="ib" id="miniNext" aria-label="Sonraki"><svg class="ico"><use href="#i-next"/></svg></button>
-      <div class="mEq" id="miniEq" aria-hidden="true"></div>
+      <div class="mFil" id="miniFil" aria-hidden="true"></div><div class="mNot" aria-hidden="true"><svg viewBox="0 0 24 24" width="100%" height="100%" fill="currentColor"><path d="M9 3v10.6A4 4 0 1 0 11 17V7h8V3z"/></svg></div><div class="mDlg" id="miniDlg" aria-hidden="true"><svg viewBox="0 0 800 100" preserveAspectRatio="none"><path class="d1" d="M0 55 Q 50 25 100 55 T 200 55 T 300 55 T 400 55 T 500 55 T 600 55 T 700 55 T 800 55 V 100 H 0 Z"/><path class="d2" d="M0 65 Q 66 40 133 65 T 266 65 T 400 65 T 533 65 T 666 65 T 800 65 V 100 H 0 Z"/><path class="d3" d="M0 75 Q 25 62 50 75 T 100 75 T 150 75 T 200 75 T 250 75 T 300 75 T 350 75 T 400 75 T 450 75 T 500 75 T 550 75 T 600 75 T 650 75 T 700 75 T 750 75 T 800 75 V 100 H 0 Z"/></svg></div><div class="mEq" id="miniEq" aria-hidden="true"></div>
       <button class="ib mx" id="miniShuf" aria-label="Karıştır"><svg class="ico"><use href="#i-shuffle"/></svg></button><button class="ib mx" id="miniRep" aria-label="Tekrar"><svg class="ico"><use href="#i-repeat"/></svg></button>
       <div class="prog"><i id="miniProg"></i></div>
     </div>
@@ -5382,6 +5402,11 @@ async function ytGrupYenile(k,btn){
   const es=()=>{mS.classList.toggle('on',bS.classList.contains('on'));mR.classList.toggle('on',bR.classList.contains('on'));if(mR.innerHTML!==bR.innerHTML)mR.innerHTML=bR.innerHTML};
   new MutationObserver(es).observe(bS,{attributes:true,attributeFilter:['class']});new MutationObserver(es).observe(bR,{attributes:true,childList:true,subtree:true,attributeFilter:['class']});es();
   const lib=document.getElementById('v-lib');let raf=0,last=0,fd=null;const lv=new Float32Array(N);
+  const art=document.getElementById('miniArt'),fil=document.getElementById('miniFil');
+  const filGun=()=>{try{const im=art.querySelector('img');const bg=getComputedStyle(art).backgroundImage;
+    const v=im&&im.src?'url("'+im.src.replace(/"/g,'%22')+'")':(bg&&bg!=='none'?bg:'');
+    if(v)fil.style.setProperty('--mfil',v);else{fil.style.removeProperty('--mfil');const c=getComputedStyle(art).backgroundColor;if(c&&c!=='rgba(0, 0, 0, 0)')fil.style.setProperty('--mfil','radial-gradient(circle,'+c+',transparent 70%)')}}catch(e){}};
+  new MutationObserver(filGun).observe(art,{attributes:true,childList:true,subtree:true});filGun();
   const aktif=()=>document.body.classList.contains('mini-eq')&&m.classList.contains('show')&&!document.hidden;
   const caliyor=()=>{const p=document.getElementById('miniPlay');return !!p&&p.innerHTML.indexOf('i-pause')>=0};
   function kare(t){raf=0;if(!aktif()){B.forEach(b=>b.style.transform='scaleY(.12)');return}
@@ -5395,6 +5420,7 @@ async function ytGrupYenile(k,btn){
       else v=0;
       v=Math.max(0.12,Math.min(1,v));lv[i]+= (v-lv[i])*(v>lv[i]?0.6:0.25);
       B[i].style.transform='scaleY('+lv[i].toFixed(3)+')';B[i].style.opacity=(0.45+lv[i]*0.55).toFixed(2)}
+    let ort=0;for(let i=0;i<8;i++)ort+=lv[i];m.style.setProperty('--lv',Math.max(0,ort/8-0.12).toFixed(3));
   }
   function kontrol(){const th=document.documentElement.getAttribute('data-theme');
     const on=!!lib&&lib.classList.contains('active')&&th!=='gun';
