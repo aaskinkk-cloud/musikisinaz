@@ -1182,72 +1182,146 @@ body.mini-eq .dock .mini.show .thumb{box-shadow:0 6px 16px rgba(0,0,0,.35)}
 </style>
 <style id="yumusakCss">
 /* 6.31: "Yumuşak" tema — açık gri-mavi zemin, kabarık/çukur yumuşak gölgeler (neumorfik), lacivert yazı */
-:root[data-theme="yumusak"]{--bg:#e6ebf3;--surface:#e6ebf3;--raise:#dde3ee;--line:transparent;--fg:#2b3657;--muted:#7a85a3;--accent:#34467e;--on-accent:#fff;--danger:#c4455a;color-scheme:light;
+:root[data-theme^="yumusak"]{--bg:#e6ebf3;--surface:#e6ebf3;--raise:#dde3ee;--line:transparent;--fg:#2b3657;--muted:#7a85a3;--accent:#34467e;--on-accent:#fff;--danger:#c4455a;color-scheme:light;
   --nu-a:#c3cbda;--nu-b:#ffffff;--nu:6px 6px 14px var(--nu-a),-6px -6px 14px var(--nu-b);--nu-s:3px 3px 7px var(--nu-a),-3px -3px 7px var(--nu-b);--nu-in:inset 4px 4px 9px var(--nu-a),inset -4px -4px 9px var(--nu-b);--shadow:var(--nu)}
-:root[data-theme="yumusak"] body{background:var(--bg) radial-gradient(circle at 12% 8%,rgba(255,255,255,.7),transparent 40%) fixed;color:var(--fg)}
-:root[data-theme="yumusak"] .top .logo{color:#2b3657;letter-spacing:.02em}
-:root[data-theme="yumusak"] .top .logo b{color:#5b6ea8}
-:root[data-theme="yumusak"] .ib{color:#34467e}
-:root[data-theme="yumusak"] .top .ib,:root[data-theme="yumusak"] .libbar>.ib{background:var(--bg);border:0;border-radius:14px;box-shadow:var(--nu-s)}
-:root[data-theme="yumusak"] .top .ib:active,:root[data-theme="yumusak"] .libbar>.ib:active,:root[data-theme="yumusak"] .ib.on{box-shadow:var(--nu-in)}
-:root[data-theme="yumusak"] .search{background:var(--bg);border:0;border-radius:16px;box-shadow:var(--nu-in)}
-:root[data-theme="yumusak"] .chip{background:var(--bg);border:0;color:#7a85a3;box-shadow:var(--nu-s);text-transform:uppercase;letter-spacing:.08em;font-size:11.5px;margin:4px 2px}
-:root[data-theme="yumusak"] .chip.on{color:#34467e;box-shadow:var(--nu-in)}
-:root[data-theme="yumusak"] .chips{padding-inline:4px}
-:root[data-theme="yumusak"] .sh h2,:root[data-theme="yumusak"] .view>h2{text-transform:uppercase;letter-spacing:.14em;font-size:14px;font-weight:600;color:#5b6ea8}
-:root[data-theme="yumusak"] .btn{background:var(--bg);border:0;color:#34467e;box-shadow:var(--nu-s);border-radius:14px}
-:root[data-theme="yumusak"] .btn:active{box-shadow:var(--nu-in)}
-:root[data-theme="yumusak"] .btn.primary{background:var(--bg);color:#2b3657;box-shadow:var(--nu)}
-:root[data-theme="yumusak"] .btn.primary .ico{color:#34467e}
-:root[data-theme="yumusak"] #libBody>.actions{padding:6px 2px}
+:root[data-theme^="yumusak"] body{background:var(--bg) radial-gradient(circle at 12% 8%,rgba(255,255,255,.7),transparent 40%) fixed;color:var(--fg)}
+:root[data-theme^="yumusak"] .top .logo{color:#2b3657;letter-spacing:.02em}
+:root[data-theme^="yumusak"] .top .logo b{color:#5b6ea8}
+:root[data-theme^="yumusak"] .ib{color:#34467e}
+:root[data-theme^="yumusak"] .top .ib,:root[data-theme^="yumusak"] .libbar>.ib{background:var(--bg);border:0;border-radius:14px;box-shadow:var(--nu-s)}
+:root[data-theme^="yumusak"] .top .ib:active,:root[data-theme^="yumusak"] .libbar>.ib:active,:root[data-theme^="yumusak"] .ib.on{box-shadow:var(--nu-in)}
+:root[data-theme^="yumusak"] .search{background:var(--bg);border:0;border-radius:16px;box-shadow:var(--nu-in)}
+:root[data-theme^="yumusak"] .chip{background:var(--bg);border:0;color:#7a85a3;box-shadow:var(--nu-s);text-transform:uppercase;letter-spacing:.08em;font-size:11.5px;margin:4px 2px}
+:root[data-theme^="yumusak"] .chip.on{color:#34467e;box-shadow:var(--nu-in)}
+:root[data-theme^="yumusak"] .chips{padding-inline:4px}
+:root[data-theme^="yumusak"] .sh h2,:root[data-theme^="yumusak"] .view>h2{text-transform:uppercase;letter-spacing:.14em;font-size:14px;font-weight:600;color:#5b6ea8}
+:root[data-theme^="yumusak"] .btn{background:var(--bg);border:0;color:#34467e;box-shadow:var(--nu-s);border-radius:14px}
+:root[data-theme^="yumusak"] .btn:active{box-shadow:var(--nu-in)}
+:root[data-theme^="yumusak"] .btn.primary{background:var(--bg);color:#2b3657;box-shadow:var(--nu)}
+:root[data-theme^="yumusak"] .btn.primary .ico{color:#34467e}
+:root[data-theme^="yumusak"] #libBody>.actions{padding:6px 2px}
 /* şarkı listesi: tek kabarık kart içinde, yuvarlak kapak */
-:root[data-theme="yumusak"] #libBody .row{background:var(--bg);border-radius:0;margin:0;padding:10px 12px;box-shadow:6px 0 14px -8px var(--nu-a),-6px 0 14px -8px var(--nu-b)}
-:root[data-theme="yumusak"] #libBody>.actions+.row{border-radius:22px 22px 0 0;box-shadow:6px -2px 14px -6px var(--nu-a),-6px -6px 14px -6px var(--nu-b)}
-:root[data-theme="yumusak"] #libBody>.row:last-child{border-radius:0 0 22px 22px;margin-bottom:16px;box-shadow:6px 6px 14px -4px var(--nu-a),-6px 2px 14px -6px var(--nu-b)}
-:root[data-theme="yumusak"] .row{grid-template-columns:44px minmax(0,1fr) auto auto}
-:root[data-theme="yumusak"] .row .thumb{width:44px;height:44px;border-radius:50%;box-shadow:0 0 0 3px var(--bg),var(--nu-s)}
-:root[data-theme="yumusak"] .row.cur{background:#dfe5f0}
-:root[data-theme="yumusak"] .row.cur .t{color:#34467e}
-:root[data-theme="yumusak"] .row .t{font-weight:700;color:#2b3657}
+:root[data-theme^="yumusak"] #libBody .row{background:var(--bg);border-radius:0;margin:0;padding:10px 12px;box-shadow:6px 0 14px -8px var(--nu-a),-6px 0 14px -8px var(--nu-b)}
+:root[data-theme^="yumusak"] #libBody>.actions+.row{border-radius:22px 22px 0 0;box-shadow:6px -2px 14px -6px var(--nu-a),-6px -6px 14px -6px var(--nu-b)}
+:root[data-theme^="yumusak"] #libBody>.row:last-child{border-radius:0 0 22px 22px;margin-bottom:16px;box-shadow:6px 6px 14px -4px var(--nu-a),-6px 2px 14px -6px var(--nu-b)}
+:root[data-theme^="yumusak"] .row{grid-template-columns:44px minmax(0,1fr) auto auto}
+:root[data-theme^="yumusak"] .row .thumb{width:44px;height:44px;border-radius:50%;box-shadow:0 0 0 3px var(--bg),var(--nu-s)}
+:root[data-theme^="yumusak"] .row.cur{background:#dfe5f0}
+:root[data-theme^="yumusak"] .row.cur .t{color:#34467e}
+:root[data-theme^="yumusak"] .row .t{font-weight:700;color:#2b3657}
 /* albüm/sanatçı kartları: kabarık kare, yuvarlak resim */
-:root[data-theme="yumusak"] .grid{gap:18px 16px;padding:8px 4px}
-:root[data-theme="yumusak"] .grid .card{background:var(--bg);border-radius:22px;padding:16px 12px 14px;box-shadow:var(--nu);text-align:center}
-:root[data-theme="yumusak"] .grid .card .art{border-radius:50%;width:78%;margin:0 auto;box-shadow:0 0 0 5px var(--bg),var(--nu-s)}
-:root[data-theme="yumusak"] .grid .card .t{font-size:13.5px;font-weight:700;margin-top:12px}
-:root[data-theme="yumusak"] .grid .card .s{font-size:11.5px}
-:root[data-theme="yumusak"] .panel,:root[data-theme="yumusak"] .ayarbol,:root[data-theme="yumusak"] .npk{background:var(--bg);border:0;border-radius:22px;box-shadow:var(--nu)}
+:root[data-theme^="yumusak"] .grid{gap:18px 16px;padding:8px 4px}
+:root[data-theme^="yumusak"] .grid .card{background:var(--bg);border-radius:22px;padding:16px 12px 14px;box-shadow:var(--nu);text-align:center}
+:root[data-theme^="yumusak"] .grid .card .art{border-radius:50%;width:78%;margin:0 auto;box-shadow:0 0 0 5px var(--bg),var(--nu-s)}
+:root[data-theme^="yumusak"] .grid .card .t{font-size:13.5px;font-weight:700;margin-top:12px}
+:root[data-theme^="yumusak"] .grid .card .s{font-size:11.5px}
+:root[data-theme^="yumusak"] .panel,:root[data-theme^="yumusak"] .ayarbol,:root[data-theme^="yumusak"] .npk{background:var(--bg);border:0;border-radius:22px;box-shadow:var(--nu)}
 /* alt sekmeler: kabarık kareler, seçili olan çukur */
-:root[data-theme="yumusak"] .nav{background:var(--bg);border:0;box-shadow:var(--nu);border-radius:24px;padding:8px;gap:8px}
-:root[data-theme="yumusak"] .nav button{color:#7a85a3;border-radius:14px;box-shadow:var(--nu-s)}
-:root[data-theme="yumusak"] .nav button.on{background:var(--bg);color:#34467e;box-shadow:var(--nu-in)}
-:root[data-theme="yumusak"] .sheet{background:var(--bg);border:0;box-shadow:0 -10px 30px var(--nu-a)}
+:root[data-theme^="yumusak"] .nav{background:var(--bg);border:0;box-shadow:var(--nu);border-radius:24px;padding:8px;gap:8px}
+:root[data-theme^="yumusak"] .nav button{color:#7a85a3;border-radius:14px;box-shadow:var(--nu-s)}
+:root[data-theme^="yumusak"] .nav button.on{background:var(--bg);color:#34467e;box-shadow:var(--nu-in)}
+:root[data-theme^="yumusak"] .sheet{background:var(--bg);border:0;box-shadow:0 -10px 30px var(--nu-a)}
 /* mini çalar (tek satır ve ana sayfa 3 satır) */
-:root[data-theme="yumusak"] .mini{background:var(--bg);border:0;box-shadow:var(--nu);border-radius:24px}
-:root[data-theme="yumusak"] .mini .thumb{border-radius:50%!important;box-shadow:0 0 0 3px var(--bg),var(--nu-s)!important}
-:root[data-theme="yumusak"] .mini .ib{color:#34467e}
-:root[data-theme="yumusak"] .mini .prog{background:#d5dce8}
-:root[data-theme="yumusak"] .mini .prog i{background:#34467e}
-:root[data-theme="yumusak"] body.mini-eq .dock .mini.show{background:var(--bg);-webkit-backdrop-filter:none;backdrop-filter:none;border:0;box-shadow:var(--nu)}
-:root[data-theme="yumusak"] body.mini-eq .dock .mini.show .mFil{opacity:.10;filter:blur(36px) saturate(.6)}
-:root[data-theme="yumusak"] body.mini-eq .dock .mini.show .mNot{color:#34467e;opacity:.05}
-:root[data-theme="yumusak"] .mDlg .d1,:root[data-theme="yumusak"] .mDlg .d2{fill:#5b6ea8}
-:root[data-theme="yumusak"] .mDlg .d1{opacity:.08}:root[data-theme="yumusak"] .mDlg .d2{opacity:.05}:root[data-theme="yumusak"] .mDlg .d3{fill:#fff;opacity:.35}
-:root[data-theme="yumusak"] body.mini-eq .dock .mini.show .mEq{justify-content:space-between;gap:0;height:26px}
-:root[data-theme="yumusak"] body.mini-eq .dock .mini.show .mEq i{flex:0 0 2px;background:#34467e;box-shadow:none;border-radius:2px}
-:root[data-theme="yumusak"] body.mini-eq .dock .mini.show>.ib:not(#miniPlay){background:var(--bg);box-shadow:var(--nu-s);border-radius:14px}
-:root[data-theme="yumusak"] body.mini-eq .dock .mini.show>.ib.on{box-shadow:var(--nu-in)}
-:root[data-theme="yumusak"] body.mini-eq .dock .mini.show #miniPlay,:root[data-theme="yumusak"] #miniPlay{background:var(--bg);color:#34467e;border-radius:16px;box-shadow:var(--nu)}
-:root[data-theme="yumusak"] #miniPlay:active{box-shadow:var(--nu-in)}
+:root[data-theme^="yumusak"] .mini{background:var(--bg);border:0;box-shadow:var(--nu);border-radius:24px}
+:root[data-theme^="yumusak"] .mini .thumb{border-radius:50%!important;box-shadow:0 0 0 3px var(--bg),var(--nu-s)!important}
+:root[data-theme^="yumusak"] .mini .ib{color:#34467e}
+:root[data-theme^="yumusak"] .mini .prog{background:#d5dce8}
+:root[data-theme^="yumusak"] .mini .prog i{background:#34467e}
+:root[data-theme^="yumusak"] body.mini-eq .dock .mini.show{background:var(--bg);-webkit-backdrop-filter:none;backdrop-filter:none;border:0;box-shadow:var(--nu)}
+:root[data-theme^="yumusak"] body.mini-eq .dock .mini.show .mFil{opacity:.10;filter:blur(36px) saturate(.6)}
+:root[data-theme^="yumusak"] body.mini-eq .dock .mini.show .mNot{color:#34467e;opacity:.05}
+:root[data-theme^="yumusak"] .mDlg .d1,:root[data-theme^="yumusak"] .mDlg .d2{fill:#5b6ea8}
+:root[data-theme^="yumusak"] .mDlg .d1{opacity:.08}:root[data-theme^="yumusak"] .mDlg .d2{opacity:.05}:root[data-theme^="yumusak"] .mDlg .d3{fill:#fff;opacity:.35}
+:root[data-theme^="yumusak"] body.mini-eq .dock .mini.show .mEq{justify-content:space-between;gap:0;height:26px}
+:root[data-theme^="yumusak"] body.mini-eq .dock .mini.show .mEq i{flex:0 0 2px;background:#34467e;box-shadow:none;border-radius:2px}
+:root[data-theme^="yumusak"] body.mini-eq .dock .mini.show>.ib:not(#miniPlay){background:var(--bg);box-shadow:var(--nu-s);border-radius:14px}
+:root[data-theme^="yumusak"] body.mini-eq .dock .mini.show>.ib.on{box-shadow:var(--nu-in)}
+:root[data-theme^="yumusak"] body.mini-eq .dock .mini.show #miniPlay,:root[data-theme^="yumusak"] #miniPlay{background:var(--bg);color:#34467e;border-radius:16px;box-shadow:var(--nu)}
+:root[data-theme^="yumusak"] #miniPlay:active{box-shadow:var(--nu-in)}
 /* çalma ekranı: büyük yuvarlak kapak, yumuşak halka; kare kabarık düğmeler */
-:root[data-theme="yumusak"] .np{background:var(--bg);color:#2b3657}
-:root[data-theme="yumusak"] .np .np-art{border-radius:50%;box-shadow:0 0 0 12px var(--bg),12px 12px 28px var(--nu-a),-12px -12px 28px var(--nu-b)}
-:root[data-theme="yumusak"] .np .np-art:after{content:"";position:absolute;left:50%;top:50%;width:18%;height:18%;transform:translate(-50%,-50%);border-radius:50%;background:var(--bg);box-shadow:var(--nu-in)}
-:root[data-theme="yumusak"] .np .np-title h2{color:#2b3657}
-:root[data-theme="yumusak"] .np .ctrl .ib{background:var(--bg);border-radius:16px;box-shadow:var(--nu-s);color:#34467e}
-:root[data-theme="yumusak"] .np .ctrl .ib.on{box-shadow:var(--nu-in)}
-:root[data-theme="yumusak"] .np .ctrl .play{background:var(--bg);color:#34467e;border-radius:20px;box-shadow:var(--nu)}
-:root[data-theme="yumusak"] .np .ctrl .play:active{box-shadow:var(--nu-in)}
-:root[data-theme="yumusak"] input[type=range]{accent-color:#34467e}
+:root[data-theme^="yumusak"] .np{background:var(--bg);color:#2b3657}
+:root[data-theme^="yumusak"] .np .np-art{border-radius:50%;box-shadow:0 0 0 12px var(--bg),12px 12px 28px var(--nu-a),-12px -12px 28px var(--nu-b)}
+:root[data-theme^="yumusak"] .np .np-art:after{content:"";position:absolute;left:50%;top:50%;width:18%;height:18%;transform:translate(-50%,-50%);border-radius:50%;background:var(--bg);box-shadow:var(--nu-in)}
+:root[data-theme^="yumusak"] .np .np-title h2{color:#2b3657}
+:root[data-theme^="yumusak"] .np .ctrl .ib{background:var(--bg);border-radius:16px;box-shadow:var(--nu-s);color:#34467e}
+:root[data-theme^="yumusak"] .np .ctrl .ib.on{box-shadow:var(--nu-in)}
+:root[data-theme^="yumusak"] .np .ctrl .play{background:var(--bg);color:#34467e;border-radius:20px;box-shadow:var(--nu)}
+:root[data-theme^="yumusak"] .np .ctrl .play:active{box-shadow:var(--nu-in)}
+:root[data-theme^="yumusak"] input[type=range]{accent-color:#34467e}
+</style>
+<style id="yumusakYtCss">
+/* 6.32: Yumuşak tema · yalnız YouTube sekmesi — buzlu açık mavi, kabarık kartlar, mavi yuvarlak çal/ara düğmeleri */
+.ytnow{display:none}
+.ytgrp .ygm,.ytgrp-bas .ygk{display:none}
+:root[data-theme="yumusak"] #v-yt{--yk:linear-gradient(145deg,#f6f9fe,#e3eaf5);--yg:9px 9px 22px rgba(150,166,192,.5),-9px -9px 22px rgba(255,255,255,.95);--yg-s:4px 4px 10px rgba(150,166,192,.55),-4px -4px 10px #fff;--yg-in:inset 3px 3px 8px rgba(150,166,192,.55),inset -3px -3px 8px #fff;--ym:linear-gradient(150deg,#63adff,#2c78e2);--ym-g:0 8px 18px rgba(44,120,226,.42),inset 0 2px 3px rgba(255,255,255,.45);--yz:#1f2a44;--ys:#7d8aa6}
+:root[data-theme="yumusak"] #v-yt .ytslot{margin-top:6px;border:0;border-radius:24px;background:var(--yk);box-shadow:0 0 0 5px #f4f8fd,var(--yg);color:var(--ys)}
+/* şimdi çalıyor kartı */
+:root[data-theme="yumusak"] #v-yt .ytnow{display:grid;margin-top:18px;padding:16px 18px 6px;border-radius:26px 26px 0 0;background:linear-gradient(180deg,#f6f9fe,#eaf0f8);box-shadow:9px 0 22px -10px rgba(150,166,192,.5),-9px -9px 22px rgba(255,255,255,.95);gap:2px}
+:root[data-theme="yumusak"] #v-yt .yn-ust{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+:root[data-theme="yumusak"] #v-yt .yn-et{display:inline-flex;align-items:center;gap:2px;height:28px;padding:0 12px;border-radius:999px;background:#e7eef8;box-shadow:var(--yg-in);color:#4b6fa8;font:500 12.5px/1 system-ui,sans-serif}
+:root[data-theme="yumusak"] #v-yt .yn-et i{width:2.5px;height:12px;border-radius:2px;background:#3b86ec;transform-origin:bottom;transform:scaleY(.6);animation:ynB 1s ease-in-out infinite;animation-play-state:paused}
+:root[data-theme="yumusak"] #v-yt .yn-et i:nth-child(2){animation-delay:-.3s}
+:root[data-theme="yumusak"] #v-yt .yn-et i:nth-child(3){animation-delay:-.6s}
+:root[data-theme="yumusak"] #v-yt .yn-et i:nth-child(4){animation-delay:-.15s;margin-right:6px}
+:root[data-theme="yumusak"] #v-yt .ytnow.cal .yn-et i{animation-play-state:running}
+@keyframes ynB{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+:root[data-theme="yumusak"] #v-yt .yn-m{width:40px;height:40px;border:0;border-radius:50%;background:var(--yk);box-shadow:var(--yg-s);color:var(--yz);display:grid;place-items:center}
+:root[data-theme="yumusak"] #v-yt .yn-m:active{box-shadow:var(--yg-in)}
+:root[data-theme="yumusak"] #v-yt .yn-t{font:700 19px/1.25 system-ui,sans-serif;color:var(--yz);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+:root[data-theme="yumusak"] #v-yt .yn-s{font-size:15px;color:var(--ys);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:10px}
+:root[data-theme="yumusak"] #v-yt #ynSeek{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;margin:0;accent-color:#3b86ec}
+:root[data-theme="yumusak"] #v-yt #ynSeek::-webkit-slider-runnable-track{height:5px;border-radius:5px;background:linear-gradient(90deg,#3b86ec var(--yp,0%),#d8e1ee var(--yp,0%))}
+:root[data-theme="yumusak"] #v-yt #ynSeek::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-6.5px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(80,110,160,.45)}
+:root[data-theme="yumusak"] #v-yt .yn-z{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ys);font-variant-numeric:tabular-nums}
+:root[data-theme="yumusak"] #v-yt .ytctl{margin:0 0 4px;padding:10px 12px 20px;gap:0;justify-content:space-between;border-radius:0 0 26px 26px;background:linear-gradient(180deg,#eaf0f8,#e3eaf5);box-shadow:9px 9px 22px rgba(150,166,192,.5),-9px 0 22px -10px rgba(255,255,255,.95)}
+:root[data-theme="yumusak"] #v-yt .ytctl[hidden]{display:none}
+:root[data-theme="yumusak"] #v-yt .ytctl .ib{width:54px;height:54px;margin:0;border:0;border-radius:50%;background:var(--yk);box-shadow:var(--yg-s);color:var(--yz)}
+:root[data-theme="yumusak"] #v-yt .ytctl .ib .ico{width:22px;height:22px}
+:root[data-theme="yumusak"] #v-yt .ytctl .ib:active,:root[data-theme="yumusak"] #v-yt .ytctl .ib.on{box-shadow:var(--yg-in)}
+:root[data-theme="yumusak"] #v-yt .ytctl #ytKarisTum{color:#3b86ec}
+:root[data-theme="yumusak"] #v-yt .ytctl .play{width:70px;height:70px;background:var(--ym);color:#fff;box-shadow:var(--ym-g),0 0 0 6px #edf2f9}
+:root[data-theme="yumusak"] #v-yt .ytctl .play .ico{width:28px;height:28px}
+:root[data-theme="yumusak"] #v-yt .ytctl .play:active{filter:brightness(.95);transform:scale(.97)}
+:root[data-theme="yumusak"] #v-yt .ytctl #ytBg{color:#e8322f}
+/* arama kartı */
+:root[data-theme="yumusak"] #v-yt .ytara{margin-top:20px;padding:12px;gap:10px;border-radius:26px;background:var(--yk);box-shadow:var(--yg);align-items:center}
+:root[data-theme="yumusak"] #v-yt .ytara input{height:50px;border:0;border-radius:999px;padding-left:44px;background:#e9eff8 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2341506e' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M21 21l-5-5'/%3E%3C/svg%3E") 15px 50%/20px no-repeat;box-shadow:var(--yg-in);color:var(--yz)}
+:root[data-theme="yumusak"] #v-yt .ytara input::placeholder{color:#8794ae}
+:root[data-theme="yumusak"] #v-yt .ytara .btn{flex:0 0 50px;width:50px;height:50px;border:0;border-radius:50%;background:var(--yk);box-shadow:var(--yg-s);color:var(--yz)}
+:root[data-theme="yumusak"] #v-yt .ytara .btn.primary{width:54px;height:54px;flex-basis:54px;background:var(--ym);color:#fff;box-shadow:var(--ym-g)}
+:root[data-theme="yumusak"] #v-yt .ytara .btn.primary .ico{color:#fff;width:24px;height:24px}
+:root[data-theme="yumusak"] #v-yt .ytbul{margin:12px 6px 0}
+:root[data-theme="yumusak"] #v-yt .ytbul button{border:0;background:var(--yk);box-shadow:var(--yg-s);color:var(--yz);height:30px}
+/* seçim çubuğu */
+:root[data-theme="yumusak"] #v-yt .secbar{top:4px;gap:8px;padding:12px 14px;border:0;border-radius:24px;background:rgba(240,245,252,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:var(--yg)}
+:root[data-theme="yumusak"] #v-yt .secbar b{display:flex;align-items:center;gap:10px;color:var(--yz);font-size:15px}
+:root[data-theme="yumusak"] #v-yt .secbar b::before{content:"";flex:none;width:28px;height:28px;border-radius:8px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/18px no-repeat,linear-gradient(150deg,#63adff,#2c78e2);box-shadow:var(--ym-g)}
+:root[data-theme="yumusak"] #v-yt .secbar .btn{height:38px;padding:0 14px;border:0!important;border-radius:999px;background:var(--yk);box-shadow:var(--yg-s);color:var(--yz)!important;font-weight:600}
+:root[data-theme="yumusak"] #v-yt .secbar .btn[data-sb="sil"]{background:linear-gradient(150deg,#ff8a8a,#ec5b5b);color:#fff!important;box-shadow:0 6px 14px rgba(236,91,91,.38)}
+/* LİSTEM başlığı ve kartlar */
+:root[data-theme="yumusak"] #v-yt .ytbas{margin:26px 4px 12px}
+:root[data-theme="yumusak"] #v-yt .ytbas h2{font-size:15px;letter-spacing:.16em;color:#41506e}
+:root[data-theme="yumusak"] #v-yt .ytbas .ib{width:38px;height:38px;border:0;border-radius:50%;background:var(--yk);box-shadow:var(--yg-s);color:var(--yz);margin-left:6px}
+:root[data-theme="yumusak"] #v-yt .ytbas .ib:active{box-shadow:var(--yg-in)}
+:root[data-theme="yumusak"] #v-yt .ytgrp{margin:0 0 12px;padding:10px 10px 10px 12px;gap:8px;border:0;border-radius:24px;background:var(--yk);box-shadow:var(--yg)}
+:root[data-theme="yumusak"] #v-yt .ytgrp.acik{box-shadow:var(--yg),inset 0 0 0 2px rgba(59,134,236,.35)}
+:root[data-theme="yumusak"] #v-yt .ytgrp-bas{gap:14px}
+:root[data-theme="yumusak"] #v-yt .ytgrp-bas>.ico{display:none}
+:root[data-theme="yumusak"] #v-yt .ytgrp-bas .ygk{display:block;flex:none;width:80px;height:62px;border-radius:14px;background:#cfd8e6 center/cover;box-shadow:0 4px 10px rgba(60,80,120,.25)}
+:root[data-theme="yumusak"] #v-yt .ytgrp-bas b{font-size:16.5px;color:var(--yz)}
+:root[data-theme="yumusak"] #v-yt .ytgrp-bas small{font-size:14px;color:var(--ys)}
+:root[data-theme="yumusak"] #v-yt .ytgrp>.act{display:none!important}
+:root[data-theme="yumusak"] #v-yt .ytgrp .ygm{display:grid;flex:0 0 42px;width:42px;height:42px;place-items:center;border:0;border-radius:50%;background:var(--yk);box-shadow:var(--yg-s);color:var(--yz)}
+:root[data-theme="yumusak"] #v-yt .ytgrp .ygm:active{box-shadow:var(--yg-in)}
+:root[data-theme="yumusak"] #v-yt .ytgrp-ic{margin:-2px 4px 14px;padding:4px 0 0;border:0}
+:root[data-theme="yumusak"] #v-yt .row.yr{margin:0 0 10px;padding:10px;border:0;border-radius:22px;background:var(--yk);box-shadow:var(--yg-s);grid-template-columns:28px 76px minmax(0,1fr) auto auto;gap:12px}
+:root[data-theme="yumusak"] #v-yt .row.yr.cur{box-shadow:var(--yg-s),inset 0 0 0 2px rgba(59,134,236,.55)}
+:root[data-theme="yumusak"] #v-yt .row.yr .thumb{width:76px;height:52px;border-radius:13px;box-shadow:0 3px 8px rgba(60,80,120,.25)}
+:root[data-theme="yumusak"] #v-yt .row.yr .t{color:var(--yz);font-weight:600;font-size:15px}
+:root[data-theme="yumusak"] #v-yt .row.yr .s{color:var(--ys)}
+:root[data-theme="yumusak"] #v-yt .row.yr .more{width:40px;height:40px;border:0;border-radius:50%;background:var(--yk);box-shadow:var(--yg-s);color:var(--yz);display:grid;place-items:center}
+:root[data-theme="yumusak"] #v-yt .ysil{border:0;background:#e9eff8;box-shadow:var(--yg-in);color:var(--ys)}
+:root[data-theme="yumusak"] #v-yt .ytbilgi{padding:4px 6px}
 </style>
 </head>
 <body>
@@ -1335,6 +1409,9 @@ body.mini-eq .dock .mini.show .thumb{box-shadow:0 6px 16px rgba(0,0,0,.35)}
 
     <section class="view" id="v-yt" aria-label="YouTube">
       <div class="ytslot" id="ytSlot">Listeden bir video seç. Oynatıcı burada açılır.</div>
+      <div class="ytnow" id="ytNowK" aria-label="Şimdi çalıyor"><div class="yn-ust"><span class="yn-et"><i></i><i></i><i></i><i></i>Şimdi Çalıyor</span><button class="yn-m" id="ynMenu" aria-label="Seçenekler"><svg class="ico"><use href="#i-more"/></svg></button></div>
+        <b class="yn-t" id="ynT">Listeden bir video seç</b><span class="yn-s" id="ynS">YouTube</span>
+        <input type="range" id="ynSeek" min="0" max="1000" value="0" aria-label="Video konumu"><div class="yn-z"><span id="ynCur">0:00</span><span id="ynDur">0:00</span></div></div>
       <div class="ytctl">
         <button class="ib yk" id="ytKarisTum" aria-label="Listeler arası karışık çal" title="Listeler arası karışık"><svg class="ico"><use href="#i-shuffle"/></svg></button>
         <button class="ib" id="ytPrev" aria-label="Önceki video"><svg class="ico"><use href="#i-prev"/></svg></button>
@@ -1471,7 +1548,7 @@ body.mini-eq .dock .mini.show .thumb{box-shadow:0 6px 16px rgba(0,0,0,.35)}
           <button class="chip" data-theme-set="dark">Koyu</button>
           <button class="chip" data-theme-set="light">Açık</button>
           <button class="chip" data-theme-set="gun">Gün batımı</button>
-          <button class="chip" data-theme-set="yumusak">Yumuşak</button>
+          <button class="chip" data-theme-set="yumusak">Yumuşak</button><button class="chip" data-theme-set="yumusak1">Yumuşak (önceki YouTube)</button>
           <button class="chip" data-wa-set="yesil">Klasik yeşil</button>
           <button class="chip" data-wa-set="mavi">Klasik mavi</button>
         </div>
@@ -1497,7 +1574,7 @@ body.mini-eq .dock .mini.show .thumb{box-shadow:0 6px 16px rgba(0,0,0,.35)}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.31 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.32 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -5419,6 +5496,31 @@ async function ytGrupYenile(k,btn){
   add.filter(x=>!x.title).slice(0,60).forEach(x=>{try{ytTitle(x)}catch(e){}});
   bitir(add.length+' yeni şarkı “'+ad+'” listesine eklendi')}
 {const _a=waAc;waAc=function(){waTema();const r=_a.apply(this,arguments);try{waDansKur()}catch(e){}return r}}
+/* 6.32: Yumuşak tema · YouTube sekmesi: şimdi çalıyor kartı, liste kartında kapak ve ⋯ menüsü */
+(function(){
+  const yum=()=>document.documentElement.getAttribute('data-theme')==='yumusak';
+  let ynTut=false;const sk=$('#ynSeek');
+  sk.addEventListener('input',()=>{ynTut=true;sk.style.setProperty('--yp',sk.value/10+'%');const d=ytDur();if(d)$('#ynCur').textContent=fmt(sk.value/1000*d)});
+  sk.addEventListener('change',()=>{const d=ytDur();if(d&&ytReady){try{ytP.seekTo(sk.value/1000*d,true)}catch(e){}ytDoneLock=false}ynTut=false});
+  $('#ynMenu').addEventListener('click',()=>{if(ytCur>=0&&P.yt[ytCur])ytMenu(ytCur);else toast('Önce listeden bir video seç')});
+  function ciz(){if(!yum()||ui.view!=='yt'||document.hidden)return;const it=ytCurItem(),k=$('#ytNowK');
+    $('#ynT').textContent=it?(it.title||'YouTube videosu'):'Listeden bir video seç';$('#ynS').textContent=it?(it.author||'YouTube'):(P.yt.length?P.yt.length+' kayıt':'YouTube');
+    k.classList.toggle('cal',!!ytPlaying);const d=ytDur(),c=ytNow();$('#ynDur').textContent=fmt(d);
+    if(!ynTut){const v=d>0?Math.round(c/d*1000):0;sk.value=v;sk.style.setProperty('--yp',v/10+'%');$('#ynCur').textContent=fmt(c)}}
+  setInterval(ciz,500);
+  /* liste grupları: ilk videonun kapağı + ⋯ (sırayla, karışık, yenile, kaldır) */
+  const _r=renderYT;renderYT=function(){_r.apply(this,arguments);try{$$('#ytList .ytgrp').forEach(g=>{if(g.querySelector('.ygm'))return;
+    const ic=g.nextElementSibling,r=ic&&ic.querySelector('.row.yr'),it=r&&P.yt[r.dataset.yi!=null?+r.dataset.yi:+r.dataset.yix];
+    const bas=g.querySelector('.ytgrp-bas');if(it&&it.vid&&bas){const k=document.createElement('span');k.className='ygk';k.style.backgroundImage='url("https://i.ytimg.com/vi/'+it.vid+'/mqdefault.jpg")';bas.prepend(k)}
+    const m=document.createElement('button');m.className='ygm';m.setAttribute('aria-label','Liste seçenekleri');m.innerHTML=ico('more');g.appendChild(m)})}catch(e){console.warn(e)}};
+  $('#ytList').addEventListener('click',e=>{const m=e.target.closest('.ygm');if(!m)return;e.stopPropagation();const g=m.closest('.ytgrp'),b=s=>g.querySelector(s),ad=(g.querySelector('.ytgrp-bas b')||{}).textContent||'YouTube listesi',L=[];
+    if(b('[data-gcal]'))L.push({icon:'play',label:'Sırayla çal',fn:()=>b('[data-gcal]').click()});
+    if(b('[data-gkar]'))L.push({icon:'shuffle',label:'Karışık çal',fn:()=>b('[data-gkar]').click()});
+    if(b('[data-gyen]'))L.push({icon:'repeat',label:'YouTube’dan yenile',fn:()=>b('[data-gyen]').click()});
+    if(b('[data-gsil]'))L.push({icon:'trash',label:'Listeyi kaldır',cls:'danger',fn:()=>b('[data-gsil]').click()});
+    menuSheet(ad,L)},true);
+  try{renderYT()}catch(e){}
+})();
 })();
 </script>
 <script>
@@ -5498,7 +5600,7 @@ async function ytGrupYenile(k,btn){
     document.body.classList.toggle('mini-eq',on);es();if(aktif()&&!raf)raf=requestAnimationFrame(kare)}
   if(lib)new MutationObserver(kontrol).observe(lib,{attributes:true,attributeFilter:['class']});
   new MutationObserver(kontrol).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-  const tc=document.querySelector('meta[name="theme-color"]');const tcGun=()=>{if(!tc)return;const b=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();tc.setAttribute('content',document.documentElement.getAttribute('data-theme')==='yumusak'?'#e6ebf3':(b&&b!=='transparent'?b:'#0d1118'))};
+  const tc=document.querySelector('meta[name="theme-color"]');const tcGun=()=>{if(!tc)return;const b=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();tc.setAttribute('content',/^yumusak/.test(document.documentElement.getAttribute('data-theme')||'')?'#e6ebf3':(b&&b!=='transparent'?b:'#0d1118'))};
   new MutationObserver(tcGun).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});tcGun();
   new MutationObserver(kontrol).observe(m,{attributes:true,attributeFilter:['class']});
   document.addEventListener('visibilitychange',kontrol);kontrol();
