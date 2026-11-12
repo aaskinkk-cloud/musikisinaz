@@ -14,9 +14,27 @@
 | **Bildirim ve kilit ekranı** | Önceki · Çal/Duraklat · Sonraki düğmeleri |
 | **Araç / kulaklık** | Bluetooth ve direksiyon ileri-geri, çal/duraklat düğmeleri çalışır |
 | **Bağlantılar** | YouTube, YouTube Music vb. bağlantılar telefondaki uygulamada açılır |
+| **Silme** | ⋮ → Telefondan sil: şarkı telefondan kalıcı silinir (önce Tını, sonra Android onay sorar) |
 | **Güncelleme** | Uygulama sayfayı GitHub'dan açar: web sürümüne gelen her güncelleme APK'ya da kendiliğinden gelir; GitHub açılmazsa Cloudflare kopyası açılır |
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
+
+## 6.33 (12.11.2026) — Kompakt YouTube kartı, telefondan / cihazdan silme
+**YouTube sekmesi (Yumuşak tema):**
+- Video küçüldü ve oynatma kontrolleriyle **tek kabarık kartta**: solda video, sağda başlık · sanatçı · ⋮ menüsü, altında ilerleme çubuğu (süreler iki yanda) ve oynatma düğmeleri (karışık · önceki · **mavi Çal** · sonraki · YouTube).
+- Üst başlıktaki 🌐 İnternette ara · 🚗 Araç modu · 🌙 Tema · ➕ Müzik ekle düğmeleri bu sekmede karta taşındı; üstte yalnız "Tını" yazısı kalır.
+- Kart yukarıda sabit kalır, liste altından kayar. Kontroller kartta olduğu için alttaki YouTube mini çalar bu sekmede gizlenir. Toplam alan ~500 px'ten ~220 px'e indi; kazanılan yer listeye kaldı.
+- Masaüstünde video 320 px genişliğe çıkar, düğmeler büyür.
+- Önceki büyük video düzeni korunuyor: **Ayarlar → Görünüm → YouTube oynatıcı → Geniş**.
+
+**Silme (her yerel şarkının ⋮ menüsü → *Telefondan sil…* / *Cihazdan sil…*; Klasik görünümde çoklu seçimle de):**
+- Önce onay penceresi açılır: hangi şarkıların, nereden ve kalıcı olarak silineceği yazılır.
+- **Android uygulaması (APK):** telefondaki asıl dosya silinir. Android 11+ kendi onay penceresini de gösterir (Android 10'da gerekirse dosya dosya sorar, 9 ve öncesinde bir kez depolama izni ister).
+- **Bilgisayar (Chrome / Edge, klasörden eklenen şarkılar):** tarayıcı bir kez klasörde düzenleme izni ister, sonra asıl dosya silinir. Silmeden önce dosya boyutu denetlenir; değişmişse silinmez.
+- **Dosya seçiciyle eklenenler (Android Chrome dahil):** tarayıcı asıl dosyaya erişemez; Tını'daki kopya silinir, dosya adı panoya kopyalanır ve bu durum açıkça yazılır.
+- Silinemeyen her dosya için neden gösterilir (izin verilmedi, onayda vazgeçildi, dosya kullanımda, APK eski…). Liste kendiliğinden güncellenir.
+- YouTube kayıtları dosya değildir: onlar yalnız listeden kaldırılır (⋮ → Listeden çıkar), hiçbir dosya işlemi yapılmaz.
+- **APK'da silme için APK'yı bir kez yeniden indirip kurmak gerekir** (bağlantı en üstte).
 
 ## 6.32 (10.11.2026) — Yumuşak tema: YouTube sekmesi yeni görünüm
 - Yalnız **Yumuşak** temada ve yalnız **YouTube** sekmesinde değişiklik var. Diğer sekmeler ve temalar olduğu gibi duruyor.

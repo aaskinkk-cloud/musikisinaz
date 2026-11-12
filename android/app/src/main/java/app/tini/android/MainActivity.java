@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
     private static final String ADRES = "https://aaskinkk-cloud.github.io/musikisinaz/";
     private static final String YEDEK = "https://ahmet-uygulamalar.pages.dev/musikisinaz/";
     static final String MEDYA_HOST = "appassets.androidplatform.net";
-    private static final int DOSYA_SEC = 41, IZIN = 42;
+    private static final int DOSYA_SEC = 41, IZIN = 42, SIL = 43, SIL_YAZ = 44;
     private static final int ZEMIN = 0xFF0D1118;
 
     static WeakReference<MainActivity> ornek = new WeakReference<>(null);
@@ -302,6 +302,7 @@ public class MainActivity extends Activity {
     }
 
     @Override protected void onActivityResult(int req, int res, Intent d) {
+        if (req == SIL) { silSonuc(res == RESULT_OK); return; }
         if (req == DOSYA_SEC && dosyaCb != null) {
             Uri[] r = null;
             if (res == RESULT_OK && d != null) {
@@ -319,6 +320,10 @@ public class MainActivity extends Activity {
     @Override public void onRequestPermissionsResult(int req, String[] p, int[] g) {
         super.onRequestPermissionsResult(req, p, g);
         if (req == IZIN) js("window.nativeBridgeEvent&&nativeBridgeEvent('permission'," + izinVar() + ")");
+        if (req == SIL_YAZ) {
+            boolean ok = g.length > 0 && g[0] == PackageManager.PERMISSION_GRANTED;
+            if (ok) silEski(); else silBitir(false, "Depolama (yazma) izni verilmedi");
+        }
     }
 
     /* ---------- Yardımcılar ---------- */
@@ -511,9 +516,102 @@ public class MainActivity extends Activity {
         } catch (Exception e) { return yok(); }
     }
 
+    /* ---------- 6.33: Telefondan sil (kullanıcı onayıyla) ----------
+       Android 11+: MediaStore.createDeleteRequest → sistemin kendi onay penceresi.
+       Android 10: başka uygulamanın dosyası için RecoverableSecurityException → sistem onayı, sonra yeniden denenir.
+       Android 9 ve öncesi: WRITE_EXTERNAL_STORAGE izni istenir, sonra silinir.
+       Sonuç sayfaya bildirilir: nativeBridgeEvent('deleted', {ok:[id], fail:[{id,neden}], iptal}) */
+    private final java.util.ArrayList<Long> silListe = new java.util.ArrayList<>();
+    private long silBekleyen = -1;
+    private final java.util.HashSet<Long> silSoruldu = new java.util.HashSet<>();
+
+    void silBaslat(String json) {
+        if (!silListe.isEmpty()) { silYanit(new JSONArray(), new JSONArray(), false, "Önceki silme sürüyor"); return; }
+        try { JSONArray a = new JSONArray(json); for (int i = 0; i < a.length(); i++) silListe.add(a.getLong(i)); }
+        catch (Exception e) { silYanit(new JSONArray(), new JSONArray(), false, "Geçersiz istek"); return; }
+        if (silListe.isEmpty()) { silYanit(new JSONArray(), new JSONArray(), false, null); return; }
+        try {
+            if (Build.VERSION.SDK_INT >= 30) {
+                java.util.ArrayList<Uri> u = new java.util.ArrayList<>();
+                for (long id : silListe) u.add(ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id));
+                android.app.PendingIntent pi = MediaStore.createDeleteRequest(getContentResolver(), u);
+                startIntentSenderForResult(pi.getIntentSender(), SIL, null, 0, 0, 0);
+            } else if (Build.VERSION.SDK_INT == 29) {
+                silOn();
+            } else {
+                if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) silEski();
+                else requestPermissions(new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE }, SIL_YAZ);
+            }
+        } catch (Exception e) { silBitir(false, "Silme başlatılamadı: " + e.getMessage()); }
+    }
+
+    /** Android 10: tek tek silinir; izin gerekirse sistem sorar, onaydan sonra kalandan devam edilir. */
+    private void silOn() {
+        ContentResolver cr = getContentResolver();
+        for (long id : new java.util.ArrayList<>(silListe)) {
+            Uri u = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
+            try { cr.delete(u, null, null); }
+            catch (SecurityException e) {
+                if (e instanceof android.app.RecoverableSecurityException && silSoruldu.add(id)) {
+                    try {
+                        silBekleyen = id;
+                        startIntentSenderForResult(((android.app.RecoverableSecurityException) e).getUserAction().getActionIntent().getIntentSender(), SIL, null, 0, 0, 0);
+                        return;
+                    } catch (Exception x) { }
+                }
+            } catch (Exception e) { }
+        }
+        silBitir(false, null);
+    }
+
+    private void silEski() {
+        ContentResolver cr = getContentResolver();
+        for (long id : silListe) {
+            try { cr.delete(ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id), null, null); } catch (Exception e) { }
+        }
+        silBitir(false, null);
+    }
+
+    private void silSonuc(boolean onay) {
+        if (Build.VERSION.SDK_INT == 29 && silBekleyen >= 0) {
+            long id = silBekleyen; silBekleyen = -1;
+            if (onay) { try { getContentResolver().delete(ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id), null, null); } catch (Exception e) { } silOn(); }
+            else silBitir(true, null);
+            return;
+        }
+        silBitir(!onay, null);
+    }
+
+    /** Her dosyanın gerçekten silinip silinmediği MediaStore'dan denetlenir. */
+    private void silBitir(boolean iptal, String hata) {
+        JSONArray ok = new JSONArray(), fail = new JSONArray();
+        ContentResolver cr = getContentResolver();
+        for (long id : silListe) {
+            boolean var = false;
+            try (Cursor c = cr.query(ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id), new String[]{ MediaStore.Audio.Media._ID }, null, null, null)) {
+                var = c != null && c.moveToFirst();
+            } catch (Exception e) { var = true; }
+            if (!var) ok.put(id);
+            else {
+                try { JSONObject o = new JSONObject(); o.put("id", id); o.put("neden", hata != null ? hata : iptal ? "Android onayında vazgeçildi" : "Android dosyayı silmedi (korumalı ya da kullanımda olabilir)"); fail.put(o); } catch (Exception e) { }
+            }
+        }
+        silListe.clear(); silBekleyen = -1; silSoruldu.clear();
+        silYanit(ok, fail, iptal, null);
+    }
+
+    private void silYanit(JSONArray ok, JSONArray fail, boolean iptal, String hata) {
+        try {
+            JSONObject o = new JSONObject(); o.put("ok", ok); o.put("fail", fail); o.put("iptal", iptal); if (hata != null) o.put("hata", hata);
+            js("window.nativeBridgeEvent&&nativeBridgeEvent('deleted'," + o + ")");
+        } catch (Exception e) { }
+    }
+
     /* ---------- Sayfa ile köprü: window.Android ---------- */
     class Kopru {
         @JavascriptInterface public String scan() { return tara(); }
+        /** 6.33: id listesi (JSON) → telefondan kalıcı silme, sistem onayıyla */
+        @JavascriptInterface public void deleteMedia(String ids) { ana.post(() -> silBaslat(ids)); }
         @JavascriptInterface public void ytGiris() { ana.post(MainActivity.this::girisBaslat); }
         @JavascriptInterface public void ytmGiris(String url) {
             ana.post(() -> {
