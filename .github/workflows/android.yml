@@ -23,6 +23,14 @@ jobs:
           gradle --no-daemon assembleRelease 2>&1 | tee derle.log || { grep -E "error:|e: |What went wrong|\.java:[0-9]+" derle.log | head -30 | sed 's/^/::error::/'; exit 1; }
       - name: APK adını düzelt
         run: cp android/app/build/outputs/apk/release/app-release.apk tini.apk
+      - name: APK'yı siteye de koy (aaskinkk-cloud.github.io/musikisinaz/tini.apk)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin ${{ github.ref_name }} || true
+          git add -f tini.apk
+          git commit -m "APK güncellendi (siteden indirme)" || exit 0
+          git push origin HEAD:${{ github.ref_name }} || true
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: android

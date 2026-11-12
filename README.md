@@ -1,7 +1,7 @@
 # Tını
 
 **Uygulamayı aç:** https://aaskinkk-cloud.github.io/musikisinaz/ · Yedek: https://ahmet-uygulamalar.pages.dev/musikisinaz/
-**Android uygulaması (APK):** https://github.com/aaskinkk-cloud/musikisinaz/releases/download/android/tini.apk
+**Android uygulaması (APK):** https://aaskinkk-cloud.github.io/musikisinaz/tini.apk · Yedek: https://github.com/aaskinkk-cloud/musikisinaz/releases/download/android/tini.apk
 
 ## Android uygulaması (APK)
 
@@ -18,6 +18,13 @@
 | **Güncelleme** | Uygulama sayfayı GitHub'dan açar: web sürümüne gelen her güncelleme APK'ya da kendiliğinden gelir; GitHub açılmazsa Cloudflare kopyası açılır |
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
+
+## 6.34 (12.11.2026) — Kompakt kart sadeleşti, küçük yumuşak düğmeler
+- 🌐 🚗 🌙 ➕ düğmeleri yeniden üst başlıkta.
+- Oynatma düğmeleri (karışık · önceki · çal · sonraki · YouTube) küçük, hepsi aynı yumuşak kabarık düğme; videonun sağında, başlığın altında. Çal yalnız mavi simgesiyle ayırt edilir. Kart ~150 px'e indi.
+- Arama: yapıştır ve ara düğmeleri küçük yumuşak düğme, arama kutusu genişledi.
+- Listedeki ✕ (listeden sil) küçüldü.
+- APK artık siteden de iner: aaskinkk-cloud.github.io/musikisinaz/tini.apk (her APK derlemesinde kendiliğinden güncellenir).
 
 ## 6.33 (12.11.2026) — Kompakt YouTube kartı, telefondan / cihazdan silme
 **YouTube sekmesi (Yumuşak tema):**
@@ -341,6 +348,7 @@ Dosyaların ve verilerin **yalnız cihazında** işlenir ve saklanır; hiçbir s
 | `sw.js` | Çevrimdışı önbellek ve sürüm güncelleme |
 | `manifest.webmanifest`, `icon-*.png`, `icon.svg` | Ana ekran simgesi ve uygulama bilgileri |
 | `index.cloudflare.html` | Cloudflare kopyası için kaynak (simge adları farklı) |
+| `tini.apk` | Android uygulamasının siteden indirilen kopyası (derleme her seferinde günceller) |
 | `android/` | Android uygulaması (WebView kabuğu, çalma hizmeti, simgeler) |
 | `.github/workflows/android.yml` | APK'yı derleyip *android* sürümüne yükler |
 
