@@ -19,6 +19,13 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.35 (14.11.2026) — YouTube sekmesi yeni Kart düzeni
+- **Kart düzeni (yeni varsayılan, Yumuşak tema):** solda kare video (kapak gibi; yanlardan kırpılır, siyah bant yok), sağda **Şimdi Çalıyor** etiketi · ⋮ menüsü · başlık (2 satır) · sanatçı · ilerleme çubuğu ve süreler.
+- Oynatma düğmeleri (karışık · önceki · **mavi Çal** · sonraki · YouTube) kartın altında **tam genişlikte tek sıra**; sıkışma ve sağdaki kesilme giderildi. Kart yukarıda sabit kalır.
+- Arama kartı: geniş kutu, yumuşak yapıştır, **mavi yuvarlak Ara**.
+- Seçim kartı: işaret · "N seçili / YouTube listem" iki satır · Tümü · kırmızı Sil · Vazgeç tek sırada.
+- Önceki düzenler korunuyor: **Ayarlar → Görünüm → YouTube oynatıcı: Kart · Kompakt (6.34) · Geniş (6.32)**.
+
 ## 6.34 (12.11.2026) — Kompakt kart sadeleşti, küçük yumuşak düğmeler
 - 🌐 🚗 🌙 ➕ düğmeleri yeniden üst başlıkta.
 - Oynatma düğmeleri (karışık · önceki · çal · sonraki · YouTube) küçük, hepsi aynı yumuşak kabarık düğme; videonun sağında, başlığın altında. Çal yalnız mavi simgesiyle ayırt edilir. Kart ~150 px'e indi.

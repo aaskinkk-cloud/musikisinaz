@@ -1354,6 +1354,45 @@ body.mini-eq .dock .mini.show .thumb{box-shadow:0 6px 16px rgba(0,0,0,.35)}
 :root[data-theme="yumusak"] #v-yt .ysil:not(.onay){width:18px;height:18px;font-size:9px;opacity:.75}
 @media (max-width:359px){:root[data-theme="yumusak"] #v-yt.ykp .ykart{--yv:40%;--yb:28px;column-gap:8px;padding:10px}}
 @media (min-width:700px){:root[data-theme="yumusak"] #v-yt.ykp .ykart{--yv:300px;--yb:38px;column-gap:16px;padding:14px 16px 10px} :root[data-theme="yumusak"] #v-yt.ykp .yn-t{font-size:18px} :root[data-theme="yumusak"] #v-yt.ykp .yn-s{font-size:14px} :root[data-theme="yumusak"] #v-yt.ykp .ytctl{justify-content:flex-start;gap:12px} :root[data-theme="yumusak"] #v-yt.ykp .ytctl .ib .ico,:root[data-theme="yumusak"] #v-yt.ykp .ytctl .play .ico{width:18px;height:18px}}
+/* 6.35: Kart düzeni (varsayılan) — solda kare video (kapak gibi), sağda Şimdi Çalıyor · ⋮ · başlık · sanatçı · ilerleme; altta tam genişlikte oynatma düğmeleri */
+:root[data-theme="yumusak"] #v-yt.ykn .ykart{--ya:clamp(104px,31vw,150px);--yb:42px;--yp:52px;position:sticky;top:0;z-index:3;display:grid;grid-template-columns:var(--ya) minmax(0,1fr);grid-template-areas:"vid ust" "vid t" "vid s" "vid sk" "vid z" "ctl ctl";grid-template-rows:auto auto auto 1fr auto auto;column-gap:14px;row-gap:0;box-sizing:border-box;width:100%;max-width:100%;margin:6px 0 8px;padding:14px 14px 14px;border-radius:26px;background:linear-gradient(180deg,#f6f9fe,#e6edf7);box-shadow:var(--yg)}
+:root[data-theme="yumusak"] #v-yt.ykn .ytslot{grid-area:vid;position:relative;top:auto;align-self:start;box-sizing:border-box;width:var(--ya);height:var(--ya);aspect-ratio:1/1!important;margin:0;padding:6px;border:0;border-radius:18px;font-size:11px;line-height:1.3;overflow:auto;background:#dfe7f2;box-shadow:0 6px 16px rgba(60,80,120,.28),0 0 0 3px #f6f9fe}
+:root[data-theme="yumusak"] #v-yt.ykn .ytnow{display:contents}
+:root[data-theme="yumusak"] #v-yt.ykn .yn-ust{grid-area:ust;display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0;margin:0 0 4px}
+:root[data-theme="yumusak"] #v-yt.ykn .yn-et{height:24px;padding:0 10px;font-size:11.5px;white-space:nowrap}
+:root[data-theme="yumusak"] #v-yt.ykn .yn-m{flex:none;width:34px;height:34px}
+:root[data-theme="yumusak"] #v-yt.ykn .yn-m .ico{width:18px;height:18px}
+:root[data-theme="yumusak"] #v-yt.ykn .yn-t{grid-area:t;min-width:0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;white-space:normal;font-size:16.5px;line-height:1.25}
+:root[data-theme="yumusak"] #v-yt.ykn .yn-s{grid-area:s;min-width:0;margin:2px 0 0;font-size:13.5px}
+:root[data-theme="yumusak"] #v-yt.ykn #ynSeek{grid-area:sk;align-self:end;min-width:0;margin:6px 0 0}
+:root[data-theme="yumusak"] #v-yt.ykn .yn-z{grid-area:z;min-width:0;font-size:11.5px}
+:root[data-theme="yumusak"] #v-yt.ykn .ytctl{grid-area:ctl;display:flex;align-items:center;justify-content:space-between;gap:6px;min-width:0;margin:14px 0 0;padding:0 4px;border-radius:0;background:none;box-shadow:none}
+:root[data-theme="yumusak"] #v-yt.ykn .ytctl .ib{flex:0 0 var(--yb);width:var(--yb);height:var(--yb);margin:0;padding:0;border:0;border-radius:50%;display:grid;place-items:center}
+:root[data-theme="yumusak"] #v-yt.ykn .ytctl .ib .ico{width:18px;height:18px}
+:root[data-theme="yumusak"] #v-yt.ykn .ytctl .yk{margin-inline:0}
+:root[data-theme="yumusak"] #v-yt.ykn .ytctl .play{flex:0 0 var(--yp);width:var(--yp);height:var(--yp);margin:0;padding:0;border:0;border-radius:50%;display:grid;place-items:center;box-shadow:var(--ym-g),0 0 0 5px #edf2f9}
+:root[data-theme="yumusak"] #v-yt.ykn .ytctl .play .ico{width:22px;height:22px}
+/* arama kartı: geniş kutu, yumuşak yapıştır, mavi ara */
+:root[data-theme="yumusak"] #v-yt.ykn .ytara{gap:10px;padding:10px;margin-top:14px}
+:root[data-theme="yumusak"] #v-yt.ykn .ytara input{height:46px}
+:root[data-theme="yumusak"] #v-yt.ykn .ytara .btn{flex:0 0 42px;width:42px;height:42px}
+:root[data-theme="yumusak"] #v-yt.ykn .ytara .btn .ico{width:19px;height:19px;color:var(--yz)}
+:root[data-theme="yumusak"] #v-yt.ykn .ytara .btn.primary{flex:0 0 46px;width:46px;height:46px;background:var(--ym);box-shadow:var(--ym-g)}
+:root[data-theme="yumusak"] #v-yt.ykn .ytara .btn.primary .ico{width:21px;height:21px;color:#fff}
+/* seçim kartı: işaret · iki satır yazı · Tümü / Sil / Vazgeç */
+.secbar b small{display:block;margin-top:1px;font-size:12px;font-weight:400;color:var(--muted)}
+:root[data-theme="yumusak"] #v-yt.ykn .secbar{padding:12px}
+:root[data-theme="yumusak"] #v-yt.ykn .secbar{flex-wrap:nowrap}
+:root[data-theme="yumusak"] #v-yt.ykn .secbar b{flex:1 1 auto;min-width:0;font-size:15px;white-space:nowrap}
+:root[data-theme="yumusak"] #v-yt.ykn .secbar b span{display:grid;min-width:0}
+:root[data-theme="yumusak"] #v-yt.ykn .secbar b small{color:var(--ys)}
+:root[data-theme="yumusak"] #v-yt.ykn .secbar .btn{flex:none;height:36px;padding:0 12px;font-size:13px}
+:root[data-theme="yumusak"] #v-yt.ykn .secbar .btn[data-sb="sil"] .ico{display:none}
+/* video kare kutuda kapak gibi: yanlardan kırpılır, siyah bant kalmaz */
+.ytbox.kare{border-radius:18px}
+.ytbox.kare>*{width:177.78%!important;max-width:none;margin-left:-38.89%}
+@media (max-width:359px){:root[data-theme="yumusak"] #v-yt.ykn .ykart{--ya:96px;--yb:38px;--yp:46px;column-gap:10px;padding:12px} :root[data-theme="yumusak"] #v-yt.ykn .yn-t{font-size:15px}}
+@media (min-width:700px){:root[data-theme="yumusak"] #v-yt.ykn .ykart{--ya:190px;--yb:46px;--yp:58px;column-gap:20px;padding:16px 18px} :root[data-theme="yumusak"] #v-yt.ykn .yn-t{font-size:20px} :root[data-theme="yumusak"] #v-yt.ykn .yn-s{font-size:15px} :root[data-theme="yumusak"] #v-yt.ykn .ytctl{justify-content:center;gap:24px}}
 body.ykp-mgiz #mini{display:none!important}
 </style>
 </head>
@@ -1587,8 +1626,8 @@ body.ykp-mgiz #mini{display:none!important}
           <button class="chip" data-wa-set="yesil">Klasik yeşil</button>
           <button class="chip" data-wa-set="mavi">Klasik mavi</button>
         </div>
-        <div class="row2" id="ykpSatir" style="margin-top:10px"><div>YouTube oynatıcı (Yumuşak tema)<div class="muted small">Kompakt: küçük video ve kontroller tek kartta, liste için daha çok yer. Geniş: 6.32'deki büyük video düzeni.</div></div>
-          <div class="chips" id="ykpChips" style="padding-block:0;flex-wrap:nowrap"><button class="chip" data-ykp="1">Kompakt</button><button class="chip" data-ykp="0">Geniş</button></div></div>
+        <div class="row2" id="ykpSatir" style="margin-top:10px"><div>YouTube oynatıcı (Yumuşak tema)<div class="muted small">Kart: solda kare video, sağda başlık ve ilerleme, altta oynatma düğmeleri. Kompakt: 6.34'teki küçük kart. Geniş: 6.32'deki büyük video düzeni.</div></div>
+          <div class="chips" id="ykpChips" style="padding-block:0;flex-wrap:wrap"><button class="chip" data-ykp="2">Kart</button><button class="chip" data-ykp="1">Kompakt</button><button class="chip" data-ykp="0">Geniş</button></div></div>
         <div class="row2" style="margin-top:10px"><div>Basit mod<div class="muted small">Yalnız gerekenler: büyük yazı ve düğmeler; kuyruk, ekolayzır ve ayrıntılı ayarlar gizlenir. Ayarların hiçbiri silinmez, çıkınca hepsi yerinde.</div></div><label class="sw"><input type="checkbox" id="basitOn" aria-label="Basit mod"><i></i></label></div>
         <div class="row2"><div>Klasik görünüm<div class="muted small">Winamp tarzı çalar: yeşil ekran, spektrum, 10 bant ekolayzır ve çalma listesi tek ekranda. Aynı kitaplık ve kuyruk; × ile modern görünüme dönülür.</div></div><button class="btn sm primary" id="waAcBtn">Aç</button></div>
         <div class="row2"><div>Açılışta klasik görünüm<div class="muted small">Tını her açıldığında doğrudan klasik görünüm gelsin.</div></div><label class="sw"><input type="checkbox" id="waAcOn" aria-label="Açılışta klasik görünüm"><i></i></label></div>
@@ -1611,7 +1650,7 @@ body.ykp-mgiz #mini{display:none!important}
         <h2 style="font-size:19px">Klavye kısayolları</h2>
         <div class="small muted" style="line-height:2"><kbd>Boşluk</kbd> çal/durdur · <kbd>←</kbd> <kbd>→</kbd> 5 sn atla · <kbd>↑</kbd> <kbd>↓</kbd> ses · <kbd>N</kbd> sonraki · <kbd>P</kbd> önceki · <kbd>S</kbd> karıştır · <kbd>R</kbd> tekrar · <kbd>F</kbd> favori · <kbd>M</kbd> sessiz</div>
       </div>
-      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.34 · çevrimdışı destekli</p></div>
+      <div style="display:grid;justify-items:center;gap:8px;margin:14px 0 4px"><button class="btn sm" id="btnUpd">Güncellemeyi denetle</button><p class="muted small" style="margin:0">Musikisinaz · sürüm 6.35 · çevrimdışı destekli</p></div>
     </section>
   </div>
 
@@ -3104,7 +3143,7 @@ function ytApplyTrim(it){
 function placeYT(){
   const b=$('#ytBox');if(!b)return;
   const has=!!ytP&&ytCur>=0;
-  let r=null,flt=false;
+  let r=null,flt=false,kare=false;
   if(has&&!carOn&&window.ytNpAcik){const s=$('#ytnpVid').getBoundingClientRect();r={l:s.left,t:s.top,w:s.width,h:s.height};}
   else if(has&&carOn&&src==='yt'){
     const m=$('#carMeta').getBoundingClientRect();
@@ -3112,11 +3151,12 @@ function placeYT(){
     r={l:m.left+(m.width-w)/2,t:m.top+(m.height-h)/2,w:w,h:h};
   }else if(has&&!carOn&&ui.view==='yt'&&!npOpen){
     const s=$('#ytSlot').getBoundingClientRect();r={l:s.left,t:s.top,w:s.width,h:s.height};
+    kare=$('#v-yt').classList.contains('ykn')&&document.documentElement.getAttribute('data-theme')==='yumusak';
   }else if(has&&!carOn&&src==='yt'){
     const d=$('.dock').getBoundingClientRect(),w=Math.min(150,innerWidth*0.38),h=w*9/16;
     r={l:d.right-w,t:d.top-h-10,w:w,h:h};flt=true;
   }
-  b.classList.toggle('show',!!r);b.classList.toggle('float',flt);
+  b.classList.toggle('show',!!r);b.classList.toggle('float',flt);b.classList.toggle('kare',kare);
   if(r)Object.assign(b.style,{left:r.l+'px',top:r.t+'px',width:r.w+'px',height:r.h+'px'});
 }
 window.addEventListener('resize',()=>{placeYT();if(carOn)paintCar()});
@@ -3198,7 +3238,7 @@ function secKapat(){SEC.mod=null;SEC.res.clear();SEC.list.clear();secCiz()}
 function secDegis(mod,i){const S_=mod==='res'?SEC.res:SEC.list;S_.has(i)?S_.delete(i):S_.add(i);secCiz()}
 function secCiz(){const bar=$('#ytSecBar');const m=SEC.mod,S_=m==='res'?SEC.res:SEC.list;
   if(!m){bar.hidden=true;bar.innerHTML=''}else{bar.hidden=false;
-    bar.innerHTML='<b>'+S_.size+' seçili · '+(m==='res'?'arama sonuçları':'YouTube listem')+'</b><button class="btn" data-sb="hepsi">Tümü</button>'+(m==='res'?'<button class="btn" data-sb="ekle">'+ico('plus')+'Listeye ekle</button>':'')+'<button class="btn" data-sb="sil" style="color:var(--danger);border-color:var(--danger)">'+ico('trash')+'Sil</button><button class="btn" data-sb="vaz">Vazgeç</button>'}
+    bar.innerHTML='<b><span>'+S_.size+' seçili<small>'+(m==='res'?'Arama sonuçları':'YouTube listem')+'</small></span></b><button class="btn" data-sb="hepsi">Tümü</button>'+(m==='res'?'<button class="btn" data-sb="ekle">'+ico('plus')+'Listeye ekle</button>':'')+'<button class="btn" data-sb="sil" style="color:var(--danger);border-color:var(--danger)">'+ico('trash')+'Sil</button><button class="btn" data-sb="vaz">Vazgeç</button>'}
   $$('#ytRes .row[data-ri]').forEach(r=>r.classList.toggle('sel',m==='res'&&SEC.res.has(+r.dataset.ri)));
   $$('#ytList .row[data-yi]').forEach(r=>r.classList.toggle('sel',m==='list'&&SEC.list.has(+r.dataset.yi)))}
 $('#ytSecBar').addEventListener('click',e=>{const b=e.target.closest('[data-sb]');if(!b)return;const m=SEC.mod,S_=m==='res'?SEC.res:SEC.list,k=b.dataset.sb;
@@ -5637,21 +5677,24 @@ async function ytGrupYenile(k,btn){
 /* 6.33: Yumuşak tema · kompakt YouTube kartı. Geniş (6.32) düzen Ayarlar → Görünüm'de seçilebilir */
 (function(){
   const v=$('#v-yt');if(!v||!$('#ykart'))return;
-  if(typeof prefs.ytKompakt!=='boolean')prefs.ytKompakt=true;
+  /* 6.35: üç düzen — kart (varsayılan) · kompakt (6.34) · geniş (6.32) */
+  if(!['kart','kompakt','genis'].includes(prefs.ytDuzen)){prefs.ytDuzen='kart';try{savePrefs()}catch(e){}}
+  const DZ={'2':'kart','1':'kompakt','0':'genis'};
   const yum=()=>document.documentElement.getAttribute('data-theme')==='yumusak';
   function durum(){
-    const on=yum()&&prefs.ytKompakt&&ui.view==='yt'&&!carOn;
+    const on=yum()&&prefs.ytDuzen!=='genis'&&ui.view==='yt'&&!carOn;
     document.body.classList.toggle('ykp-yt',on);
     let mm=null;try{mm=miniMod}catch(e){}
     document.body.classList.toggle('ykp-mgiz',on&&mm==='yt');
   }
   function uygula(){
-    v.classList.toggle('ykp',prefs.ytKompakt);
-    $$('#ykpChips .chip').forEach(c=>c.classList.toggle('on',(c.dataset.ykp==='1')===prefs.ytKompakt));
+    prefs.ytKompakt=prefs.ytDuzen==='kompakt';
+    v.classList.toggle('ykp',prefs.ytDuzen==='kompakt');v.classList.toggle('ykn',prefs.ytDuzen==='kart');
+    $$('#ykpChips .chip').forEach(c=>c.classList.toggle('on',DZ[c.dataset.ykp]===prefs.ytDuzen));
     durum();requestAnimationFrame(()=>{try{placeYT()}catch(e){}});
   }
-  $('#ykpChips').addEventListener('click',e=>{const c=e.target.closest('[data-ykp]');if(!c)return;prefs.ytKompakt=c.dataset.ykp==='1';savePrefs();uygula();
-    toast(yum()?(prefs.ytKompakt?'YouTube: kompakt kart':'YouTube: geniş video'):'Bu ayar Yumuşak temada görünür')});
+  $('#ykpChips').addEventListener('click',e=>{const c=e.target.closest('[data-ykp]');if(!c)return;prefs.ytDuzen=DZ[c.dataset.ykp]||'kart';savePrefs();uygula();
+    toast(yum()?({kart:'YouTube: kart düzeni',kompakt:'YouTube: kompakt kart',genis:'YouTube: geniş video'})[prefs.ytDuzen]:'Bu ayar Yumuşak temada görünür')});
   new MutationObserver(durum).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
   new MutationObserver(durum).observe(v,{attributes:true,attributeFilter:['class']});
   setInterval(durum,600);
