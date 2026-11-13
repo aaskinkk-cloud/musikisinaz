@@ -19,6 +19,10 @@
 
 **Kurulum:** APK bağlantısına dokun → indir → aç → "Bilinmeyen kaynaklardan yükleme" iznini ver → Yükle. İlk açılışta **Müzik ve ses** ile **Bildirim** iznini ver.
 
+## 6.36 (14.11.2026) — Klasik görünüm: Yumuşak mavi kaplama
+- Klasik (Winamp) görünüme üçüncü tema: **Yumuşak mavi**. Yerleşim gümüş-mavi ile aynı; renk ve dokular Yumuşak temadan: buzlu açık mavi zemin, kabarık yuvarlak düğmeler, mavi ekranlar (süre, şarkı bilgisi, görselleştirici), açık ve içe gömük çalma listesi, beyaz yuvarlak kaydırıcı tutamakları, mavi Çal.
+- Seçim: **Ayarlar → Görünüm → Klasik yumuşak**, üstteki tema düğmesi ya da klasik görünümde ≡ → Tema. Klasik yeşil ve gümüş-mavi aynen duruyor.
+
 ## 6.35 (14.11.2026) — YouTube sekmesi yeni Kart düzeni
 - **Kart düzeni (yeni varsayılan, Yumuşak tema):** solda kare video (kapak gibi; yanlardan kırpılır, siyah bant yok), sağda **Şimdi Çalıyor** etiketi · ⋮ menüsü · başlık (2 satır) · sanatçı · ilerleme çubuğu ve süreler.
 - Oynatma düğmeleri (karışık · önceki · **mavi Çal** · sonraki · YouTube) kartın altında **tam genişlikte tek sıra**; sıkışma ve sağdaki kesilme giderildi. Kart yukarıda sabit kalır.
